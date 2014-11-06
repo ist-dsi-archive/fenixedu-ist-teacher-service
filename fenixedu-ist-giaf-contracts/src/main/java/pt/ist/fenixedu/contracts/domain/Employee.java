@@ -41,11 +41,13 @@ import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.domain.teacher.CategoryType;
 import org.fenixedu.bennu.core.domain.Bennu;
+import org.fenixedu.bennu.core.groups.Group;
 import org.fenixedu.spaces.domain.Space;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.YearMonthDay;
 
+import pt.ist.fenixedu.contracts.domain.accessControl.ActiveEmployees;
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.Contract;
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.EmployeeContract;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.GiafProfessionalData;
@@ -59,6 +61,7 @@ import pt.ist.fenixframework.Atomic;
  * @author Tânia Pousão
  */
 public class Employee extends Employee_Base {
+    public static final Group EMPLOYEE_GROUP = new ActiveEmployees();
 
     public Employee(Person person, Integer employeeNumber) {
         super();
@@ -284,10 +287,6 @@ public class Employee extends Employee_Base {
             }
         }
         return null;
-    }
-
-    private RoleType getRoleType() {
-        return RoleType.EMPLOYEE;
     }
 
     public ProfessionalCategory getCategory() {

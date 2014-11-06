@@ -46,7 +46,7 @@ public class CreateNewInternalPerson {
             throw new DomainException("error.create.internal.person.relation.type.none");
         }
 
-        if (roleTypes.contains(RoleType.EMPLOYEE) || roleTypes.contains(RoleType.RESEARCHER)
+        if (/* FIXME: roleTypes.contains(RoleType.EMPLOYEE) || */roleTypes.contains(RoleType.RESEARCHER)
                 || roleTypes.contains(RoleType.TEACHER) || roleTypes.contains(RoleType.GRANT_OWNER)) {
             createEmployee(person);
             if (person.getUser() == null) {

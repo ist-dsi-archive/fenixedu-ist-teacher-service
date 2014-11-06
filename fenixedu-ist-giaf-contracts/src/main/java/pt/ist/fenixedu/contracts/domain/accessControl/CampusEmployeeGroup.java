@@ -23,7 +23,6 @@ import java.util.Set;
 
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.accessControl.FenixGroup;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.domain.teacher.CategoryType;
 import org.fenixedu.bennu.core.annotation.GroupArgument;
 import org.fenixedu.bennu.core.annotation.GroupOperator;
@@ -32,6 +31,7 @@ import org.fenixedu.bennu.core.domain.groups.PersistentGroup;
 import org.fenixedu.spaces.domain.Space;
 import org.joda.time.DateTime;
 
+import pt.ist.fenixedu.contracts.domain.Employee;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.GiafProfessionalData;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
 
@@ -70,7 +70,7 @@ public class CampusEmployeeGroup extends FenixGroup {
     @Override
     public Set<User> getMembers(DateTime when) {
         Set<User> users = new HashSet<>();
-        for (final User user : RoleType.EMPLOYEE.actualGroup().getMembers()) {
+        for (final User user : Employee.EMPLOYEE_GROUP.getMembers()) {
             if (user.getPerson() != null && isMember(user.getPerson(), campus, when)) {
                 users.add(user);
             }

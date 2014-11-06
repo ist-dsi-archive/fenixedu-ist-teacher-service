@@ -321,7 +321,7 @@ public class FunctionsManagementBackingBean extends FenixBackingBean {
     private List<Person> getAllPersonsToSearchByClass() throws FenixServiceException {
         List<Person> allPersons = new ArrayList<Person>();
         RoleType personTypeAux = RoleType.valueOf(personType);
-        if (personTypeAux.equals(RoleType.EMPLOYEE) || personTypeAux.equals(RoleType.TEACHER)
+        if (/* FIXME: personTypeAux.equals(RoleType.EMPLOYEE) || */personTypeAux.equals(RoleType.TEACHER)
                 || personTypeAux.equals(RoleType.GRANT_OWNER)) {
             List<Employee> allEmployees = new ArrayList<Employee>();
             allEmployees.addAll(rootDomainObject.getEmployeesSet());
@@ -365,9 +365,11 @@ public class FunctionsManagementBackingBean extends FenixBackingBean {
     public List<SelectItem> getPersonTypes() {
         List<SelectItem> list = new ArrayList<SelectItem>();
 
+        /* FIXME
         SelectItem selectItem1 = new SelectItem();
         selectItem1.setLabel(BundleUtil.getString(Bundle.ENUMERATION, RoleType.EMPLOYEE.getName()).trim());
         selectItem1.setValue(RoleType.EMPLOYEE.name());
+        */
 
         SelectItem selectItem2 = new SelectItem();
         selectItem2.setLabel(BundleUtil.getString(Bundle.ENUMERATION, RoleType.TEACHER.getName()).trim());
@@ -381,7 +383,7 @@ public class FunctionsManagementBackingBean extends FenixBackingBean {
         selectItem4.setLabel(BundleUtil.getString(Bundle.ENUMERATION, RoleType.STUDENT.getName()).trim());
         selectItem4.setValue(RoleType.STUDENT.name());
 
-        list.add(selectItem1);
+        // FIXME: list.add(selectItem1);
         list.add(selectItem2);
         list.add(selectItem3);
         list.add(selectItem4);

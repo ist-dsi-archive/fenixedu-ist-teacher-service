@@ -33,7 +33,7 @@ public class RoleTypeForInternalRelationProvider implements DataProvider {
         final List<RoleType> roleTypes = new ArrayList<RoleType>();
         roleTypes.add(RoleType.TEACHER);
         roleTypes.add(RoleType.RESEARCHER);
-        roleTypes.add(RoleType.EMPLOYEE);
+        // FIXME: roleTypes.add(RoleType.EMPLOYEE);
         roleTypes.add(RoleType.GRANT_OWNER);
         return roleTypes;
     }
