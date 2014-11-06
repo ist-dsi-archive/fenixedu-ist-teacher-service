@@ -38,6 +38,7 @@ import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 
+import pt.ist.fenixedu.contracts.FenixEduIstContractsConfiguration;
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.ExternalContract;
 import pt.ist.fenixframework.Atomic;
 
@@ -56,7 +57,7 @@ public class MergeExternalUnits {
 
             if (sendMail != null && sendMail.booleanValue()) {
 
-                String emails = FenixConfigurationManager.getConfiguration().getMergeUnitsEmails();
+                String emails = FenixEduIstContractsConfiguration.getConfiguration().getMergeUnitsEmails();
                 if (!StringUtils.isEmpty(emails)) {
 
                     Set<String> resultEmails = new HashSet<String>();
