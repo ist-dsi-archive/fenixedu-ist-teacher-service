@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.teacher;
+package pt.ist.fenixedu.teacher.domain.teacher;
 
 import java.math.BigDecimal;
 import java.util.Comparator;
@@ -28,16 +28,16 @@ import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Shift;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
-import org.fenixedu.academic.domain.time.calendarStructure.TeacherCreditsFillingCE;
 import org.fenixedu.academic.util.Bundle;
-
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.Interval;
 import org.joda.time.LocalTime;
 import org.joda.time.Minutes;
+
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
+import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
 
 public class DegreeTeachingService extends DegreeTeachingService_Base {
 

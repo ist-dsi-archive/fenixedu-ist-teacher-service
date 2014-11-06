@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.service.services.manager.teachersManagement;
+package pt.ist.fenixedu.teacher.service.manager.teachersManagement;
 
 import static org.fenixedu.academic.predicate.AccessControl.check;
 
@@ -26,15 +26,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.service.services.exceptions.NonExistingServiceException;
-import org.fenixedu.academic.dto.InfoProfessorship;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.ShiftProfessorship;
 import org.fenixedu.academic.domain.Summary;
-import org.fenixedu.academic.domain.SupportLesson;
+import org.fenixedu.academic.dto.InfoProfessorship;
 import org.fenixedu.academic.predicate.RolePredicates;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.service.services.exceptions.NonExistingServiceException;
+
+import pt.ist.fenixedu.teacher.domain.SupportLesson;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 

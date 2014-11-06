@@ -19,25 +19,24 @@
 /**
  * Nov 23, 2005
  */
-package org.fenixedu.academic.service.services.teacher.professorship;
+package pt.ist.fenixedu.teacher.service.teacher.professorship;
 
+import org.fenixedu.academic.domain.ExecutionCourse;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.Professorship;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.filter.DepartmentAdministrativeOfficeAuthorizationFilter;
 import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
 import org.fenixedu.academic.service.filter.ScientificCouncilAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
-import org.fenixedu.academic.domain.ExecutionCourse;
-import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.Professorship;
-import org.fenixedu.academic.domain.SupportLesson;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-import org.fenixedu.academic.domain.teacher.TeacherServiceLog;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.academic.util.WeekDay;
-
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 
+import pt.ist.fenixedu.teacher.domain.SupportLesson;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceLog;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 

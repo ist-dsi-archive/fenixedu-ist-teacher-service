@@ -20,7 +20,7 @@
  * Created on 13/Nov/2003
  *  
  */
-package org.fenixedu.academic.domain.teacher;
+package pt.ist.fenixedu.teacher.domain.teacher;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,7 +32,6 @@ import java.util.Set;
 import org.fenixedu.academic.domain.CareerType;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.joda.time.Interval;
 import org.joda.time.LocalDateTime;

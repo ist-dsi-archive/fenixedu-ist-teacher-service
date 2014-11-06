@@ -16,12 +16,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.organizationalStructure;
+package pt.ist.fenixedu.contracts.domain.organizationalStructure;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fenixedu.academic.domain.organizationalStructure.Accountability;
+import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
+import org.fenixedu.academic.domain.organizationalStructure.FunctionType;
+import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.joda.time.YearMonthDay;
 
 import pt.utl.ist.fenix.tools.util.i18n.MultiLanguageString;

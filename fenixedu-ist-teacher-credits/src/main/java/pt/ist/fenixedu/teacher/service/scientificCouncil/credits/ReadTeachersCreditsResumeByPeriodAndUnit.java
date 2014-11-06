@@ -19,7 +19,7 @@
 /**
  * Jan 23, 2006
  */
-package org.fenixedu.academic.service.services.scientificCouncil.credits;
+package pt.ist.fenixedu.teacher.service.scientificCouncil.credits;
 
 import static org.fenixedu.academic.predicate.AccessControl.check;
 
@@ -31,15 +31,16 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.TeacherCredits;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonProfessionalData;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
-import org.fenixedu.academic.domain.teacher.TeacherService;
 import org.fenixedu.academic.predicate.RolePredicates;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
+import pt.ist.fenixedu.teacher.domain.TeacherCredits;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.ist.fenixframework.Atomic;
 
 /**

@@ -19,7 +19,7 @@
 /*
  * Created on 2/Out/2003
  */
-package org.fenixedu.academic.domain;
+package pt.ist.fenixedu.contracts.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,28 +29,29 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.fenixedu.academic.domain.Department;
+import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
-import org.fenixedu.academic.domain.organizationalStructure.Contract;
 import org.fenixedu.academic.domain.organizationalStructure.DepartmentUnit;
-import org.fenixedu.academic.domain.organizationalStructure.EmployeeContract;
 import org.fenixedu.academic.domain.organizationalStructure.PedagogicalCouncilUnit;
 import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.ScientificCouncilUnit;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.personnelSection.contracts.GiafProfessionalData;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonContractSituation;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonProfessionalData;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
 import org.fenixedu.academic.domain.teacher.CategoryType;
-
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.spaces.domain.Space;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.YearMonthDay;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Contract;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.EmployeeContract;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.GiafProfessionalData;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
 import pt.ist.fenixframework.Atomic;
 
 /**

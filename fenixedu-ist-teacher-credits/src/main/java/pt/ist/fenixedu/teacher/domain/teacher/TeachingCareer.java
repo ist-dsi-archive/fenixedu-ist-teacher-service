@@ -20,11 +20,12 @@
  * Created on 13/Nov/2003
  *
  */
-package org.fenixedu.academic.domain.teacher;
+package pt.ist.fenixedu.teacher.domain.teacher;
 
-import org.fenixedu.academic.dto.teacher.InfoTeachingCareer;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
+
+import pt.ist.fenixedu.teacher.dto.teacher.InfoTeachingCareer;
 import pt.utl.ist.fenix.tools.util.i18n.MultiLanguageString;
 
 /**

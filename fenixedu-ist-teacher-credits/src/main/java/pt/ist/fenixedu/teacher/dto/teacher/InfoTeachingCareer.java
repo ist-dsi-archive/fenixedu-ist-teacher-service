@@ -20,10 +20,11 @@
  * Created on 13/Nov/2003
  *
  */
-package org.fenixedu.academic.dto.teacher;
+package pt.ist.fenixedu.teacher.dto.teacher;
 
 import org.fenixedu.academic.domain.CareerType;
-import org.fenixedu.academic.domain.teacher.TeachingCareer;
+
+import pt.ist.fenixedu.teacher.domain.teacher.TeachingCareer;
 
 /**
  * @author Leonor Almeida

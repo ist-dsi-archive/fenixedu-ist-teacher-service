@@ -20,16 +20,18 @@
  * Created on Sep 26, 2005
  *	by mrsp
  */
-package org.fenixedu.academic.domain.organizationalStructure;
+package pt.ist.fenixedu.contracts.domain.organizationalStructure;
 
 import java.util.Comparator;
 
 import org.fenixedu.academic.domain.DomainObjectUtil;
-import org.fenixedu.academic.domain.Employee;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-
+import org.fenixedu.academic.domain.organizationalStructure.Party;
+import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.joda.time.YearMonthDay;
+
+import pt.ist.fenixedu.contracts.domain.Employee;
 
 public abstract class Contract extends Contract_Base {
 

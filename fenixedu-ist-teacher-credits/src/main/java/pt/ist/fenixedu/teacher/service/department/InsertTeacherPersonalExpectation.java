@@ -16,13 +16,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.service.services.department;
+package pt.ist.fenixedu.teacher.service.department;
 
+import org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean;
 import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
 import org.fenixedu.academic.service.filter.TeacherAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
-import org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean;
-import org.fenixedu.academic.domain.teacher.TeacherPersonalExpectation;
+
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherPersonalExpectation;
 import pt.ist.fenixframework.Atomic;
 
 public class InsertTeacherPersonalExpectation {

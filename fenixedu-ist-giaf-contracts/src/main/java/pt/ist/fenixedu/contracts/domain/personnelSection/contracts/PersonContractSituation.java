@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.personnelSection.contracts;
+package pt.ist.fenixedu.contracts.domain.personnelSection.contracts;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -25,7 +25,6 @@ import java.util.Set;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.teacher.CategoryType;
-
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -251,7 +250,8 @@ public class PersonContractSituation extends PersonContractSituation_Base {
         Interval semesterInterval =
                 new Interval(executionSemester.getBeginDateYearMonthDay().toLocalDate().toDateTimeAtStartOfDay(),
                         executionSemester.getEndDateYearMonthDay().toLocalDate().toDateTimeAtStartOfDay());
-        for (PersonContractSituation personContractSituation : PersonContractSituation.getValidTeacherServiceExemptions(teacher, executionSemester)) {
+        for (PersonContractSituation personContractSituation : PersonContractSituation.getValidTeacherServiceExemptions(teacher,
+                executionSemester)) {
             int daysInInterval = personContractSituation.getDaysInInterval(semesterInterval);
             if (dominantExemption == null || daysInInterval > daysInDominantExemption) {
                 dominantExemption = personContractSituation;

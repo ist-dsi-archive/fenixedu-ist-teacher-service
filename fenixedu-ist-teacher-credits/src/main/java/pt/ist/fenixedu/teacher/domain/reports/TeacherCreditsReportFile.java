@@ -16,38 +16,37 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.reports;
+package pt.ist.fenixedu.teacher.domain.reports;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.CharSetUtils;
+import org.apache.commons.lang.StringUtils;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.TeacherCredits;
-import org.fenixedu.academic.domain.credits.util.AnnualTeachingCreditsBean;
-import org.fenixedu.academic.domain.organizationalStructure.Contract;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.personnelSection.contracts.GiafProfessionalData;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonContractSituation;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonProfessionalData;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalRegime;
 import org.fenixedu.academic.domain.teacher.CategoryType;
-import org.fenixedu.academic.domain.teacher.OtherService;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-
-import org.apache.commons.lang.CharSetUtils;
-import org.apache.commons.lang.StringUtils;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.joda.time.Interval;
 import org.joda.time.PeriodType;
 import org.joda.time.YearMonthDay;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Contract;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.GiafProfessionalData;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalRegime;
+import pt.ist.fenixedu.teacher.domain.TeacherCredits;
+import pt.ist.fenixedu.teacher.domain.credits.util.AnnualTeachingCreditsBean;
+import pt.ist.fenixedu.teacher.domain.teacher.OtherService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.utl.ist.fenix.tools.util.excel.Spreadsheet;
 import pt.utl.ist.fenix.tools.util.excel.Spreadsheet.Row;
 
@@ -123,8 +122,9 @@ public class TeacherCreditsReportFile extends TeacherCreditsReportFile_Base {
                     category = ProfessionalCategory.getCategoryByPeriod(teacher, executionSemester);
                     if (isContractedTeacher) {
                         situation =
-                                PersonContractSituation.getCurrentOrLastTeacherContractSituation(teacher, executionSemester.getBeginDateYearMonthDay()
-                                .toLocalDate(), executionSemester.getEndDateYearMonthDay().toLocalDate());
+                                PersonContractSituation.getCurrentOrLastTeacherContractSituation(teacher, executionSemester
+                                        .getBeginDateYearMonthDay().toLocalDate(), executionSemester.getEndDateYearMonthDay()
+                                        .toLocalDate());
                         regime = getProfessionalRegime(situation, semesterInterval);
                     }
                     row.setCell(category == null ? null : category.getName().getContent());
@@ -217,7 +217,8 @@ public class TeacherCreditsReportFile extends TeacherCreditsReportFile_Base {
     }
 
     public String getServiceExemptionDescription(ExecutionSemester executionSemester, Teacher teacher) {
-        Set<PersonContractSituation> personProfessionalExemptions = PersonContractSituation.getValidTeacherServiceExemptions(teacher, executionSemester);
+        Set<PersonContractSituation> personProfessionalExemptions =
+                PersonContractSituation.getValidTeacherServiceExemptions(teacher, executionSemester);
         List<String> serviceExemption = new ArrayList<String>();
 
         for (PersonContractSituation personContractSituation : personProfessionalExemptions) {

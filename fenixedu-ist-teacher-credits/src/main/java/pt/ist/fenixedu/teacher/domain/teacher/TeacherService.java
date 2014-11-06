@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.teacher;
+package pt.ist.fenixedu.teacher.domain.teacher;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -26,24 +26,23 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.NonRegularTeachingService;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Shift;
 import org.fenixedu.academic.domain.ShiftType;
-import org.fenixedu.academic.domain.SupportLesson;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.util.Bundle;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
+import pt.ist.fenixedu.teacher.domain.NonRegularTeachingService;
+import pt.ist.fenixedu.teacher.domain.SupportLesson;
 import pt.ist.fenixframework.Atomic;
 
 public class TeacherService extends TeacherService_Base {

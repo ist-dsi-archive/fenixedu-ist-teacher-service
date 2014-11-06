@@ -19,14 +19,15 @@
 /**
  * Nov 29, 2005
  */
-package org.fenixedu.academic.service.services.teacher.services;
+package pt.ist.fenixedu.teacher.service.teacher.services;
 
+import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.filter.DepartmentAdministrativeOfficeAuthorizationFilter;
 import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
 import org.fenixedu.academic.service.filter.ScientificCouncilAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.teacher.TeacherAdviseService;
+
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherAdviseService;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 

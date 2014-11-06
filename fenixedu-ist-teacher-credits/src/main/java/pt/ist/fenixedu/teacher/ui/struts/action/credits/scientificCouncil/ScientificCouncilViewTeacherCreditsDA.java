@@ -16,28 +16,27 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.credits.scientificCouncil;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits.scientificCouncil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.credits.util.TeacherCreditsBean;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-import org.fenixedu.academic.ui.struts.action.credits.ViewTeacherCreditsDA;
-import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
+import pt.ist.fenixedu.teacher.domain.credits.util.TeacherCreditsBean;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ViewTeacherCreditsDA;
 import pt.ist.fenixframework.FenixFramework;
 
 @StrutsFunctionality(app = ScientificCreditsApp.class, path = "teacher-sheet", titleKey = "link.teacher.sheet")

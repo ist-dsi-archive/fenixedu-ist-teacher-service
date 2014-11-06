@@ -20,13 +20,14 @@
  * Created on 7/Nov/2003
  * 
  */
-package org.fenixedu.academic.dto.teacher;
+package pt.ist.fenixedu.teacher.dto.teacher;
 
 import java.util.Date;
 
 import org.fenixedu.academic.dto.InfoObject;
 import org.fenixedu.academic.dto.InfoTeacher;
-import org.fenixedu.academic.domain.teacher.ExternalActivity;
+
+import pt.ist.fenixedu.teacher.domain.teacher.ExternalActivity;
 
 /**
  * @author Leonor Almeida

@@ -16,9 +16,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.service.services.manager.organizationalStructureManagement;
+package pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement;
 
-import org.fenixedu.academic.domain.organizationalStructure.ResearchContract;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.ResearchContract;
 import pt.ist.fenixframework.Atomic;
 
 public class DeleteResearchContract {

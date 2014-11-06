@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.credits.util;
+package pt.ist.fenixedu.teacher.domain.credits.util;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -29,16 +29,15 @@ import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.organizationalStructure.Function;
 import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunctionShared;
-import org.fenixedu.academic.domain.organizationalStructure.SharedFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.organizationalStructure.UnitName;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-import org.fenixedu.academic.domain.teacher.TeacherServiceLog;
 import org.fenixedu.academic.util.Bundle;
-
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunctionShared;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.SharedFunction;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceLog;
 import pt.ist.fenixframework.Atomic;
 
 public class PersonFunctionBean implements Serializable {
@@ -239,7 +238,7 @@ public class PersonFunctionBean implements Serializable {
             return personFunction;
         }
         if (getFunction() != null) {
-            for (PersonFunction personFunction : getTeacher().getPerson().getPersonFunctions(getFunction())) {
+            for (PersonFunction personFunction : PersonFunction.getPersonFunctions(getTeacher().getPerson(), getFunction())) {
                 if (intersectsSemester(personFunction)) {
                     return personFunction;
                 }

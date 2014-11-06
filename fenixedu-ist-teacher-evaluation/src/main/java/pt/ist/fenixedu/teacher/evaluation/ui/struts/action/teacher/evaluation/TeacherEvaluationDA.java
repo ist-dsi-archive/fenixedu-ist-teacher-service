@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.teacher.evaluation;
+package pt.ist.fenixedu.teacher.evaluation.ui.struts.action.teacher.evaluation;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,28 +37,17 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.Person;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.accessControl.DepartmentPresidentStrategy;
-import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.teacher.evaluation.FacultyEvaluationProcess;
-import org.fenixedu.academic.domain.teacher.evaluation.FacultyEvaluationProcessBean;
-import org.fenixedu.academic.domain.teacher.evaluation.FacultyEvaluationProcessServices;
-import org.fenixedu.academic.domain.teacher.evaluation.FileUploadBean;
-import org.fenixedu.academic.domain.teacher.evaluation.TeacherEvaluation;
-import org.fenixedu.academic.domain.teacher.evaluation.TeacherEvaluationFile;
-import org.fenixedu.academic.domain.teacher.evaluation.TeacherEvaluationFileBean;
-import org.fenixedu.academic.domain.teacher.evaluation.TeacherEvaluationFileType;
-import org.fenixedu.academic.domain.teacher.evaluation.TeacherEvaluationProcess;
-import org.fenixedu.academic.predicate.AccessControl;
-import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.ui.struts.action.teacher.TeacherApplication.TeacherTeachingApp;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.fenixedu.academic.domain.Department;
+import org.fenixedu.academic.domain.Person;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.academic.predicate.AccessControl;
+import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.academic.ui.struts.action.teacher.TeacherApplication.TeacherTeachingApp;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
@@ -68,6 +57,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
+import pt.ist.fenixedu.contracts.domain.accessControl.DepartmentPresidentStrategy;
+import pt.ist.fenixedu.teacher.evaluation.domain.FacultyEvaluationProcess;
+import pt.ist.fenixedu.teacher.evaluation.domain.FacultyEvaluationProcessBean;
+import pt.ist.fenixedu.teacher.evaluation.domain.FacultyEvaluationProcessServices;
+import pt.ist.fenixedu.teacher.evaluation.domain.FileUploadBean;
+import pt.ist.fenixedu.teacher.evaluation.domain.TeacherEvaluation;
+import pt.ist.fenixedu.teacher.evaluation.domain.TeacherEvaluationFile;
+import pt.ist.fenixedu.teacher.evaluation.domain.TeacherEvaluationFileBean;
+import pt.ist.fenixedu.teacher.evaluation.domain.TeacherEvaluationFileType;
+import pt.ist.fenixedu.teacher.evaluation.domain.TeacherEvaluationProcess;
 
 @StrutsFunctionality(app = TeacherTeachingApp.class, path = "teacher-evaluation", titleKey = "label.teacher.evaluation.title",
         bundle = "ResearcherResources")

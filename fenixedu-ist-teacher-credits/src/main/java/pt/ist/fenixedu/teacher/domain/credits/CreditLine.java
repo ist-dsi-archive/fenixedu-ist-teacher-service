@@ -19,11 +19,11 @@
 /*
  * Created on 29/Fev/2004
  */
-package org.fenixedu.academic.domain.credits;
-
-import org.fenixedu.academic.domain.credits.event.CreditsEvent;
+package pt.ist.fenixedu.teacher.domain.credits;
 
 import org.fenixedu.bennu.core.domain.Bennu;
+
+import pt.ist.fenixedu.teacher.domain.credits.event.CreditsEvent;
 
 /**
  * @author jpvl

@@ -16,16 +16,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.teacher.evaluation;
+package pt.ist.fenixedu.teacher.evaluation.ui.struts.action.teacher.evaluation;
 
 import java.io.Serializable;
 
-import org.fenixedu.academic.domain.teacher.evaluation.CurricularEvaluation;
-import org.fenixedu.academic.domain.teacher.evaluation.NoEvaluation;
-import org.fenixedu.academic.domain.teacher.evaluation.RadistEvaluation;
-import org.fenixedu.academic.domain.teacher.evaluation.TeacherEvaluation;
-import org.fenixedu.academic.domain.teacher.evaluation.TeacherEvaluationProcess;
-import org.fenixedu.academic.domain.teacher.evaluation.TeacherEvaluationType;
+import pt.ist.fenixedu.teacher.evaluation.domain.CurricularEvaluation;
+import pt.ist.fenixedu.teacher.evaluation.domain.NoEvaluation;
+import pt.ist.fenixedu.teacher.evaluation.domain.RadistEvaluation;
+import pt.ist.fenixedu.teacher.evaluation.domain.TeacherEvaluation;
+import pt.ist.fenixedu.teacher.evaluation.domain.TeacherEvaluationProcess;
+import pt.ist.fenixedu.teacher.evaluation.domain.TeacherEvaluationType;
 import pt.ist.fenixframework.Atomic;
 
 public class TeacherEvaluationTypeSelection implements Serializable {

@@ -16,19 +16,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.renderers.providers;
+package pt.ist.fenixedu.teacher.ui.renderers.providers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
 import org.fenixedu.academic.domain.teacher.CategoryType;
-
 import org.fenixedu.bennu.core.domain.Bennu;
 
 import pt.ist.fenixWebFramework.rendererExtensions.converters.DomainObjectKeyConverter;
 import pt.ist.fenixWebFramework.renderers.DataProvider;
 import pt.ist.fenixWebFramework.renderers.components.converters.Converter;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
 
 public class TeacherProfessionalCategoryProvider implements DataProvider {
 

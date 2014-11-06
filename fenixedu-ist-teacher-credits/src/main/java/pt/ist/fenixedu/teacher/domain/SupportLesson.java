@@ -16,22 +16,25 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain;
+package pt.ist.fenixedu.teacher.domain;
 
 import java.util.Comparator;
 import java.util.Date;
 
-import org.fenixedu.academic.dto.teacher.professorship.SupportLessonDTO;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.Professorship;
+import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-import org.fenixedu.academic.domain.time.calendarStructure.TeacherCreditsFillingCE;
+import org.fenixedu.academic.dto.teacher.professorship.SupportLessonDTO;
 import org.fenixedu.academic.util.CalendarUtil;
 import org.fenixedu.academic.util.DiaSemana;
 import org.fenixedu.academic.util.WeekDay;
 import org.fenixedu.academic.util.date.TimePeriod;
-
 import org.fenixedu.bennu.core.domain.Bennu;
+
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
 
 /**
  * @author Fernanda Quit�rio 17/10/2003

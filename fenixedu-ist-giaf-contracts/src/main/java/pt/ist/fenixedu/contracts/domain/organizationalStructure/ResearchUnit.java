@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.organizationalStructure;
+package pt.ist.fenixedu.contracts.domain.organizationalStructure;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,23 +26,31 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.apache.commons.lang.StringUtils;
 import org.fenixedu.academic.domain.Degree;
 import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.Employee;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.accessControl.UnitGroup;
 import org.fenixedu.academic.domain.administrativeOffice.AdministrativeOffice;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.util.email.ResearchUnitBasedSender;
+import org.fenixedu.academic.domain.organizationalStructure.Accountability;
+import org.fenixedu.academic.domain.organizationalStructure.AccountabilityType;
+import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
+import org.fenixedu.academic.domain.organizationalStructure.Function;
+import org.fenixedu.academic.domain.organizationalStructure.Party;
+import org.fenixedu.academic.domain.organizationalStructure.PartyType;
+import org.fenixedu.academic.domain.organizationalStructure.PartyTypeEnum;
+import org.fenixedu.academic.domain.organizationalStructure.Unit;
+import org.fenixedu.academic.domain.organizationalStructure.UnitClassification;
 import org.fenixedu.academic.domain.util.email.UnitBasedSender;
 import org.fenixedu.academic.predicate.AccessControl;
-
-import org.apache.commons.lang.StringUtils;
 import org.fenixedu.bennu.core.groups.Group;
 import org.fenixedu.spaces.domain.Space;
 import org.joda.time.YearMonthDay;
 
+import pt.ist.fenixedu.contracts.domain.Employee;
+import pt.ist.fenixedu.contracts.domain.util.email.ResearchUnitBasedSender;
 import pt.ist.fenixframework.Atomic;
 import pt.utl.ist.fenix.tools.util.i18n.MultiLanguageString;
 

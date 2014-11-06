@@ -16,24 +16,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.time.calendarStructure;
+package pt.ist.fenixedu.teacher.domain.time.calendarStructure;
 
 import java.util.Iterator;
 import java.util.List;
 
 import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.credits.CreditsPersonFunctionsSharedQueueJob;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.organizationalStructure.PartyTypeEnum;
 import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.organizationalStructure.UnitUtils;
 import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.academic.domain.time.calendarStructure.AcademicCalendarEntry;
+import org.fenixedu.academic.domain.time.calendarStructure.AcademicCalendarRootEntry;
+import org.fenixedu.academic.domain.time.calendarStructure.AcademicPeriod;
 import org.fenixedu.academic.util.Bundle;
-
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.joda.time.DateTime;
 
+import pt.ist.fenixedu.teacher.domain.credits.CreditsPersonFunctionsSharedQueueJob;
 import pt.utl.ist.fenix.tools.util.i18n.MultiLanguageString;
 
 public abstract class TeacherCreditsFillingCE extends TeacherCreditsFillingCE_Base {

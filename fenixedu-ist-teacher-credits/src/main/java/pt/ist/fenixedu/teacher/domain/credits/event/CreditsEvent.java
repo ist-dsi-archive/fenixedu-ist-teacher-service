@@ -19,7 +19,7 @@
 /*
  * Created on Sep 16, 2004
  */
-package org.fenixedu.academic.domain.credits.event;
+package pt.ist.fenixedu.teacher.domain.credits.event;
 
 public enum CreditsEvent {
 

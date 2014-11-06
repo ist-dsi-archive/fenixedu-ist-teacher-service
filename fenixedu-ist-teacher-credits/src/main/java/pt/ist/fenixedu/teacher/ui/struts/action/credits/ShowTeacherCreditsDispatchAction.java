@@ -19,7 +19,7 @@
 /**
  * Nov 30, 2005
  */
-package org.fenixedu.academic.ui.struts.action.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -31,30 +31,30 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.fenixedu.academic.service.services.credits.ReadAllTeacherCredits;
-import net.sourceforge.fenixedu.commons.OrderedIterator;
-import org.fenixedu.academic.dto.credits.CreditLineDTO;
-import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.Professorship;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.TeacherCredits;
-import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonContractSituation;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
-import org.fenixedu.academic.domain.teacher.AdviseType;
-import org.fenixedu.academic.domain.teacher.InstitutionWorkTime;
-import org.fenixedu.academic.domain.teacher.TeacherAdviseService;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
-import org.fenixedu.academic.domain.time.calendarStructure.TeacherCreditsFillingCE;
-import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.comparators.ComparatorChain;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.Professorship;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
+import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
+import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.academic.util.OrderedIterator;
+
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
+import pt.ist.fenixedu.teacher.domain.TeacherCredits;
+import pt.ist.fenixedu.teacher.domain.teacher.AdviseType;
+import pt.ist.fenixedu.teacher.domain.teacher.InstitutionWorkTime;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherAdviseService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
+import pt.ist.fenixedu.teacher.dto.credits.CreditLineDTO;
+import pt.ist.fenixedu.teacher.service.credits.ReadAllTeacherCredits;
 
 /**
  * @author Ricardo Rodrigues

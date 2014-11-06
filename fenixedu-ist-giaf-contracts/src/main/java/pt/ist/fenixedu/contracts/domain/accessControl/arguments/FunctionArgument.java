@@ -16,10 +16,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.accessControl.arguments;
+package pt.ist.fenixedu.contracts.domain.accessControl.arguments;
 
+import org.fenixedu.academic.domain.accessControl.arguments.DomainObjectArgumentParser;
 import org.fenixedu.academic.domain.organizationalStructure.Function;
-
 import org.fenixedu.bennu.core.annotation.GroupArgumentParser;
 
 @GroupArgumentParser

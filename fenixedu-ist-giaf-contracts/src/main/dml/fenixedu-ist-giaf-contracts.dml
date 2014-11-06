@@ -1,4 +1,4 @@
-package org.fenixedu.academic.domain;
+package pt.ist.fenixedu.contracts.domain;
 
 class personnelSection.contracts.ContractSituation  {
     String giafId (REQUIRED);
@@ -196,7 +196,7 @@ class Employee  {
     Integer workingHours;
 }
 
-class organizationalStructure.Contract extends organizationalStructure.Accountability {
+class organizationalStructure.Contract extends .org.fenixedu.academic.domain.organizationalStructure.Accountability {
 }
 
 class organizationalStructure.ExternalContract extends organizationalStructure.Contract {
@@ -221,25 +221,25 @@ class organizationalStructure.ResearchTechnicalStaffContract extends organizatio
 class organizationalStructure.ResearchInternshipContract extends organizationalStructure.ResearchContract {
 }
 
-class organizationalStructure.ResearchUnit extends organizationalStructure.Unit {
+class organizationalStructure.ResearchUnit extends .org.fenixedu.academic.domain.organizationalStructure.Unit {
 }
 
 class organizationalStructure.EmployeeContract extends organizationalStructure.Contract {
     Boolean teacherContract;                
 }
 
-class organizationalStructure.SharedFunction extends organizationalStructure.Function {
+class organizationalStructure.SharedFunction extends .org.fenixedu.academic.domain.organizationalStructure.Function {
     BigDecimal credits;
 }
 
-class organizationalStructure.PersonFunctionShared extends organizationalStructure.PersonFunction {
+class organizationalStructure.PersonFunctionShared extends .org.fenixedu.academic.domain.organizationalStructure.PersonFunction {
     BigDecimal percentage;
 }
 
-class util.email.ResearchUnitBasedSender extends util.email.UnitBasedSender {
+class util.email.ResearchUnitBasedSender extends .org.fenixedu.academic.domain.util.email.UnitBasedSender {
 }
 
-class accessControl.PersistentResearchAuthorGroup extends accessControl.FenixPredicateGroup;
+class accessControl.PersistentResearchAuthorGroup extends .org.fenixedu.academic.domain.accessControl.FenixPredicateGroup;
 
 class accessControl.PersistentCampusEmployeeGroup extends .org.fenixedu.bennu.core.domain.groups.PersistentGroup;
 
@@ -363,7 +363,7 @@ relation AbsenceRootDomainObject {
 }
 
 relation PersonProfessionalDataPerson {
-    Person playsRole person;
+    .org.fenixedu.academic.domain.Person playsRole person;
     personnelSection.contracts.PersonProfessionalData playsRole personProfessionalData;
 }
 
@@ -462,7 +462,7 @@ relation ProfessionalCategoryTeacherCategory {
     personnelSection.contracts.ProfessionalCategory playsRole professionalCategory {
         multiplicity 0..1;
     }
-    TeacherCategory playsRole teacherCategory {
+    .org.fenixedu.academic.domain.TeacherCategory playsRole teacherCategory {
         multiplicity 1..1;
     }
 }
@@ -577,7 +577,7 @@ relation PersonGrantOwnerEquivalentCountry {
     personnelSection.contracts.PersonGrantOwnerEquivalent playsRole personGrantOwnerEquivalences {
         multiplicity *;
     }
-    Country playsRole country; 
+    .org.fenixedu.academic.domain.Country playsRole country; 
 }
 
 relation ResearcherRootDomainObject {
@@ -588,7 +588,7 @@ relation ResearcherRootDomainObject {
 }
 
 relation ResearcherPerson {
-    Person playsRole person;
+    .org.fenixedu.academic.domain.Person playsRole person;
     research.Researcher playsRole researcher;
 }
 
@@ -596,7 +596,7 @@ relation PublicationCollaborators {
     organizationalStructure.ResearchUnit playsRole collaboratorIn {
         multiplicity *;
     }
-    Person playsRole publicationCollaborators {
+    .org.fenixedu.academic.domain.Person playsRole publicationCollaborators {
         multiplicity *;
     }
 }
@@ -612,7 +612,7 @@ relation PersistentCampusEmployeeGroupCampus {
 
 relation EmployeePerson {
     Employee playsRole employee;
-    Person playsRole person;
+    .org.fenixedu.academic.domain.Person playsRole person;
 }
 
 relation RootDomainObjectEmployee {
@@ -623,7 +623,7 @@ relation RootDomainObjectEmployee {
 }
 
 relation InvitationParty {
-    organizationalStructure.Party playsRole responsible;
+    .org.fenixedu.academic.domain.organizationalStructure.Party playsRole responsible;
     organizationalStructure.Invitation playsRole invitationAccountabilities {
         multiplicity *;
     }

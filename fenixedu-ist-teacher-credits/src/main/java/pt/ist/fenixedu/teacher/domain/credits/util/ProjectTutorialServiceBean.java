@@ -16,17 +16,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.credits.util;
+package pt.ist.fenixedu.teacher.domain.credits.util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.fenixedu.academic.domain.Attends;
 import org.fenixedu.academic.domain.Professorship;
-import org.fenixedu.academic.domain.teacher.DegreeProjectTutorialService;
 
-import org.apache.commons.lang.StringUtils;
+import pt.ist.fenixedu.teacher.domain.teacher.DegreeProjectTutorialService;
 
 public class ProjectTutorialServiceBean implements Serializable {
 

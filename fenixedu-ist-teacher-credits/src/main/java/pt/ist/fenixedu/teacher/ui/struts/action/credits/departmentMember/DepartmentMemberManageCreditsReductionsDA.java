@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.credits.departmentMember;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits.departmentMember;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,23 +25,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.accessControl.DepartmentPresidentStrategy;
-import org.fenixedu.academic.domain.credits.util.ReductionServiceBean;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.teacher.ReductionService;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-import org.fenixedu.academic.domain.time.calendarStructure.TeacherCreditsFillingCE;
-import org.fenixedu.academic.ui.struts.action.credits.ManageCreditsReductionsDispatchAction;
-import org.fenixedu.academic.ui.struts.action.departmentMember.DepartmentMemberPresidentApp;
-
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.fenixedu.academic.domain.Department;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.ui.struts.action.departmentMember.DepartmentMemberApp.DepartmentMemberPresidentApp;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.Forward;
@@ -51,6 +44,12 @@ import org.fenixedu.bennu.struts.portal.EntryPoint;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
+import pt.ist.fenixedu.contracts.domain.accessControl.DepartmentPresidentStrategy;
+import pt.ist.fenixedu.teacher.domain.credits.util.ReductionServiceBean;
+import pt.ist.fenixedu.teacher.domain.teacher.ReductionService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageCreditsReductionsDispatchAction;
 import pt.ist.fenixframework.FenixFramework;
 
 @StrutsFunctionality(app = DepartmentMemberPresidentApp.class, path = "credits-reductions",

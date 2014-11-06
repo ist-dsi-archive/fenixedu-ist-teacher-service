@@ -16,17 +16,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.departmentMember.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.departmentMember.credits;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.ui.struts.action.credits.ManageTeacherAdviseServiceDispatchAction;
-import org.fenixedu.academic.ui.struts.action.credits.departmentMember.DepartmentMemberViewTeacherCreditsDA;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -34,6 +27,10 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.ExceptionHandling;
@@ -41,6 +38,9 @@ import org.fenixedu.bennu.struts.annotations.Exceptions;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
+
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageTeacherAdviseServiceDispatchAction;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.departmentMember.DepartmentMemberViewTeacherCreditsDA;
 
 @Mapping(module = "departmentMember", path = "/teacherAdviseServiceManagement",
         input = "/teacherAdviseServiceManagement.do?method=showTeacherAdvises&page=0",

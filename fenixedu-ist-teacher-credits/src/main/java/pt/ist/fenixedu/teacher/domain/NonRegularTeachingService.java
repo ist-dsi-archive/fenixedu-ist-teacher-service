@@ -16,13 +16,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain;
+package pt.ist.fenixedu.teacher.domain;
 
+import org.fenixedu.academic.domain.Professorship;
+import org.fenixedu.academic.domain.Shift;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-
 import org.fenixedu.bennu.core.domain.Bennu;
 
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.ist.fenixframework.Atomic;
 
 public class NonRegularTeachingService extends NonRegularTeachingService_Base {

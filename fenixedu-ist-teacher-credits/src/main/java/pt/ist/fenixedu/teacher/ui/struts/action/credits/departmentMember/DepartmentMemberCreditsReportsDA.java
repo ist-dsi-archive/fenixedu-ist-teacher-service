@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.credits.departmentMember;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits.departmentMember;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,20 +24,20 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.credits.util.DepartmentCreditsBean;
-import org.fenixedu.academic.ui.struts.action.credits.CreditsReportsDA;
-import org.fenixedu.academic.ui.struts.action.departmentMember.DepartmentMemberApp.DepartmentMemberDepartmentApp;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.fenixedu.academic.domain.Department;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.ui.struts.action.departmentMember.DepartmentMemberApp.DepartmentMemberDepartmentApp;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 import org.fenixedu.bennu.struts.portal.EntryPoint;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
+
+import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsBean;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.CreditsReportsDA;
 
 @StrutsFunctionality(app = DepartmentMemberDepartmentApp.class, path = "export-credits",
         titleKey = "label.executionCourses.types", bundle = "TeacherCreditsSheetResources")

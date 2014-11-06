@@ -16,31 +16,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.departmentMember;
+package pt.ist.fenixedu.teacher.ui.struts.action.departmentMember;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.fenixedu.academic.service.services.department.InsertTeacherPersonalExpectation;
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean;
-import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.ExecutionYear;
-import org.fenixedu.academic.domain.Person;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.TeacherExpectationDefinitionPeriod;
-import org.fenixedu.academic.domain.TeacherPersonalExpectationPeriod;
-import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.teacher.TeacherPersonalExpectation;
-import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.ui.struts.action.departmentMember.DepartmentMemberApp.DepartmentMemberAccompanimentApp;
-import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+import org.fenixedu.academic.domain.Department;
+import org.fenixedu.academic.domain.ExecutionYear;
+import org.fenixedu.academic.domain.Person;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.academic.ui.struts.action.departmentMember.DepartmentMemberApp.DepartmentMemberAccompanimentApp;
+import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
@@ -49,6 +44,10 @@ import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
 import pt.ist.fenixWebFramework.renderers.components.state.IViewState;
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
+import pt.ist.fenixedu.teacher.domain.TeacherExpectationDefinitionPeriod;
+import pt.ist.fenixedu.teacher.domain.TeacherPersonalExpectationPeriod;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherPersonalExpectation;
+import pt.ist.fenixedu.teacher.service.department.InsertTeacherPersonalExpectation;
 import pt.ist.fenixframework.FenixFramework;
 
 @StrutsFunctionality(app = DepartmentMemberAccompanimentApp.class, path = "personal-expectations",

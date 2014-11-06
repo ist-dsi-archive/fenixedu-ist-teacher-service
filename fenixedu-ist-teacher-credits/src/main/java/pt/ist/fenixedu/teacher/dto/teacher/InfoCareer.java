@@ -20,16 +20,17 @@
  * Created on 13/Nov/2003
  *  
  */
-package org.fenixedu.academic.dto.teacher;
+package pt.ist.fenixedu.teacher.dto.teacher;
 
 import java.util.Date;
 
+import org.fenixedu.academic.domain.CareerType;
 import org.fenixedu.academic.dto.InfoObject;
 import org.fenixedu.academic.dto.InfoTeacher;
-import org.fenixedu.academic.domain.CareerType;
-import org.fenixedu.academic.domain.teacher.Career;
-import org.fenixedu.academic.domain.teacher.ProfessionalCareer;
-import org.fenixedu.academic.domain.teacher.TeachingCareer;
+
+import pt.ist.fenixedu.teacher.domain.teacher.Career;
+import pt.ist.fenixedu.teacher.domain.teacher.ProfessionalCareer;
+import pt.ist.fenixedu.teacher.domain.teacher.TeachingCareer;
 
 /**
  * @author Leonor Almeida

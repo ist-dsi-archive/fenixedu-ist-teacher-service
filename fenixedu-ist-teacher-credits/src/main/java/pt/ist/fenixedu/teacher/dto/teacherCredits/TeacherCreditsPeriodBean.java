@@ -16,19 +16,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.dto.teacherCredits;
+package pt.ist.fenixedu.teacher.dto.teacherCredits;
 
 import java.io.Serializable;
 
 import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.credits.AnnualCreditsState;
-import org.fenixedu.academic.domain.time.calendarStructure.TeacherCreditsFillingCE;
-import org.fenixedu.academic.domain.time.calendarStructure.TeacherCreditsFillingForDepartmentAdmOfficeCE;
-import org.fenixedu.academic.domain.time.calendarStructure.TeacherCreditsFillingForTeacherCE;
-
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
+import pt.ist.fenixedu.teacher.domain.credits.AnnualCreditsState;
+import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
+import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingForDepartmentAdmOfficeCE;
+import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingForTeacherCE;
 import pt.ist.fenixframework.Atomic;
 
 public class TeacherCreditsPeriodBean implements Serializable {

@@ -16,16 +16,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.webSiteManager;
+package pt.ist.fenixedu.contracts.ui.struts.action.webSiteManager;
 
 import java.io.Serializable;
 
 import org.fenixedu.academic.domain.Person;
-import org.fenixedu.academic.domain.organizationalStructure.ResearchContract.ResearchContractType;
-import org.fenixedu.academic.domain.organizationalStructure.ResearchUnit;
 import org.fenixedu.academic.domain.person.IDDocumentType;
-
 import org.joda.time.YearMonthDay;
+
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.ResearchContract.ResearchContractType;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.ResearchUnit;
 
 public class ResearchContractBean implements Serializable {
 

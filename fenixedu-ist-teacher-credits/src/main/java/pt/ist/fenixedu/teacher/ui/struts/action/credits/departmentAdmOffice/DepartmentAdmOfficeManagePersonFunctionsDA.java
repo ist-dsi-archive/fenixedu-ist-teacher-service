@@ -16,11 +16,11 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.credits.departmentAdmOffice;
-
-import org.fenixedu.academic.ui.struts.action.credits.ManagePersonFunctionsDA;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits.departmentAdmOffice;
 
 import org.fenixedu.bennu.struts.annotations.Mapping;
+
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManagePersonFunctionsDA;
 
 @Mapping(path = "/managePersonFunctionsShared", module = "departmentAdmOffice",
         functionality = DepartmentAdmOfficeViewTeacherCreditsDA.class)

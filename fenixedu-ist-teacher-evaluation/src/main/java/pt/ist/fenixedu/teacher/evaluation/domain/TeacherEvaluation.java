@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.teacher.evaluation;
+package pt.ist.fenixedu.teacher.evaluation.domain;
 
 import java.util.Collections;
 import java.util.Set;
@@ -28,7 +28,6 @@ import org.fenixedu.academic.domain.util.email.Recipient;
 import org.fenixedu.academic.domain.util.email.SystemSender;
 import org.fenixedu.academic.predicate.AccessControl;
 import org.fenixedu.academic.util.Bundle;
-
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.joda.time.DateTime;

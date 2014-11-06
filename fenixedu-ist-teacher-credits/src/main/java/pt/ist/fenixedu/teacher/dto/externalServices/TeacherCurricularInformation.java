@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.dto.externalServices;
+package pt.ist.fenixedu.teacher.dto.externalServices;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,6 +30,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.apache.commons.collections.comparators.ReverseComparator;
+import org.apache.commons.lang.StringUtils;
 import org.fenixedu.academic.domain.CourseLoad;
 import org.fenixedu.academic.domain.CurricularCourse;
 import org.fenixedu.academic.domain.Degree;
@@ -41,27 +43,25 @@ import org.fenixedu.academic.domain.Qualification;
 import org.fenixedu.academic.domain.QualificationType;
 import org.fenixedu.academic.domain.ShiftType;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.personnelSection.contracts.GiafProfessionalData;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonProfessionalData;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalRegime;
 import org.fenixedu.academic.domain.phd.InternalPhdParticipant;
 import org.fenixedu.academic.domain.phd.PhdIndividualProgramProcess;
-import org.fenixedu.academic.domain.teacher.Career;
-import org.fenixedu.academic.domain.teacher.DegreeTeachingService;
-import org.fenixedu.academic.domain.teacher.DegreeTeachingServiceCorrection;
-import org.fenixedu.academic.domain.teacher.OtherService;
-import org.fenixedu.academic.domain.teacher.ProfessionalCareer;
-import org.fenixedu.academic.domain.teacher.TeacherService;
 import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
 import org.fenixedu.academic.domain.thesis.ThesisParticipationType;
-
-import org.apache.commons.collections.comparators.ReverseComparator;
-import org.apache.commons.lang.StringUtils;
 import org.fenixedu.commons.StringNormalizer;
 import org.joda.time.Interval;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.GiafProfessionalData;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalRegime;
+import pt.ist.fenixedu.teacher.domain.teacher.Career;
+import pt.ist.fenixedu.teacher.domain.teacher.DegreeTeachingService;
+import pt.ist.fenixedu.teacher.domain.teacher.DegreeTeachingServiceCorrection;
+import pt.ist.fenixedu.teacher.domain.teacher.OtherService;
+import pt.ist.fenixedu.teacher.domain.teacher.ProfessionalCareer;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 
 public class TeacherCurricularInformation implements Serializable {
 

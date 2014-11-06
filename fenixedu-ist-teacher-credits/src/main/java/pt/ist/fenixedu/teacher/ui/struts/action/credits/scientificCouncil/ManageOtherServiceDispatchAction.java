@@ -19,27 +19,26 @@
 /**
  *  Apr 21, 2006
  */
-package org.fenixedu.academic.ui.struts.action.credits.scientificCouncil;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits.scientificCouncil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.teacher.OtherService;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.bennu.struts.annotations.ExceptionHandling;
 import org.fenixedu.bennu.struts.annotations.Exceptions;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 
+import pt.ist.fenixedu.teacher.domain.teacher.OtherService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.ist.fenixframework.FenixFramework;
 
 @Mapping(module = "scientificCouncil", path = "/otherServiceManagement",

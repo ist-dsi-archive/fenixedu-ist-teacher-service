@@ -19,7 +19,7 @@
 /**
  * Dec 5, 2005
  */
-package org.fenixedu.academic.dto.credits;
+package pt.ist.fenixedu.teacher.dto.credits;
 
 import java.text.ParseException;
 import java.util.Set;
@@ -28,11 +28,12 @@ import java.util.TreeSet;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.TeacherCredits;
-import org.fenixedu.academic.domain.TeacherCreditsDocument;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
-import org.fenixedu.academic.domain.teacher.OtherService;
-import org.fenixedu.academic.domain.teacher.TeacherService;
+
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
+import pt.ist.fenixedu.teacher.domain.TeacherCredits;
+import pt.ist.fenixedu.teacher.domain.TeacherCreditsDocument;
+import pt.ist.fenixedu.teacher.domain.teacher.OtherService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 
 /**
  * @author Ricardo Rodrigues

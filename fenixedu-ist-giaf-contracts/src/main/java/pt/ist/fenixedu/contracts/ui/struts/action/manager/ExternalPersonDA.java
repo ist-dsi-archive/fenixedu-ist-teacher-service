@@ -16,27 +16,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.manager;
+package pt.ist.fenixedu.contracts.ui.struts.action.manager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.commons.FactoryExecutor;
-import org.fenixedu.academic.dto.person.ExternalPersonBean;
-import org.fenixedu.academic.domain.Person;
-import org.fenixedu.academic.domain.Person.AnyPersonSearchBean;
-import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.organizationalStructure.ExternalContract;
-import org.fenixedu.academic.domain.organizationalStructure.Unit;
-import org.fenixedu.academic.domain.person.IDDocumentType;
-import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.fenixedu.academic.domain.Person;
+import org.fenixedu.academic.domain.Person.AnyPersonSearchBean;
+import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.domain.organizationalStructure.Unit;
+import org.fenixedu.academic.domain.person.IDDocumentType;
+import org.fenixedu.academic.dto.person.ExternalPersonBean;
+import org.fenixedu.academic.service.services.commons.FactoryExecutor;
+import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.joda.time.YearMonthDay;
 
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.ExternalContract;
 
 public class ExternalPersonDA extends FenixDispatchAction {
 

@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain;
+package pt.ist.fenixedu.teacher.domain;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -27,16 +27,13 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.Professorship;
+import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
 import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonContractSituation;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonProfessionalData;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonProfessionalExemption;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
-import org.fenixedu.academic.domain.teacher.TeacherService;
 import org.fenixedu.academic.predicate.AccessControl;
-
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
@@ -44,6 +41,12 @@ import org.joda.time.LocalDate;
 import org.joda.time.PeriodType;
 import org.joda.time.YearMonthDay;
 
+import pt.ist.fenixedu.contracts.domain.Employee;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalExemption;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.ist.fenixframework.Atomic;
 
 public class TeacherCredits extends TeacherCredits_Base {

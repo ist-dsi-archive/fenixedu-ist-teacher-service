@@ -16,13 +16,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.service.services.manager.organizationalStructureManagement;
+package pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement;
 
 import static org.fenixedu.academic.predicate.AccessControl.check;
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+
 import org.fenixedu.academic.domain.organizationalStructure.AccountabilityType;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.predicate.RolePredicates;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 

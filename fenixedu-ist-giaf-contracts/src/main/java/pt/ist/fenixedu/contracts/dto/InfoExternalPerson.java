@@ -20,9 +20,13 @@
  * Created on Oct 14, 2003
  *  
  */
-package org.fenixedu.academic.dto;
+package pt.ist.fenixedu.contracts.dto;
 
-import org.fenixedu.academic.domain.organizationalStructure.ExternalContract;
+import org.fenixedu.academic.dto.InfoInstitution;
+import org.fenixedu.academic.dto.InfoObject;
+import org.fenixedu.academic.dto.InfoPerson;
+
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.ExternalContract;
 
 /**
  * @author Shezad Anavarali (sana@mega.ist.utl.pt)

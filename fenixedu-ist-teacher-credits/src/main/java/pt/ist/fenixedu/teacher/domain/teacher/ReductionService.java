@@ -16,23 +16,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.teacher;
+package pt.ist.fenixedu.teacher.domain.teacher;
 
 import java.math.BigDecimal;
 
 import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.credits.util.ReductionServiceBean;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
-import org.fenixedu.academic.domain.teacher.evaluation.ApprovedTeacherEvaluationProcessMark;
-import org.fenixedu.academic.domain.teacher.evaluation.FacultyEvaluationProcessYear;
-import org.fenixedu.academic.domain.teacher.evaluation.TeacherEvaluationMark;
-import org.fenixedu.academic.domain.teacher.evaluation.TeacherEvaluationProcess;
 import org.fenixedu.academic.util.Bundle;
-
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.joda.time.DateTime;
+
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
+import pt.ist.fenixedu.teacher.domain.credits.util.ReductionServiceBean;
 
 public class ReductionService extends ReductionService_Base {
 

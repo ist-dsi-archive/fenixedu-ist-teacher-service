@@ -19,7 +19,7 @@
 /**
  * Dec 13, 2005
  */
-package org.fenixedu.academic.ui.struts.action.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits;
 
 import java.text.ParseException;
 import java.util.Iterator;
@@ -27,15 +27,15 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.fenixedu.academic.service.services.credits.ReadAllTeacherCredits;
-import net.sourceforge.fenixedu.commons.OrderedIterator;
-import org.fenixedu.academic.dto.credits.CreditLineDTO;
+import org.apache.commons.beanutils.BeanComparator;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
+import org.fenixedu.academic.util.OrderedIterator;
 
-import org.apache.commons.beanutils.BeanComparator;
+import pt.ist.fenixedu.teacher.dto.credits.CreditLineDTO;
+import pt.ist.fenixedu.teacher.service.credits.ReadAllTeacherCredits;
 
 /**
  * @author Ricardo Rodrigues

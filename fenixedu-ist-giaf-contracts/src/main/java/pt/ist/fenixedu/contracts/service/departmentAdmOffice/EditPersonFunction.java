@@ -20,17 +20,16 @@
  * Created on Oct 28, 2005
  *	by mrsp
  */
-package org.fenixedu.academic.service.services.departmentAdmOffice;
+package pt.ist.fenixedu.contracts.service.departmentAdmOffice;
 
+import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.domain.organizationalStructure.Function;
+import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.service.filter.ManagerAuthorizationFilter;
 import org.fenixedu.academic.service.filter.OperatorAuthorizationFilter;
 import org.fenixedu.academic.service.filter.ScientificCouncilAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
-import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.organizationalStructure.Function;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
-
 import org.joda.time.YearMonthDay;
 
 import pt.ist.fenixframework.Atomic;

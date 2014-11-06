@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.personnelSection;
+package pt.ist.fenixedu.contracts.ui.struts.action.personnelSection;
 
 import org.fenixedu.bennu.struts.portal.StrutsApplication;
 

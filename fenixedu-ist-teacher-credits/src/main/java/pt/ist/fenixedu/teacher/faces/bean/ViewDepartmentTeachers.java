@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.faces.bean.departmentMember;
+package pt.ist.fenixedu.teacher.faces.bean;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,31 +31,30 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
-import org.fenixedu.academic.service.services.commons.ReadCurrentExecutionYear;
-import org.fenixedu.academic.service.services.commons.ReadNotClosedExecutionYears;
-import org.fenixedu.academic.service.services.department.ReadDepartmentTeachersByDepartmentIDAndExecutionYearID;
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.service.services.person.function.ReadPersonFunctionsByPersonIDAndExecutionYearID;
-import org.fenixedu.academic.service.services.teacher.ReadLecturedExecutionCoursesByTeacherIDAndExecutionYearIDAndDegreeType;
-import org.fenixedu.academic.service.services.teacher.ReadTeacherByOID;
-import org.fenixedu.academic.service.services.teacher.advise.ReadTeacherAdvisesByTeacherIDAndAdviseTypeAndExecutionYearID;
-import org.fenixedu.academic.dto.InfoExecutionYear;
-import org.fenixedu.academic.dto.InfoTeacher;
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.collections.comparators.ComparatorChain;
 import org.fenixedu.academic.domain.CurricularCourse;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.degree.DegreeType;
 import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
-import org.fenixedu.academic.domain.teacher.Advise;
-import org.fenixedu.academic.domain.teacher.AdviseType;
+import org.fenixedu.academic.dto.InfoExecutionYear;
+import org.fenixedu.academic.dto.InfoTeacher;
+import org.fenixedu.academic.service.services.commons.ReadCurrentExecutionYear;
+import org.fenixedu.academic.service.services.commons.ReadNotClosedExecutionYears;
+import org.fenixedu.academic.service.services.department.ReadDepartmentTeachersByDepartmentIDAndExecutionYearID;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.service.services.teacher.ReadLecturedExecutionCoursesByTeacherIDAndExecutionYearIDAndDegreeType;
+import org.fenixedu.academic.service.services.teacher.ReadTeacherByOID;
 import org.fenixedu.academic.ui.faces.bean.base.FenixBackingBean;
 import org.fenixedu.academic.util.Bundle;
-
-import org.apache.commons.beanutils.BeanComparator;
-import org.apache.commons.collections.comparators.ComparatorChain;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 
+import pt.ist.fenixedu.contracts.service.person.function.ReadPersonFunctionsByPersonIDAndExecutionYearID;
+import pt.ist.fenixedu.teacher.domain.teacher.Advise;
+import pt.ist.fenixedu.teacher.domain.teacher.AdviseType;
+import pt.ist.fenixedu.teacher.service.teacher.advise.ReadTeacherAdvisesByTeacherIDAndAdviseTypeAndExecutionYearID;
 import pt.ist.fenixframework.FenixFramework;
 
 /**

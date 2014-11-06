@@ -20,12 +20,14 @@
  * Created on Nov 22, 2005
  *	by mrsp
  */
-package org.fenixedu.academic.service.services.manager.organizationalStructureManagement;
+package pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement;
 
 import static org.fenixedu.academic.predicate.AccessControl.check;
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.predicate.RolePredicates;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 

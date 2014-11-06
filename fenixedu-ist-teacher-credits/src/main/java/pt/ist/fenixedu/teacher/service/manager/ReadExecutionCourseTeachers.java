@@ -19,21 +19,22 @@
 /*
  * Created on 16/Set/2003
  */
-package org.fenixedu.academic.service.services.manager;
+package pt.ist.fenixedu.teacher.service.manager;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.fenixedu.academic.domain.ExecutionCourse;
+import org.fenixedu.academic.domain.Professorship;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.dto.InfoTeacher;
 import org.fenixedu.academic.service.filter.ManagerAuthorizationFilter;
 import org.fenixedu.academic.service.filter.ScientificCouncilAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
-import org.fenixedu.academic.dto.InfoTeacher;
-import org.fenixedu.academic.domain.ExecutionCourse;
-import org.fenixedu.academic.domain.Professorship;
-import org.fenixedu.academic.domain.Teacher;
+
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 

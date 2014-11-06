@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.service.services.teacher.teacherService;
+package pt.ist.fenixedu.teacher.service.teacher.teacherService;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -28,13 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.fenixedu.academic.service.filter.DepartmentAdministrativeOfficeAuthorizationFilter;
-import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
-import org.fenixedu.academic.service.filter.TeacherAuthorizationFilter;
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
-import org.fenixedu.academic.dto.teacher.distribution.DistributionTeacherServicesByCourseDTO;
-import org.fenixedu.academic.dto.teacher.distribution.DistributionTeacherServicesByCourseDTO.ExecutionCourseDistributionServiceEntryDTO;
 import org.fenixedu.academic.domain.CompetenceCourse;
 import org.fenixedu.academic.domain.CurricularCourse;
 import org.fenixedu.academic.domain.CurricularCourseScope;
@@ -46,10 +39,16 @@ import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.ShiftType;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-
+import org.fenixedu.academic.service.filter.DepartmentAdministrativeOfficeAuthorizationFilter;
+import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
+import org.fenixedu.academic.service.filter.TeacherAuthorizationFilter;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 import org.joda.time.Duration;
 
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.dto.teacher.distribution.DistributionTeacherServicesByCourseDTO;
+import pt.ist.fenixedu.teacher.dto.teacher.distribution.DistributionTeacherServicesByCourseDTO.ExecutionCourseDistributionServiceEntryDTO;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 

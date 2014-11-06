@@ -16,14 +16,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.manager.personnelSection;
+package pt.ist.fenixedu.contracts.ui.struts.action.manager.personnelSection;
 
 import org.fenixedu.academic.ui.struts.action.manager.QualificationDA;
-import org.fenixedu.academic.ui.struts.action.personnelSection.PersonManagementAction;
-
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
+
+import pt.ist.fenixedu.contracts.ui.struts.action.personnelSection.PersonManagementAction;
 
 @Mapping(module = "personnelSection", path = "/qualification", functionality = PersonManagementAction.class)
 @Forwards({ @Forward(name = "qualification", path = "/manager/qualifications/qualification.jsp"),

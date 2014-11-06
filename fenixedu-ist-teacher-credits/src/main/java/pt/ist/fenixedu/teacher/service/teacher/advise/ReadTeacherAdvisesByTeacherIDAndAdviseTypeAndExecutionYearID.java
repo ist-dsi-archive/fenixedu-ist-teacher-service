@@ -20,20 +20,21 @@
  * 
  *
  */
-package org.fenixedu.academic.service.services.teacher.advise;
+package pt.ist.fenixedu.teacher.service.teacher.advise;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.fenixedu.academic.domain.ExecutionYear;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
 import org.fenixedu.academic.service.filter.TeacherAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
-import org.fenixedu.academic.domain.ExecutionYear;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.teacher.Advise;
-import org.fenixedu.academic.domain.teacher.AdviseType;
+
+import pt.ist.fenixedu.teacher.domain.teacher.Advise;
+import pt.ist.fenixedu.teacher.domain.teacher.AdviseType;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 

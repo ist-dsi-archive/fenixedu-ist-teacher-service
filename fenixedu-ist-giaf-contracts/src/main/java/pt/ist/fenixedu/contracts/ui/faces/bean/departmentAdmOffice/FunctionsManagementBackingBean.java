@@ -20,7 +20,7 @@
  * Created on Oct 18, 2005
  *	by mrsp
  */
-package org.fenixedu.academic.ui.faces.bean.departmentAdmOffice;
+package pt.ist.fenixedu.contracts.ui.faces.bean.departmentAdmOffice;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -36,15 +36,10 @@ import java.util.Set;
 import javax.faces.component.html.HtmlInputHidden;
 import javax.faces.model.SelectItem;
 
-import org.fenixedu.academic.service.services.departmentAdmOffice.AssociateNewFunctionToPerson;
-import org.fenixedu.academic.service.services.departmentAdmOffice.DeletePersonFunction;
-import org.fenixedu.academic.service.services.departmentAdmOffice.EditPersonFunction;
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.service.services.person.SearchPerson;
-import org.fenixedu.academic.service.services.person.SearchPerson.SearchParameters;
-import org.fenixedu.academic.service.services.person.SearchPerson.SearchPersonPredicate;
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.collections.comparators.ReverseComparator;
+import org.apache.commons.lang.StringUtils;
 import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.Employee;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Person;
@@ -55,18 +50,22 @@ import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.domain.student.Registration;
-import org.fenixedu.academic.ui.struts.action.resourceAllocationManager.utils.PresentationConstants;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.service.services.person.SearchPerson;
+import org.fenixedu.academic.service.services.person.SearchPerson.SearchParameters;
+import org.fenixedu.academic.service.services.person.SearchPerson.SearchPersonPredicate;
 import org.fenixedu.academic.ui.faces.bean.base.FenixBackingBean;
+import org.fenixedu.academic.ui.struts.action.resourceAllocationManager.utils.PresentationConstants;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.academic.util.PeriodState;
-
-import org.apache.commons.beanutils.BeanComparator;
-import org.apache.commons.collections.comparators.ReverseComparator;
-import org.apache.commons.lang.StringUtils;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.joda.time.YearMonthDay;
 
+import pt.ist.fenixedu.contracts.domain.Employee;
+import pt.ist.fenixedu.contracts.service.departmentAdmOffice.AssociateNewFunctionToPerson;
+import pt.ist.fenixedu.contracts.service.departmentAdmOffice.DeletePersonFunction;
+import pt.ist.fenixedu.contracts.service.departmentAdmOffice.EditPersonFunction;
 import pt.ist.fenixframework.FenixFramework;
 import pt.utl.ist.fenix.tools.util.CollectionPager;
 import pt.utl.ist.fenix.tools.util.DateFormatUtil;

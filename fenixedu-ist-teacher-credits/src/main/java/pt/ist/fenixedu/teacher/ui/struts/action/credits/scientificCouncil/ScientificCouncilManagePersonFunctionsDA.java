@@ -16,31 +16,30 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.credits.scientificCouncil;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits.scientificCouncil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.credits.util.DepartmentCreditsBean;
-import org.fenixedu.academic.domain.credits.util.PersonFunctionBean;
-import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
-import org.fenixedu.academic.ui.struts.action.credits.ManagePersonFunctionsDA;
-import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.fenixedu.academic.domain.Department;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 import org.fenixedu.bennu.struts.portal.EntryPoint;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
+import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsBean;
+import pt.ist.fenixedu.teacher.domain.credits.util.PersonFunctionBean;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManagePersonFunctionsDA;
 import pt.ist.fenixframework.FenixFramework;
 
 @StrutsFunctionality(app = ScientificCreditsApp.class, path = "person-functions",

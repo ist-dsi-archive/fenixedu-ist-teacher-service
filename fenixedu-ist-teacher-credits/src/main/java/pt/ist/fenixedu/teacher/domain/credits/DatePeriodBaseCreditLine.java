@@ -19,7 +19,7 @@
 /*
  * Created on 7/Mar/2004
  */
-package org.fenixedu.academic.domain.credits;
+package pt.ist.fenixedu.teacher.domain.credits;
 
 import org.fenixedu.academic.domain.ExecutionSemester;
 

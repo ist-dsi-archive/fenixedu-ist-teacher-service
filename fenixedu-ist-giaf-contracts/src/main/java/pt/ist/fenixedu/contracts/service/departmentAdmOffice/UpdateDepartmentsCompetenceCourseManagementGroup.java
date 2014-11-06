@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.service.services.departmentAdmOffice;
+package pt.ist.fenixedu.contracts.service.departmentAdmOffice;
 
 import static org.fenixedu.academic.predicate.AccessControl.check;
 
@@ -29,7 +29,6 @@ import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.predicate.RolePredicates;
-
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.groups.Group;

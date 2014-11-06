@@ -19,7 +19,7 @@
 /**
  * Jan 30, 2006
  */
-package org.fenixedu.academic.ui.struts.action.scientificCouncil.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.scientificCouncil.credits;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,10 +34,13 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.service.services.scientificCouncil.credits.EditTeacherMasterDegreeCredits;
-import net.sourceforge.fenixedu.commons.OrderedIterator;
-import org.fenixedu.academic.dto.GenericTrio;
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+import org.apache.struts.action.ExceptionHandler;
 import org.fenixedu.academic.domain.CurricularCourse;
 import org.fenixedu.academic.domain.DegreeModuleScope;
 import org.fenixedu.academic.domain.Department;
@@ -48,21 +51,13 @@ import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.degree.DegreeType;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.teacher.TeacherMasterDegreeService;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-import org.fenixedu.academic.domain.time.calendarStructure.AcademicInterval;
+import org.fenixedu.academic.dto.GenericTrio;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
 import org.fenixedu.academic.ui.struts.config.FenixDomainExceptionHandler;
 import org.fenixedu.academic.util.Bundle;
-
-import org.apache.commons.beanutils.BeanComparator;
-import org.apache.commons.lang.StringUtils;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.action.ExceptionHandler;
+import org.fenixedu.academic.util.OrderedIterator;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.fenixedu.bennu.core.security.Authenticate;
@@ -75,6 +70,9 @@ import org.fenixedu.bennu.struts.portal.EntryPoint;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 import org.joda.time.DateTime;
 
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherMasterDegreeService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.service.scientificCouncil.credits.EditTeacherMasterDegreeCredits;
 import pt.ist.fenixframework.FenixFramework;
 import pt.utl.ist.fenix.tools.util.Pair;
 import pt.utl.ist.fenix.tools.util.excel.Spreadsheet;

@@ -16,14 +16,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.credits;
+package pt.ist.fenixedu.teacher.domain.credits;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.credits.event.CreditsEvent;
+
+import pt.ist.fenixedu.teacher.domain.credits.event.CreditsEvent;
 
 public class OtherTypeCreditLine extends OtherTypeCreditLine_Base {
 

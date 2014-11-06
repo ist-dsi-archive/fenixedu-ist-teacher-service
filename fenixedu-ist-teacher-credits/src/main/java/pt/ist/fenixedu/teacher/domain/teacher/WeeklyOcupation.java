@@ -20,7 +20,7 @@
  * Created on 15/Nov/2003
  *
  */
-package org.fenixedu.academic.domain.teacher;
+package pt.ist.fenixedu.teacher.domain.teacher;
 
 import org.fenixedu.bennu.core.domain.Bennu;
 

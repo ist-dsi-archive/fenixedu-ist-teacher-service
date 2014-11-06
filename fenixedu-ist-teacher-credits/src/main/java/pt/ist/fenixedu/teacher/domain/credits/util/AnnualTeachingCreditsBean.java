@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.credits.util;
+package pt.ist.fenixedu.teacher.domain.credits.util;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -27,30 +27,30 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.apache.commons.beanutils.BeanComparator;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.TeacherCredits;
-import org.fenixedu.academic.domain.accessControl.DepartmentPresidentStrategy;
-import org.fenixedu.academic.domain.credits.AnnualTeachingCredits;
 import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonProfessionalData;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
 import org.fenixedu.academic.domain.phd.InternalPhdParticipant;
-import org.fenixedu.academic.domain.teacher.OtherService;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-import org.fenixedu.academic.domain.teacher.TeacherServiceComment;
-import org.fenixedu.academic.domain.teacher.TeacherServiceLog;
 import org.fenixedu.academic.domain.thesis.Thesis;
 import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
 import org.fenixedu.academic.domain.thesis.ThesisParticipationType;
-
-import org.apache.commons.beanutils.BeanComparator;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.joda.time.LocalDate;
+
+import pt.ist.fenixedu.contracts.domain.accessControl.DepartmentPresidentStrategy;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
+import pt.ist.fenixedu.teacher.domain.TeacherCredits;
+import pt.ist.fenixedu.teacher.domain.credits.AnnualTeachingCredits;
+import pt.ist.fenixedu.teacher.domain.teacher.OtherService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceComment;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceLog;
 
 public class AnnualTeachingCreditsBean implements Serializable {
     private ExecutionYear executionYear;

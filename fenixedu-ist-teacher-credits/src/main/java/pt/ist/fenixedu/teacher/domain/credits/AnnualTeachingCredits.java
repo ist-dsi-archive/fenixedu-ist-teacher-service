@@ -16,26 +16,25 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.credits;
+package pt.ist.fenixedu.teacher.domain.credits;
 
 import java.math.BigDecimal;
 
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.TeacherCredits;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonProfessionalData;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
 import org.fenixedu.academic.domain.phd.InternalPhdParticipant;
-import org.fenixedu.academic.domain.teacher.DegreeProjectTutorialService;
-import org.fenixedu.academic.domain.teacher.TeacherService;
 import org.fenixedu.academic.domain.thesis.Thesis;
 import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
 import org.fenixedu.academic.domain.thesis.ThesisParticipationType;
-
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.joda.time.DateTime;
 
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
+import pt.ist.fenixedu.teacher.domain.TeacherCredits;
+import pt.ist.fenixedu.teacher.domain.teacher.DegreeProjectTutorialService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.ist.fenixframework.Atomic;
 
 public class AnnualTeachingCredits extends AnnualTeachingCredits_Base {

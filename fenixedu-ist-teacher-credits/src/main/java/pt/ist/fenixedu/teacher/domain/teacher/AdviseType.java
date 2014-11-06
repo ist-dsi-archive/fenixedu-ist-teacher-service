@@ -19,7 +19,7 @@
 /**
  * Nov 7, 2005
  */
-package org.fenixedu.academic.domain.teacher;
+package pt.ist.fenixedu.teacher.domain.teacher;
 
 /**
  * @author Ricardo Rodrigues

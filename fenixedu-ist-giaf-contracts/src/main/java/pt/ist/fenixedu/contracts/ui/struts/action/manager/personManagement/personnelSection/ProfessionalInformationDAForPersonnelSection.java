@@ -16,14 +16,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.manager.personManagement.personnelSection;
-
-import org.fenixedu.academic.ui.struts.action.manager.personManagement.ProfessionalInformationDA;
-import org.fenixedu.academic.ui.struts.action.personnelSection.PersonManagementAction;
+package pt.ist.fenixedu.contracts.ui.struts.action.manager.personManagement.personnelSection;
 
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
+
+import pt.ist.fenixedu.contracts.ui.struts.action.manager.personManagement.ProfessionalInformationDA;
+import pt.ist.fenixedu.contracts.ui.struts.action.personnelSection.PersonManagementAction;
 
 @Mapping(module = "personnelSection", path = "/professionalInformation", functionality = PersonManagementAction.class)
 @Forwards(value = { @Forward(name = "showProfessionalInformation",

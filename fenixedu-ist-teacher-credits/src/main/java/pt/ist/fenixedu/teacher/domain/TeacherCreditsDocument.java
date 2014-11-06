@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain;
+package pt.ist.fenixedu.teacher.domain;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -26,36 +26,41 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.fenixedu.academic.service.services.credits.ReadAllTeacherCredits;
-import org.fenixedu.academic.dto.credits.CreditLineDTO;
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.comparators.ComparatorChain;
+import org.apache.commons.lang.StringUtils;
+import org.fenixedu.academic.domain.Department;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.Person;
+import org.fenixedu.academic.domain.Professorship;
+import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.accessControl.UnitGroup;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.organizationalStructure.FunctionType;
 import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonContractSituation;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
-import org.fenixedu.academic.domain.teacher.AdviseType;
-import org.fenixedu.academic.domain.teacher.DegreeTeachingService;
-import org.fenixedu.academic.domain.teacher.InstitutionWorkTime;
-import org.fenixedu.academic.domain.teacher.OtherService;
-import org.fenixedu.academic.domain.teacher.TeacherAdviseService;
-import org.fenixedu.academic.domain.teacher.TeacherMasterDegreeService;
-import org.fenixedu.academic.domain.teacher.TeacherService;
 import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.academic.util.WeekDay;
-
-import org.apache.commons.beanutils.BeanComparator;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections.comparators.ComparatorChain;
-import org.apache.commons.lang.StringUtils;
 import org.fenixedu.bennu.core.groups.Group;
 import org.fenixedu.bennu.core.groups.UnionGroup;
 import org.fenixedu.bennu.core.groups.UserGroup;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
+
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
+import pt.ist.fenixedu.teacher.domain.teacher.AdviseType;
+import pt.ist.fenixedu.teacher.domain.teacher.DegreeTeachingService;
+import pt.ist.fenixedu.teacher.domain.teacher.InstitutionWorkTime;
+import pt.ist.fenixedu.teacher.domain.teacher.OtherService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherAdviseService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherMasterDegreeService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.dto.credits.CreditLineDTO;
+import pt.ist.fenixedu.teacher.service.credits.ReadAllTeacherCredits;
 
 public class TeacherCreditsDocument extends TeacherCreditsDocument_Base {
 

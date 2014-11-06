@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.scientificCouncil.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.scientificCouncil.credits;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,22 +24,21 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.Employee;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 import org.fenixedu.bennu.struts.portal.EntryPoint;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
+import pt.ist.fenixedu.contracts.domain.Employee;
 import pt.ist.fenixframework.FenixFramework;
 
 @StrutsFunctionality(app = ScientificCreditsApp.class, path = "department-admin-offices", titleKey = "label.departmentAdmOffice",

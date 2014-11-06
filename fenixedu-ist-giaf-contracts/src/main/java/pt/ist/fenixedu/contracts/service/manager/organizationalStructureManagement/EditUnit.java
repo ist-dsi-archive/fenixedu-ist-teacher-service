@@ -16,11 +16,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.service.services.manager.organizationalStructureManagement;
+package pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement;
 
 import static org.fenixedu.academic.predicate.AccessControl.check;
-import org.fenixedu.academic.service.ServiceMonitoring;
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+
 import org.fenixedu.academic.domain.Degree;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.administrativeOffice.AdministrativeOffice;
@@ -28,7 +27,8 @@ import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.organizationalStructure.UnitClassification;
 import org.fenixedu.academic.predicate.RolePredicates;
-
+import org.fenixedu.academic.service.ServiceMonitoring;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.spaces.domain.Space;
 import org.joda.time.YearMonthDay;
 

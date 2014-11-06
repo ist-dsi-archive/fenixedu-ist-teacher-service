@@ -20,16 +20,16 @@
  * Created on April 21, 2006
  *	by mrsp
  */
-package org.fenixedu.academic.ui.faces.bean.scientificCouncil;
+package pt.ist.fenixedu.contracts.ui.faces.bean.scientificCouncil;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
-import org.fenixedu.academic.ui.faces.bean.manager.personManagement.ManagerFunctionsManagementBackingBean;
-
 import org.joda.time.YearMonthDay;
+
+import pt.ist.fenixedu.contracts.ui.faces.bean.manager.personManagement.ManagerFunctionsManagementBackingBean;
 
 public class ScientificCouncilFunctionsManagementBackingBean extends ManagerFunctionsManagementBackingBean {
 

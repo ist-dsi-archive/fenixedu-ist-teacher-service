@@ -16,18 +16,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.departmentAdmOffice;
+package pt.ist.fenixedu.teacher.ui.struts.action.departmentAdmOffice;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.fenixedu.academic.domain.ExecutionYear;
-import org.fenixedu.academic.domain.TeacherPersonalExpectationPeriod;
-import org.fenixedu.academic.domain.TeacherPersonalExpectationsEvaluationPeriod;
 import org.fenixedu.academic.ui.struts.action.departmentAdmOffice.DepartmentAdmOfficeApp.DefineExpectationPeriods;
-
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
+
+import pt.ist.fenixedu.teacher.domain.TeacherPersonalExpectationPeriod;
+import pt.ist.fenixedu.teacher.domain.TeacherPersonalExpectationsEvaluationPeriod;
 
 @Mapping(module = "departmentAdmOffice", path = "/teacherPersonalExpectationsEvaluationPeriod",
         functionality = DefineExpectationPeriods.class)

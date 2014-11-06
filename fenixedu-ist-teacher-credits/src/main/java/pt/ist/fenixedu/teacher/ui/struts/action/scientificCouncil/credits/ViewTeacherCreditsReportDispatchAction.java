@@ -19,7 +19,7 @@
 /**
  * Jan 23, 2006
  */
-package org.fenixedu.academic.ui.struts.action.scientificCouncil.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.scientificCouncil.credits;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -41,22 +41,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.service.services.scientificCouncil.credits.ReadDepartmentTotalCreditsByPeriod;
-import org.fenixedu.academic.service.services.scientificCouncil.credits.ReadDepartmentTotalCreditsByPeriod.PeriodCreditsReportDTO;
-import org.fenixedu.academic.service.services.scientificCouncil.credits.ReadTeachersCreditsResumeByPeriodAndUnit;
-import org.fenixedu.academic.service.services.scientificCouncil.credits.ReadTeachersCreditsResumeByPeriodAndUnit.TeacherCreditsReportDTO;
-import net.sourceforge.fenixedu.commons.OrderedIterator;
-import org.fenixedu.academic.dto.GenericPair;
-import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.ExecutionYear;
-import org.fenixedu.academic.domain.organizationalStructure.Unit;
-import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
-import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
-import org.fenixedu.academic.util.NumberUtils;
-
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -66,6 +50,17 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.action.ExceptionHandler;
 import org.apache.struts.util.LabelValueBean;
+import org.fenixedu.academic.domain.Department;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.ExecutionYear;
+import org.fenixedu.academic.domain.organizationalStructure.Unit;
+import org.fenixedu.academic.dto.GenericPair;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
+import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
+import org.fenixedu.academic.util.NumberUtils;
+import org.fenixedu.academic.util.OrderedIterator;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.ExceptionHandling;
@@ -78,6 +73,10 @@ import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pt.ist.fenixedu.teacher.service.scientificCouncil.credits.ReadDepartmentTotalCreditsByPeriod;
+import pt.ist.fenixedu.teacher.service.scientificCouncil.credits.ReadDepartmentTotalCreditsByPeriod.PeriodCreditsReportDTO;
+import pt.ist.fenixedu.teacher.service.scientificCouncil.credits.ReadTeachersCreditsResumeByPeriodAndUnit;
+import pt.ist.fenixedu.teacher.service.scientificCouncil.credits.ReadTeachersCreditsResumeByPeriodAndUnit.TeacherCreditsReportDTO;
 import pt.ist.fenixframework.FenixFramework;
 import pt.utl.ist.fenix.tools.spreadsheet.Formula;
 import pt.utl.ist.fenix.tools.spreadsheet.SheetData;

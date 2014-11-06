@@ -16,28 +16,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.personnelSection;
+package pt.ist.fenixedu.contracts.ui.struts.action.personnelSection;
 
 import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.manager.CreateNewInternalPerson;
-import org.fenixedu.academic.service.services.person.SearchPersonMatchingAnyParameter;
-import org.fenixedu.academic.dto.person.InternalPersonBean;
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.Person.AnyPersonSearchBean;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.organizationalStructure.UnitUtils;
 import org.fenixedu.academic.domain.person.IDDocumentType;
 import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.academic.dto.person.InternalPersonBean;
+import org.fenixedu.academic.service.services.person.SearchPersonMatchingAnyParameter;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
@@ -46,6 +44,7 @@ import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
 import pt.ist.fenixWebFramework.renderers.components.state.IViewState;
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
+import pt.ist.fenixedu.contracts.service.manager.CreateNewInternalPerson;
 import pt.utl.ist.fenix.tools.util.CollectionPager;
 
 @StrutsFunctionality(app = PersonnelSectionApplication.class, path = "create-people", titleKey = "link.manage.people.create")

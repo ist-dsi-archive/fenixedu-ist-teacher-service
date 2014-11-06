@@ -1,19 +1,18 @@
-package org.fenixedu.academic.ui.struts.action;
+package pt.ist.fenixedu.teacher.ui.struts.action;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import org.fenixedu.academic.service.services.manager.MergeExecutionCourses;
-import org.fenixedu.academic.service.services.teacher.professorship.ResponsibleForValidator.InvalidCategory;
-import org.fenixedu.academic.service.services.teacher.professorship.ResponsibleForValidator.MaxResponsibleForExceed;
 import org.fenixedu.academic.domain.Attends;
 import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Shift;
+import org.fenixedu.academic.service.services.manager.MergeExecutionCourses;
+import org.fenixedu.academic.service.services.teacher.professorship.ResponsibleForValidator.InvalidCategory;
+import org.fenixedu.academic.service.services.teacher.professorship.ResponsibleForValidator.MaxResponsibleForExceed;
 import org.fenixedu.academic.util.Bundle;
-
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 
 import pt.ist.fenixframework.FenixFramework;

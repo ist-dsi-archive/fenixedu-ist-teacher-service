@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.reports;
+package pt.ist.fenixedu.teacher.domain.reports;
 
 import java.io.IOException;
 
@@ -26,21 +26,20 @@ import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.Qualification;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.TeacherCategory;
-import org.fenixedu.academic.domain.TeacherCredits;
 import org.fenixedu.academic.domain.organizationalStructure.DepartmentUnit;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
-import org.fenixedu.academic.domain.personnelSection.contracts.GiafProfessionalData;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonContractSituation;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonProfessionalData;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalRegime;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalRelation;
 import org.fenixedu.academic.domain.teacher.CategoryType;
-
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.YearMonthDay;
 
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.GiafProfessionalData;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalRegime;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalRelation;
+import pt.ist.fenixedu.teacher.domain.TeacherCredits;
 import pt.utl.ist.fenix.tools.util.excel.Spreadsheet;
 import pt.utl.ist.fenix.tools.util.excel.Spreadsheet.Row;
 

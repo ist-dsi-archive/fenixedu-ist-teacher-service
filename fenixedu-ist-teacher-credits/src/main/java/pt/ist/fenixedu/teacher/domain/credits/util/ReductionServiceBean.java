@@ -16,30 +16,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.credits.util;
+package pt.ist.fenixedu.teacher.domain.credits.util;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.DepartmentCreditsPool;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
-import org.fenixedu.academic.domain.teacher.ReductionService;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-import org.fenixedu.academic.domain.teacher.evaluation.ApprovedTeacherEvaluationProcessMark;
-import org.fenixedu.academic.domain.teacher.evaluation.FacultyEvaluationProcessYear;
-import org.fenixedu.academic.domain.teacher.evaluation.TeacherEvaluationMark;
-import org.fenixedu.academic.domain.teacher.evaluation.TeacherEvaluationProcess;
 import org.fenixedu.academic.util.Bundle;
-
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.joda.time.Interval;
 import org.joda.time.PeriodType;
 import org.joda.time.YearMonthDay;
 
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
+import pt.ist.fenixedu.teacher.domain.DepartmentCreditsPool;
+import pt.ist.fenixedu.teacher.domain.teacher.ReductionService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.evaluation.domain.ApprovedTeacherEvaluationProcessMark;
+import pt.ist.fenixedu.teacher.evaluation.domain.FacultyEvaluationProcessYear;
+import pt.ist.fenixedu.teacher.evaluation.domain.TeacherEvaluationMark;
+import pt.ist.fenixedu.teacher.evaluation.domain.TeacherEvaluationProcess;
 import pt.ist.fenixframework.Atomic;
 
 public class ReductionServiceBean implements Serializable {
@@ -89,11 +88,7 @@ public class ReductionServiceBean implements Serializable {
     }
 
     public String getTeacherCategory() {
-<<<<<<< HEAD
-        ProfessionalCategory category = getTeacher().getCategoryByPeriod(getExecutionSemester());
-=======
-        ProfessionalCategory category = ProfessionalCategory.getCategoryByPeriod(getTeacher(), ExecutionSemester.readActualExecutionSemester());
->>>>>>> b544671... Dependency cleanup: Isolated giaf contracts
+        ProfessionalCategory category = ProfessionalCategory.getCategoryByPeriod(getTeacher(), getExecutionSemester());
         return category != null ? category.getName().getContent() : null;
     }
 
@@ -201,9 +196,8 @@ public class ReductionServiceBean implements Serializable {
 
     public BigDecimal getMaxCreditsReduction() {
         Department department =
-                getTeacherService().getTeacher().getLastWorkingDepartment(
-                        getTeacherService().getExecutionPeriod().getBeginDateYearMonthDay(),
-                        getTeacherService().getExecutionPeriod().getEndDateYearMonthDay());
+                getTeacherService().getTeacher()
+                        .getLastDepartment(getTeacherService().getExecutionPeriod().getAcademicInterval());
         DepartmentCreditsPool departmentCreditsPool =
                 DepartmentCreditsPool.getDepartmentCreditsPool(department, getTeacherService().getExecutionPeriod()
                         .getExecutionYear());

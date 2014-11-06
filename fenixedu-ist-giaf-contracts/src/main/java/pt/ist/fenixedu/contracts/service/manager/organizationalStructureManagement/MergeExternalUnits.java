@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.service.services.manager.organizationalStructureManagement;
+package pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement;
 
 import static org.fenixedu.academic.predicate.AccessControl.check;
 
@@ -25,22 +25,20 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.organizationalStructure.Accountability;
-import org.fenixedu.academic.domain.organizationalStructure.ExternalContract;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.util.email.Message;
 import org.fenixedu.academic.domain.util.email.SystemSender;
 import org.fenixedu.academic.predicate.AccessControl;
 import org.fenixedu.academic.predicate.RolePredicates;
 import org.fenixedu.academic.util.Bundle;
-import org.fenixedu.academic.FenixEduAcademicConfiguration;
-
-import org.apache.commons.lang.StringUtils;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.ExternalContract;
 import pt.ist.fenixframework.Atomic;
 
 public class MergeExternalUnits {

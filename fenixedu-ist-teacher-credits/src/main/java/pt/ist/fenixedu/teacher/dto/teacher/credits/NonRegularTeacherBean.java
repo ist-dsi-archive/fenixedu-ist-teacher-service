@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.dto.teacher.credits;
+package pt.ist.fenixedu.teacher.dto.teacher.credits;
 
 import java.io.Serializable;
 

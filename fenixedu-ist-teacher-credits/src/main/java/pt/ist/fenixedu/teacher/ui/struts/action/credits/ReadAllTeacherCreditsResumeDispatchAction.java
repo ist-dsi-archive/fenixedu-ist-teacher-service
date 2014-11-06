@@ -19,7 +19,7 @@
 /**
  * Jan 16, 2006
  */
-package org.fenixedu.academic.ui.struts.action.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits;
 
 import java.util.Iterator;
 import java.util.List;
@@ -27,20 +27,20 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.credits.ReadAllTeacherCredits;
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import net.sourceforge.fenixedu.commons.OrderedIterator;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.credits.CreditLine;
-import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.academic.util.OrderedIterator;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
+
+import pt.ist.fenixedu.teacher.domain.credits.CreditLine;
+import pt.ist.fenixedu.teacher.service.credits.ReadAllTeacherCredits;
 
 /**
  * @author Ricardo Rodrigues

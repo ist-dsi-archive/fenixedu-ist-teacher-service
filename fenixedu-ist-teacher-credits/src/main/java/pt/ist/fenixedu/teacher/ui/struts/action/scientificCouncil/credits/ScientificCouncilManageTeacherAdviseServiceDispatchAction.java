@@ -19,28 +19,27 @@
 /**
  * Nov 24, 2005
  */
-package org.fenixedu.academic.ui.struts.action.scientificCouncil.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.scientificCouncil.credits;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.ui.struts.action.credits.ManageTeacherAdviseServiceDispatchAction;
-import org.fenixedu.academic.ui.struts.action.credits.scientificCouncil.ScientificCouncilViewTeacherCreditsDA;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.struts.annotations.ExceptionHandling;
 import org.fenixedu.bennu.struts.annotations.Exceptions;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageTeacherAdviseServiceDispatchAction;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.scientificCouncil.ScientificCouncilViewTeacherCreditsDA;
 import pt.ist.fenixframework.FenixFramework;
 
 /**

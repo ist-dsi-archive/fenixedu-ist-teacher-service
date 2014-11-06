@@ -16,19 +16,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.credits.departmentAdmOffice;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits.departmentAdmOffice;
 
 import java.util.ArrayList;
 
 import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.credits.util.DepartmentCreditsBean;
-import org.fenixedu.academic.ui.struts.action.credits.ManageDepartmentCreditsPool;
 import org.fenixedu.academic.ui.struts.action.departmentAdmOffice.DepartmentAdmOfficeApp.DepartmentAdmOfficeCreditsApp;
-
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
+
+import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsBean;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageDepartmentCreditsPool;
 
 @StrutsFunctionality(app = DepartmentAdmOfficeCreditsApp.class, path = "credits-pool", titleKey = "label.departmentCreditsPool")
 @Mapping(module = "departmentAdmOffice", path = "/creditsPool")

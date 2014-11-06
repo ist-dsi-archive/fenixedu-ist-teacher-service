@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.service.services.person.function;
+package pt.ist.fenixedu.contracts.service.person.function;
 
 import static org.fenixedu.academic.predicate.AccessControl.check;
 
@@ -25,13 +25,12 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
 import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.predicate.RolePredicates;
-
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.joda.time.YearMonthDay;
 
 import pt.ist.fenixframework.Atomic;

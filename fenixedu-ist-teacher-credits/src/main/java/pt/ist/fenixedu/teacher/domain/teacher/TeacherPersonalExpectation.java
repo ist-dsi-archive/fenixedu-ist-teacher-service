@@ -16,19 +16,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.teacher;
+package pt.ist.fenixedu.teacher.domain.teacher;
 
-import org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.TeacherAutoEvaluationDefinitionPeriod;
-import org.fenixedu.academic.domain.TeacherExpectationDefinitionPeriod;
-import org.fenixedu.academic.domain.TeacherPersonalExpectationPeriod;
-import org.fenixedu.academic.domain.TeacherPersonalExpectationsEvaluationPeriod;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-
+import org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean;
 import org.fenixedu.bennu.core.domain.Bennu;
+
+import pt.ist.fenixedu.teacher.domain.TeacherAutoEvaluationDefinitionPeriod;
+import pt.ist.fenixedu.teacher.domain.TeacherExpectationDefinitionPeriod;
+import pt.ist.fenixedu.teacher.domain.TeacherPersonalExpectationPeriod;
+import pt.ist.fenixedu.teacher.domain.TeacherPersonalExpectationsEvaluationPeriod;
 
 public class TeacherPersonalExpectation extends TeacherPersonalExpectation_Base {
 

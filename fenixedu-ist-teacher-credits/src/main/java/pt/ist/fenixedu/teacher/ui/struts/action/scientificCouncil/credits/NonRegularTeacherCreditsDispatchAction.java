@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.scientificCouncil.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.scientificCouncil.credits;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,25 +24,24 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.dto.teacher.credits.NonRegularTeacherBean;
-import org.fenixedu.academic.dto.teacher.credits.NonRegularTeachingServiceBean;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.NonRegularTeachingService;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Shift;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.ui.struts.action.credits.scientificCouncil.ScientificCouncilViewTeacherCreditsDA;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
+import pt.ist.fenixedu.teacher.domain.NonRegularTeachingService;
+import pt.ist.fenixedu.teacher.dto.teacher.credits.NonRegularTeacherBean;
+import pt.ist.fenixedu.teacher.dto.teacher.credits.NonRegularTeachingServiceBean;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.scientificCouncil.ScientificCouncilViewTeacherCreditsDA;
 
 @Mapping(path = "/manageNonRegularTeachingService", module = "scientificCouncil",
         functionality = ScientificCouncilViewTeacherCreditsDA.class)

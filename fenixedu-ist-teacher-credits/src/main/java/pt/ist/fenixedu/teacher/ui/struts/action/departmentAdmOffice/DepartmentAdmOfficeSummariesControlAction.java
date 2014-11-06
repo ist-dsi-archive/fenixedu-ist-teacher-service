@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.departmentAdmOffice;
+package pt.ist.fenixedu.teacher.ui.struts.action.departmentAdmOffice;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,19 +24,19 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.apache.struts.util.LabelValueBean;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.Person;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.departmentAdmOffice.DepartmentAdmOfficeApp.DepartmentAdmOfficeViewApp;
-import org.fenixedu.academic.ui.struts.action.directiveCouncil.SummariesControlAction;
-
-import org.apache.struts.util.LabelValueBean;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
+
+import pt.ist.fenixedu.teacher.ui.struts.action.directiveCouncil.SummariesControlAction;
 
 @StrutsFunctionality(app = DepartmentAdmOfficeViewApp.class, path = "summaries-control", titleKey = "link.summaries.control",
         bundle = "ApplicationResources")

@@ -20,7 +20,7 @@
  * Created on Nov 21, 2005
  *	by mrsp
  */
-package org.fenixedu.academic.ui.faces.bean.manager.organizationalStructureManagement;
+package pt.ist.fenixedu.contracts.ui.faces.bean.manager.organizationalStructureManagement;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -36,18 +36,8 @@ import java.util.Set;
 import javax.faces.component.html.HtmlInputHidden;
 import javax.faces.model.SelectItem;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.service.services.manager.organizationalStructureManagement.AddParentInherentFunction;
-import org.fenixedu.academic.service.services.manager.organizationalStructureManagement.AssociateParentUnit;
-import org.fenixedu.academic.service.services.manager.organizationalStructureManagement.CreateFunction;
-import org.fenixedu.academic.service.services.manager.organizationalStructureManagement.CreateUnit;
-import org.fenixedu.academic.service.services.manager.organizationalStructureManagement.DeleteFunction;
-import org.fenixedu.academic.service.services.manager.organizationalStructureManagement.DeleteUnit;
-import org.fenixedu.academic.service.services.manager.organizationalStructureManagement.DisassociateParentUnit;
-import org.fenixedu.academic.service.services.manager.organizationalStructureManagement.EditFunction;
-import org.fenixedu.academic.service.services.manager.organizationalStructureManagement.EditUnit;
-import org.fenixedu.academic.service.services.manager.organizationalStructureManagement.RemoveParentInherentFunction;
-import org.fenixedu.academic.service.services.manager.organizationalStructureManagement.SetRootUnit;
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.lang.StringUtils;
 import org.fenixedu.academic.domain.Country;
 import org.fenixedu.academic.domain.Degree;
 import org.fenixedu.academic.domain.Department;
@@ -65,15 +55,24 @@ import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.organizationalStructure.UnitClassification;
 import org.fenixedu.academic.domain.organizationalStructure.UnitUtils;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.service.services.manager.organizationalStructureManagement.CreateUnit;
 import org.fenixedu.academic.ui.faces.bean.base.FenixBackingBean;
 import org.fenixedu.academic.util.Bundle;
-
-import org.apache.commons.beanutils.BeanComparator;
-import org.apache.commons.lang.StringUtils;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.fenixedu.spaces.domain.Space;
 import org.joda.time.YearMonthDay;
 
+import pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement.AddParentInherentFunction;
+import pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement.AssociateParentUnit;
+import pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement.CreateFunction;
+import pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement.DeleteFunction;
+import pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement.DeleteUnit;
+import pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement.DisassociateParentUnit;
+import pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement.EditFunction;
+import pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement.EditUnit;
+import pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement.RemoveParentInherentFunction;
+import pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement.SetRootUnit;
 import pt.ist.fenixframework.FenixFramework;
 import pt.utl.ist.fenix.tools.util.DateFormatUtil;
 import pt.utl.ist.fenix.tools.util.i18n.MultiLanguageString;

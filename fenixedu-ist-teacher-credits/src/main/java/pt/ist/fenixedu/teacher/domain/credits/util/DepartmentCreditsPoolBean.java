@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.credits.util;
+package pt.ist.fenixedu.teacher.domain.credits.util;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -24,19 +24,18 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.apache.commons.lang.StringUtils;
 import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.DepartmentCreditsPool;
 import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Professorship;
-import org.fenixedu.academic.domain.credits.AnnualCreditsState;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.teacher.DegreeTeachingService;
-import org.fenixedu.academic.domain.teacher.DegreeTeachingServiceCorrection;
 
-import org.apache.commons.lang.StringUtils;
-
+import pt.ist.fenixedu.teacher.domain.DepartmentCreditsPool;
+import pt.ist.fenixedu.teacher.domain.credits.AnnualCreditsState;
+import pt.ist.fenixedu.teacher.domain.teacher.DegreeTeachingService;
+import pt.ist.fenixedu.teacher.domain.teacher.DegreeTeachingServiceCorrection;
 import pt.ist.fenixframework.Atomic;
 
 public class DepartmentCreditsPoolBean implements Serializable {

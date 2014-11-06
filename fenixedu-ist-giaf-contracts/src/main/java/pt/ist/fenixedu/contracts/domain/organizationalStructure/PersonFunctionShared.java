@@ -16,13 +16,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.organizationalStructure;
+package pt.ist.fenixedu.contracts.domain.organizationalStructure;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import org.fenixedu.academic.domain.ExecutionInterval;
 import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.domain.organizationalStructure.Party;
 
 public class PersonFunctionShared extends PersonFunctionShared_Base {
     private static final BigDecimal MAX_PERCENTAGE = new BigDecimal(100);

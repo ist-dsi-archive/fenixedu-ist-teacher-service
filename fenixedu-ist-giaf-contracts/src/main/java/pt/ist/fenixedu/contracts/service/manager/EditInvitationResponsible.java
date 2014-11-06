@@ -16,12 +16,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.service.services.manager;
+package pt.ist.fenixedu.contracts.service.manager;
 
 import static org.fenixedu.academic.predicate.AccessControl.check;
-import org.fenixedu.academic.domain.organizationalStructure.Invitation;
+
 import org.fenixedu.academic.domain.organizationalStructure.Party;
 import org.fenixedu.academic.predicate.RolePredicates;
+
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Invitation;
 import pt.ist.fenixframework.Atomic;
 
 public class EditInvitationResponsible {

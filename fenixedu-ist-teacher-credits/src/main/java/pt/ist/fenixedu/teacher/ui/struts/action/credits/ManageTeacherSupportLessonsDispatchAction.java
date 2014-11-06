@@ -19,30 +19,30 @@
 /**
  * Nov 21, 2005
  */
-package org.fenixedu.academic.ui.struts.action.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits;
 
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.service.services.teacher.professorship.DeleteSupportLesson;
-import org.fenixedu.academic.service.services.teacher.professorship.EditSupportLesson;
-import org.fenixedu.academic.dto.teacher.professorship.SupportLessonDTO;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.domain.Professorship;
-import org.fenixedu.academic.domain.SupportLesson;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.academic.dto.teacher.professorship.SupportLessonDTO;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
 import org.fenixedu.academic.util.DiaSemana;
 import org.fenixedu.academic.util.WeekDay;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
+import pt.ist.fenixedu.teacher.domain.SupportLesson;
+import pt.ist.fenixedu.teacher.service.teacher.professorship.DeleteSupportLesson;
+import pt.ist.fenixedu.teacher.service.teacher.professorship.EditSupportLesson;
 
 /**
  * @author Ricardo Rodrigues

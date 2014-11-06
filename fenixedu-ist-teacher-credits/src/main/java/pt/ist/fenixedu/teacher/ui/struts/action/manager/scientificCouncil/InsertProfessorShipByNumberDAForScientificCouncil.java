@@ -16,29 +16,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.manager.scientificCouncil;
+package pt.ist.fenixedu.teacher.ui.struts.action.manager.scientificCouncil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.service.services.exceptions.NonExistingServiceException;
-import org.fenixedu.academic.service.services.manager.InsertProfessorShip;
-import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
-import org.fenixedu.academic.ui.struts.action.exceptions.NonExistingActionException;
-import org.fenixedu.academic.ui.struts.action.scientificCouncil.credits.MasterDegreeCreditsManagementDispatchAction;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.validator.DynaValidatorForm;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.service.services.exceptions.NonExistingServiceException;
+import org.fenixedu.academic.service.services.manager.InsertProfessorShip;
+import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
+import org.fenixedu.academic.ui.struts.action.exceptions.NonExistingActionException;
 import org.fenixedu.bennu.struts.annotations.ExceptionHandling;
 import org.fenixedu.bennu.struts.annotations.Exceptions;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
+
+import pt.ist.fenixedu.teacher.ui.struts.action.scientificCouncil.credits.MasterDegreeCreditsManagementDispatchAction;
 
 @Mapping(module = "scientificCouncil", path = "/insertProfessorShipByNumber",
         input = "/insertProfessorShipByNumber.do?method=prepareInsert&page=0", formBean = "masterDegreeCreditsForm",

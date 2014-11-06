@@ -16,23 +16,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.scientificCouncil.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.scientificCouncil.credits;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.scientificCouncil.credits.CreateTeacherCreditsFillingPeriod;
-import org.fenixedu.academic.dto.teacherCredits.TeacherCreditsPeriodBean;
-import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.TeacherCredits;
-import org.fenixedu.academic.domain.TeacherCreditsQueueJob;
-import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
@@ -40,6 +35,10 @@ import org.fenixedu.bennu.struts.portal.EntryPoint;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
+import pt.ist.fenixedu.teacher.domain.TeacherCredits;
+import pt.ist.fenixedu.teacher.domain.TeacherCreditsQueueJob;
+import pt.ist.fenixedu.teacher.dto.teacherCredits.TeacherCreditsPeriodBean;
+import pt.ist.fenixedu.teacher.service.scientificCouncil.credits.CreateTeacherCreditsFillingPeriod;
 import pt.ist.fenixframework.FenixFramework;
 
 @StrutsFunctionality(app = ScientificCreditsApp.class, path = "define-periods", titleKey = "link.define.periods")

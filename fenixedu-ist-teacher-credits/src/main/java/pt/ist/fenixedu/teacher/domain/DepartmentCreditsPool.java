@@ -16,12 +16,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain;
+package pt.ist.fenixedu.teacher.domain;
 
 import java.math.BigDecimal;
 
+import org.fenixedu.academic.domain.Department;
+import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-
 import org.fenixedu.bennu.core.domain.Bennu;
 
 public class DepartmentCreditsPool extends DepartmentCreditsPool_Base {

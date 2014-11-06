@@ -16,14 +16,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.service.services.manager.organizationalStructureManagement;
+package pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagement;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.domain.Person;
-import org.fenixedu.academic.domain.organizationalStructure.ResearchContract;
 import org.fenixedu.academic.domain.person.Gender;
 import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.ui.struts.action.webSiteManager.ResearchContractBean;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.ResearchContract;
+import pt.ist.fenixedu.contracts.ui.struts.action.webSiteManager.ResearchContractBean;
 import pt.ist.fenixframework.Atomic;
 
 public class CreateResearchContract {

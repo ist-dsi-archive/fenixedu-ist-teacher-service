@@ -16,26 +16,25 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.renderers.providers.choiceType.replacement.multiple;
+package pt.ist.fenixedu.contracts.ui.renderers.providers.choiceType.replacement.multiple;
 
 import java.util.Arrays;
 
 import pt.ist.fenixWebFramework.renderers.DataProvider;
 import pt.ist.fenixWebFramework.renderers.components.converters.Converter;
 import pt.ist.fenixWebFramework.renderers.converters.EnumArrayConverter;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.ResearchContract;
 
 public class ResearchContractResearchContractTypeProvider implements DataProvider {
 
     @Override
     public Object provide(Object source, Object currentValue) {
-        return Arrays.asList(org.fenixedu.academic.domain.organizationalStructure.ResearchContract.ResearchContractType
-                .values());
+        return Arrays.asList(ResearchContract.ResearchContractType.values());
     }
 
     @Override
     public Converter getConverter() {
-        return new EnumArrayConverter(
-                org.fenixedu.academic.domain.organizationalStructure.ResearchContract.ResearchContractType.class);
+        return new EnumArrayConverter(ResearchContract.ResearchContractType.class);
     }
 
 }

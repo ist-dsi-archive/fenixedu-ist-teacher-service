@@ -19,26 +19,11 @@
 /**
  * Nov 24, 2005
  */
-package org.fenixedu.academic.ui.struts.action.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits;
 
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
-
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.service.services.teacher.services.DeleteTeacherAdviseServiceByOID;
-import org.fenixedu.academic.service.services.teacher.services.EditTeacherAdviseService;
-import net.sourceforge.fenixedu.commons.OrderedIterator;
-import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.teacher.Advise;
-import org.fenixedu.academic.domain.teacher.Advise.AdvisePercentageException;
-import org.fenixedu.academic.domain.teacher.AdviseType;
-import org.fenixedu.academic.domain.teacher.TeacherAdviseService;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.struts.action.ActionForm;
@@ -47,7 +32,21 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.academic.util.OrderedIterator;
 
+import pt.ist.fenixedu.teacher.domain.teacher.Advise;
+import pt.ist.fenixedu.teacher.domain.teacher.Advise.AdvisePercentageException;
+import pt.ist.fenixedu.teacher.domain.teacher.AdviseType;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherAdviseService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.service.teacher.services.DeleteTeacherAdviseServiceByOID;
+import pt.ist.fenixedu.teacher.service.teacher.services.EditTeacherAdviseService;
 import pt.ist.fenixframework.FenixFramework;
 
 /**

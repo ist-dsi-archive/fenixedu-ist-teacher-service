@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,18 +26,14 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.credits.util.DepartmentCreditsBean;
-import org.fenixedu.academic.domain.credits.util.DepartmentCreditsPoolBean;
-import org.fenixedu.academic.domain.credits.util.DepartmentCreditsPoolBean.DepartmentExecutionCourse;
-import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.util.Bundle;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.fenixedu.academic.domain.Department;
+import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.fenixedu.bennu.core.security.Authenticate;
@@ -46,6 +42,9 @@ import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.portal.EntryPoint;
 
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
+import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsBean;
+import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsPoolBean;
+import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsPoolBean.DepartmentExecutionCourse;
 import pt.utl.ist.fenix.tools.util.excel.StyledExcelSpreadsheet;
 
 @Forwards(@Forward(name = "manageUnitCredits", path = "/credits/creditsPool/manageUnitCredits.jsp"))

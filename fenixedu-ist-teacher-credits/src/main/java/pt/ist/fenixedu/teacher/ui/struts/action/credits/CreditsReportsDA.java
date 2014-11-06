@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -27,27 +27,19 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.credits.AnnualCreditsState;
-import org.fenixedu.academic.domain.credits.AnnualTeachingCredits;
-import org.fenixedu.academic.domain.credits.util.DepartmentCreditsBean;
 import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunctionShared;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
-import org.fenixedu.academic.domain.teacher.DegreeTeachingServiceCorrection;
-import org.fenixedu.academic.domain.teacher.OtherService;
-import org.fenixedu.academic.domain.teacher.TeacherService;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
 import org.fenixedu.academic.util.Bundle;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
@@ -55,6 +47,13 @@ import org.fenixedu.bennu.struts.annotations.Mapping;
 import org.fenixedu.bennu.struts.portal.EntryPoint;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunctionShared;
+import pt.ist.fenixedu.teacher.domain.credits.AnnualCreditsState;
+import pt.ist.fenixedu.teacher.domain.credits.AnnualTeachingCredits;
+import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsBean;
+import pt.ist.fenixedu.teacher.domain.teacher.DegreeTeachingServiceCorrection;
+import pt.ist.fenixedu.teacher.domain.teacher.OtherService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.utl.ist.fenix.tools.util.excel.StyledExcelSpreadsheet;
 
 @StrutsFunctionality(app = ScientificCreditsApp.class, path = "department-credits", titleKey = "label.department.credits",

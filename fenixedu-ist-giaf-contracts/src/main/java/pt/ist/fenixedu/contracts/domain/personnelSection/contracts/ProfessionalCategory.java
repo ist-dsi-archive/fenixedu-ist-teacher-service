@@ -16,18 +16,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.personnelSection.contracts;
+package pt.ist.fenixedu.contracts.domain.personnelSection.contracts;
 
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.collections.comparators.ReverseComparator;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.OccupationPeriod;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.teacher.CategoryType;
-
-import org.apache.commons.collections.comparators.ReverseComparator;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.joda.time.LocalDate;
 

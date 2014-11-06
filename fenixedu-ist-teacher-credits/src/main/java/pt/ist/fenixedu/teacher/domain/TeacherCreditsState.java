@@ -16,13 +16,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain;
+package pt.ist.fenixedu.teacher.domain;
 
-import org.fenixedu.academic.domain.credits.CreditsState;
+import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.predicate.AccessControl;
-
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.joda.time.DateTime;
+
+import pt.ist.fenixedu.teacher.domain.credits.CreditsState;
 
 public class TeacherCreditsState extends TeacherCreditsState_Base {
 

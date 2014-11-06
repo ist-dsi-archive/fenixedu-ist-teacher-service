@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.teacher.workTime;
+package pt.ist.fenixedu.teacher.domain.teacher.workTime;
 
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.util.date.TimePeriod;

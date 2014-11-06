@@ -16,17 +16,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.organizationalStructure;
+package pt.ist.fenixedu.contracts.domain.organizationalStructure;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.fenixedu.academic.domain.Employee;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-
+import org.fenixedu.academic.domain.organizationalStructure.AccountabilityType;
+import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
+import org.fenixedu.academic.domain.organizationalStructure.Party;
+import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.joda.time.YearMonthDay;
+
+import pt.ist.fenixedu.contracts.domain.Employee;
 
 public class EmployeeContract extends EmployeeContract_Base {
 

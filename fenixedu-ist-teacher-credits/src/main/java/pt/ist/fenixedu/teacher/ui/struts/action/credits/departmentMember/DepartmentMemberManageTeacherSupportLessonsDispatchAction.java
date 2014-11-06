@@ -16,17 +16,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.credits.departmentMember;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits.departmentMember;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.domain.Professorship;
-import org.fenixedu.academic.domain.SupportLesson;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.ui.struts.action.credits.ManageTeacherSupportLessonsDispatchAction;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
@@ -35,6 +28,10 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
+import org.fenixedu.academic.domain.Professorship;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.ExceptionHandling;
@@ -43,6 +40,9 @@ import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 
+import pt.ist.fenixedu.teacher.domain.SupportLesson;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageTeacherSupportLessonsDispatchAction;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageTeacherSupportLessonsDispatchAction.InvalidPeriodException;
 import pt.ist.fenixframework.FenixFramework;
 
 @Mapping(module = "departmentMember", path = "/supportLessonsManagement",
@@ -57,15 +57,12 @@ import pt.ist.fenixframework.FenixFramework;
         @Forward(name = "list-support-lessons",
                 path = "/departmentMember/degreeTeachingServiceManagement.do?method=showTeachingServiceDetails"),
         @Forward(name = "teacher-not-found", path = "/departmentMember/credits.do?method=viewAnnualTeachingCredits") })
-@Exceptions(
-        value = {
-                @ExceptionHandling(
-                        type = org.fenixedu.academic.ui.struts.action.credits.ManageTeacherSupportLessonsDispatchAction.InvalidPeriodException.class,
-                        key = "message.invalidPeriod", handler = org.apache.struts.action.ExceptionHandler.class,
-                        path = "/supportLessonsManagement.do?method=prepareEdit&page=0", scope = "request"),
-                @ExceptionHandling(type = org.fenixedu.academic.domain.exceptions.DomainException.class,
-                        handler = org.fenixedu.academic.ui.struts.config.FenixDomainExceptionHandler.class,
-                        scope = "request") })
+@Exceptions(value = {
+        @ExceptionHandling(type = InvalidPeriodException.class, key = "message.invalidPeriod",
+                handler = org.apache.struts.action.ExceptionHandler.class,
+                path = "/supportLessonsManagement.do?method=prepareEdit&page=0", scope = "request"),
+        @ExceptionHandling(type = org.fenixedu.academic.domain.exceptions.DomainException.class,
+                handler = org.fenixedu.academic.ui.struts.config.FenixDomainExceptionHandler.class, scope = "request") })
 public class DepartmentMemberManageTeacherSupportLessonsDispatchAction extends ManageTeacherSupportLessonsDispatchAction {
 
     public ActionForward prepareEdit(ActionMapping mapping, ActionForm form, HttpServletRequest request,

@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.departmentAdmOffice;
+package pt.ist.fenixedu.teacher.ui.struts.action.departmentAdmOffice;
 
 import java.util.List;
 import java.util.Map;
@@ -25,22 +25,18 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.departmentAdmOffice.CreateExpectationEvaluationGroup;
-import org.fenixedu.academic.service.services.departmentAdmOffice.DeleteExpectationEvaluationGroup;
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.dto.commons.ExecutionYearBean;
-import org.fenixedu.academic.dto.department.ExpectationEvaluationGroupBean;
-import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.ExecutionYear;
-import org.fenixedu.academic.domain.ExpectationEvaluationGroup;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.ui.struts.action.departmentAdmOffice.DepartmentAdmOfficeApp.DepartmentAdmOfficeExpectationsApp;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.fenixedu.academic.domain.Department;
+import org.fenixedu.academic.domain.ExecutionYear;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.dto.commons.ExecutionYearBean;
+import org.fenixedu.academic.dto.department.ExpectationEvaluationGroupBean;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.academic.ui.struts.action.departmentAdmOffice.DepartmentAdmOfficeApp.DepartmentAdmOfficeExpectationsApp;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
@@ -49,6 +45,9 @@ import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
 import pt.ist.fenixWebFramework.renderers.components.state.IViewState;
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
+import pt.ist.fenixedu.teacher.domain.ExpectationEvaluationGroup;
+import pt.ist.fenixedu.teacher.service.departmentAdmOffice.CreateExpectationEvaluationGroup;
+import pt.ist.fenixedu.teacher.service.departmentAdmOffice.DeleteExpectationEvaluationGroup;
 import pt.ist.fenixframework.FenixFramework;
 
 @StrutsFunctionality(app = DepartmentAdmOfficeExpectationsApp.class, path = "evaluation-groups",

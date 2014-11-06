@@ -20,14 +20,15 @@
  * Created on Jan 5, 2006
  *	by mrsp
  */
-package org.fenixedu.academic.service.services.departmentAdmOffice;
+package pt.ist.fenixedu.contracts.service.departmentAdmOffice;
 
+import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.service.filter.ManagerAuthorizationFilter;
 import org.fenixedu.academic.service.filter.OperatorAuthorizationFilter;
 import org.fenixedu.academic.service.filter.ScientificCouncilAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
+
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 

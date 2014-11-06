@@ -16,19 +16,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.reports;
+package pt.ist.fenixedu.teacher.domain.reports;
 
 import java.util.Set;
 
-import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.NonRegularTeachingService;
-import org.fenixedu.academic.domain.Shift;
-import org.fenixedu.academic.domain.teacher.DegreeTeachingService;
-import org.fenixedu.academic.domain.teacher.TeacherService;
-
 import org.apache.commons.lang.StringUtils;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.Shift;
 import org.fenixedu.bennu.core.domain.Bennu;
 
+import pt.ist.fenixedu.teacher.domain.NonRegularTeachingService;
+import pt.ist.fenixedu.teacher.domain.teacher.DegreeTeachingService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.utl.ist.fenix.tools.util.excel.Spreadsheet;
 import pt.utl.ist.fenix.tools.util.excel.Spreadsheet.Row;
 

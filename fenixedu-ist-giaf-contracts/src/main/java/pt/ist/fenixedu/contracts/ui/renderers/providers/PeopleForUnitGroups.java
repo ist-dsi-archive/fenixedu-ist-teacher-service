@@ -16,21 +16,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.renderers.providers;
+package pt.ist.fenixedu.contracts.ui.renderers.providers;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.fenixedu.academic.domain.Employee;
+import org.apache.commons.beanutils.MethodUtils;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.accessControl.PersistentGroupMembers;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 
-import org.apache.commons.beanutils.MethodUtils;
-
 import pt.ist.fenixWebFramework.renderers.DataProvider;
 import pt.ist.fenixWebFramework.renderers.components.converters.Converter;
+import pt.ist.fenixedu.contracts.domain.Employee;
 
 public class PeopleForUnitGroups implements DataProvider {
 

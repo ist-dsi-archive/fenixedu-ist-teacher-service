@@ -16,13 +16,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.credits.departmentAdmOffice;
-
-import org.fenixedu.academic.ui.struts.action.credits.SchedulesPrintAction;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits.departmentAdmOffice;
 
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
+
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.SchedulesPrintAction;
 
 @Mapping(module = "departmentAdmOffice", path = "/schedulesPrint", functionality = DepartmentAdmOfficeViewTeacherCreditsDA.class)
 @Forwards({ @Forward(name = "show-schedules-resume-print", path = "/credits/schedulesPrint/schedules.jsp"),

@@ -20,7 +20,7 @@
  * Created on Jan 16, 2006
  *	by mrsp
  */
-package org.fenixedu.academic.ui.struts.action.directiveCouncil;
+package pt.ist.fenixedu.teacher.ui.struts.action.directiveCouncil;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -39,11 +39,12 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.dto.directiveCouncil.DepartmentSummaryElement;
-import org.fenixedu.academic.dto.directiveCouncil.DepartmentSummaryElement.SummaryControlCategory;
-import org.fenixedu.academic.dto.directiveCouncil.DetailSummaryElement;
-import org.fenixedu.academic.dto.directiveCouncil.ExecutionCourseSummaryElement;
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.lang.StringUtils;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.LabelValueBean;
 import org.fenixedu.academic.domain.CurricularCourse;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionCourse;
@@ -55,18 +56,13 @@ import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Shift;
 import org.fenixedu.academic.domain.Summary;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.personnelSection.contracts.ProfessionalCategory;
-import org.fenixedu.academic.domain.teacher.DegreeTeachingService;
-import org.fenixedu.academic.domain.teacher.TeacherService;
+import org.fenixedu.academic.dto.directiveCouncil.DepartmentSummaryElement;
+import org.fenixedu.academic.dto.directiveCouncil.DepartmentSummaryElement.SummaryControlCategory;
+import org.fenixedu.academic.dto.directiveCouncil.DetailSummaryElement;
+import org.fenixedu.academic.dto.directiveCouncil.ExecutionCourseSummaryElement;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.academic.util.Bundle;
-
-import org.apache.commons.beanutils.BeanComparator;
-import org.apache.commons.lang.StringUtils;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.util.LabelValueBean;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.fenixedu.bennu.struts.portal.EntryPoint;
 import org.joda.time.DateTime;
@@ -76,6 +72,9 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
+import pt.ist.fenixedu.teacher.domain.teacher.DegreeTeachingService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.ist.fenixframework.FenixFramework;
 import pt.utl.ist.fenix.tools.util.Pair;
 import pt.utl.ist.fenix.tools.util.excel.StyledExcelSpreadsheet;

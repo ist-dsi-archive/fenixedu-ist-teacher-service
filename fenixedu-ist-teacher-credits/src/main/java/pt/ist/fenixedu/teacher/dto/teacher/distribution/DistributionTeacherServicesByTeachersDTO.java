@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.dto.teacher.distribution;
+package pt.ist.fenixedu.teacher.dto.teacher.distribution;
 
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -27,11 +27,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.fenixedu.academic.dto.DataTranferObject;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonContractSituation;
-
 import org.joda.time.Duration;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
+
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation;
 
 /**
  * amak, jpmsit

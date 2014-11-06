@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.faces.bean.departmentMember.teacherService;
+package pt.ist.fenixedu.teacher.faces.bean.teacherService;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -31,30 +31,29 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.beanutils.BeanComparator;
+import org.fenixedu.academic.domain.Department;
+import org.fenixedu.academic.domain.ExecutionSemester;
+import org.fenixedu.academic.domain.Person;
+import org.fenixedu.academic.dto.InfoExecutionPeriod;
+import org.fenixedu.academic.dto.InfoExecutionYear;
 import org.fenixedu.academic.service.services.commons.ReadExecutionPeriodsByExecutionYear;
 import org.fenixedu.academic.service.services.commons.ReadExecutionYearByID;
 import org.fenixedu.academic.service.services.commons.ReadNotClosedExecutionYears;
 import org.fenixedu.academic.service.services.commons.ReadPreviousExecutionPeriod;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
-import org.fenixedu.academic.service.services.teacher.teacherService.ReadTeacherServiceDistributionByCourse;
-import org.fenixedu.academic.service.services.teacher.teacherService.ReadTeacherServiceDistributionByTeachers;
-import org.fenixedu.academic.dto.InfoExecutionPeriod;
-import org.fenixedu.academic.dto.InfoExecutionYear;
-import org.fenixedu.academic.dto.teacher.distribution.DistributionTeacherServicesByCourseDTO.ExecutionCourseDistributionServiceEntryDTO;
-import org.fenixedu.academic.dto.teacher.distribution.DistributionTeacherServicesByCourseDTO.TeacherExecutionCourseServiceDTO;
-import org.fenixedu.academic.dto.teacher.distribution.DistributionTeacherServicesByTeachersDTO.TeacherDistributionServiceEntryDTO;
-import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.ui.faces.bean.base.FenixBackingBean;
 import org.fenixedu.academic.util.Bundle;
-
-import org.apache.commons.beanutils.BeanComparator;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 
+import pt.ist.fenixedu.teacher.dto.teacher.distribution.DistributionTeacherServicesByCourseDTO.ExecutionCourseDistributionServiceEntryDTO;
+import pt.ist.fenixedu.teacher.dto.teacher.distribution.DistributionTeacherServicesByCourseDTO.TeacherExecutionCourseServiceDTO;
+import pt.ist.fenixedu.teacher.dto.teacher.distribution.DistributionTeacherServicesByTeachersDTO.TeacherDistributionServiceEntryDTO;
+import pt.ist.fenixedu.teacher.service.teacher.teacherService.ReadTeacherServiceDistributionByCourse;
+import pt.ist.fenixedu.teacher.service.teacher.teacherService.ReadTeacherServiceDistributionByTeachers;
 import pt.utl.ist.fenix.tools.util.excel.StyledExcelSpreadsheet;
 
 /**

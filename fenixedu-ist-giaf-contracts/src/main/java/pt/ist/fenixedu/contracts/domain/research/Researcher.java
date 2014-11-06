@@ -16,13 +16,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.research;
+package pt.ist.fenixedu.contracts.domain.research;
 
 import org.fenixedu.academic.domain.Person;
-import org.fenixedu.academic.domain.personnelSection.contracts.PersonContractSituation;
 import org.fenixedu.academic.domain.teacher.CategoryType;
-
 import org.fenixedu.bennu.core.domain.Bennu;
+
+import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation;
 
 public class Researcher extends Researcher_Base {
     public Researcher(Person person) {

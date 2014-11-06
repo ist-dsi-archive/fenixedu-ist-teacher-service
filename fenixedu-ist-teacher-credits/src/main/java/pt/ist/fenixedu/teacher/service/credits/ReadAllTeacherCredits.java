@@ -19,17 +19,18 @@
 /**
  * Dec 7, 2005
  */
-package org.fenixedu.academic.service.services.credits;
+package pt.ist.fenixedu.teacher.service.credits;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fenixedu.academic.dto.credits.CreditLineDTO;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.TeacherCredits;
-import org.fenixedu.academic.domain.teacher.TeacherService;
+
+import pt.ist.fenixedu.teacher.domain.TeacherCredits;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.dto.credits.CreditLineDTO;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 

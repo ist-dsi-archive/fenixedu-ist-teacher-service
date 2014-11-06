@@ -20,10 +20,9 @@
  * Created on 22/Dez/2003
  *
  */
-package org.fenixedu.academic.ui.struts.action.personnelSection;
+package pt.ist.fenixedu.contracts.ui.struts.action.personnelSection;
 
 import org.fenixedu.academic.ui.struts.action.manager.personManagement.FindPersonAction;
-
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;

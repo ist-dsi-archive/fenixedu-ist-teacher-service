@@ -16,24 +16,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.domain.ExecutionYear;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.credits.AnnualTeachingCredits;
-import org.fenixedu.academic.domain.credits.util.AnnualTeachingCreditsBean;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.fenixedu.academic.domain.ExecutionYear;
+import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
+
+import pt.ist.fenixedu.teacher.domain.credits.AnnualTeachingCredits;
+import pt.ist.fenixedu.teacher.domain.credits.util.AnnualTeachingCreditsBean;
 
 @Forwards(@Forward(name = "showAnnualTeacherCreditsDocument", path = "/credits/showAnnualTeacherCreditsDocument.jsp"))
 public abstract class AnnualTeacherCreditsDocumentsDA extends FenixDispatchAction {

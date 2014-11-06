@@ -16,19 +16,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.departmentMember;
+package pt.ist.fenixedu.teacher.evaluation.ui.struts.action.departmentMember;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.ui.struts.action.teacher.evaluation.TeacherEvaluationDA;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.fenixedu.academic.ui.struts.action.departmentMember.DepartmentMemberApp.DepartmentMemberPresidentApp;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 import org.fenixedu.bennu.struts.portal.EntryPoint;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
+
+import pt.ist.fenixedu.teacher.evaluation.ui.struts.action.teacher.evaluation.TeacherEvaluationDA;
 
 @StrutsFunctionality(app = DepartmentMemberPresidentApp.class, path = "teacher-evaluation",
         titleKey = "label.teacher.evaluation.title", bundle = "ResearcherResources")

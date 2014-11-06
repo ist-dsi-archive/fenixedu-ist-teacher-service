@@ -20,7 +20,7 @@
  * Created on Nov 10, 2005
  *	by angela
  */
-package org.fenixedu.academic.ui.faces.bean.person;
+package pt.ist.fenixedu.contracts.ui.faces.bean.person;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,26 +39,25 @@ import javax.faces.component.html.HtmlInputHidden;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.fenixedu.academic.service.services.commons.ReadExecutionYearsService;
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
+import org.apache.commons.lang.StringUtils;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
-import org.fenixedu.academic.domain.organizationalStructure.Contract;
-import org.fenixedu.academic.domain.organizationalStructure.EmployeeContract;
 import org.fenixedu.academic.domain.organizationalStructure.Function;
 import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.organizationalStructure.UnitUtils;
+import org.fenixedu.academic.service.services.commons.ReadExecutionYearsService;
+import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.faces.bean.base.FenixBackingBean;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.academic.util.PeriodState;
-
-import org.apache.commons.lang.StringUtils;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.fenixedu.commons.StringNormalizer;
 import org.joda.time.YearMonthDay;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Contract;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.EmployeeContract;
 import pt.ist.fenixframework.FenixFramework;
 
 public class OrganizationalStructureBackingBean extends FenixBackingBean {

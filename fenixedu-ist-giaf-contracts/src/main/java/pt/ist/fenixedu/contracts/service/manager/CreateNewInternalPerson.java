@@ -16,15 +16,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.service.services.manager;
+package pt.ist.fenixedu.contracts.service.manager;
 
 import java.util.Set;
 
-import org.fenixedu.academic.dto.person.InternalPersonBean;
-import org.fenixedu.academic.domain.Employee;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.academic.dto.person.InternalPersonBean;
+
+import pt.ist.fenixedu.contracts.domain.Employee;
 import pt.ist.fenixframework.Atomic;
 
 public class CreateNewInternalPerson {

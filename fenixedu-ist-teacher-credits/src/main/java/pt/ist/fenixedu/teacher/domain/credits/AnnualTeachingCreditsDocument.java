@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.credits;
+package pt.ist.fenixedu.teacher.domain.credits;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +24,6 @@ import java.util.Set;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.person.RoleType;
-
 import org.fenixedu.bennu.core.groups.Group;
 import org.fenixedu.bennu.core.groups.UnionGroup;
 import org.fenixedu.bennu.core.groups.UserGroup;

@@ -16,13 +16,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.renderers;
+package pt.ist.fenixedu.contracts.ui.renderers;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
 import org.fenixedu.academic.domain.Person;
+import org.fenixedu.academic.ui.renderers.PersonalCardRenderer;
+
 import pt.ist.fenixWebFramework.renderers.components.HtmlComponent;
 import pt.ist.fenixWebFramework.renderers.contexts.PresentationContext;
 import pt.ist.fenixWebFramework.renderers.utils.RenderKit;

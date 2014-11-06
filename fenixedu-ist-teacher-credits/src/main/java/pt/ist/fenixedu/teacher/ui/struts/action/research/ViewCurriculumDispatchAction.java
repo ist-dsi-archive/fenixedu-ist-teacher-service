@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.research;
+package pt.ist.fenixedu.teacher.ui.struts.action.research;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,25 +29,21 @@ import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.fenixedu.academic.dto.research.result.ExecutionYearIntervalBean;
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.collections.comparators.ReverseComparator;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.CareerType;
 import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
-import org.fenixedu.academic.domain.teacher.Advise;
-import org.fenixedu.academic.domain.teacher.AdviseType;
-import org.fenixedu.academic.domain.teacher.Career;
 import org.fenixedu.academic.domain.thesis.Thesis;
+import org.fenixedu.academic.dto.research.result.ExecutionYearIntervalBean;
 import org.fenixedu.academic.ui.struts.action.base.FenixAction;
 import org.fenixedu.academic.ui.struts.action.research.ResearcherApplication.CurriculumApp;
-
-import org.apache.commons.beanutils.BeanComparator;
-import org.apache.commons.collections.comparators.ReverseComparator;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
@@ -56,6 +52,9 @@ import org.joda.time.Interval;
 
 import pt.ist.fenixWebFramework.renderers.components.state.IViewState;
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
+import pt.ist.fenixedu.teacher.domain.teacher.Advise;
+import pt.ist.fenixedu.teacher.domain.teacher.AdviseType;
+import pt.ist.fenixedu.teacher.domain.teacher.Career;
 import pt.ist.fenixframework.FenixFramework;
 
 @StrutsFunctionality(app = CurriculumApp.class, path = "curriculum", titleKey = "link.viewCurriculum")

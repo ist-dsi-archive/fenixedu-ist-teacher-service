@@ -16,12 +16,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.service.services.scientificCouncil.credits;
+package pt.ist.fenixedu.teacher.service.scientificCouncil.credits;
 
 import static org.fenixedu.academic.predicate.AccessControl.check;
-import org.fenixedu.academic.dto.teacherCredits.TeacherCreditsPeriodBean;
-import org.fenixedu.academic.domain.time.calendarStructure.TeacherCreditsFillingCE;
+
 import org.fenixedu.academic.predicate.RolePredicates;
+
+import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
+import pt.ist.fenixedu.teacher.dto.teacherCredits.TeacherCreditsPeriodBean;
 import pt.ist.fenixframework.Atomic;
 
 public class CreateTeacherCreditsFillingPeriod {

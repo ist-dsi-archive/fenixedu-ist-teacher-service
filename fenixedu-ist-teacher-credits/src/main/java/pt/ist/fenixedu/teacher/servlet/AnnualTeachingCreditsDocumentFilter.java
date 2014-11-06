@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.servlet.filters;
+package pt.ist.fenixedu.teacher.servlet;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -37,14 +37,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.lang.StringUtils;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.credits.AnnualCreditsState;
-import org.fenixedu.academic.domain.credits.AnnualTeachingCredits;
-import org.fenixedu.academic.domain.credits.AnnualTeachingCreditsDocument;
 import org.fenixedu.academic.domain.person.RoleType;
-
-import org.apache.commons.lang.StringUtils;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.SimpleHtmlSerializer;
 import org.htmlcleaner.TagNode;
@@ -58,6 +54,9 @@ import org.xml.sax.SAXException;
 
 import pt.ist.fenixWebFramework.servlets.filters.contentRewrite.GenericChecksumRewriter;
 import pt.ist.fenixWebFramework.servlets.filters.contentRewrite.ResponseWrapper;
+import pt.ist.fenixedu.teacher.domain.credits.AnnualCreditsState;
+import pt.ist.fenixedu.teacher.domain.credits.AnnualTeachingCredits;
+import pt.ist.fenixedu.teacher.domain.credits.AnnualTeachingCreditsDocument;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 

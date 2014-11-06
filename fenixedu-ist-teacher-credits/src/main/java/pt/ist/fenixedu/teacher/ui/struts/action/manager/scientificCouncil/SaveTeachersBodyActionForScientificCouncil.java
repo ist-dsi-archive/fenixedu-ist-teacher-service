@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.ui.struts.action.manager.scientificCouncil;
+package pt.ist.fenixedu.teacher.ui.struts.action.manager.scientificCouncil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +24,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NonExistingServiceException;
 import org.fenixedu.academic.service.services.manager.SaveTeachersBody;
@@ -32,12 +36,6 @@ import org.fenixedu.academic.ui.struts.action.base.FenixAction;
 import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
 import org.fenixedu.academic.ui.struts.action.exceptions.InvalidArgumentsActionException;
 import org.fenixedu.academic.ui.struts.action.exceptions.NonExistingActionException;
-import org.fenixedu.academic.ui.struts.action.scientificCouncil.credits.MasterDegreeCreditsManagementDispatchAction;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.ExceptionHandling;
@@ -45,6 +43,8 @@ import org.fenixedu.bennu.struts.annotations.Exceptions;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
+
+import pt.ist.fenixedu.teacher.ui.struts.action.scientificCouncil.credits.MasterDegreeCreditsManagementDispatchAction;
 
 @Mapping(module = "scientificCouncil", path = "/saveTeachersBody", input = "/readTeacherInCharge.do",
         formBean = "masterDegreeCreditsForm", functionality = MasterDegreeCreditsManagementDispatchAction.class)

@@ -16,23 +16,22 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fenixedu.academic.domain.teacher;
+package pt.ist.fenixedu.teacher.domain.teacher;
 
 import java.util.Date;
 
-import org.fenixedu.academic.dto.teacher.workTime.InstitutionWorkTimeDTO;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.time.calendarStructure.TeacherCreditsFillingCE;
+import org.fenixedu.academic.dto.teacher.workTime.InstitutionWorkTimeDTO;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.academic.util.CalendarUtil;
 import org.fenixedu.academic.util.WeekDay;
 import org.fenixedu.academic.util.date.TimePeriod;
-
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.fenixedu.bennu.core.security.Authenticate;
 
+import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
 import pt.ist.fenixframework.Atomic;
 
 public class InstitutionWorkTime extends InstitutionWorkTime_Base {

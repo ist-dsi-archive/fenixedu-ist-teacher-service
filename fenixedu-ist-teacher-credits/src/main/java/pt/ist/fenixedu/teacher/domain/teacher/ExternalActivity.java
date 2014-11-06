@@ -20,13 +20,13 @@
  * Created on 15/Nov/2003
  *
  */
-package org.fenixedu.academic.domain.teacher;
+package pt.ist.fenixedu.teacher.domain.teacher;
 
-import org.fenixedu.academic.dto.teacher.InfoExternalActivity;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-
 import org.fenixedu.bennu.core.domain.Bennu;
+
+import pt.ist.fenixedu.teacher.dto.teacher.InfoExternalActivity;
 
 /**
  * @author Leonor Almeida
