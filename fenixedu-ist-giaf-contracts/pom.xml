@@ -1,29 +1,30 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.fenixedu</groupId>
         <artifactId>fenix-framework-project</artifactId>
-        <version>2.1.0</version>
+        <version>2.2.0</version>
     </parent>
 
     <groupId>pt.ist</groupId>
-    <artifactId>fenixedu-teacher-evaluation</artifactId>
+    <artifactId>fenixedu-ist-giaf-contracts</artifactId>
     <packaging>jar</packaging>
     <version>4.0.0-SNAPSHOT</version>
 
-    <name>FenixEdu Teacher Evaluation</name>
+    <name>FenixEdu GIAF Contracts</name>
     <url>http://tecnico.ulisboa.pt/</url>
     <inceptionYear>2011</inceptionYear>
 
     <properties>
-        <version.pt.ist.fenix.framework>2.6.0-SNAPSHOT</version.pt.ist.fenix.framework>
-        <version.org.fenixedu.bennu>3.3.1</version.org.fenixedu.bennu>
+        <version.pt.ist.fenix.framework>2.6.0</version.pt.ist.fenix.framework>
+        <version.org.fenixedu.bennu>3.4.0</version.org.fenixedu.bennu>
     </properties>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/ist-dsi/fenixedu-teacher-evaluation/issues/</url>
+        <url>https://github.com/ist-dsi/fenixedu-giaf-contracts/issues/</url>
     </issueManagement>
 
     <licenses>
@@ -36,12 +37,12 @@
 
     <ciManagement>
         <system>Travis CI</system>
-        <url>https://travis-ci.org/ist-dsi/fenixedu-teacher-evaluation</url>
+        <url>https://travis-ci.org/ist-dsi/fenixedu-giaf-contracts</url>
     </ciManagement>
 
     <scm>
-        <connection>scm:git:git@github.com:ist-dsi/fenixedu-teacher-evaluation.git</connection>
-        <developerConnection>scm:git:git@github.com:ist-dsi/fenixedu-teacher-evaluation.git</developerConnection>
+        <connection>scm:git:git@github.com:ist-dsi/fenixedu-giaf-contracts.git</connection>
+        <developerConnection>scm:git:git@github.com:ist-dsi/fenixedu-giaf-contracts.git</developerConnection>
         <url>http://tecnico.ulisboa.pt/</url>
         <tag>HEAD</tag>
     </scm>
@@ -81,16 +82,16 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>pt.ist</groupId>
-            <artifactId>fenix</artifactId>
-            <version>4.0.0-SNAPSHOT</version>
+            <groupId>org.fenixedu</groupId>
+            <artifactId>fenixedu-academic</artifactId>
+            <version>4.0.0</version>
         </dependency>
     </dependencies>
 
     <repositories>
         <repository>
-            <id>fenix-ashes-maven-repository</id>
-            <url>https://fenix-ashes.ist.utl.pt/nexus/content/groups/fenix-ashes-maven-repository</url>
+            <id>fenixedu-maven-repository</id>
+            <url>https://repo.fenixedu.org/fenixedu-maven-repository</url>
         </repository>
     </repositories>
 
