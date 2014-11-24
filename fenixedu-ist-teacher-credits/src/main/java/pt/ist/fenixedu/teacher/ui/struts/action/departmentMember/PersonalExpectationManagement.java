@@ -34,7 +34,6 @@ import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.ui.struts.action.departmentMember.DepartmentMemberApp.DepartmentMemberAccompanimentApp;
 import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
@@ -48,6 +47,7 @@ import pt.ist.fenixedu.teacher.domain.TeacherExpectationDefinitionPeriod;
 import pt.ist.fenixedu.teacher.domain.TeacherPersonalExpectationPeriod;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherPersonalExpectation;
 import pt.ist.fenixedu.teacher.service.department.InsertTeacherPersonalExpectation;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.departmentMember.DepartmentMemberAccompanimentApp;
 import pt.ist.fenixframework.FenixFramework;
 
 @StrutsFunctionality(app = DepartmentMemberAccompanimentApp.class, path = "personal-expectations",

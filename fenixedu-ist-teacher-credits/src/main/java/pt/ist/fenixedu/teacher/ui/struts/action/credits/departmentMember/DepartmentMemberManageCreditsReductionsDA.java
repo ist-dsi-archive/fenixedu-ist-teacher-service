@@ -34,7 +34,6 @@ import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.ui.struts.action.departmentMember.DepartmentMemberApp.DepartmentMemberPresidentApp;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.Forward;
@@ -49,6 +48,7 @@ import pt.ist.fenixedu.teacher.domain.credits.util.ReductionServiceBean;
 import pt.ist.fenixedu.teacher.domain.teacher.ReductionService;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
+import pt.ist.fenixedu.teacher.evaluation.ui.struts.action.departmentMember.DepartmentMemberPresidentApp;
 import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageCreditsReductionsDispatchAction;
 import pt.ist.fenixframework.FenixFramework;
 

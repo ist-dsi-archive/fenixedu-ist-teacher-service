@@ -43,7 +43,6 @@ import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.thesis.Thesis;
 import org.fenixedu.academic.dto.research.result.ExecutionYearIntervalBean;
 import org.fenixedu.academic.ui.struts.action.base.FenixAction;
-import org.fenixedu.academic.ui.struts.action.research.ResearcherApplication.CurriculumApp;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;

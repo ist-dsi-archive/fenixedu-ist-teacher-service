@@ -58,7 +58,6 @@ import org.fenixedu.academic.dto.GenericPair;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
-import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
 import org.fenixedu.academic.util.NumberUtils;
 import org.fenixedu.academic.util.OrderedIterator;
 import org.fenixedu.bennu.core.domain.User;
@@ -77,6 +76,7 @@ import pt.ist.fenixedu.teacher.service.scientificCouncil.credits.ReadDepartmentT
 import pt.ist.fenixedu.teacher.service.scientificCouncil.credits.ReadDepartmentTotalCreditsByPeriod.PeriodCreditsReportDTO;
 import pt.ist.fenixedu.teacher.service.scientificCouncil.credits.ReadTeachersCreditsResumeByPeriodAndUnit;
 import pt.ist.fenixedu.teacher.service.scientificCouncil.credits.ReadTeachersCreditsResumeByPeriodAndUnit.TeacherCreditsReportDTO;
+import pt.ist.fenixedu.teacher.ui.struts.action.ScientificCreditsApp;
 import pt.ist.fenixframework.FenixFramework;
 import pt.utl.ist.fenix.tools.spreadsheet.Formula;
 import pt.utl.ist.fenix.tools.spreadsheet.SheetData;

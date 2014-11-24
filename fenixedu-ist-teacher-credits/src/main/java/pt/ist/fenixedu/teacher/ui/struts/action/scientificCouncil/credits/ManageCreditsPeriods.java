@@ -27,7 +27,6 @@ import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
@@ -39,6 +38,7 @@ import pt.ist.fenixedu.teacher.domain.TeacherCredits;
 import pt.ist.fenixedu.teacher.domain.TeacherCreditsQueueJob;
 import pt.ist.fenixedu.teacher.dto.teacherCredits.TeacherCreditsPeriodBean;
 import pt.ist.fenixedu.teacher.service.scientificCouncil.credits.CreateTeacherCreditsFillingPeriod;
+import pt.ist.fenixedu.teacher.ui.struts.action.ScientificCreditsApp;
 import pt.ist.fenixframework.FenixFramework;
 
 @StrutsFunctionality(app = ScientificCreditsApp.class, path = "define-periods", titleKey = "link.define.periods")

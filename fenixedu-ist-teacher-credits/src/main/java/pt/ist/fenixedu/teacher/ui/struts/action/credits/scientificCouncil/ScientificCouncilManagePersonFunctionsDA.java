@@ -30,7 +30,6 @@ import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
@@ -39,6 +38,7 @@ import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
 import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsBean;
 import pt.ist.fenixedu.teacher.domain.credits.util.PersonFunctionBean;
+import pt.ist.fenixedu.teacher.ui.struts.action.ScientificCreditsApp;
 import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManagePersonFunctionsDA;
 import pt.ist.fenixframework.FenixFramework;
 

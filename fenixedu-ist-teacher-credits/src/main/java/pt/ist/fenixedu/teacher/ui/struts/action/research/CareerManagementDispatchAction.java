@@ -30,7 +30,6 @@ import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.CareerType;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.ui.struts.action.research.ResearcherApplication.CurriculumApp;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;

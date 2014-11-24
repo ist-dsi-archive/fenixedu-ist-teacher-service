@@ -19,11 +19,11 @@
 package pt.ist.fenixedu.teacher.ui.struts.action.credits.scientificCouncil;
 
 import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.ui.struts.action.scientificCouncil.ScientificCouncilApplication.ScientificCreditsApp;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
 import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsBean;
+import pt.ist.fenixedu.teacher.ui.struts.action.ScientificCreditsApp;
 import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageDepartmentCreditsPool;
 
 @StrutsFunctionality(app = ScientificCreditsApp.class, path = "credits-pool", titleKey = "label.departmentCreditsPool",

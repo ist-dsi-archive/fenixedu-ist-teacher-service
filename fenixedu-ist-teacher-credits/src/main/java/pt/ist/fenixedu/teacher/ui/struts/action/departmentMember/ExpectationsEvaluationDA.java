@@ -33,7 +33,6 @@ import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.dto.commons.ExecutionYearBean;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.ui.struts.action.departmentMember.DepartmentMemberApp.DepartmentMemberAccompanimentApp;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
@@ -44,6 +43,7 @@ import pt.ist.fenixWebFramework.renderers.components.state.IViewState;
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
 import pt.ist.fenixedu.teacher.domain.ExpectationEvaluationGroup;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherPersonalExpectation;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.departmentMember.DepartmentMemberAccompanimentApp;
 import pt.ist.fenixframework.FenixFramework;
 
 @StrutsFunctionality(app = DepartmentMemberAccompanimentApp.class, path = "evaluate-expectations",
