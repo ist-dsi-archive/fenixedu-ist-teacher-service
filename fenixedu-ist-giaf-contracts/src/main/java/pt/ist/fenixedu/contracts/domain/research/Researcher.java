@@ -19,7 +19,7 @@
 package pt.ist.fenixedu.contracts.domain.research;
 
 import org.fenixedu.academic.domain.Person;
-import org.fenixedu.academic.domain.teacher.CategoryType;
+import pt.ist.fenixedu.contracts.domain.util.CategoryType;
 import org.fenixedu.bennu.core.domain.Bennu;
 
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation;

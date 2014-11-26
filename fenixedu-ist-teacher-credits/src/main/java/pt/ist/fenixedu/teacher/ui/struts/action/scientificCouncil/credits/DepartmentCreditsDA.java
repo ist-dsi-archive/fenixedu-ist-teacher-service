@@ -72,7 +72,8 @@ public class DepartmentCreditsDA extends FenixDispatchAction {
             request.setAttribute("success", false);
             return forwardDepartmentCredits(mapping, request, departmentCreditsBean);
         }
-        employee.assignPermission(departmentCreditsBean.getDepartment());
+
+        departmentCreditsBean.assignPermission(employee);
         request.setAttribute("success", true);
         return forwardDepartmentCredits(mapping, request, departmentCreditsBean);
     }
@@ -81,7 +82,9 @@ public class DepartmentCreditsDA extends FenixDispatchAction {
             HttpServletResponse response) throws Exception {
         Employee employee = getEmployeeFromRequest(request);
         Department department = getDepartmentFromRequest(request);
-        employee.removePermission(department);
+        DepartmentCreditsBean departmentCreditsBean = new DepartmentCreditsBean();
+        departmentCreditsBean.setDepartment(department);
+        departmentCreditsBean.removePermission(employee);
         return forwardDepartmentCredits(mapping, request, null);
     }
 

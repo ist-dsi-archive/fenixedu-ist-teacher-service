@@ -20,7 +20,7 @@
 --%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
 <%@page import="com.google.common.base.Joiner"%>
-<%@page import="org.fenixedu.academic.domain.Employee"%>
+<%@page import="pt.ist.fenixedu.contracts.domain.Employee"%>
 <%@page import="org.fenixedu.academic.domain.student.Student"%>
 <%@page import="org.fenixedu.bennu.core.domain.User"%>
 <%@page import="org.fenixedu.bennu.core.domain.UserProfile"%>
@@ -125,13 +125,37 @@ function check(e,v){
 						<strong>
 						 	<html:link action="<%= "/findPerson.do?method=viewPerson&personID="+personID %>" > <bean:write name="personalInfo" property="name"/> </html:link>					
 						</strong> <%= personalIds %>
+						<% 
+						 User user = personalInfo.getUser();
+						 if(Employee.EMPLOYEE_GROUP.isMember(user)){
+							out.write("<em>"+Employee.EMPLOYEE_GROUP.getPresentationName()+"</em>");
+						 }
+						 if(org.fenixedu.academic.domain.person.RoleType.TEACHER.isMember(user)){
+						     out.write(org.fenixedu.academic.domain.person.RoleType.TEACHER.getLocalizedName());
+						 }
+						 if(org.fenixedu.academic.domain.person.RoleType.RESEARCHER.isMember(user)){
+						     out.write(org.fenixedu.academic.domain.person.RoleType.RESEARCHER.getLocalizedName());
+						 }
+						 if(org.fenixedu.academic.domain.person.RoleType.GRANT_OWNER.isMember(user)){
+						     out.write(org.fenixedu.academic.domain.person.RoleType.GRANT_OWNER.getLocalizedName());
+						 }
+						 if(org.fenixedu.academic.domain.person.RoleType.STUDENT.isMember(user)){
+						     out.write(org.fenixedu.academic.domain.person.RoleType.STUDENT.getLocalizedName());
+						 }
+						 if(org.fenixedu.academic.domain.person.RoleType.ALUMNI.isMember(user)){
+						     out.write(org.fenixedu.academic.domain.person.RoleType.ALUMNI.getLocalizedName());
+						 }
+						 %>
+						
+						<%--
 						<bean:size id="mainRolesSize" name="personalInfo" property="mainRoles"></bean:size> 
 						<logic:greaterThan name="mainRolesSize" value="0">
 							<logic:iterate id="role" name="personalInfo" property="mainRoles" indexId="i">
 								<em><bean:write name="role"/><logic:notEqual name="mainRolesSize" value="<%= String.valueOf(i.intValue() + 1) %>">, </logic:notEqual></em>
 							</logic:iterate>
 						</logic:greaterThan>
-						<logic:equal name="mainRolesSize" value="0"></logic:equal>						
+						<logic:equal name="mainRolesSize" value="0"></logic:equal>
+						 --%>						
 					</td>
 					<td width="30%" style="text-align: right;">
 						<bean:define id="aa" value="<%= "aa" + personIndex %>" />
@@ -259,15 +283,14 @@ function check(e,v){
                         </fr:layout>
                     </fr:view>
                     
-					<logic:equal name="personalInfo" property="homePageAvailable" value="true">
-						<tr>
+                    <logic:notEmpty name="personalInfo" property="homepageWebAddress">
+	                    <bean:define id="homepageWebAddress" name="personalInfo" property="homepageWebAddress"/>
+                    	<tr>
 							<td class="ppleft2"><bean:message key="label.homepage" bundle="APPLICATION_RESOURCES"/></td>		            
-							<td class="ppright">	            	
-								<html:link href="${personalInfo.homepage.fullPath}" target="_blank">${personalInfo.homepage.fullPath}</html:link>
-							</td>
+							<td class="ppright"><html:link href="${homepageWebAddress}" target="_blank">${homepageWebAddress}</html:link></td>
 						</tr>
-					</logic:equal>					
-					
+                    </logic:notEmpty>
+
 					<logic:present name="personalInfo" property="student" >
 						<logic:notEmpty name="personalInfo" property="student.registrations" >
 	

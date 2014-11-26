@@ -1,5 +1,7 @@
 package pt.ist.fenixedu.contracts.domain;
 
+enum pt.ist.fenixedu.contracts.domain.util.CategoryType                                                                 as CategoryType;
+
 class personnelSection.contracts.ContractSituation  {
     String giafId (REQUIRED);
     MultiLanguageString name (REQUIRED);

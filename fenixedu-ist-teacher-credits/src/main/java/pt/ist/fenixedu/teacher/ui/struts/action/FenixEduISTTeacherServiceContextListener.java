@@ -10,8 +10,6 @@ import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Shift;
 import org.fenixedu.academic.service.services.manager.MergeExecutionCourses;
-import org.fenixedu.academic.service.services.teacher.professorship.ResponsibleForValidator.InvalidCategory;
-import org.fenixedu.academic.service.services.teacher.professorship.ResponsibleForValidator.MaxResponsibleForExceed;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 
@@ -63,8 +61,7 @@ public class FenixEduISTTeacherServiceContextListener implements ServletContextL
         MergeExecutionCourses.registerMergeHandler(FenixEduISTTeacherServiceContextListener::copyProfessorships);
     }
 
-    private static void copyProfessorships(final ExecutionCourse executionCourseFrom, final ExecutionCourse executionCourseTo)
-            throws MaxResponsibleForExceed, InvalidCategory {
+    private static void copyProfessorships(final ExecutionCourse executionCourseFrom, final ExecutionCourse executionCourseTo) {
         for (Professorship professorship : executionCourseFrom.getProfessorshipsSet()) {
             Professorship otherProfessorship = findProfessorShip(executionCourseTo, professorship.getPerson());
 

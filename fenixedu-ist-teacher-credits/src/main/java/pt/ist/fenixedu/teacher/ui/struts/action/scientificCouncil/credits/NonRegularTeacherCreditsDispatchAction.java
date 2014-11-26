@@ -69,7 +69,7 @@ public class NonRegularTeacherCreditsDispatchAction extends FenixDispatchAction 
                 if (isNonRegularTeacher(person)) {
                     request.setAttribute("person", person);
                     ExecutionSemester executionSemester = ExecutionSemester.readActualExecutionSemester();
-                    request.setAttribute("professorships", person.getProfessorshipsByExecutionSemester(executionSemester));
+                    request.setAttribute("professorships", person.getProfessorships(executionSemester));
                     request.setAttribute("canEdit", true);
                     return mapping.findForward("showNonRegularTeachingService");
                 } else {
@@ -81,8 +81,7 @@ public class NonRegularTeacherCreditsDispatchAction extends FenixDispatchAction 
     }
 
     private boolean isNonRegularTeacher(Person person) {
-        return person.getTeacher() == null || person.getEmployee() == null
-                || person.getTeacher().getDepartment() == null;
+        return person.getTeacher() == null || person.getEmployee() == null || person.getTeacher().getDepartment() == null;
     }
 
     public ActionForward prepareEditNonRegularTeachingService(ActionMapping mapping, ActionForm form, HttpServletRequest request,

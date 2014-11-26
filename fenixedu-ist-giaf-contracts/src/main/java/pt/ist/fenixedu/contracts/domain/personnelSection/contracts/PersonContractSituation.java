@@ -24,7 +24,7 @@ import java.util.Set;
 
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.teacher.CategoryType;
+import pt.ist.fenixedu.contracts.domain.util.CategoryType;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.joda.time.DateTime;
 import org.joda.time.Days;

@@ -902,3 +902,11 @@ relation TeacherDegreeFinalProjectStudentTeacher {
     .org.fenixedu.academic.domain.Teacher playsRole teacher;
 }
 
+relation PersonDepartment {
+    .org.fenixedu.academic.domain.Person playsRole associatedPersons {
+        multiplicity *;
+    }
+    .org.fenixedu.academic.domain.Department playsRole manageableDepartmentCredits {
+        multiplicity *;
+    }
+}

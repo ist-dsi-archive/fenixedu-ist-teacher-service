@@ -39,7 +39,6 @@ import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.ScientificCouncilUnit;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.domain.teacher.CategoryType;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.groups.Group;
 import org.fenixedu.spaces.domain.Space;
@@ -54,7 +53,7 @@ import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.GiafProfessio
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
-import pt.ist.fenixframework.Atomic;
+import pt.ist.fenixedu.contracts.domain.util.CategoryType;
 
 /**
  * 
@@ -324,34 +323,6 @@ public class Employee extends Employee_Base {
             max = Math.max(max, employee.getEmployeeNumber().intValue());
         }
         return max;
-    }
-
-    public boolean hasMultipleDepartments() {
-        Collection<Department> departments = Bennu.getInstance().getDepartmentsSet();
-        int count = 0;
-        final int several = 2;
-        for (Department department : departments) {
-            if (department.getAssociatedPersonsSet().contains(getPerson())) {
-                count++;
-            }
-        }
-        return count >= several ? true : false;
-    }
-
-    @Atomic
-    public void assignPermission(final Department department) {
-        this.getPerson().getManageableDepartmentCreditsSet().add(department);
-        RoleType.grant(RoleType.DEPARTMENT_CREDITS_MANAGER, getPerson().getUser());
-        RoleType.grant(RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE, getPerson().getUser());
-    }
-
-    @Atomic
-    public void removePermission(Department department) {
-        if (!this.hasMultipleDepartments()) {
-            RoleType.revoke(RoleType.DEPARTMENT_CREDITS_MANAGER, getPerson().getUser());
-            RoleType.revoke(RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE, getPerson().getUser());
-        }
-        this.getPerson().getManageableDepartmentCreditsSet().remove(department);
     }
 
     public static List<Employee> getAllCurrentActiveWorkingEmployees(Unit unit) {

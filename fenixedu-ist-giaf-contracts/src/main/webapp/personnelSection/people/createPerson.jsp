@@ -21,8 +21,8 @@
 <%@ page language="java" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
-<%@page import="org.fenixedu.academic.domain.Role"%>
-<%@page import="org.fenixedu.academic.domain.person.RoleType"%><html:xhtml/>
+<%@page import="pt.ist.fenixedu.contracts.domain.Employee"%>
+<html:xhtml/>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://fenix-ashes.ist.utl.pt/fenix-renderers" prefix="fr" %>
@@ -94,20 +94,27 @@
 								<fr:view name="person" property="idDocumentType"/>
 							</td>
 							<td class="listClasses">
-								<%
-									int i = 0;
-									for (final Role role : person.getPersonRolesSet()) {
-									    final RoleType roleType = role.getRoleType();
-									    if (roleType == RoleType.STUDENT || roleType == RoleType.TEACHER || roleType == RoleType.EMPLOYEE || roleType == RoleType.RESEARCHER) {
-								%>
-											<% if (i++ > 0) { %>
-													<br/>
-											<% } %>
-											<%= role.getRoleType().getLocalizedName() %>
-								<%
-									    }
-									}
-								%>
+								<% 
+								org.fenixedu.bennu.core.domain.User user = person.getUser();
+								 if(Employee.EMPLOYEE_GROUP.isMember(user)){
+									out.write("<em>"+Employee.EMPLOYEE_GROUP.getPresentationName()+"</em>");
+								 }
+								 if(org.fenixedu.academic.domain.person.RoleType.TEACHER.isMember(user)){
+								     out.write(org.fenixedu.academic.domain.person.RoleType.TEACHER.getLocalizedName());
+								 }
+								 if(org.fenixedu.academic.domain.person.RoleType.RESEARCHER.isMember(user)){
+								     out.write(org.fenixedu.academic.domain.person.RoleType.RESEARCHER.getLocalizedName());
+								 }
+								 if(org.fenixedu.academic.domain.person.RoleType.GRANT_OWNER.isMember(user)){
+								     out.write(org.fenixedu.academic.domain.person.RoleType.GRANT_OWNER.getLocalizedName());
+								 }
+								 if(org.fenixedu.academic.domain.person.RoleType.STUDENT.isMember(user)){
+								     out.write(org.fenixedu.academic.domain.person.RoleType.STUDENT.getLocalizedName());
+								 }
+								 if(org.fenixedu.academic.domain.person.RoleType.ALUMNI.isMember(user)){
+								     out.write(org.fenixedu.academic.domain.person.RoleType.ALUMNI.getLocalizedName());
+								 }
+								 %>
 							</td>
 						</tr>
 					</logic:iterate>

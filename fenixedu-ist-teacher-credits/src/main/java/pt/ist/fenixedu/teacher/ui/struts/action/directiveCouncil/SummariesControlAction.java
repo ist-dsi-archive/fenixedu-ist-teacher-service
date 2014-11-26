@@ -189,15 +189,13 @@ public abstract class SummariesControlAction extends FenixDispatchAction {
         ExecutionSemester executionSemesterToPresent = ExecutionSemester.readActualExecutionSemester();
 
         List<DetailSummaryElement> executionCoursesResume =
-                getExecutionCourseResume(executionSemesterToPresent,
-                        person.getProfessorshipsByExecutionSemester(executionSemesterToPresent));
+                getExecutionCourseResume(executionSemesterToPresent, person.getProfessorships(executionSemesterToPresent));
         last4SemestersSummaryControl.add(new Pair<ExecutionSemester, List<DetailSummaryElement>>(executionSemesterToPresent,
                 executionCoursesResume));
         for (int iter = 0; iter < 3; iter++) {
             executionSemesterToPresent = executionSemesterToPresent.getPreviousExecutionPeriod();
             executionCoursesResume =
-                    getExecutionCourseResume(executionSemesterToPresent,
-                            person.getProfessorshipsByExecutionSemester(executionSemesterToPresent));
+                    getExecutionCourseResume(executionSemesterToPresent, person.getProfessorships(executionSemesterToPresent));
             last4SemestersSummaryControl.add(new Pair<ExecutionSemester, List<DetailSummaryElement>>(executionSemesterToPresent,
                     executionCoursesResume));
         }

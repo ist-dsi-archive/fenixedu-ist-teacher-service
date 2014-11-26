@@ -21,7 +21,7 @@ package pt.ist.fenixedu.teacher.ui.renderers.providers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fenixedu.academic.domain.teacher.CategoryType;
+import pt.ist.fenixedu.contracts.domain.util.CategoryType;
 import org.fenixedu.bennu.core.domain.Bennu;
 
 import pt.ist.fenixWebFramework.rendererExtensions.converters.DomainObjectKeyConverter;
