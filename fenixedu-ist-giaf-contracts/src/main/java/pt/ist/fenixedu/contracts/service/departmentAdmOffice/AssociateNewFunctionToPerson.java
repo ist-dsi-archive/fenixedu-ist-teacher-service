@@ -26,9 +26,6 @@ import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.organizationalStructure.Function;
 import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
-import org.fenixedu.academic.service.filter.ManagerAuthorizationFilter;
-import org.fenixedu.academic.service.filter.OperatorAuthorizationFilter;
-import org.fenixedu.academic.service.filter.ScientificCouncilAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 import org.joda.time.YearMonthDay;
@@ -60,22 +57,7 @@ public class AssociateNewFunctionToPerson {
     @Atomic
     public static void runAssociateNewFunctionToPerson(String functionID, String personID, Double credits, YearMonthDay begin,
             YearMonthDay end) throws FenixServiceException, DomainException, NotAuthorizedException {
-        try {
-            ManagerAuthorizationFilter.instance.execute();
-            serviceInstance.run(functionID, personID, credits, begin, end);
-        } catch (NotAuthorizedException ex1) {
-            try {
-                OperatorAuthorizationFilter.instance.execute();
-                serviceInstance.run(functionID, personID, credits, begin, end);
-            } catch (NotAuthorizedException ex2) {
-                try {
-                    ScientificCouncilAuthorizationFilter.instance.execute();
-                    serviceInstance.run(functionID, personID, credits, begin, end);
-                } catch (NotAuthorizedException ex3) {
-                    throw ex3;
-                }
-            }
-        }
+        serviceInstance.run(functionID, personID, credits, begin, end);
     }
 
 }

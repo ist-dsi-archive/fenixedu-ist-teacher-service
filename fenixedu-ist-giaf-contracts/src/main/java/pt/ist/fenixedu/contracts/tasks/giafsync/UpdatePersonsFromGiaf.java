@@ -128,23 +128,23 @@ public class UpdatePersonsFromGiaf extends ImportProcessor {
                 YearMonthDay idEmissionDate = getLocalDateFromString(result.getString("emp_bi_dt"));
                 if (canEditPersonInfo(personByNumber, idEmissionDate)) {
 
-                    final String prettyPrintName = StringFormatter.prettyPrint(giafName);
-                    if (!personByNumber.getName().equals(prettyPrintName)) {
-                        if (namesCorrectlyPartitioned(personByNumber, prettyPrintName)) {
-                            modifications.add(new Modification() {
-                                @Override
-                                public void execute() {
-                                    personByNumber.setName(prettyPrintName);
-                                }
-                            });
-                            if (!newPersons.contains(personByNumber)) {
-                                editedPersons.add(personByNumber);
-                            }
-                        } else {
-                            logger.debug("\nNão pode alterar nome (tem nomes partidos). Número Mecanográfico: "
-                                    + personNumberString + " Nome: " + prettyPrintName);
-                        }
-                    }
+//                    final String prettyPrintName = StringFormatter.prettyPrint(giafName);
+//                    if (!personByNumber.getName().equals(prettyPrintName)) {
+//                        if (namesCorrectlyPartitioned(personByNumber, prettyPrintName)) {
+//                            modifications.add(new Modification() {
+//                                @Override
+//                                public void execute() {
+//                                    personByNumber.setName(prettyPrintName);
+//                                }
+//                            });
+//                            if (!newPersons.contains(personByNumber)) {
+//                                editedPersons.add(personByNumber);
+//                            }
+//                        } else {
+//                            logger.debug("\nNão pode alterar nome (tem nomes partidos). Número Mecanográfico: "
+//                                    + personNumberString + " Nome: " + prettyPrintName);
+//                        }
+//                    }
 
                     YearMonthDay idExpirationDate = getLocalDateFromString(result.getString("emp_bi_val_dt"));
                     String idArquive = result.getString("emp_bi_arq");

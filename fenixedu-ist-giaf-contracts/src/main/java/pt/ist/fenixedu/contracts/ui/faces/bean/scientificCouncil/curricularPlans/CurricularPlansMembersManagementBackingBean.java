@@ -35,7 +35,6 @@ import org.fenixedu.academic.domain.DegreeCurricularPlan;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.service.services.scientificCouncil.UpdateDegreeCurricularPlanMembersGroup;
 import org.fenixedu.academic.ui.faces.bean.base.FenixBackingBean;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.bennu.core.domain.User;
@@ -43,6 +42,7 @@ import org.fenixedu.bennu.core.groups.Group;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 
 import pt.ist.fenixedu.contracts.domain.Employee;
+import pt.ist.fenixedu.contracts.service.UpdateDegreeCurricularPlanMembersGroup;
 import pt.ist.fenixframework.FenixFramework;
 
 /**

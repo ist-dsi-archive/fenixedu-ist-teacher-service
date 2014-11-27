@@ -23,9 +23,6 @@
 package pt.ist.fenixedu.contracts.service.departmentAdmOffice;
 
 import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
-import org.fenixedu.academic.service.filter.ManagerAuthorizationFilter;
-import org.fenixedu.academic.service.filter.OperatorAuthorizationFilter;
-import org.fenixedu.academic.service.filter.ScientificCouncilAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 
@@ -48,22 +45,7 @@ public class DeletePersonFunction {
 
     @Atomic
     public static void runDeletePersonFunction(String personFunctionID) throws FenixServiceException, NotAuthorizedException {
-        try {
-            ManagerAuthorizationFilter.instance.execute();
-            serviceInstance.run(personFunctionID);
-        } catch (NotAuthorizedException ex1) {
-            try {
-                OperatorAuthorizationFilter.instance.execute();
-                serviceInstance.run(personFunctionID);
-            } catch (NotAuthorizedException ex2) {
-                try {
-                    ScientificCouncilAuthorizationFilter.instance.execute();
-                    serviceInstance.run(personFunctionID);
-                } catch (NotAuthorizedException ex3) {
-                    throw ex3;
-                }
-            }
-        }
+        serviceInstance.run(personFunctionID);
     }
 
 }

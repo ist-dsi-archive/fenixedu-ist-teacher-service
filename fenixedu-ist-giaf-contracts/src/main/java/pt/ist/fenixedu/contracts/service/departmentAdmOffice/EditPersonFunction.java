@@ -25,9 +25,6 @@ package pt.ist.fenixedu.contracts.service.departmentAdmOffice;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.organizationalStructure.Function;
 import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
-import org.fenixedu.academic.service.filter.ManagerAuthorizationFilter;
-import org.fenixedu.academic.service.filter.OperatorAuthorizationFilter;
-import org.fenixedu.academic.service.filter.ScientificCouncilAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 import org.joda.time.YearMonthDay;
@@ -62,22 +59,7 @@ public class EditPersonFunction {
     @Atomic
     public static void runEditPersonFunction(String personFunctionID, String functionID, YearMonthDay beginDate,
             YearMonthDay endDate, Double credits) throws FenixServiceException, DomainException, NotAuthorizedException {
-        try {
-            ManagerAuthorizationFilter.instance.execute();
-            serviceInstance.run(personFunctionID, functionID, beginDate, endDate, credits);
-        } catch (NotAuthorizedException ex1) {
-            try {
-                OperatorAuthorizationFilter.instance.execute();
-                serviceInstance.run(personFunctionID, functionID, beginDate, endDate, credits);
-            } catch (NotAuthorizedException ex2) {
-                try {
-                    ScientificCouncilAuthorizationFilter.instance.execute();
-                    serviceInstance.run(personFunctionID, functionID, beginDate, endDate, credits);
-                } catch (NotAuthorizedException ex3) {
-                    throw ex3;
-                }
-            }
-        }
+        serviceInstance.run(personFunctionID, functionID, beginDate, endDate, credits);
     }
 
 }

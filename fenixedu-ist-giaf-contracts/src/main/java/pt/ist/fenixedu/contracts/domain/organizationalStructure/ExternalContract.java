@@ -47,16 +47,6 @@ public class ExternalContract extends ExternalContract_Base {
         setAccountabilityType(accountabilityType);
     }
 
-    public void edit(String name, String address, String phone, String mobile, String homepage, String email, Unit institution) {
-
-        if (!externalPersonsAlreadyExists(name, address, institution)) {
-            getPerson().edit(name, address, phone, mobile, homepage, email);
-            setParentParty(institution);
-        } else {
-            throw new DomainException("error.exception.externalPerson.existingExternalPerson");
-        }
-    }
-
     @Override
     public void setAccountabilityType(AccountabilityType accountabilityType) {
         super.setAccountabilityType(accountabilityType);

@@ -34,7 +34,7 @@ public class RoleTypeForInternalRelationProvider implements DataProvider {
         roleTypes.add(RoleType.TEACHER);
         roleTypes.add(RoleType.RESEARCHER);
         // FIXME: roleTypes.add(RoleType.EMPLOYEE);
-        roleTypes.add(RoleType.GRANT_OWNER);
+        // FIXME: roleTypes.add(RoleType.GRANT_OWNER);
         return roleTypes;
     }
 

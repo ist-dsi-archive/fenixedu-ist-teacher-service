@@ -322,7 +322,7 @@ public class FunctionsManagementBackingBean extends FenixBackingBean {
         List<Person> allPersons = new ArrayList<Person>();
         RoleType personTypeAux = RoleType.valueOf(personType);
         if (/* FIXME: personTypeAux.equals(RoleType.EMPLOYEE) || */personTypeAux.equals(RoleType.TEACHER)
-                || personTypeAux.equals(RoleType.GRANT_OWNER)) {
+        /* FIXME: || personTypeAux.equals(RoleType.GRANT_OWNER)*/) {
             List<Employee> allEmployees = new ArrayList<Employee>();
             allEmployees.addAll(rootDomainObject.getEmployeesSet());
             for (Employee employee : allEmployees) {
@@ -375,9 +375,11 @@ public class FunctionsManagementBackingBean extends FenixBackingBean {
         selectItem2.setLabel(BundleUtil.getString(Bundle.ENUMERATION, RoleType.TEACHER.getName()).trim());
         selectItem2.setValue(RoleType.TEACHER.name());
 
+        /* FIXME
         SelectItem selectItem3 = new SelectItem();
         selectItem3.setLabel(BundleUtil.getString(Bundle.ENUMERATION, RoleType.GRANT_OWNER.getName()).trim());
         selectItem3.setValue(RoleType.GRANT_OWNER.name());
+        */
 
         SelectItem selectItem4 = new SelectItem();
         selectItem4.setLabel(BundleUtil.getString(Bundle.ENUMERATION, RoleType.STUDENT.getName()).trim());
@@ -385,7 +387,7 @@ public class FunctionsManagementBackingBean extends FenixBackingBean {
 
         // FIXME: list.add(selectItem1);
         list.add(selectItem2);
-        list.add(selectItem3);
+        // FIXME: list.add(selectItem3);
         list.add(selectItem4);
 
         Collections.sort(list, new BeanComparator("label"));

@@ -18,8 +18,6 @@
  */
 package pt.ist.fenixedu.contracts.service.departmentAdmOffice;
 
-import static org.fenixedu.academic.predicate.AccessControl.check;
-
 import java.util.Collection;
 import java.util.Set;
 
@@ -28,7 +26,6 @@ import org.fenixedu.academic.domain.DegreeCurricularPlan;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.predicate.RolePredicates;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.groups.Group;
@@ -42,8 +39,6 @@ public class UpdateDepartmentsCompetenceCourseManagementGroup {
 
     @Atomic
     public static void run(Department department, String[] add, String[] remove) {
-        check(RolePredicates.DEPARTMENT_ADMINISTRATIVE_OFFICE_PREDICATE);
-
         Group original = department.getCompetenceCourseMembersGroup();
 
         Group changed = original;
