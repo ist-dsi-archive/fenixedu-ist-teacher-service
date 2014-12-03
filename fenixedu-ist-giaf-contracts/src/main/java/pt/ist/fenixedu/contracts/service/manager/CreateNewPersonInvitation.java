@@ -20,10 +20,10 @@ package pt.ist.fenixedu.contracts.service.manager;
 
 import static org.fenixedu.academic.predicate.AccessControl.check;
 
-import org.fenixedu.academic.dto.person.InvitedPersonBean;
 import org.fenixedu.academic.predicate.RolePredicates;
 
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.Invitation;
+import pt.ist.fenixedu.contracts.dto.InvitedPersonBean;
 import pt.ist.fenixframework.Atomic;
 
 public class CreateNewPersonInvitation {

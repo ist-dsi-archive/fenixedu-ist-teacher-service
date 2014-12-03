@@ -24,11 +24,11 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.fenixedu.academic.domain.organizationalStructure.Function;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 
 import pt.ist.fenixWebFramework.rendererExtensions.TreeRenderer;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Function;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 
 public abstract class AbstractUnitFunctionsTreeRenderer extends TreeRenderer {
 
@@ -128,7 +128,7 @@ public abstract class AbstractUnitFunctionsTreeRenderer extends TreeRenderer {
         SortedSet<Unit> units = new TreeSet<Unit>(Unit.COMPARATOR_BY_NAME_AND_ID);
         units.addAll(unit.getSubUnits());
 
-        result.addAll(unit.getOrderedActiveFunctions());
+        result.addAll(Function.getOrderedActiveFunctions(unit));
         result.addAll(units);
 
         return result;

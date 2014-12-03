@@ -22,7 +22,7 @@
  */
 package pt.ist.fenixedu.contracts.ui.struts.action.personnelSection;
 
-import org.fenixedu.academic.ui.struts.action.manager.personManagement.FindPersonAction;
+import org.fenixedu.academic.ui.struts.action.messaging.FindPersonAction;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
@@ -40,8 +40,8 @@ import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
         @Forward(name = "findPerson", path = "/manager/personManagement/findPerson.jsp") })
 public class PersonManagementAction extends FindPersonAction {
 
-    @Override
-    protected String getModulePrefix() {
-        return "personnelSection";
-    }
+//    @Override
+//    protected String getModulePrefix() {
+//        return "personnelSection";
+//    }
 }

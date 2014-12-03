@@ -19,8 +19,9 @@
 package pt.ist.fenixedu.contracts.domain.accessControl.arguments;
 
 import org.fenixedu.academic.domain.accessControl.arguments.EnumArgument;
-import org.fenixedu.academic.domain.organizationalStructure.FunctionType;
 import org.fenixedu.bennu.core.annotation.GroupArgumentParser;
+
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.FunctionType;
 
 @GroupArgumentParser
 public class FunctionTypeArgument extends EnumArgument<FunctionType> {

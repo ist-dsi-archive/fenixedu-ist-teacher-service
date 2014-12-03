@@ -25,16 +25,17 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.fenixedu.academic.domain.Person;
-import org.fenixedu.academic.domain.organizationalStructure.Function;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
+
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Function;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 
 public class PersonFunctionsBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Person person;
-    private Unit unit;
+    private final Person person;
+    private final Unit unit;
     private List<Function> functions;
 
     public PersonFunctionsBean(Person person, Unit unit) {

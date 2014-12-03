@@ -19,10 +19,10 @@
 package pt.ist.fenixedu.contracts.domain.research;
 
 import org.fenixedu.academic.domain.Person;
-import pt.ist.fenixedu.contracts.domain.util.CategoryType;
 import org.fenixedu.bennu.core.domain.Bennu;
 
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation;
+import pt.ist.fenixedu.contracts.domain.util.CategoryType;
 
 public class Researcher extends Researcher_Base {
     public Researcher(Person person) {

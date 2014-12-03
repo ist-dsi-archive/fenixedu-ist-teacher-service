@@ -21,13 +21,13 @@ package pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagem
 import static org.fenixedu.academic.predicate.AccessControl.check;
 
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.organizationalStructure.Function;
-import org.fenixedu.academic.domain.organizationalStructure.FunctionType;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.predicate.RolePredicates;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.joda.time.YearMonthDay;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Function;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.FunctionType;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 import pt.utl.ist.fenix.tools.util.i18n.MultiLanguageString;

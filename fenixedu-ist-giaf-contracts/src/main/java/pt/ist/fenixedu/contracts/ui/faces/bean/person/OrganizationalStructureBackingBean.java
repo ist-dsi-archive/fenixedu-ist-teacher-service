@@ -43,8 +43,6 @@ import org.apache.commons.lang.StringUtils;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
-import org.fenixedu.academic.domain.organizationalStructure.Function;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.organizationalStructure.UnitUtils;
 import org.fenixedu.academic.service.services.commons.ReadExecutionYearsService;
@@ -58,6 +56,8 @@ import org.joda.time.YearMonthDay;
 
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.Contract;
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.EmployeeContract;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Function;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 import pt.ist.fenixframework.FenixFramework;
 
 public class OrganizationalStructureBackingBean extends FenixBackingBean {
@@ -450,7 +450,7 @@ public class OrganizationalStructureBackingBean extends FenixBackingBean {
     }
 
     private SortedSet<Function> getSortFunctionList(Unit unit) {
-        SortedSet<Function> functions = unit.getOrderedFunctions();
+        SortedSet<Function> functions = Function.getOrderedFunctions(unit);
 
         Iterator<Function> iterator = functions.iterator();
         while (iterator.hasNext()) {

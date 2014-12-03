@@ -33,13 +33,13 @@ import java.util.List;
 import org.apache.commons.collections.comparators.ReverseComparator;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.organizationalStructure.Function;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.organizationalStructure.UnitUtils;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.joda.time.YearMonthDay;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Function;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 import pt.ist.fenixedu.contracts.service.departmentAdmOffice.AssociateNewFunctionToPerson;
 import pt.ist.fenixedu.contracts.ui.faces.bean.departmentAdmOffice.FunctionsManagementBackingBean;
 

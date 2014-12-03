@@ -26,7 +26,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.contacts.PartyContact;
 import org.fenixedu.academic.domain.organizationalStructure.Party;
-import org.fenixedu.academic.ui.struts.action.manager.personManagement.PartyContactsManagementDispatchAction;
+import org.fenixedu.academic.ui.struts.action.person.PartyContactsManagementDispatchAction;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;

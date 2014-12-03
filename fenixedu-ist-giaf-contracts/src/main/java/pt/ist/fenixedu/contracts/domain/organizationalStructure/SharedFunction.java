@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.fenixedu.academic.domain.organizationalStructure.Accountability;
 import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
-import org.fenixedu.academic.domain.organizationalStructure.FunctionType;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.joda.time.YearMonthDay;
 
@@ -54,7 +53,7 @@ public class SharedFunction extends SharedFunction_Base {
     public List<PersonFunctionShared> getPersonFunctionsShared() {
         List<PersonFunctionShared> personFunctions = new ArrayList<PersonFunctionShared>();
         for (Accountability accountability : getAccountabilitiesSet()) {
-            if (accountability.isPersonFunctionShared()) {
+            if (accountability instanceof PersonFunctionShared) {
                 personFunctions.add((PersonFunctionShared) accountability);
             }
         }

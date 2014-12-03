@@ -31,14 +31,13 @@ import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.organizationalStructure.UnitUtils;
 import org.fenixedu.academic.domain.person.IDDocumentType;
-import org.fenixedu.academic.dto.person.InvitedPersonBean;
 import org.fenixedu.academic.dto.person.PersonBean;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.person.SearchPerson;
 import org.fenixedu.academic.service.services.person.SearchPerson.SearchParameters;
 import org.fenixedu.academic.service.services.person.SearchPerson.SearchPersonPredicate;
+import org.fenixedu.academic.ui.struts.action.accounts.AccountManagementApp;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.ui.struts.action.manager.ManagerApplications.ManagerPersonManagementApp;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
@@ -48,6 +47,7 @@ import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 import pt.ist.fenixWebFramework.renderers.components.state.IViewState;
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.Invitation;
+import pt.ist.fenixedu.contracts.dto.InvitedPersonBean;
 import pt.ist.fenixedu.contracts.service.manager.CreateNewInvitedPerson;
 import pt.ist.fenixedu.contracts.service.manager.CreateNewPersonInvitation;
 import pt.ist.fenixedu.contracts.service.manager.DeleteInvitation;
@@ -55,7 +55,7 @@ import pt.ist.fenixedu.contracts.service.manager.EditInvitationHostUnit;
 import pt.ist.fenixedu.contracts.service.manager.EditInvitationResponsible;
 import pt.utl.ist.fenix.tools.util.CollectionPager;
 
-@StrutsFunctionality(app = ManagerPersonManagementApp.class, path = "invitations-management",
+@StrutsFunctionality(app = AccountManagementApp.class, path = "invitations-management",
         titleKey = "title.manage.external.persons")
 @Mapping(path = "/invitationsManagement", module = "manager")
 @Forwards({

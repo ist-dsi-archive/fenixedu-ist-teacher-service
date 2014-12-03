@@ -26,11 +26,11 @@ import java.util.TreeSet;
 
 import org.apache.commons.collections.comparators.ReverseComparator;
 import org.fenixedu.academic.domain.Person;
-import org.fenixedu.academic.domain.organizationalStructure.Function;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.joda.time.YearMonthDay;
 
 import pt.ist.fenixWebFramework.renderers.components.HtmlComponent;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Function;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 import pt.ist.fenixedu.contracts.ui.struts.action.webSiteManager.PersonFunctionsBean;
 
 public class PersonUnitFunctionsTreeRenderer extends AbstractUnitFunctionsTreeRenderer {

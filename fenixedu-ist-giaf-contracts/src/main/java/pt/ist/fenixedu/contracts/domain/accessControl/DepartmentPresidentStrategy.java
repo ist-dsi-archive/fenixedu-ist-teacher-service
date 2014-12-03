@@ -26,16 +26,17 @@ import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.accessControl.FenixGroupStrategy;
 import org.fenixedu.academic.domain.organizationalStructure.Accountability;
-import org.fenixedu.academic.domain.organizationalStructure.Function;
-import org.fenixedu.academic.domain.organizationalStructure.FunctionType;
 import org.fenixedu.academic.domain.organizationalStructure.Party;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.predicate.AccessControl;
 import org.fenixedu.bennu.core.annotation.GroupOperator;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.fenixedu.bennu.core.domain.User;
 import org.joda.time.DateTime;
 import org.joda.time.YearMonthDay;
+
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Function;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.FunctionType;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 
 @GroupOperator("departmentPresident")
 public class DepartmentPresidentStrategy extends FenixGroupStrategy {
@@ -71,7 +72,7 @@ public class DepartmentPresidentStrategy extends FenixGroupStrategy {
     public static Person getCurrentDepartmentPresident(Department department) {
         final YearMonthDay today = new YearMonthDay();
         for (final Accountability accountability : department.getDepartmentUnit().getChildsSet()) {
-            if (accountability.isPersonFunction() && accountability.isActive(today)) {
+            if (accountability instanceof PersonFunction && accountability.isActive(today)) {
                 final PersonFunction personFunction = (PersonFunction) accountability;
                 final Function function = personFunction.getFunction();
                 if (function != null && function.getFunctionType() == FunctionType.PRESIDENT) {

@@ -18,16 +18,10 @@
  */
 package pt.ist.fenixedu.contracts.ui.struts.action.manager.personnelSection;
 
-import org.fenixedu.academic.ui.struts.action.manager.QualificationDA;
-import org.fenixedu.bennu.struts.annotations.Forward;
-import org.fenixedu.bennu.struts.annotations.Forwards;
-import org.fenixedu.bennu.struts.annotations.Mapping;
 
-import pt.ist.fenixedu.contracts.ui.struts.action.personnelSection.PersonManagementAction;
-
-@Mapping(module = "personnelSection", path = "/qualification", functionality = PersonManagementAction.class)
-@Forwards({ @Forward(name = "qualification", path = "/manager/qualifications/qualification.jsp"),
-        @Forward(name = "showQualifications", path = "/manager/qualifications/showQualifications.jsp"),
-        @Forward(name = "viewPerson", path = "/personnelSection/people/viewPerson.jsp") })
-public class QualificationDAForPersonnelSection extends QualificationDA {
-}
+//@Mapping(module = "personnelSection", path = "/qualification", functionality = PersonManagementAction.class)
+//@Forwards({ @Forward(name = "qualification", path = "/manager/qualifications/qualification.jsp"),
+//        @Forward(name = "showQualifications", path = "/manager/qualifications/showQualifications.jsp"),
+//        @Forward(name = "viewPerson", path = "/personnelSection/people/viewPerson.jsp") })
+//public class QualificationDAForPersonnelSection extends QualificationDA {
+//}

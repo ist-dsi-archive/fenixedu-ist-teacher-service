@@ -19,8 +19,9 @@
 package pt.ist.fenixedu.contracts.domain.accessControl.arguments;
 
 import org.fenixedu.academic.domain.accessControl.arguments.DomainObjectArgumentParser;
-import org.fenixedu.academic.domain.organizationalStructure.Function;
 import org.fenixedu.bennu.core.annotation.GroupArgumentParser;
+
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Function;
 
 @GroupArgumentParser
 public class FunctionArgument extends DomainObjectArgumentParser<Function> {

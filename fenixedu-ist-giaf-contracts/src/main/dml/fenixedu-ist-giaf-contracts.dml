@@ -1,6 +1,7 @@
 package pt.ist.fenixedu.contracts.domain;
 
 enum pt.ist.fenixedu.contracts.domain.util.CategoryType                                                                 as CategoryType;
+enum pt.ist.fenixedu.contracts.domain.organizationalStructure.FunctionType                                              as FunctionType;
 
 class personnelSection.contracts.ContractSituation  {
     String giafId (REQUIRED);
@@ -230,11 +231,22 @@ class organizationalStructure.EmployeeContract extends organizationalStructure.C
     Boolean teacherContract;                
 }
 
-class organizationalStructure.SharedFunction extends .org.fenixedu.academic.domain.organizationalStructure.Function {
+class organizationalStructure.Function extends .org.fenixedu.academic.domain.organizationalStructure.AccountabilityType {
+    YearMonthDay beginDateYearMonthDay;
+    YearMonthDay endDateYearMonthDay;
+    FunctionType functionType;
+    Integer functionOrder;
+}
+
+class organizationalStructure.PersonFunction extends .org.fenixedu.academic.domain.organizationalStructure.Accountability {
+    Double credits;
+}
+
+class organizationalStructure.SharedFunction extends organizationalStructure.Function {
     BigDecimal credits;
 }
 
-class organizationalStructure.PersonFunctionShared extends .org.fenixedu.academic.domain.organizationalStructure.PersonFunction {
+class organizationalStructure.PersonFunctionShared extends organizationalStructure.PersonFunction {
     BigDecimal percentage;
 }
 
@@ -318,6 +330,34 @@ relation ProfessionalRegimeRootDomainObject {
 relation ProfessionalRelationRootDomainObject {
     .org.fenixedu.bennu.core.domain.Bennu playsRole rootDomainObject;
     personnelSection.contracts.ProfessionalRelation playsRole professionalRelations {
+        multiplicity *;
+    }
+}
+
+relation FunctionParentInherentFunction {
+    organizationalStructure.Function playsRole inherentFunctions {
+        multiplicity *;
+    }
+    organizationalStructure.Function playsRole parentInherentFunction;
+}
+
+relation UnitFunction {
+    organizationalStructure.Function playsRole functions {
+        multiplicity *;
+    }
+    .org.fenixedu.academic.domain.organizationalStructure.Unit playsRole unit;
+}
+
+relation PersonFunctionCurricularYear {
+    .org.fenixedu.academic.domain.CurricularYear playsRole curricularYear;
+    organizationalStructure.PersonFunction playsRole personFunctions {
+        multiplicity *;
+    }
+}
+
+relation PersonFunctionSharedExecutionInterval {
+    .org.fenixedu.academic.domain.ExecutionInterval playsRole executionInterval;
+    organizationalStructure.PersonFunction playsRole personFunction {
         multiplicity *;
     }
 }

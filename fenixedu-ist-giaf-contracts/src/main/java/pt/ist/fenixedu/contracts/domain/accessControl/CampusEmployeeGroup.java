@@ -23,7 +23,6 @@ import java.util.Set;
 
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.accessControl.FenixGroup;
-import pt.ist.fenixedu.contracts.domain.util.CategoryType;
 import org.fenixedu.bennu.core.annotation.GroupArgument;
 import org.fenixedu.bennu.core.annotation.GroupOperator;
 import org.fenixedu.bennu.core.domain.User;
@@ -34,6 +33,7 @@ import org.joda.time.DateTime;
 import pt.ist.fenixedu.contracts.domain.Employee;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.GiafProfessionalData;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
+import pt.ist.fenixedu.contracts.domain.util.CategoryType;
 
 import com.google.common.base.Objects;
 

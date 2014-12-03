@@ -42,11 +42,6 @@ public class PersonFunctionShared extends PersonFunctionShared_Base {
     }
 
     @Override
-    public boolean isPersonFunctionShared() {
-        return true;
-    }
-
-    @Override
     public void setPercentage(BigDecimal percentage) {
         if (percentage == null || percentage.compareTo(BigDecimal.ZERO) < 0) {
             percentage = BigDecimal.ZERO;

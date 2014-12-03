@@ -23,8 +23,6 @@ import java.util.TreeSet;
 
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.organizationalStructure.Accountability;
-import org.fenixedu.academic.domain.organizationalStructure.Function;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.ui.renderers.PersonNameRenderer;
 import org.joda.time.YearMonthDay;
@@ -43,6 +41,8 @@ import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
 import pt.ist.fenixWebFramework.servlets.filters.contentRewrite.GenericChecksumRewriter;
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.Contract;
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.EmployeeContract;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Function;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 
 import com.google.common.base.Strings;
 
@@ -501,7 +501,7 @@ public class UnitStructureRenderer extends OutputRenderer {
     }
 
     protected void addFunctions(Unit unit, HtmlList root, int level) {
-        for (Function function : unit.getOrderedFunctions()) {
+        for (Function function : Function.getOrderedFunctions(unit)) {
             SortedSet<PersonFunction> pfs =
                     getPersonFunctions(function, new TreeSet<PersonFunction>(PersonFunction.COMPARATOR_BY_PERSON_NAME));
 
@@ -599,7 +599,7 @@ public class UnitStructureRenderer extends OutputRenderer {
 
     private boolean hasPersonFunctions(Unit unit) {
 
-        for (Function function : unit.getOrderedActiveFunctions()) {
+        for (Function function : Function.getOrderedActiveFunctions(unit)) {
             if (!getPersonFunctions(function, new TreeSet<PersonFunction>(PersonFunction.COMPARATOR_BY_PERSON_NAME)).isEmpty()) {
                 return true;
             }

@@ -21,10 +21,10 @@ package pt.ist.fenixedu.contracts.service.manager.organizationalStructureManagem
 import static org.fenixedu.academic.predicate.AccessControl.check;
 
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.organizationalStructure.Function;
 import org.fenixedu.academic.predicate.RolePredicates;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Function;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 

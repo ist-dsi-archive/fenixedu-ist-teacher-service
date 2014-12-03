@@ -18,8 +18,9 @@
  */
 package pt.ist.fenixedu.contracts.ui.renderers;
 
-import org.fenixedu.academic.domain.organizationalStructure.Function;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
+
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Function;
 
 public class UnitFunctionsTreeRenderer extends AbstractUnitFunctionsTreeRenderer {
 
