@@ -21,10 +21,6 @@
  */
 package pt.ist.fenixedu.teacher.service.teacher.services;
 
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.service.filter.DepartmentAdministrativeOfficeAuthorizationFilter;
-import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
-import org.fenixedu.academic.service.filter.ScientificCouncilAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherAdviseService;
@@ -38,9 +34,9 @@ import pt.ist.fenixframework.FenixFramework;
 
 public class DeleteTeacherAdviseServiceByOID {
 
-    protected void run(String teacherAdviseServiceID, RoleType roleType) {
+    protected void run(String teacherAdviseServiceID) {
         TeacherAdviseService teacherAdviseService = (TeacherAdviseService) FenixFramework.getDomainObject(teacherAdviseServiceID);
-        teacherAdviseService.delete(roleType);
+        teacherAdviseService.delete();
     }
 
     // Service Invokers migrated from Berserk
@@ -48,24 +44,8 @@ public class DeleteTeacherAdviseServiceByOID {
     private static final DeleteTeacherAdviseServiceByOID serviceInstance = new DeleteTeacherAdviseServiceByOID();
 
     @Atomic
-    public static void runDeleteTeacherAdviseServiceByOID(String teacherAdviseServiceID, RoleType roleType)
-            throws NotAuthorizedException {
-        try {
-            ScientificCouncilAuthorizationFilter.instance.execute();
-            serviceInstance.run(teacherAdviseServiceID, roleType);
-        } catch (NotAuthorizedException ex1) {
-            try {
-                DepartmentMemberAuthorizationFilter.instance.execute();
-                serviceInstance.run(teacherAdviseServiceID, roleType);
-            } catch (NotAuthorizedException ex2) {
-                try {
-                    DepartmentAdministrativeOfficeAuthorizationFilter.instance.execute();
-                    serviceInstance.run(teacherAdviseServiceID, roleType);
-                } catch (NotAuthorizedException ex3) {
-                    throw ex3;
-                }
-            }
-        }
+    public static void runDeleteTeacherAdviseServiceByOID(String teacherAdviseServiceID) throws NotAuthorizedException {
+        serviceInstance.run(teacherAdviseServiceID);
     }
 
 }

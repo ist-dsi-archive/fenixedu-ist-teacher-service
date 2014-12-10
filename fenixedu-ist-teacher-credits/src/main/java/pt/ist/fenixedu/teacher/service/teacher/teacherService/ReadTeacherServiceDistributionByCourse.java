@@ -39,9 +39,6 @@ import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.ShiftType;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.service.filter.DepartmentAdministrativeOfficeAuthorizationFilter;
-import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
-import org.fenixedu.academic.service.filter.TeacherAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 import org.joda.time.Duration;
@@ -253,22 +250,7 @@ public class ReadTeacherServiceDistributionByCourse {
     @Atomic
     public static List runReadTeacherServiceDistributionByCourse(String departmentId, List<String> executionPeriodsIDs)
             throws FenixServiceException, NotAuthorizedException {
-        try {
-            DepartmentAdministrativeOfficeAuthorizationFilter.instance.execute();
-            return serviceInstance.run(departmentId, executionPeriodsIDs);
-        } catch (NotAuthorizedException ex1) {
-            try {
-                TeacherAuthorizationFilter.instance.execute();
-                return serviceInstance.run(departmentId, executionPeriodsIDs);
-            } catch (NotAuthorizedException ex2) {
-                try {
-                    DepartmentMemberAuthorizationFilter.instance.execute();
-                    return serviceInstance.run(departmentId, executionPeriodsIDs);
-                } catch (NotAuthorizedException ex3) {
-                    throw ex3;
-                }
-            }
-        }
+        return serviceInstance.run(departmentId, executionPeriodsIDs);
     }
 
 }

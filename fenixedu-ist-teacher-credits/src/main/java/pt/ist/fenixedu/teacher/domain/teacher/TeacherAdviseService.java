@@ -19,13 +19,10 @@
 package pt.ist.fenixedu.teacher.domain.teacher;
 
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.person.RoleType;
-
-import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
 
 public class TeacherAdviseService extends TeacherAdviseService_Base {
 
-    public TeacherAdviseService(TeacherService teacherService, Advise advise, Double percentage, RoleType roleType) {
+    public TeacherAdviseService(TeacherService teacherService, Advise advise, Double percentage) {
         super();
 
         if (teacherService == null || advise == null || percentage == null) {
@@ -33,22 +30,20 @@ public class TeacherAdviseService extends TeacherAdviseService_Base {
         }
 
         setTeacherService(teacherService);
-        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), roleType);
         checkPercentage(percentage);
         advise.checkPercentageCoherenceWithOtherAdvises(teacherService.getExecutionPeriod(), percentage.doubleValue());
         setPercentage(percentage);
         setAdvise(advise);
     }
 
-    public void delete(RoleType roleType) {
-        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), roleType);
+    @Override
+    public void delete() {
         setAdvise(null);
         setTeacherService(null);
         super.delete();
     }
 
-    public void updatePercentage(Double percentage, RoleType roleType) {
-        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), roleType);
+    public void updatePercentage(Double percentage) {
         checkPercentage(percentage);
         getAdvise().checkPercentageCoherenceWithOtherAdvises(getTeacherService().getExecutionPeriod(), percentage.doubleValue());
         setPercentage(percentage);

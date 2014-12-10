@@ -102,7 +102,7 @@
 			</fr:edit>
 		</logic:empty>	
 		<logic:notEmpty name="personFunctionBean" property="function">
-			<bean:define id="function" name="personFunctionBean" property="function" type="org.fenixedu.academic.domain.organizationalStructure.Function"/>
+			<bean:define id="function" name="personFunctionBean" property="function" type="pt.ist.fenixedu.contracts.domain.organizationalStructure.Function"/>
 			<% if( function.isSharedFunction()){ %>
 				<fr:edit id="personFunctionBean3" name="personFunctionBean" action="/managePersonFunctionsShared.do?method=editPersonFunctionShared">
 					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.credits.util.PersonFunctionBean">

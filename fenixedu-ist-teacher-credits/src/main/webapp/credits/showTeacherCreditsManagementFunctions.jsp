@@ -65,7 +65,7 @@
 				<td><bean:write name="personFunction" property="function.unit.name"/></td>
 				<td><bean:write name="personFunction" property="beginDate"/></td>
 				<td><bean:write name="personFunction" property="endDate"/></td>
-				<% if(personFunction instanceof org.fenixedu.academic.domain.organizationalStructure.PersonFunctionShared){ %>
+				<% if(personFunction instanceof pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunctionShared){ %>
 					<td align="center"><bean:write name="personFunction" property="percentage"/></td>
 				<% } else { %>
 					<td align="center">-</td>

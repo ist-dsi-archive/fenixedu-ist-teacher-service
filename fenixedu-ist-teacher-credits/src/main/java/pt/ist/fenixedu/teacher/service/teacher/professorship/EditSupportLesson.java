@@ -21,11 +21,6 @@ package pt.ist.fenixedu.teacher.service.teacher.professorship;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.dto.teacher.professorship.SupportLessonDTO;
-import org.fenixedu.academic.service.filter.DepartmentAdministrativeOfficeAuthorizationFilter;
-import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
-import org.fenixedu.academic.service.filter.ScientificCouncilAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.academic.util.WeekDay;
@@ -34,12 +29,13 @@ import org.fenixedu.bennu.core.i18n.BundleUtil;
 import pt.ist.fenixedu.teacher.domain.SupportLesson;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceLog;
+import pt.ist.fenixedu.teacher.dto.teacher.professorship.SupportLessonDTO;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 
 public class EditSupportLesson {
 
-    protected void run(SupportLessonDTO supportLessonDTO, RoleType roleType) {
+    protected void run(SupportLessonDTO supportLessonDTO) {
 
         Professorship professorship = FenixFramework.getDomainObject(supportLessonDTO.getProfessorshipID());
         ExecutionSemester executionSemester = professorship.getExecutionCourse().getExecutionPeriod();
@@ -54,10 +50,10 @@ public class EditSupportLesson {
 
         SupportLesson supportLesson = FenixFramework.getDomainObject(supportLessonDTO.getExternalId());
         if (supportLesson == null) {
-            supportLesson = new SupportLesson(supportLessonDTO, professorship, roleType);
+            supportLesson = new SupportLesson(supportLessonDTO, professorship);
             log.append(BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.teacher.schedule.supportLessons.create"));
         } else {
-            supportLesson.update(supportLessonDTO, roleType);
+            supportLesson.update(supportLessonDTO);
             log.append(BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.teacher.schedule.supportLessons.change"));
         }
 
@@ -81,23 +77,8 @@ public class EditSupportLesson {
     private static final EditSupportLesson serviceInstance = new EditSupportLesson();
 
     @Atomic
-    public static void runEditSupportLesson(SupportLessonDTO supportLessonDTO, RoleType roleType) throws NotAuthorizedException {
-        try {
-            ScientificCouncilAuthorizationFilter.instance.execute();
-            serviceInstance.run(supportLessonDTO, roleType);
-        } catch (NotAuthorizedException ex1) {
-            try {
-                DepartmentMemberAuthorizationFilter.instance.execute();
-                serviceInstance.run(supportLessonDTO, roleType);
-            } catch (NotAuthorizedException ex2) {
-                try {
-                    DepartmentAdministrativeOfficeAuthorizationFilter.instance.execute();
-                    serviceInstance.run(supportLessonDTO, roleType);
-                } catch (NotAuthorizedException ex3) {
-                    throw ex3;
-                }
-            }
-        }
+    public static void runEditSupportLesson(SupportLessonDTO supportLessonDTO) throws NotAuthorizedException {
+        serviceInstance.run(supportLessonDTO);
     }
 
 }

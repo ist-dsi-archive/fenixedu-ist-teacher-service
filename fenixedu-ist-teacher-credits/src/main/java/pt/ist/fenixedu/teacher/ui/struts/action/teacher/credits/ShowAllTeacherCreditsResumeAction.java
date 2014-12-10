@@ -33,7 +33,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.ui.struts.action.base.FenixAction;
-import org.fenixedu.academic.util.OrderedIterator;
+import pt.ist.fenixedu.teacher.util.OrderedIterator;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 

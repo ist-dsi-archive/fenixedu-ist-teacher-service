@@ -26,7 +26,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.bennu.struts.annotations.Forward;
@@ -41,16 +40,16 @@ public abstract class AnnualTeacherCreditsDocumentsDA extends FenixDispatchActio
     public abstract ActionForward getAnnualTeachingCreditsPdf(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception;
 
-    protected ActionForward getTeacherCreditsDocument(ActionMapping mapping, HttpServletRequest request, RoleType roleType) {
+    protected ActionForward getTeacherCreditsDocument(ActionMapping mapping, HttpServletRequest request) {
         Teacher teacher = (Teacher) request.getAttribute("teacher");
         ExecutionYear executionYear = (ExecutionYear) request.getAttribute("executionYear");
 
         AnnualTeachingCreditsBean annualTeachingCreditsBean = null;
         AnnualTeachingCredits annualTeachingCredits = AnnualTeachingCredits.readByYearAndTeacher(executionYear, teacher);
         if (annualTeachingCredits != null) {
-            annualTeachingCreditsBean = new AnnualTeachingCreditsBean(annualTeachingCredits, roleType);
+            annualTeachingCreditsBean = new AnnualTeachingCreditsBean(annualTeachingCredits);
         } else {
-            annualTeachingCreditsBean = new AnnualTeachingCreditsBean(executionYear, teacher, roleType);
+            annualTeachingCreditsBean = new AnnualTeachingCreditsBean(executionYear, teacher);
         }
         request.setAttribute("annualTeachingCreditsBean", annualTeachingCreditsBean);
         return mapping.findForward("showAnnualTeacherCreditsDocument");

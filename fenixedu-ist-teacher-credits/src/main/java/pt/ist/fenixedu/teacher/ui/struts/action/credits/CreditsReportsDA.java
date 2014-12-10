@@ -34,7 +34,6 @@ import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
@@ -46,6 +45,7 @@ import org.fenixedu.bennu.struts.annotations.Mapping;
 import org.fenixedu.bennu.struts.portal.EntryPoint;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunctionShared;
 import pt.ist.fenixedu.teacher.domain.credits.AnnualCreditsState;
 import pt.ist.fenixedu.teacher.domain.credits.AnnualTeachingCredits;
@@ -151,7 +151,7 @@ public class CreditsReportsDA extends FenixDispatchAction {
                     spreadsheet.addCell(personFunction.getPerson().getName());
                     spreadsheet.addCell(personFunction.getFunction().getName());
                     spreadsheet.addCell(personFunction.getFunction().getUnit().getPresentationName());
-                    spreadsheet.addCell(personFunction.isPersonFunctionShared() ? ((PersonFunctionShared) personFunction)
+                    spreadsheet.addCell(personFunction instanceof PersonFunctionShared ? ((PersonFunctionShared) personFunction)
                             .getPercentage() : "-");
                     spreadsheet.addCell(personFunction.getCredits());
                 }

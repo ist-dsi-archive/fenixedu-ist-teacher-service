@@ -27,13 +27,13 @@ import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.organizationalStructure.Function;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.organizationalStructure.UnitName;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.Function;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunctionShared;
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.SharedFunction;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
@@ -258,7 +258,7 @@ public class PersonFunctionBean implements Serializable {
     public List<Function> getAvailableFunctions() {
         List<Function> result = new ArrayList<Function>();
         if (getUnit() != null) {
-            for (Function function : getUnit().getFunctions(true)) {
+            for (Function function : getUnit().getFunctionsSet()) {
                 if (function.isActive() && !function.isVirtual()) {
                     result.add(function);
                 }
@@ -270,7 +270,7 @@ public class PersonFunctionBean implements Serializable {
     public List<Function> getAvailableSharedFunctions() {
         List<Function> result = new ArrayList<Function>();
         if (getUnit() != null) {
-            for (Function function : getUnit().getFunctions(true)) {
+            for (Function function : getUnit().getFunctionsSet()) {
                 if (function instanceof SharedFunction && function.isActive() && !function.isVirtual()) {
                     result.add(function);
                 }

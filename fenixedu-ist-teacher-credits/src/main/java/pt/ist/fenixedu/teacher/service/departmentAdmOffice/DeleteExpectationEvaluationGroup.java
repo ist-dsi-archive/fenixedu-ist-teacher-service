@@ -18,9 +18,10 @@
  */
 package pt.ist.fenixedu.teacher.service.departmentAdmOffice;
 
-import static org.fenixedu.academic.predicate.AccessControl.check;
-
-import org.fenixedu.academic.predicate.RolePredicates;
+import org.fenixedu.academic.predicate.IllegalDataAccessException;
+import org.fenixedu.bennu.core.domain.User;
+import org.fenixedu.bennu.core.groups.Group;
+import org.fenixedu.bennu.core.security.Authenticate;
 
 import pt.ist.fenixedu.teacher.domain.ExpectationEvaluationGroup;
 import pt.ist.fenixframework.Atomic;
@@ -29,7 +30,15 @@ public class DeleteExpectationEvaluationGroup {
 
     @Atomic
     public static void run(ExpectationEvaluationGroup group) {
-        check(RolePredicates.DEPARTMENT_ADMINISTRATIVE_OFFICE_PREDICATE);
+        User user = Authenticate.getUser();
+        if (!Group.parse("creditsManager").isMember(user)) {
+            StringBuilder message = new StringBuilder();
+            final String username = user == null ? "<nobody>" : user.getUsername();
+            message.append("User ");
+            message.append(username);
+            message.append(" tried to execute method but he/she is not authorized to do so");
+            throw new IllegalDataAccessException(message.toString(), user.getPerson());
+        }
         if (group != null) {
             group.delete();
         }

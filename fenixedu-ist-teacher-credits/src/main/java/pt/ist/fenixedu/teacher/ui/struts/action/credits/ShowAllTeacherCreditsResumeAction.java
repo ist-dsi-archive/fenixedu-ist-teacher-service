@@ -32,7 +32,7 @@ import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
-import org.fenixedu.academic.util.OrderedIterator;
+import pt.ist.fenixedu.teacher.util.OrderedIterator;
 
 import pt.ist.fenixedu.teacher.dto.credits.CreditLineDTO;
 import pt.ist.fenixedu.teacher.service.credits.ReadAllTeacherCredits;

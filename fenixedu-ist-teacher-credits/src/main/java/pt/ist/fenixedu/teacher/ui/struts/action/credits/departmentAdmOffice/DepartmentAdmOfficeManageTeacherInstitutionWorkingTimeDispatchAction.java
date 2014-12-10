@@ -29,7 +29,6 @@ import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
@@ -78,7 +77,7 @@ public class DepartmentAdmOfficeManageTeacherInstitutionWorkingTimeDispatchActio
 
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response)
             throws NumberFormatException, FenixServiceException {
-        return delete(mapping, form, request, response, RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE);
+        return delete(mapping, form, request, response);
     }
 
 }

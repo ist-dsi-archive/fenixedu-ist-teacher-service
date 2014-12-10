@@ -29,7 +29,6 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.Forward;
@@ -61,7 +60,7 @@ public class DepartmentAdmOfficeShowTeacherCreditsDispatchAction extends ShowTea
             return mapping.findForward("teacher-not-found");
         }
 
-        showLinks(request, executionSemester, RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE);
+        showLinks(request, executionSemester);
         getAllTeacherCredits(request, executionSemester, teacher);
         return mapping.findForward("show-teacher-credits");
     }

@@ -27,6 +27,7 @@ import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.bennu.core.domain.User;
 
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
 import pt.ist.fenixedu.teacher.domain.TeacherCredits;
@@ -80,7 +81,7 @@ public class TeacherCreditsBean implements Serializable {
         this.hasAnyYearWithCorrections = hasAnyYearWithCorrections;
     }
 
-    public void prepareAnnualTeachingCredits(RoleType roleType) {
+    public void prepareAnnualTeachingCredits(User user) {
         annualTeachingCredits = new TreeSet<AnnualTeachingCreditsBean>(new Comparator<AnnualTeachingCreditsBean>() {
 
             @Override
@@ -92,7 +93,7 @@ public class TeacherCreditsBean implements Serializable {
         boolean hasCurrentYear = false;
         ExecutionYear currentExecutionYear = ExecutionYear.readCurrentExecutionYear();
         for (AnnualTeachingCredits annualTeachingCredits : teacher.getAnnualTeachingCreditsSet()) {
-            AnnualTeachingCreditsBean annualTeachingCreditsBean = new AnnualTeachingCreditsBean(annualTeachingCredits, roleType);
+            AnnualTeachingCreditsBean annualTeachingCreditsBean = new AnnualTeachingCreditsBean(annualTeachingCredits);
             this.annualTeachingCredits.add(annualTeachingCreditsBean);
             if (annualTeachingCredits.getAnnualCreditsState().getExecutionYear().equals(currentExecutionYear)) {
                 hasCurrentYear = true;
@@ -105,10 +106,10 @@ public class TeacherCreditsBean implements Serializable {
             }
         }
         if (!hasCurrentYear && isTeacherActiveForYear(currentExecutionYear)) {
-            this.annualTeachingCredits.add(new AnnualTeachingCreditsBean(currentExecutionYear, teacher, roleType));
+            this.annualTeachingCredits.add(new AnnualTeachingCreditsBean(currentExecutionYear, teacher));
         }
 
-        if (roleType.equals(RoleType.SCIENTIFIC_COUNCIL) || roleType.equals(RoleType.DEPARTMENT_MEMBER)) {
+        if (RoleType.SCIENTIFIC_COUNCIL.isMember(user) || RoleType.DEPARTMENT_MEMBER.isMember(user)) {
             setCanSeeCreditsReduction(true);
         }
     }

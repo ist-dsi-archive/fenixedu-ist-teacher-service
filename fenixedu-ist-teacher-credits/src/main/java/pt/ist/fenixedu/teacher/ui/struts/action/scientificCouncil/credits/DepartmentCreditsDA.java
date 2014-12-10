@@ -29,7 +29,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.Person;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
@@ -122,8 +121,7 @@ public class DepartmentCreditsDA extends FenixDispatchAction {
     }
 
     private boolean hasPersonPermissionCredits(Person person, Department department) {
-        return person.hasRole(RoleType.DEPARTMENT_CREDITS_MANAGER) && person.hasRole(RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE)
-                && person.getManageableDepartmentCreditsSet().contains(department);
+        return person.getManageableDepartmentCreditsSet().contains(department);
     }
 
 }

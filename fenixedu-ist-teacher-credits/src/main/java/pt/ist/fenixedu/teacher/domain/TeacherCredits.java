@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -31,8 +32,8 @@ import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
+import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
 import org.fenixedu.academic.predicate.AccessControl;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.joda.time.DateTime;
@@ -42,6 +43,7 @@ import org.joda.time.PeriodType;
 import org.joda.time.YearMonthDay;
 
 import pt.ist.fenixedu.contracts.domain.Employee;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalExemption;
@@ -169,8 +171,14 @@ public class TeacherCredits extends TeacherCredits_Base {
     }
 
     public static double calculateThesesCredits(Teacher teacher, ExecutionSemester executionSemester) {
-        return round(teacher.getPerson().getThesisEvaluationParticipants(executionSemester).stream()
-                .mapToDouble(p -> p.getParticipationCredits()).sum());
+        final ArrayList<ThesisEvaluationParticipant> participants = new ArrayList<ThesisEvaluationParticipant>();
+        for (final ThesisEvaluationParticipant participant : teacher.getPerson().getThesisEvaluationParticipantsSet()) {
+            if (participant.getThesis().getEnrolment().getExecutionYear().equals(executionSemester.getExecutionYear())) {
+                participants.add(participant);
+            }
+        }
+        Collections.sort(participants, ThesisEvaluationParticipant.COMPARATOR_BY_STUDENT_NUMBER);
+        return round(participants.stream().mapToDouble(p -> p.getParticipationCredits()).sum());
     }
 
     public static double calculateManagementFunctionsCredits(Teacher teacher, ExecutionSemester executionSemester) {

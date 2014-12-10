@@ -29,7 +29,7 @@ import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 
 public class DepartmentCreditsBean implements Serializable {
 

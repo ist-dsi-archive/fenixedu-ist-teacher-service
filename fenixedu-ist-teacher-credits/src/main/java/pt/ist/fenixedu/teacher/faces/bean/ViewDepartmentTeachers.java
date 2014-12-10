@@ -37,23 +37,23 @@ import org.fenixedu.academic.domain.CurricularCourse;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.accessControl.PersistentTeacherGroup;
 import org.fenixedu.academic.domain.degree.DegreeType;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.dto.InfoExecutionYear;
 import org.fenixedu.academic.dto.InfoTeacher;
 import org.fenixedu.academic.service.services.commons.ReadCurrentExecutionYear;
 import org.fenixedu.academic.service.services.commons.ReadNotClosedExecutionYears;
-import org.fenixedu.academic.service.services.department.ReadDepartmentTeachersByDepartmentIDAndExecutionYearID;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.service.services.teacher.ReadLecturedExecutionCoursesByTeacherIDAndExecutionYearIDAndDegreeType;
-import org.fenixedu.academic.service.services.teacher.ReadTeacherByOID;
 import org.fenixedu.academic.ui.faces.bean.base.FenixBackingBean;
 import org.fenixedu.academic.util.Bundle;
+import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 import pt.ist.fenixedu.contracts.service.person.function.ReadPersonFunctionsByPersonIDAndExecutionYearID;
 import pt.ist.fenixedu.teacher.domain.teacher.Advise;
 import pt.ist.fenixedu.teacher.domain.teacher.AdviseType;
+import pt.ist.fenixedu.teacher.service.teacher.ReadLecturedExecutionCoursesByTeacherIDAndExecutionYearIDAndDegreeType;
 import pt.ist.fenixedu.teacher.service.teacher.advise.ReadTeacherAdvisesByTeacherIDAndAdviseTypeAndExecutionYearID;
 import pt.ist.fenixframework.FenixFramework;
 
@@ -117,11 +117,13 @@ public class ViewDepartmentTeachers extends FenixBackingBean {
     public List<Teacher> getDepartmentTeachers() throws FenixServiceException {
         String executionYearID = getSelectedExecutionYearID();
 
-        List<Teacher> result =
-                new ArrayList<Teacher>(
-                        ReadDepartmentTeachersByDepartmentIDAndExecutionYearID
-                                .runReadDepartmentTeachersByDepartmentIDAndExecutionYearID(getDepartment().getExternalId(),
-                                        executionYearID));
+        PersistentTeacherGroup teacherGroup =
+                PersistentTeacherGroup.getInstance(getDepartment(), FenixFramework.getDomainObject(executionYearID));
+        List<Teacher> result = new ArrayList<Teacher>();
+
+        for (User user : teacherGroup.getMembers()) {
+            result.add(user.getPerson().getTeacher());
+        }
 
         ComparatorChain comparatorChain = new ComparatorChain();
         comparatorChain.addComparator(new BeanComparator("teacherId"));
@@ -146,7 +148,8 @@ public class ViewDepartmentTeachers extends FenixBackingBean {
     public InfoTeacher getSelectedTeacher() throws FenixServiceException {
 
         if (this.selectedTeacher == null) {
-            this.selectedTeacher = (InfoTeacher) ReadTeacherByOID.runReadTeacherByOID(getSelectedTeacherID());
+            Teacher teacher = FenixFramework.getDomainObject(getSelectedTeacherID());
+            this.selectedTeacher = InfoTeacher.newInfoFromDomain(teacher);
         }
 
         return this.selectedTeacher;

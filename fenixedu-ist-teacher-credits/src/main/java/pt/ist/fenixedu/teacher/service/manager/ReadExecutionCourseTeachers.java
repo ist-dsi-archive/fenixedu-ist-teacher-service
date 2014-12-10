@@ -30,8 +30,6 @@ import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.dto.InfoTeacher;
-import org.fenixedu.academic.service.filter.ManagerAuthorizationFilter;
-import org.fenixedu.academic.service.filter.ScientificCouncilAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 
@@ -78,17 +76,7 @@ public class ReadExecutionCourseTeachers {
     @Atomic
     public static List<InfoTeacher> runReadExecutionCourseTeachers(String executionCourseId) throws FenixServiceException,
             NotAuthorizedException {
-        try {
-            ManagerAuthorizationFilter.instance.execute();
-            return serviceInstance.run(executionCourseId);
-        } catch (NotAuthorizedException ex1) {
-            try {
-                ScientificCouncilAuthorizationFilter.instance.execute();
-                return serviceInstance.run(executionCourseId);
-            } catch (NotAuthorizedException ex2) {
-                throw ex2;
-            }
-        }
+        return serviceInstance.run(executionCourseId);
     }
 
 }

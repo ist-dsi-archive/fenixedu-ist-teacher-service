@@ -26,7 +26,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
@@ -55,7 +54,7 @@ public class DepartmentMemberViewTeacherCreditsDA extends ViewTeacherCreditsDA {
         final User userView = Authenticate.getUser();
         if (userView.getPerson().getTeacher() != null) {
             TeacherCreditsBean teacherBean = new TeacherCreditsBean(userView.getPerson().getTeacher());
-            teacherBean.prepareAnnualTeachingCredits(RoleType.DEPARTMENT_MEMBER);
+            teacherBean.prepareAnnualTeachingCredits(userView);
             request.setAttribute("teacherBean", teacherBean);
         }
         return mapping.findForward("showTeacherCredits");
@@ -64,7 +63,7 @@ public class DepartmentMemberViewTeacherCreditsDA extends ViewTeacherCreditsDA {
     @Override
     public ActionForward viewAnnualTeachingCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {
-        return viewAnnualTeachingCredits(mapping, form, request, response, RoleType.DEPARTMENT_MEMBER);
+        return viewAnnualTeachingCredits(mapping, form, request, response);
     }
 
     public ActionForward lockTeacherCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
@@ -76,7 +75,7 @@ public class DepartmentMemberViewTeacherCreditsDA extends ViewTeacherCreditsDA {
         teacherService.lockTeacherCredits();
         request.setAttribute("teacherOid", teacher.getExternalId());
         request.setAttribute("executionYearOid", executionSemester.getExecutionYear().getExternalId());
-        return viewAnnualTeachingCredits(mapping, form, request, response, RoleType.DEPARTMENT_MEMBER);
+        return viewAnnualTeachingCredits(mapping, form, request, response);
     }
 
 }

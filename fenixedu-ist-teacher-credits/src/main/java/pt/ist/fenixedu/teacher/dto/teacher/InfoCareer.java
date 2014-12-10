@@ -24,7 +24,7 @@ package pt.ist.fenixedu.teacher.dto.teacher;
 
 import java.util.Date;
 
-import org.fenixedu.academic.domain.CareerType;
+import pt.ist.fenixedu.teacher.domain.CareerType;
 import org.fenixedu.academic.dto.InfoObject;
 import org.fenixedu.academic.dto.InfoTeacher;
 

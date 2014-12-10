@@ -43,7 +43,7 @@ padding: 0;
 <logic:present name="annualTeachingCreditsBean">
 	<h3><bean:message key="label.teacherService.credits"/>&nbsp;<bean:write name="annualTeachingCreditsBean" property="executionYear.name"/></h3>
 	<fr:view name="annualTeachingCreditsBean">
-		<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.credits.util.AnnualTeachingCreditsBean">
+		<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.credits.util.AnnualTeachingCreditsBean">
 			<fr:slot name="teacher.person.presentationName" key="label.name"/>
 			<fr:slot name="professionalCategoryName" key="label.category" layout="null-as-label"/>
 			<fr:slot name="departmentName" key="label.department" layout="null-as-label"/>
@@ -263,7 +263,7 @@ padding: 0;
 			</logic:empty>
 			<logic:notEmpty name="personFunctions">
 				<fr:view name="annualTeachingCreditsByPeriodBean" property="personFunctions">
-					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.organizationalStructure.PersonFunction">
+					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction">
 						<fr:slot name="function.name" key="label.managementPosition.position"/>
 						<fr:slot name="function.unit.name" key="label.managementPosition.unit"/>
 					</fr:schema>

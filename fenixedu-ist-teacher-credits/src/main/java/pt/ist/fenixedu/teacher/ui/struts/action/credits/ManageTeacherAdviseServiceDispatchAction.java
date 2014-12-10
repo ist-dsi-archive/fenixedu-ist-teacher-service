@@ -35,10 +35,8 @@ import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.util.OrderedIterator;
 
 import pt.ist.fenixedu.teacher.domain.teacher.Advise;
 import pt.ist.fenixedu.teacher.domain.teacher.Advise.AdvisePercentageException;
@@ -47,6 +45,7 @@ import pt.ist.fenixedu.teacher.domain.teacher.TeacherAdviseService;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.ist.fenixedu.teacher.service.teacher.services.DeleteTeacherAdviseServiceByOID;
 import pt.ist.fenixedu.teacher.service.teacher.services.EditTeacherAdviseService;
+import pt.ist.fenixedu.teacher.util.OrderedIterator;
 import pt.ist.fenixframework.FenixFramework;
 
 /**
@@ -74,8 +73,8 @@ public class ManageTeacherAdviseServiceDispatchAction extends FenixDispatchActio
         request.setAttribute("teacher", teacher);
     }
 
-    protected ActionForward editAdviseService(ActionForm form, HttpServletRequest request, ActionMapping mapping,
-            RoleType roleType) throws NumberFormatException, FenixServiceException {
+    protected ActionForward editAdviseService(ActionForm form, HttpServletRequest request, ActionMapping mapping)
+            throws NumberFormatException, FenixServiceException {
 
         DynaActionForm adviseServiceForm = (DynaActionForm) form;
 
@@ -85,7 +84,7 @@ public class ManageTeacherAdviseServiceDispatchAction extends FenixDispatchActio
         String executionPeriodID = (String) adviseServiceForm.get("executionPeriodId");
         try {
             EditTeacherAdviseService.runEditTeacherAdviseService(teacher, executionPeriodID, studentNumber, percentage,
-                    AdviseType.FINAL_WORK_DEGREE, roleType);
+                    AdviseType.FINAL_WORK_DEGREE);
 
         } catch (AdvisePercentageException ape) {
             ActionMessages actionMessages = new ActionMessages();
@@ -100,12 +99,11 @@ public class ManageTeacherAdviseServiceDispatchAction extends FenixDispatchActio
         return mapping.findForward("successfull-edit");
     }
 
-    protected void deleteAdviseService(HttpServletRequest request, RoleType roleType) throws NumberFormatException,
-            FenixServiceException {
+    protected void deleteAdviseService(HttpServletRequest request) throws NumberFormatException, FenixServiceException {
 
         String adviseServiceID = request.getParameter("teacherAdviseServiceID");
         try {
-            DeleteTeacherAdviseServiceByOID.runDeleteTeacherAdviseServiceByOID(adviseServiceID, roleType);
+            DeleteTeacherAdviseServiceByOID.runDeleteTeacherAdviseServiceByOID(adviseServiceID);
         } catch (DomainException e) {
             saveMessages(request, e);
         }

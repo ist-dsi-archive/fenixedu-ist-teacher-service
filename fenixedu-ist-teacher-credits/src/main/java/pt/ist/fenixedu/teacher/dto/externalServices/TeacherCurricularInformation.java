@@ -302,18 +302,22 @@ public class TeacherCurricularInformation implements Serializable {
             for (Professorship professorship : teacher.getProfessorships(executionSemester)) {
                 getLecturedCurricularUnitForProfessorship(professorship, executionSemester);
             }
-            for (ThesisEvaluationParticipant thesisEvaluationParticipant : teacher.getPerson().getThesisEvaluationParticipants(
-                    executionSemester)) {
-                final ThesisParticipationType type = thesisEvaluationParticipant.getType();
-                if (type == ThesisParticipationType.ORIENTATOR || type == ThesisParticipationType.COORIENTATOR) {
-                    ExecutionCourse executionCourse =
-                            thesisEvaluationParticipant.getThesis().getEnrolment().getExecutionCourseFor(executionSemester);
-                    if (executionCourse != null) {
-                        addLecturedCurricularUnit(executionCourse.getDegreePresentationString(), executionCourse.getName(), "OT",
-                                (float) 0);
+            for (ThesisEvaluationParticipant thesisEvaluationParticipant : teacher.getPerson()
+                    .getThesisEvaluationParticipantsSet()) {
+                if (thesisEvaluationParticipant.getThesis().getEnrolment().getExecutionYear()
+                        .equals(executionSemester.getExecutionYear())) {
+                    final ThesisParticipationType type = thesisEvaluationParticipant.getType();
+                    if (type == ThesisParticipationType.ORIENTATOR || type == ThesisParticipationType.COORIENTATOR) {
+                        ExecutionCourse executionCourse =
+                                thesisEvaluationParticipant.getThesis().getEnrolment().getExecutionCourseFor(executionSemester);
+                        if (executionCourse != null) {
+                            addLecturedCurricularUnit(executionCourse.getDegreePresentationString(), executionCourse.getName(),
+                                    "OT", (float) 0);
+                        }
                     }
                 }
             }
+
             if (degree.getPhdProgram() != null) {
                 for (InternalPhdParticipant participant : teacher.getPerson().getInternalParticipantsSet()) {
                     PhdIndividualProgramProcess phdIndividualProgramProcess = participant.getIndividualProcess();

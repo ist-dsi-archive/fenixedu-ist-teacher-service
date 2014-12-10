@@ -26,7 +26,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.Forward;
@@ -49,7 +48,7 @@ public class DepartmentAdmOfficeViewTeacherCreditsDA extends ViewTeacherCreditsD
     @Override
     public ActionForward viewAnnualTeachingCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {
-        return viewAnnualTeachingCredits(mapping, form, request, response, RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE);
+        return viewAnnualTeachingCredits(mapping, form, request, response);
     }
 
     @Override
@@ -62,7 +61,7 @@ public class DepartmentAdmOfficeViewTeacherCreditsDA extends ViewTeacherCreditsD
             return prepareTeacherSearch(mapping, form, request, response);
         }
 
-        teacherBean.prepareAnnualTeachingCredits(RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE);
+        teacherBean.prepareAnnualTeachingCredits(Authenticate.getUser());
         request.setAttribute("teacherBean", teacherBean);
         return mapping.findForward("showTeacherCredits");
     }
@@ -80,6 +79,6 @@ public class DepartmentAdmOfficeViewTeacherCreditsDA extends ViewTeacherCreditsD
         teacherService.unlockTeacherCredits();
         request.setAttribute("teacherOid", teacher.getExternalId());
         request.setAttribute("executionYearOid", executionSemester.getExecutionYear().getExternalId());
-        return viewAnnualTeachingCredits(mapping, form, request, response, RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE);
+        return viewAnnualTeachingCredits(mapping, form, request, response);
     }
 }

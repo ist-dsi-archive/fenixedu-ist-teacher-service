@@ -40,7 +40,6 @@ import org.fenixedu.academic.dto.InfoExecutionYear;
 import org.fenixedu.academic.service.services.commons.ReadExecutionPeriodsByExecutionYear;
 import org.fenixedu.academic.service.services.commons.ReadExecutionYearByID;
 import org.fenixedu.academic.service.services.commons.ReadNotClosedExecutionYears;
-import org.fenixedu.academic.service.services.commons.ReadPreviousExecutionPeriod;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 import org.fenixedu.academic.ui.faces.bean.base.FenixBackingBean;
@@ -54,6 +53,7 @@ import pt.ist.fenixedu.teacher.dto.teacher.distribution.DistributionTeacherServi
 import pt.ist.fenixedu.teacher.dto.teacher.distribution.DistributionTeacherServicesByTeachersDTO.TeacherDistributionServiceEntryDTO;
 import pt.ist.fenixedu.teacher.service.teacher.teacherService.ReadTeacherServiceDistributionByCourse;
 import pt.ist.fenixedu.teacher.service.teacher.teacherService.ReadTeacherServiceDistributionByTeachers;
+import pt.ist.fenixframework.FenixFramework;
 import pt.utl.ist.fenix.tools.util.excel.StyledExcelSpreadsheet;
 
 /**
@@ -413,7 +413,7 @@ public class ViewTeacherService extends FenixBackingBean {
         Collections.sort(executionPeriods, new BeanComparator("beginDate"));
 
         InfoExecutionPeriod previousExecutionPeriod =
-                ReadPreviousExecutionPeriod.run(executionPeriods.iterator().next().getExternalId());
+                readPreviousExecutionPeriod(executionPeriods.iterator().next().getExternalId());
 
         if (previousExecutionPeriod != null) {
             previousExecutionYear = previousExecutionPeriod.getInfoExecutionYear();
@@ -441,6 +441,12 @@ public class ViewTeacherService extends FenixBackingBean {
         }
 
         return returnList;
+    }
+
+    public InfoExecutionPeriod readPreviousExecutionPeriod(String oid) {
+        final ExecutionSemester executionSemester = FenixFramework.getDomainObject(oid);
+        return (executionSemester != null) ? InfoExecutionPeriod
+                .newInfoFromDomain(executionSemester.getPreviousExecutionPeriod()) : null;
     }
 
     public void onSelectedExecutionYearIDChanged(ValueChangeEvent valueChangeEvent) {

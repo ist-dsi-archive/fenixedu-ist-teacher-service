@@ -31,7 +31,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.ui.struts.action.base.FenixAction;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;

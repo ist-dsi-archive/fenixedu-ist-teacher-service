@@ -34,14 +34,13 @@ import org.apache.commons.collections.comparators.ReverseComparator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.fenixedu.academic.domain.CareerType;
 import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.thesis.Thesis;
-import org.fenixedu.academic.dto.research.result.ExecutionYearIntervalBean;
+import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
+import org.fenixedu.academic.domain.thesis.ThesisParticipationType;
 import org.fenixedu.academic.ui.struts.action.base.FenixAction;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
@@ -51,9 +50,12 @@ import org.joda.time.Interval;
 
 import pt.ist.fenixWebFramework.renderers.components.state.IViewState;
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
+import pt.ist.fenixedu.teacher.domain.CareerType;
 import pt.ist.fenixedu.teacher.domain.teacher.Advise;
 import pt.ist.fenixedu.teacher.domain.teacher.AdviseType;
 import pt.ist.fenixedu.teacher.domain.teacher.Career;
+import pt.ist.fenixedu.teacher.dto.ExecutionYearIntervalBean;
 import pt.ist.fenixframework.FenixFramework;
 
 @StrutsFunctionality(app = CurriculumApp.class, path = "curriculum", titleKey = "link.viewCurriculum")
@@ -127,7 +129,7 @@ public class ViewCurriculumDispatchAction extends FenixAction {
                 lectures.addAll(teacher.getLecturedExecutionCoursesByExecutionYear(iteratorYear));
             }
 
-            orientedThesis.addAll(person.getOrientedOrCoorientedThesis(iteratorYear));
+            orientedThesis.addAll(getOrientedOrCoorientedThesis(iteratorYear, person));
 
             functions.addAll(PersonFunction.getPersonFuntions(person, iteratorYear.getBeginDateYearMonthDay(),
                     iteratorYear.getEndDateYearMonthDay()));
@@ -152,4 +154,16 @@ public class ViewCurriculumDispatchAction extends FenixAction {
         }
         request.setAttribute("career", career);
     }
+
+    public Set<Thesis> getOrientedOrCoorientedThesis(final ExecutionYear year, final Person person) {
+        final Set<Thesis> thesis = new HashSet<Thesis>();
+        for (final ThesisEvaluationParticipant participant : person.getThesisEvaluationParticipantsSet()) {
+            if (participant.getThesis().getEnrolment().getExecutionYear().equals(year)
+                    && (participant.getType() == ThesisParticipationType.ORIENTATOR || participant.getType() == ThesisParticipationType.COORIENTATOR)) {
+                thesis.add(participant.getThesis());
+            }
+        }
+        return thesis;
+    }
+
 }

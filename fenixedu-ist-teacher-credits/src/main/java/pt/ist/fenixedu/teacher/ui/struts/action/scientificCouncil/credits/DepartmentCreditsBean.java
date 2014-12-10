@@ -23,8 +23,6 @@ import java.io.Serializable;
 import jvstm.Atomic;
 
 import org.fenixedu.academic.domain.Department;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.bennu.core.domain.Bennu;
 
 import pt.ist.fenixedu.contracts.domain.Employee;
 
@@ -63,30 +61,11 @@ public class DepartmentCreditsBean implements Serializable {
     @Atomic
     public void assignPermission(Employee employee) {
         employee.getPerson().getManageableDepartmentCreditsSet().add(department);
-        RoleType.grant(RoleType.DEPARTMENT_CREDITS_MANAGER, employee.getPerson().getUser());
-        RoleType.grant(RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE, employee.getPerson().getUser());
     }
 
     @Atomic
     public void removePermission(Employee employee) {
-        if (!hasMultipleDepartments(employee)) {
-            RoleType.revoke(RoleType.DEPARTMENT_CREDITS_MANAGER, employee.getPerson().getUser());
-            RoleType.revoke(RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE, employee.getPerson().getUser());
-        }
         employee.getPerson().getManageableDepartmentCreditsSet().remove(department);
-    }
-
-    public boolean hasMultipleDepartments(Employee employee) {
-        int count = 0;
-        for (Department department : Bennu.getInstance().getDepartmentsSet()) {
-            if (department.getAssociatedPersonsSet().contains(employee.getPerson())) {
-                count++;
-                if (count > 1) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
 }

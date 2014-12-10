@@ -27,11 +27,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.domain.student.Registration;
-import org.fenixedu.academic.service.filter.DepartmentAdministrativeOfficeAuthorizationFilter;
-import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
-import org.fenixedu.academic.service.filter.ScientificCouncilAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 import org.fenixedu.bennu.core.domain.Bennu;
@@ -51,7 +47,7 @@ import pt.ist.fenixframework.FenixFramework;
 public class EditTeacherAdviseService {
 
     protected void run(Teacher teacher, String executionPeriodID, final Integer studentNumber, Double percentage,
-            AdviseType adviseType, RoleType roleType) throws FenixServiceException {
+            AdviseType adviseType) throws FenixServiceException {
 
         ExecutionSemester executionSemester = FenixFramework.getDomainObject(executionPeriodID);
 
@@ -78,9 +74,9 @@ public class EditTeacherAdviseService {
 
         TeacherAdviseService teacherAdviseService = advise.getTeacherAdviseServiceByExecutionPeriod(executionSemester);
         if (teacherAdviseService == null) {
-            teacherAdviseService = new TeacherAdviseService(teacherService, advise, percentage, roleType);
+            teacherAdviseService = new TeacherAdviseService(teacherService, advise, percentage);
         } else {
-            teacherAdviseService.updatePercentage(percentage, roleType);
+            teacherAdviseService.updatePercentage(percentage);
         }
     }
 
@@ -90,23 +86,8 @@ public class EditTeacherAdviseService {
 
     @Atomic
     public static void runEditTeacherAdviseService(Teacher teacher, String executionPeriodID, Integer studentNumber,
-            Double percentage, AdviseType adviseType, RoleType roleType) throws FenixServiceException, NotAuthorizedException {
-        try {
-            ScientificCouncilAuthorizationFilter.instance.execute();
-            serviceInstance.run(teacher, executionPeriodID, studentNumber, percentage, adviseType, roleType);
-        } catch (NotAuthorizedException ex1) {
-            try {
-                DepartmentMemberAuthorizationFilter.instance.execute();
-                serviceInstance.run(teacher, executionPeriodID, studentNumber, percentage, adviseType, roleType);
-            } catch (NotAuthorizedException ex2) {
-                try {
-                    DepartmentAdministrativeOfficeAuthorizationFilter.instance.execute();
-                    serviceInstance.run(teacher, executionPeriodID, studentNumber, percentage, adviseType, roleType);
-                } catch (NotAuthorizedException ex3) {
-                    throw ex3;
-                }
-            }
-        }
+            Double percentage, AdviseType adviseType) throws FenixServiceException, NotAuthorizedException {
+        serviceInstance.run(teacher, executionPeriodID, studentNumber, percentage, adviseType);
     }
 
 }

@@ -28,8 +28,6 @@ import java.util.stream.Collectors;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
-import org.fenixedu.academic.service.filter.TeacherAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 
@@ -69,17 +67,7 @@ public class ReadTeacherAdvisesByTeacherIDAndAdviseTypeAndExecutionYearID {
     @Atomic
     public static List<Advise> runReadTeacherAdvisesByTeacherIDAndAdviseTypeAndExecutionYearID(AdviseType adviseType,
             String teacherID, String executionYearID) throws FenixServiceException, DomainException, NotAuthorizedException {
-        try {
-            DepartmentMemberAuthorizationFilter.instance.execute();
-            return serviceInstance.run(adviseType, teacherID, executionYearID);
-        } catch (NotAuthorizedException ex1) {
-            try {
-                TeacherAuthorizationFilter.instance.execute();
-                return serviceInstance.run(adviseType, teacherID, executionYearID);
-            } catch (NotAuthorizedException ex2) {
-                throw ex2;
-            }
-        }
+        return serviceInstance.run(adviseType, teacherID, executionYearID);
     }
 
 }

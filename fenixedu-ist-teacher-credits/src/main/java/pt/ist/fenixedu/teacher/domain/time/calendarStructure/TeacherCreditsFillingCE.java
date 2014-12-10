@@ -24,7 +24,6 @@ import java.util.List;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.organizationalStructure.PartyTypeEnum;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.organizationalStructure.UnitUtils;
 import org.fenixedu.academic.domain.person.RoleType;
@@ -32,9 +31,12 @@ import org.fenixedu.academic.domain.time.calendarStructure.AcademicCalendarEntry
 import org.fenixedu.academic.domain.time.calendarStructure.AcademicCalendarRootEntry;
 import org.fenixedu.academic.domain.time.calendarStructure.AcademicPeriod;
 import org.fenixedu.academic.util.Bundle;
+import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.joda.time.DateTime;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunctionShared;
 import pt.ist.fenixedu.teacher.domain.credits.CreditsPersonFunctionsSharedQueueJob;
 import pt.utl.ist.fenix.tools.util.i18n.MultiLanguageString;
 
@@ -149,31 +151,30 @@ public abstract class TeacherCreditsFillingCE extends TeacherCreditsFillingCE_Ba
                 .getTeacherCreditsFillingForDepartmentAdmOfficePeriod(executionSemester);
     }
 
-    public static boolean isInValidCreditsPeriod(ExecutionSemester executionSemester, RoleType roleType) {
-        if (roleType == null) {
+    public static boolean isInValidCreditsPeriod(ExecutionSemester executionSemester, User user) {
+        if (user == null) {
             return false;
         }
-        if (roleType == RoleType.SCIENTIFIC_COUNCIL) {
+        if (RoleType.SCIENTIFIC_COUNCIL.isMember(user)) {
             return true;
         }
-        TeacherCreditsFillingCE validCreditsPerid = getValidCreditsPeriod(executionSemester, roleType);
+        TeacherCreditsFillingCE validCreditsPerid = getValidCreditsPeriod(executionSemester, user);
         return validCreditsPerid != null && validCreditsPerid.containsNow();
     }
 
-    public static TeacherCreditsFillingCE getValidCreditsPeriod(ExecutionSemester executionSemester, RoleType roleType) {
-        switch (roleType) {
-        case DEPARTMENT_MEMBER:
-            return TeacherCreditsFillingForTeacherCE.getTeacherCreditsFillingForTeacher(executionSemester.getAcademicInterval());
-        case DEPARTMENT_ADMINISTRATIVE_OFFICE:
+    public static TeacherCreditsFillingCE getValidCreditsPeriod(ExecutionSemester executionSemester, User user) {
+        if (org.fenixedu.bennu.core.groups.Group.parse("creditsManager").isMember(user)) {
             return getTeacherCreditsFillingForDepartmentAdmOfficePeriod(executionSemester);
-        default:
-            throw new DomainException("invalid.role.type");
         }
+        if (RoleType.TEACHER.isMember(user)) {
+            return TeacherCreditsFillingForTeacherCE.getTeacherCreditsFillingForTeacher(executionSemester.getAcademicInterval());
+        }
+        throw new DomainException("invalid.role.type");
     }
 
-    public static void checkValidCreditsPeriod(ExecutionSemester executionSemester, RoleType roleType) {
-        if (roleType != RoleType.SCIENTIFIC_COUNCIL) {
-            TeacherCreditsFillingCE validCreditsPerid = getValidCreditsPeriod(executionSemester, roleType);
+    public static void checkValidCreditsPeriod(ExecutionSemester executionSemester, User user) {
+        if (!RoleType.SCIENTIFIC_COUNCIL.isMember(user)) {
+            TeacherCreditsFillingCE validCreditsPerid = getValidCreditsPeriod(executionSemester, user);
             if (validCreditsPerid == null) {
                 throw new DomainException("message.invalid.credits.period2");
             } else if (!validCreditsPerid.containsNow()) {
@@ -185,18 +186,24 @@ public abstract class TeacherCreditsFillingCE extends TeacherCreditsFillingCE_Ba
 
     public static boolean getCanBeEditedByDepartmentAdministrativeOffice(PersonFunction personFunction) {
         ExecutionSemester executionSemester = ExecutionSemester.readByYearMonthDay(personFunction.getBeginDate());
-        if (personFunction.isPersonFunctionShared()
-                && TeacherCreditsFillingCE.isInValidCreditsPeriod(executionSemester, RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE)) {
-            List<Unit> units = UnitUtils.readAllActiveUnitsByType(PartyTypeEnum.DEPARTMENT);
-            units.addAll(UnitUtils.readAllActiveUnitsByType(PartyTypeEnum.DEGREE_UNIT));
-            units.addAll(UnitUtils.readAllActiveUnitsByType(PartyTypeEnum.SCIENTIFIC_AREA));
-            for (Iterator<Unit> iterator = units.iterator(); iterator.hasNext();) {
-                Unit unit = iterator.next();
-                if (unit.getUnitName().getIsExternalUnit()) {
-                    iterator.remove();
+        if (personFunction instanceof PersonFunctionShared) {
+            TeacherCreditsFillingForDepartmentAdmOfficeCE teacherCreditsFillingForDepartmentAdmOfficePeriod =
+                    getTeacherCreditsFillingForDepartmentAdmOfficePeriod(executionSemester);
+            boolean validCreditsPerid =
+                    teacherCreditsFillingForDepartmentAdmOfficePeriod != null
+                            && teacherCreditsFillingForDepartmentAdmOfficePeriod.containsNow();
+            if (validCreditsPerid) {
+                List<Unit> units = UnitUtils.readAllActiveUnitsByType(PartyTypeEnum.DEPARTMENT);
+                units.addAll(UnitUtils.readAllActiveUnitsByType(PartyTypeEnum.DEGREE_UNIT));
+                units.addAll(UnitUtils.readAllActiveUnitsByType(PartyTypeEnum.SCIENTIFIC_AREA));
+                for (Iterator<Unit> iterator = units.iterator(); iterator.hasNext();) {
+                    Unit unit = iterator.next();
+                    if (unit.getUnitName().getIsExternalUnit()) {
+                        iterator.remove();
+                    }
                 }
+                return units.contains(personFunction.getUnit());
             }
-            return units.contains(personFunction.getUnit());
         }
         return false;
     }

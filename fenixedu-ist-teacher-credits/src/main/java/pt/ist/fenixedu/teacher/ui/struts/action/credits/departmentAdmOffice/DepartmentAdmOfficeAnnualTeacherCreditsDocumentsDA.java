@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 
@@ -37,6 +36,6 @@ public class DepartmentAdmOfficeAnnualTeacherCreditsDocumentsDA extends AnnualTe
     @Override
     public ActionForward getAnnualTeachingCreditsPdf(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {
-        return getTeacherCreditsDocument(mapping, request, RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE);
+        return getTeacherCreditsDocument(mapping, request);
     }
 }

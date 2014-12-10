@@ -32,7 +32,6 @@ import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
@@ -70,7 +69,7 @@ public class DepartmentMemberManageCreditsReductionsDA extends ManageCreditsRedu
         List<ReductionService> creditsReductions = new ArrayList<ReductionService>();
         if (department != null && DepartmentPresidentStrategy.isCurrentUserCurrentDepartmentPresident(department)) {
             boolean inValidTeacherCreditsPeriod =
-                    TeacherCreditsFillingCE.isInValidCreditsPeriod(executionSemester, RoleType.DEPARTMENT_MEMBER);
+                    TeacherCreditsFillingCE.isInValidCreditsPeriod(executionSemester, Authenticate.getUser());
             for (Teacher teacher : department.getAllCurrentTeachers()) {
                 TeacherService teacherService = TeacherService.getTeacherServiceByExecutionPeriod(teacher, executionSemester);
                 if (teacherService != null

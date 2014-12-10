@@ -19,7 +19,7 @@
 package pt.ist.fenixedu.teacher.domain.teacher;
 
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.bennu.core.security.Authenticate;
 
 import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
 
@@ -37,9 +37,9 @@ public class TeacherServiceNotes extends TeacherServiceNotes_Base {
     }
 
     public void editNotes(String managementFunctionNote, String serviceExemptionNote, String otherNote,
-            String masterDegreeTeachingNote, String functionsAccumulation, String thesisNote, RoleType roleType) {
+            String masterDegreeTeachingNote, String functionsAccumulation, String thesisNote) {
 
-        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), roleType);
+        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), Authenticate.getUser());
 
         if (managementFunctionNote != null) {
             setManagementFunctionNotes(managementFunctionNote);

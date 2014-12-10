@@ -193,7 +193,7 @@
     <slot name="professionalActivityMainFocus" key="label.personalExpectationsManagement.mainFocus" layout="html"/> 
 </schema>
 
-<schema name="FillGraduationExpectations" type="org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
+<schema name="FillGraduationExpectations" type="pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
     <slot name="graduations" key="label.personalExpectationsManagement.numberOfGraduations.required" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>
     <slot name="graduationsDescription" key="label.personalExpectationsManagement.description" layout="rich-text">
         <property name="safe" value="true" />
@@ -203,7 +203,7 @@
     </slot> 
 </schema>   
 
-<schema name="FillCientificPosGraduationsExpectations" type="org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
+<schema name="FillCientificPosGraduationsExpectations" type="pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
     <slot name="cientificPosGraduations" key="label.personalExpectationsManagement.numberOfCientificPosGraduations.required" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>
     <slot name="cientificPosGraduationsDescription" key="label.personalExpectationsManagement.description" layout="rich-text">
         <property name="safe" value="true" />
@@ -213,7 +213,7 @@
     </slot>     
 </schema>
 
-<schema name="FillProfessionalPosGraduationsExpectations" type="org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
+<schema name="FillProfessionalPosGraduationsExpectations" type="pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
     <slot name="professionalPosGraduations" key="label.personalExpectationsManagement.numberOfProfessionalPosGraduations.required" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>
     <slot name="professionalPosGraduationsDescription" key="label.personalExpectationsManagement.description" layout="rich-text">
         <property name="safe" value="true" />
@@ -223,7 +223,7 @@
     </slot>     
 </schema>   
 
-<schema name="FillSeminariesExpectations" type="org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
+<schema name="FillSeminariesExpectations" type="pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
     <slot name="seminaries" key="label.personalExpectationsManagement.numberOfSeminaries.required" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>
     <slot name="seminariesDescription" key="label.personalExpectationsManagement.description" layout="rich-text">
         <property name="safe" value="true" />
@@ -233,7 +233,7 @@
     </slot>     
 </schema>   
 
-<schema name="FillEducationMainFocusExpectations" type="org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
+<schema name="FillEducationMainFocusExpectations" type="pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
     <slot name="educationMainFocus" key="label.personalExpectationsManagement.mainFocus" layout="rich-text">
         <property name="safe" value="true" />
         <property name="columns" value="50"/>
@@ -242,7 +242,7 @@
     </slot>     
 </schema>
 
-<schema name="FillPublicationsAndProjectsExpectations" type="org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
+<schema name="FillPublicationsAndProjectsExpectations" type="pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
     <slot name="researchAndDevProjects" key="label.personalExpectationsManagement.numberOfresearchAndDevProjects.required" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>    
     <slot name="jornalArticlePublications" key="label.personalExpectationsManagement.jornalArticlePublications.required" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>  
     <slot name="bookPublications" key="label.personalExpectationsManagement.bookPublications.required" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>
@@ -258,7 +258,7 @@
     </slot>                     
 </schema>
 
-<schema name="FillPublicationsAndProjectsMainFocusExpectations" type="org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
+<schema name="FillPublicationsAndProjectsMainFocusExpectations" type="pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
     <slot name="researchAndDevMainFocus" key="label.personalExpectationsManagement.mainFocus" layout="rich-text">
         <property name="safe" value="true" />
         <property name="columns" value="50"/>
@@ -267,13 +267,13 @@
     </slot>     
 </schema>
 
-<schema name="FillOrientationsExpectations" type="org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
+<schema name="FillOrientationsExpectations" type="pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
     <slot name="phdOrientations" key="label.personalExpectationsManagement.phdOrientations.required" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>
     <slot name="masterDegreeOrientations" key="label.personalExpectationsManagement.masterDegreeOrientations.required" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>
     <slot name="finalDegreeWorkOrientations" key="label.personalExpectationsManagement.finalDegreeWorkOrientations.required" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>      
 </schema>
 
-<schema name="FillOrientationMainFocusExpectations" type="org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
+<schema name="FillOrientationMainFocusExpectations" type="pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
     <slot name="orientationsMainFocus" key="label.personalExpectationsManagement.mainFocus" layout="rich-text">
         <property name="safe" value="true" />
         <property name="columns" value="50"/>
@@ -282,7 +282,7 @@
     </slot>     
 </schema>
 
-<schema name="FillUniversityServiceExpectations" type="org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
+<schema name="FillUniversityServiceExpectations" type="pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
     <slot name="departmentOrgans" key="label.personalExpectationsManagement.departmentOrgans" layout="rich-text">
         <property name="safe" value="true" />
         <property name="columns" value="50"/>
@@ -303,7 +303,7 @@
     </slot>     
 </schema>
 
-<schema name="FillUniversityServiceMainFocusExpectations" type="org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
+<schema name="FillUniversityServiceMainFocusExpectations" type="pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
     <slot name="universityServiceMainFocus" key="label.personalExpectationsManagement.mainFocus" layout="rich-text">
         <property name="safe" value="true" />
         <property name="columns" value="50"/>
@@ -312,7 +312,7 @@
     </slot>     
 </schema>
 
-<schema name="FillProfessionalActivitiesExpectations" type="org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
+<schema name="FillProfessionalActivitiesExpectations" type="pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
     <slot name="cientificComunityService" key="label.personalExpectationsManagement.cientificComunityService" layout="rich-text">
         <property name="safe" value="true" />
         <property name="columns" value="50"/>
@@ -345,7 +345,7 @@
     </slot>     
 </schema>
 
-<schema name="FillProfessionalActivitiesMainFocusExpectations" type="org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
+<schema name="FillProfessionalActivitiesMainFocusExpectations" type="pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">
     <slot name="professionalActivityMainFocus" key="label.personalExpectationsManagement.mainFocus" layout="rich-text">
         <property name="safe" value="true" />
         <property name="columns" value="50"/>
@@ -524,7 +524,7 @@
     </slot>
 </schema>
 
-<schema name="ChooseExecutionYearToViewTeacherPersonalExpectations" type="org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">  
+<schema name="ChooseExecutionYearToViewTeacherPersonalExpectations" type="pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean" bundle="DEPARTMENT_MEMBER_RESOURCES">  
     <slot name="executionYear" key="label.common.executionYear" layout="menu-select-postback">  
         <property name="providerClass" value="org.fenixedu.academic.ui.renderers.providers.ExecutionYearsToViewTeacherPersonalExpectationsProvider"/>      
         <property name="format" value="${year}" />  

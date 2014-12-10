@@ -22,7 +22,7 @@ import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean;
+import pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean;
 import org.fenixedu.bennu.core.domain.Bennu;
 
 import pt.ist.fenixedu.teacher.domain.TeacherAutoEvaluationDefinitionPeriod;

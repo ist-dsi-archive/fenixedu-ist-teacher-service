@@ -27,7 +27,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.domain.Professorship;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.struts.annotations.ExceptionHandling;
 import org.fenixedu.bennu.struts.annotations.Exceptions;
@@ -85,14 +84,14 @@ public class ScientificCouncilManageTeacherSupportLessonsDispatchAction extends 
     public ActionForward editSupportLesson(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException, InvalidPeriodException {
 
-        editSupportLesson(form, request, RoleType.SCIENTIFIC_COUNCIL);
+        editSupportLesson(form, request);
         return mapping.findForward("successfull-edit");
     }
 
     public ActionForward deleteSupportLesson(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException {
 
-        deleteSupportLesson(request, form, RoleType.SCIENTIFIC_COUNCIL);
+        deleteSupportLesson(request, form);
         return mapping.findForward("successfull-delete");
     }
 }

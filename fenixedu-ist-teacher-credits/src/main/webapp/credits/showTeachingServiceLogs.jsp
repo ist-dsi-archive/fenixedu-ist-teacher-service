@@ -19,7 +19,7 @@
 
 --%>
 <%@page import="org.fenixedu.academic.domain.Person"%>
-<%@page import="org.fenixedu.academic.domain.credits.util.AnnualTeachingCreditsBean"%>
+<%@page import="pt.ist.fenixedu.teacher.domain.credits.util.AnnualTeachingCreditsBean"%>
 <%@page import="org.fenixedu.academic.domain.teacher.TeacherServiceLog"%>
 <%@page import="java.util.SortedSet"%>
 <%@ page language="java" %>

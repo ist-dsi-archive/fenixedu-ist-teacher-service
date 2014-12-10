@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.fenixedu.academic.domain.CareerType;
+import pt.ist.fenixedu.teacher.domain.CareerType;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.bennu.struts.annotations.Forward;

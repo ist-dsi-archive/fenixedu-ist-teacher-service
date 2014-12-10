@@ -28,7 +28,6 @@ import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.ExceptionHandling;
@@ -75,8 +74,4 @@ public class DepartmentAdmOfficeManageDegreeTeachingServicesDispatchAction exten
                 .contains(teacher.getDepartment(executionSemester.getAcademicInterval()));
     }
 
-    public ActionForward updateTeachingServices(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            HttpServletResponse response) throws NumberFormatException, FenixServiceException {
-        return updateTeachingServices(mapping, form, request, RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE);
-    }
 }

@@ -30,7 +30,6 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
@@ -105,14 +104,14 @@ public class DepartmentMemberManageTeacherSupportLessonsDispatchAction extends M
     public ActionForward editSupportLesson(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException, InvalidPeriodException {
 
-        editSupportLesson(form, request, RoleType.DEPARTMENT_MEMBER);
+        editSupportLesson(form, request);
         return mapping.findForward("successfull-edit");
     }
 
     public ActionForward deleteSupportLesson(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException {
 
-        deleteSupportLesson(request, form, RoleType.DEPARTMENT_MEMBER);
+        deleteSupportLesson(request, form);
         return mapping.findForward("successfull-delete");
     }
 }

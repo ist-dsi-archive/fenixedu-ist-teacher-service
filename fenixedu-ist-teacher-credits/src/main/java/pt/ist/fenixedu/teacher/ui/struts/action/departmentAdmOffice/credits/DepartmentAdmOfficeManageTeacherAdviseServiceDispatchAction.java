@@ -33,7 +33,6 @@ import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
@@ -63,15 +62,11 @@ import pt.ist.fenixframework.FenixFramework;
                 path = "/departmentAdmOffice/teacherAdviseServiceManagement.do?method=showTeacherAdvises&page=0"),
         @Forward(name = "teacher-not-found",
                 path = "/departmentAdmOffice/showAllTeacherCreditsResume.do?method=showTeacherCreditsResume&page=0") })
-@Exceptions(
-        value = {
-                @ExceptionHandling(
-                        type = org.fenixedu.academic.service.services.exceptions.FenixServiceException.class,
-                        handler = org.fenixedu.academic.ui.struts.config.FenixExceptionMessageHandler.class,
-                        scope = "request"),
-                @ExceptionHandling(type = org.fenixedu.academic.domain.exceptions.DomainException.class,
-                        handler = org.fenixedu.academic.ui.struts.config.FenixDomainExceptionHandler.class,
-                        scope = "request") })
+@Exceptions(value = {
+        @ExceptionHandling(type = org.fenixedu.academic.service.services.exceptions.FenixServiceException.class,
+                handler = org.fenixedu.academic.ui.struts.config.FenixExceptionMessageHandler.class, scope = "request"),
+        @ExceptionHandling(type = org.fenixedu.academic.domain.exceptions.DomainException.class,
+                handler = org.fenixedu.academic.ui.struts.config.FenixDomainExceptionHandler.class, scope = "request") })
 public class DepartmentAdmOfficeManageTeacherAdviseServiceDispatchAction extends ManageTeacherAdviseServiceDispatchAction {
 
     public ActionForward showTeacherAdvises(ActionMapping mapping, ActionForm form, HttpServletRequest request,
@@ -85,8 +80,7 @@ public class DepartmentAdmOfficeManageTeacherAdviseServiceDispatchAction extends
         Teacher teacher = FenixFramework.getDomainObject(dynaForm.getString("teacherId"));
         Collection<Department> manageableDepartments = userView.getPerson().getManageableDepartmentCreditsSet();
 
-        if (teacher == null || teacher.getDepartment() == null
-                || !manageableDepartments.contains(teacher.getDepartment())) {
+        if (teacher == null || teacher.getDepartment() == null || !manageableDepartments.contains(teacher.getDepartment())) {
             request.setAttribute("teacherNotFound", "teacherNotFound");
             return mapping.findForward("teacher-not-found");
         }
@@ -98,13 +92,13 @@ public class DepartmentAdmOfficeManageTeacherAdviseServiceDispatchAction extends
     public ActionForward editAdviseService(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException {
 
-        return editAdviseService(form, request, mapping, RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE);
+        return editAdviseService(form, request, mapping);
     }
 
     public ActionForward deleteAdviseService(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException {
 
-        deleteAdviseService(request, RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE);
+        deleteAdviseService(request);
         return mapping.findForward("successfull-delete");
 
     }

@@ -29,13 +29,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.fenixedu.academic.domain.CareerType;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.joda.time.Interval;
 import org.joda.time.LocalDateTime;
 
+import pt.ist.fenixedu.teacher.domain.CareerType;
 import pt.ist.fenixframework.Atomic;
 import pt.utl.ist.fenix.tools.util.PossiblyNullEndedInterval;
 

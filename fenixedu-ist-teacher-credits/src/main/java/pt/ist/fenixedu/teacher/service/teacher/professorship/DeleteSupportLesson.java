@@ -25,10 +25,6 @@ import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.service.filter.DepartmentAdministrativeOfficeAuthorizationFilter;
-import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
-import org.fenixedu.academic.service.filter.ScientificCouncilAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.academic.util.WeekDay;
@@ -47,10 +43,10 @@ import pt.ist.fenixframework.FenixFramework;
 
 public class DeleteSupportLesson {
 
-    protected void run(String supportLessonID, RoleType roleType) {
+    protected void run(String supportLessonID) {
         SupportLesson supportLesson = FenixFramework.getDomainObject(supportLessonID);
         log(supportLesson);
-        supportLesson.delete(roleType);
+        supportLesson.delete();
     }
 
     private void log(final SupportLesson supportLesson) {
@@ -84,23 +80,8 @@ public class DeleteSupportLesson {
     private static final DeleteSupportLesson serviceInstance = new DeleteSupportLesson();
 
     @Atomic
-    public static void runDeleteSupportLesson(String supportLessonID, RoleType roleType) throws NotAuthorizedException {
-        try {
-            ScientificCouncilAuthorizationFilter.instance.execute();
-            serviceInstance.run(supportLessonID, roleType);
-        } catch (NotAuthorizedException ex1) {
-            try {
-                DepartmentMemberAuthorizationFilter.instance.execute();
-                serviceInstance.run(supportLessonID, roleType);
-            } catch (NotAuthorizedException ex2) {
-                try {
-                    DepartmentAdministrativeOfficeAuthorizationFilter.instance.execute();
-                    serviceInstance.run(supportLessonID, roleType);
-                } catch (NotAuthorizedException ex3) {
-                    throw ex3;
-                }
-            }
-        }
+    public static void runDeleteSupportLesson(String supportLessonID) throws NotAuthorizedException {
+        serviceInstance.run(supportLessonID);
     }
 
 }

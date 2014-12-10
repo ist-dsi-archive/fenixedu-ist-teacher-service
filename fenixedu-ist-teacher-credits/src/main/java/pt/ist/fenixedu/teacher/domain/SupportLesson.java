@@ -26,15 +26,16 @@ import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.dto.teacher.professorship.SupportLessonDTO;
 import org.fenixedu.academic.util.CalendarUtil;
 import org.fenixedu.academic.util.DiaSemana;
 import org.fenixedu.academic.util.WeekDay;
-import org.fenixedu.academic.util.date.TimePeriod;
 import org.fenixedu.bennu.core.domain.Bennu;
+import org.fenixedu.bennu.core.security.Authenticate;
 
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
+import pt.ist.fenixedu.teacher.dto.teacher.professorship.SupportLessonDTO;
+import pt.ist.fenixedu.teacher.util.date.TimePeriod;
 
 /**
  * @author Fernanda Quit�rio 17/10/2003
@@ -54,22 +55,14 @@ public class SupportLesson extends SupportLesson_Base {
 
             };
 
-    public SupportLesson(SupportLessonDTO supportLessonDTO, Professorship professorship, RoleType roleType) {
+    public SupportLesson(SupportLessonDTO supportLessonDTO, Professorship professorship) {
         super();
         setRootDomainObject(Bennu.getInstance());
         setProfessorship(professorship);
-        update(supportLessonDTO, roleType);
+        update(supportLessonDTO);
     }
 
-    public void delete(RoleType roleType) {
-        TeacherCreditsFillingCE.checkValidCreditsPeriod(getProfessorship().getExecutionCourse().getExecutionPeriod(), roleType);
-        setProfessorship(null);
-        setRootDomainObject(null);
-        deleteDomainObject();
-    }
-
-    public void update(SupportLessonDTO supportLessonDTO, RoleType roleType) {
-        TeacherCreditsFillingCE.checkValidCreditsPeriod(getProfessorship().getExecutionCourse().getExecutionPeriod(), roleType);
+    public void update(SupportLessonDTO supportLessonDTO) {
         setEndTime(supportLessonDTO.getEndTime());
         setStartTime(supportLessonDTO.getStartTime());
         setPlace(supportLessonDTO.getPlace());
@@ -126,7 +119,7 @@ public class SupportLesson extends SupportLesson_Base {
         final SupportLesson supportLesson = new SupportLesson();
         supportLesson.setProfessorship(professorship);
         TeacherCreditsFillingCE.checkValidCreditsPeriod(supportLesson.getProfessorship().getExecutionCourse()
-                .getExecutionPeriod(), roleType);
+                .getExecutionPeriod(), Authenticate.getUser());
         supportLesson.setEndTime(supportLessonDTO.getEndTime());
         supportLesson.setStartTime(supportLessonDTO.getStartTime());
         supportLesson.setPlace(supportLessonDTO.getPlace());

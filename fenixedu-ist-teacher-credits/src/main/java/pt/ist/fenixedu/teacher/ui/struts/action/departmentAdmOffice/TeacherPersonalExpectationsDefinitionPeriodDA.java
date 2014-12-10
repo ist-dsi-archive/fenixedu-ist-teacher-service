@@ -26,7 +26,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionYear;
-import org.fenixedu.academic.dto.commons.ExecutionYearBean;
+import pt.ist.fenixedu.teacher.dto.ExecutionYearBean;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.academic.ui.struts.action.departmentAdmOffice.DepartmentAdmOfficeApp.DefineExpectationPeriods;
 import org.fenixedu.bennu.struts.annotations.Forward;

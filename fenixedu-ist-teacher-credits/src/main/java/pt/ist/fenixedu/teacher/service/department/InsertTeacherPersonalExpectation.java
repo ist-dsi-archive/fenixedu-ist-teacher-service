@@ -18,12 +18,10 @@
  */
 package pt.ist.fenixedu.teacher.service.department;
 
-import org.fenixedu.academic.dto.department.TeacherPersonalExpectationBean;
-import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
-import org.fenixedu.academic.service.filter.TeacherAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherPersonalExpectation;
+import pt.ist.fenixedu.teacher.dto.department.TeacherPersonalExpectationBean;
 import pt.ist.fenixframework.Atomic;
 
 public class InsertTeacherPersonalExpectation {
@@ -42,17 +40,7 @@ public class InsertTeacherPersonalExpectation {
     @Atomic
     public static TeacherPersonalExpectation runInsertTeacherPersonalExpectation(TeacherPersonalExpectationBean bean)
             throws NotAuthorizedException {
-        try {
-            DepartmentMemberAuthorizationFilter.instance.execute();
-            return serviceInstance.run(bean);
-        } catch (NotAuthorizedException ex1) {
-            try {
-                TeacherAuthorizationFilter.instance.execute();
-                return serviceInstance.run(bean);
-            } catch (NotAuthorizedException ex2) {
-                throw ex2;
-            }
-        }
+        return serviceInstance.run(bean);
     }
 
 }

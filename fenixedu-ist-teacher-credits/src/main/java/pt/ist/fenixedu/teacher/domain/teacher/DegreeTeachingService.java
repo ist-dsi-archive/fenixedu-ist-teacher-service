@@ -27,9 +27,9 @@ import org.fenixedu.academic.domain.Lesson;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Shift;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
+import org.fenixedu.bennu.core.security.Authenticate;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.Interval;
@@ -50,8 +50,7 @@ public class DegreeTeachingService extends DegreeTeachingService_Base {
                 }
             };
 
-    public DegreeTeachingService(TeacherService teacherService, Professorship professorship, Shift shift, Double percentage,
-            RoleType roleType) {
+    public DegreeTeachingService(TeacherService teacherService, Professorship professorship, Shift shift, Double percentage) {
         super();
         if (teacherService == null || professorship == null || shift == null || percentage == null) {
             throw new DomainException("arguments can't be null");
@@ -60,7 +59,7 @@ public class DegreeTeachingService extends DegreeTeachingService_Base {
             throw new DomainException("message.invalid.professorship.percentage");
         }
         setTeacherService(teacherService);
-        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), roleType);
+        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), Authenticate.getUser());
         setProfessorship(professorship);
         setShift(shift);
 
@@ -75,6 +74,7 @@ public class DegreeTeachingService extends DegreeTeachingService_Base {
 
     @Override
     public void delete() {
+        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), Authenticate.getUser());
         new TeacherServiceLog(getTeacherService(), BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.teacher.schedule.delete",
                 getTeacherService().getTeacher().getPerson().getNickname(), getShift().getPresentationName(), getPercentage()
                         .toString()));
@@ -84,18 +84,13 @@ public class DegreeTeachingService extends DegreeTeachingService_Base {
         super.delete();
     }
 
-    public void delete(RoleType roleType) {
-        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), roleType);
-        delete();
-    }
-
-    public void updatePercentage(Double percentage, RoleType roleType) {
-        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), roleType);
+    public void updatePercentage(Double percentage) {
+        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), Authenticate.getUser());
         if (percentage == null || percentage > 100 || percentage < 0) {
             throw new DomainException("message.invalid.professorship.percentage");
         }
         if (percentage == 0) {
-            delete(roleType);
+            delete();
         } else {
             Double availablePercentage = TeacherService.getAvailableShiftPercentage(getShift(), getProfessorship());
             if (percentage > availablePercentage) {
@@ -124,7 +119,8 @@ public class DegreeTeachingService extends DegreeTeachingService_Base {
 
     public double getEfectiveLoad() {
         double afterHeightFactor =
-                ProfessionalCategory.isTeacherProfessorCategory(getProfessorship().getTeacher(), getProfessorship().getExecutionCourse().getExecutionPeriod()) ? 1.5 : 1;
+                ProfessionalCategory.isTeacherProfessorCategory(getProfessorship().getTeacher(), getProfessorship()
+                        .getExecutionCourse().getExecutionPeriod()) ? 1.5 : 1;
 
         double weeklyHoursAfter20 = getTotalHoursAfter20AndSaturdays() / 14;
         double weeklyHoursBefore20 = (getShift().getCourseLoadWeeklyAverage().doubleValue() - weeklyHoursAfter20);

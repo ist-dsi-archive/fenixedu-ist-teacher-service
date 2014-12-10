@@ -35,7 +35,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.util.OrderedIterator;
+import pt.ist.fenixedu.teacher.util.OrderedIterator;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 

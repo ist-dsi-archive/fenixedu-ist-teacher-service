@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.QueueJobResult;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunctionShared;
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.SharedFunction;

@@ -19,7 +19,8 @@
 package pt.ist.fenixedu.teacher.domain.teacher.workTime;
 
 import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.util.date.TimePeriod;
+
+import pt.ist.fenixedu.teacher.util.date.TimePeriod;
 
 public class TeacherInstitutionWorkTime extends TeacherInstitutionWorkTime_Base {
 

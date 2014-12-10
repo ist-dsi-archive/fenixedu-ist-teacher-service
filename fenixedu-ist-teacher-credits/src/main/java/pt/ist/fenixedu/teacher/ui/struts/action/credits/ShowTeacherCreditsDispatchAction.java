@@ -39,12 +39,11 @@ import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.util.OrderedIterator;
+import org.fenixedu.bennu.core.security.Authenticate;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
 import pt.ist.fenixedu.teacher.domain.TeacherCredits;
@@ -55,6 +54,7 @@ import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
 import pt.ist.fenixedu.teacher.dto.credits.CreditLineDTO;
 import pt.ist.fenixedu.teacher.service.credits.ReadAllTeacherCredits;
+import pt.ist.fenixedu.teacher.util.OrderedIterator;
 
 /**
  * @author Ricardo Rodrigues
@@ -117,10 +117,10 @@ public class ShowTeacherCreditsDispatchAction extends FenixDispatchAction {
         }
     }
 
-    protected void showLinks(HttpServletRequest request, ExecutionSemester executionSemester, RoleType roleType) {
+    protected void showLinks(HttpServletRequest request, ExecutionSemester executionSemester) {
         boolean showLinks = true;
         try {
-            TeacherCreditsFillingCE.checkValidCreditsPeriod(executionSemester, roleType);
+            TeacherCreditsFillingCE.checkValidCreditsPeriod(executionSemester, Authenticate.getUser());
         } catch (DomainException e) {
             showLinks = false;
         }
@@ -166,7 +166,7 @@ public class ShowTeacherCreditsDispatchAction extends FenixDispatchAction {
         }
 
         Collection<ThesisEvaluationParticipant> thesisEvaluationParticipants =
-                teacher.getPerson().getThesisEvaluationParticipants(executionSemester);
+                getThesisEvaluationParticipants(teacher, executionSemester);
         Collection<ThesisEvaluationParticipant> teacherThesisEvaluationParticipants =
                 new ArrayList<ThesisEvaluationParticipant>();
         for (ThesisEvaluationParticipant participant : thesisEvaluationParticipants) {
@@ -178,6 +178,18 @@ public class ShowTeacherCreditsDispatchAction extends FenixDispatchAction {
         if (!teacherThesisEvaluationParticipants.isEmpty()) {
             request.setAttribute("teacherThesisEvaluationParticipants", teacherThesisEvaluationParticipants);
         }
+    }
+
+    public List<ThesisEvaluationParticipant> getThesisEvaluationParticipants(final Teacher teacher,
+            final ExecutionSemester executionSemester) {
+        final ArrayList<ThesisEvaluationParticipant> participants = new ArrayList<ThesisEvaluationParticipant>();
+        for (final ThesisEvaluationParticipant participant : teacher.getPerson().getThesisEvaluationParticipantsSet()) {
+            if (participant.getThesis().getEnrolment().getExecutionYear().equals(executionSemester.getExecutionYear())) {
+                participants.add(participant);
+            }
+        }
+        Collections.sort(participants, ThesisEvaluationParticipant.COMPARATOR_BY_STUDENT_NUMBER);
+        return participants;
     }
 
     protected CreditLineDTO simulateCalcCreditLine(Teacher teacher, ExecutionSemester executionSemester) throws ParseException {

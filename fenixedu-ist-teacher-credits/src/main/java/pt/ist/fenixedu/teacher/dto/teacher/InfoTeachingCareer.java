@@ -22,7 +22,7 @@
  */
 package pt.ist.fenixedu.teacher.dto.teacher;
 
-import org.fenixedu.academic.domain.CareerType;
+import pt.ist.fenixedu.teacher.domain.CareerType;
 
 import pt.ist.fenixedu.teacher.domain.teacher.TeachingCareer;
 

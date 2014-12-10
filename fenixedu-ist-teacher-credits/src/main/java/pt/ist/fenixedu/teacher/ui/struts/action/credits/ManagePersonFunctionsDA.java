@@ -27,7 +27,7 @@ import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.bennu.struts.annotations.Forward;

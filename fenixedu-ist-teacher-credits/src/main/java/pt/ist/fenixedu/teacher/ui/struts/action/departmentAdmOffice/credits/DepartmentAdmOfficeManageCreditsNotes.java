@@ -30,7 +30,6 @@ import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.Forward;
@@ -77,8 +76,7 @@ public class DepartmentAdmOfficeManageCreditsNotes extends ManageCreditsNotes {
         String executionPeriodId = (String) dynaActionForm.get("executionPeriodId");
         String noteType = dynaActionForm.getString("noteType");
 
-        return editNote(request, dynaActionForm, teacher, executionPeriodId, RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE, mapping,
-                noteType);
+        return editNote(request, dynaActionForm, teacher, executionPeriodId, mapping, noteType);
     }
 
     private Boolean getTeacherOfManageableDepartments(Teacher teacher, ExecutionSemester executionSemester,

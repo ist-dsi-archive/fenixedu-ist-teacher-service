@@ -24,10 +24,6 @@ import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Shift;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.service.filter.DepartmentAdministrativeOfficeAuthorizationFilter;
-import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
-import org.fenixedu.academic.service.filter.ScientificCouncilAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
@@ -41,7 +37,7 @@ import pt.ist.fenixframework.FenixFramework;
 
 public class UpdateDegreeTeachingServices {
 
-    protected void run(String professorshipID, List<ShiftIDTeachingPercentage> shiftsIDsTeachingPercentages, RoleType roleType) {
+    protected void run(String professorshipID, List<ShiftIDTeachingPercentage> shiftsIDsTeachingPercentages) {
 
         Professorship professorship = FenixFramework.getDomainObject(professorshipID);
         Teacher teacher = professorship.getTeacher();
@@ -59,12 +55,11 @@ public class UpdateDegreeTeachingServices {
             DegreeTeachingService degreeTeachingService =
                     teacherService.getDegreeTeachingServiceByShiftAndProfessorship(shift, professorship);
             if (degreeTeachingService != null) {
-                degreeTeachingService.updatePercentage(shiftIDTeachingPercentage.getPercentage(), roleType);
+                degreeTeachingService.updatePercentage(shiftIDTeachingPercentage.getPercentage());
             } else {
                 if (shiftIDTeachingPercentage.getPercentage() == null
                         || (shiftIDTeachingPercentage.getPercentage() != null && shiftIDTeachingPercentage.getPercentage() != 0)) {
-                    new DegreeTeachingService(teacherService, professorship, shift, shiftIDTeachingPercentage.getPercentage(),
-                            roleType);
+                    new DegreeTeachingService(teacherService, professorship, shift, shiftIDTeachingPercentage.getPercentage());
                 }
             }
 
@@ -85,23 +80,8 @@ public class UpdateDegreeTeachingServices {
 
     @Atomic
     public static void runUpdateDegreeTeachingServices(String professorshipID,
-            List<ShiftIDTeachingPercentage> shiftsIDsTeachingPercentages, RoleType roleType) throws NotAuthorizedException {
-        try {
-            ScientificCouncilAuthorizationFilter.instance.execute();
-            serviceInstance.run(professorshipID, shiftsIDsTeachingPercentages, roleType);
-        } catch (NotAuthorizedException ex1) {
-            try {
-                DepartmentMemberAuthorizationFilter.instance.execute();
-                serviceInstance.run(professorshipID, shiftsIDsTeachingPercentages, roleType);
-            } catch (NotAuthorizedException ex2) {
-                try {
-                    DepartmentAdministrativeOfficeAuthorizationFilter.instance.execute();
-                    serviceInstance.run(professorshipID, shiftsIDsTeachingPercentages, roleType);
-                } catch (NotAuthorizedException ex3) {
-                    throw ex3;
-                }
-            }
-        }
+            List<ShiftIDTeachingPercentage> shiftsIDsTeachingPercentages) throws NotAuthorizedException {
+        serviceInstance.run(professorshipID, shiftsIDsTeachingPercentages);
     }
 
 }

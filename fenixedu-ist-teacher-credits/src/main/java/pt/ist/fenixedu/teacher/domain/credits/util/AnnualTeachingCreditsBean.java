@@ -39,6 +39,7 @@ import org.fenixedu.academic.domain.thesis.Thesis;
 import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
 import org.fenixedu.academic.domain.thesis.ThesisParticipationType;
 import org.fenixedu.bennu.core.domain.User;
+import org.fenixedu.bennu.core.groups.Group;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.joda.time.LocalDate;
 
@@ -53,8 +54,8 @@ import pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceComment;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceLog;
 
 public class AnnualTeachingCreditsBean implements Serializable {
-    private ExecutionYear executionYear;
-    private Teacher teacher;
+    private final ExecutionYear executionYear;
+    private final Teacher teacher;
     private BigDecimal teachingCredits;
     private BigDecimal masterDegreeThesesCredits;
     private BigDecimal phdDegreeThesesCredits;
@@ -81,13 +82,12 @@ public class AnnualTeachingCreditsBean implements Serializable {
         this.canSeeCreditsReduction = canSeeCreditsReduction;
     }
 
-    private RoleType roleType;
     private Set<ExecutionYear> correctionInYears = new TreeSet<ExecutionYear>(ExecutionYear.COMPARATOR_BY_YEAR);
 
-    private List<AnnualTeachingCreditsByPeriodBean> annualTeachingCreditsByPeriodBeans =
+    private final List<AnnualTeachingCreditsByPeriodBean> annualTeachingCreditsByPeriodBeans =
             new ArrayList<AnnualTeachingCreditsByPeriodBean>();
 
-    public AnnualTeachingCreditsBean(AnnualTeachingCredits annualTeachingCredits, RoleType roleType) {
+    public AnnualTeachingCreditsBean(AnnualTeachingCredits annualTeachingCredits) {
         super();
         this.executionYear = annualTeachingCredits.getAnnualCreditsState().getExecutionYear();
         this.teacher = annualTeachingCredits.getTeacher();
@@ -105,7 +105,7 @@ public class AnnualTeachingCreditsBean implements Serializable {
         this.accumulatedCredits = annualTeachingCredits.getAccumulatedCredits();
         this.hasAnyLimitation = annualTeachingCredits.getHasAnyLimitation();
         setAreCreditsCalculated(annualTeachingCredits.getAnnualCreditsState().getIsFinalCreditsCalculated());
-        setAnnualTeachingCreditsByPeriod(executionYear, teacher, roleType);
+        setAnnualTeachingCreditsByPeriod(executionYear, teacher);
         for (ExecutionSemester executionSemester : executionYear.getExecutionPeriodsSet()) {
             if (!annualTeachingCredits.isPastResume()) {
                 for (OtherService otherService : executionSemester.getOtherServicesCorrectionsSet()) {
@@ -119,7 +119,7 @@ public class AnnualTeachingCreditsBean implements Serializable {
         }
     }
 
-    public AnnualTeachingCreditsBean(ExecutionYear executionYear, Teacher teacher, RoleType roleType) {
+    public AnnualTeachingCreditsBean(ExecutionYear executionYear, Teacher teacher) {
         this.executionYear = executionYear;
         this.teacher = teacher;
         this.teachingCredits = BigDecimal.ZERO;
@@ -134,17 +134,16 @@ public class AnnualTeachingCreditsBean implements Serializable {
         this.yearCredits = BigDecimal.ZERO;
         this.finalCredits = BigDecimal.ZERO;
         this.accumulatedCredits = BigDecimal.ZERO;
-        setAnnualTeachingCreditsByPeriod(executionYear, teacher, roleType);
+        setAnnualTeachingCreditsByPeriod(executionYear, teacher);
     }
 
-    protected void setAnnualTeachingCreditsByPeriod(ExecutionYear executionYear, Teacher teacher, RoleType roleType) {
-        setRoleType(roleType);
-        if (roleType.equals(RoleType.SCIENTIFIC_COUNCIL) || roleType.equals(RoleType.DEPARTMENT_MEMBER)) {
+    protected void setAnnualTeachingCreditsByPeriod(ExecutionYear executionYear, Teacher teacher) {
+        if (!Group.parse("creditsManager").isMember(Authenticate.getUser())) {
             setCanSeeCreditsReduction(true);
         }
         for (ExecutionSemester executionSemester : executionYear.getExecutionPeriodsSet()) {
             AnnualTeachingCreditsByPeriodBean annualTeachingCreditsByPeriodBean =
-                    new AnnualTeachingCreditsByPeriodBean(executionSemester, teacher, roleType);
+                    new AnnualTeachingCreditsByPeriodBean(executionSemester, teacher);
             annualTeachingCreditsByPeriodBeans.add(annualTeachingCreditsByPeriodBean);
             if (annualTeachingCreditsByPeriodBean.getCanEditTeacherCredits()) {
                 setCanEditTeacherCreditsInAnyPeriod(true);
@@ -316,14 +315,6 @@ public class AnnualTeachingCreditsBean implements Serializable {
 
     public void setAreCreditsCalculated(Boolean areCreditsCalculated) {
         this.areCreditsCalculated = areCreditsCalculated;
-    }
-
-    public RoleType getRoleType() {
-        return roleType;
-    }
-
-    public void setRoleType(RoleType roleType) {
-        this.roleType = roleType;
     }
 
     public String getCorrections() {

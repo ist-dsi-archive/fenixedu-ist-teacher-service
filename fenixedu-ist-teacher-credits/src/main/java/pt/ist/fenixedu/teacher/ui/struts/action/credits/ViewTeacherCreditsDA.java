@@ -29,7 +29,6 @@ import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.bennu.struts.portal.EntryPoint;
@@ -56,7 +55,8 @@ public abstract class ViewTeacherCreditsDA extends FenixDispatchAction {
             HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception;
 
     protected ActionForward viewAnnualTeachingCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            HttpServletResponse response, RoleType roleType) throws NumberFormatException, FenixServiceException, Exception {
+            HttpServletResponse response, boolean departmentAdministrativeOffice) throws NumberFormatException,
+            FenixServiceException, Exception {
         Teacher teacher = FenixFramework.getDomainObject((String) getFromRequest(request, "teacherOid"));
         ExecutionYear executionYear = FenixFramework.getDomainObject((String) getFromRequest(request, "executionYearOid"));
         if (teacher == null) {
@@ -78,8 +78,7 @@ public abstract class ViewTeacherCreditsDA extends FenixDispatchAction {
                 } else {
                     if (annualTeachingCredits.isClosed()) {
                         AnnualTeachingCreditsDocument lastTeacherCreditsDocument =
-                                annualTeachingCredits
-                                        .getLastTeacherCreditsDocument(roleType == RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE ? false : true);
+                                annualTeachingCredits.getLastTeacherCreditsDocument(!departmentAdministrativeOffice);
                         if (lastTeacherCreditsDocument != null) {
                             response.setContentType("application/pdf");
                             response.setHeader("Content-disposition",
@@ -90,13 +89,13 @@ public abstract class ViewTeacherCreditsDA extends FenixDispatchAction {
                             return null;
                         }
                     }
-                    annualTeachingCreditsBean = new AnnualTeachingCreditsBean(annualTeachingCredits, roleType);
+                    annualTeachingCreditsBean = new AnnualTeachingCreditsBean(annualTeachingCredits);
                     break;
                 }
             }
         }
         if (annualTeachingCreditsBean == null) {
-            annualTeachingCreditsBean = new AnnualTeachingCreditsBean(executionYear, teacher, roleType);
+            annualTeachingCreditsBean = new AnnualTeachingCreditsBean(executionYear, teacher);
         }
         request.setAttribute("annualTeachingCreditsBean", annualTeachingCreditsBean);
         request.setAttribute("teacherBean", new TeacherCreditsBean());

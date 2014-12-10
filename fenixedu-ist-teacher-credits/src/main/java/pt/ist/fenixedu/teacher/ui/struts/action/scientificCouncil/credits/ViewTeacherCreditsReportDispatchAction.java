@@ -59,7 +59,7 @@ import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
 import org.fenixedu.academic.util.NumberUtils;
-import org.fenixedu.academic.util.OrderedIterator;
+import pt.ist.fenixedu.teacher.util.OrderedIterator;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.ExceptionHandling;

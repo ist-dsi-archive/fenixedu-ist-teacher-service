@@ -30,8 +30,6 @@ import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
-import org.fenixedu.academic.domain.person.RoleType;
-import pt.ist.fenixedu.contracts.domain.util.CategoryType;
 import org.fenixedu.bennu.core.domain.Bennu;
 import org.joda.time.Interval;
 import org.joda.time.PeriodType;
@@ -43,6 +41,7 @@ import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContrac
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalRegime;
+import pt.ist.fenixedu.contracts.domain.util.CategoryType;
 import pt.ist.fenixedu.teacher.domain.TeacherCredits;
 import pt.ist.fenixedu.teacher.domain.credits.util.AnnualTeachingCreditsBean;
 import pt.ist.fenixedu.teacher.domain.teacher.OtherService;
@@ -163,8 +162,7 @@ public class TeacherCreditsReportFile extends TeacherCreditsReportFile_Base {
 
                     row.setCell(TeacherCredits.calculateMandatoryLessonHours(teacher, executionSemester)); //CLN
 
-                    AnnualTeachingCreditsBean annualTeachingCreditsBean =
-                            new AnnualTeachingCreditsBean(executionYear, teacher, RoleType.SCIENTIFIC_COUNCIL);
+                    AnnualTeachingCreditsBean annualTeachingCreditsBean = new AnnualTeachingCreditsBean(executionYear, teacher);
                     annualTeachingCreditsBean.calculateCredits();
                     if (executionSemester.getSemester() == 1) {
                         row.setCell(annualTeachingCreditsBean.getProjectsTutorialsCredits());//COT

@@ -40,16 +40,13 @@ import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Shift;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.util.OrderedIterator;
-import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.core.security.Authenticate;
 
 import pt.ist.fenixedu.teacher.domain.teacher.DegreeTeachingService;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.ist.fenixedu.teacher.service.teacher.services.UpdateDegreeTeachingServices;
+import pt.ist.fenixedu.teacher.util.OrderedIterator;
 import pt.ist.fenixframework.FenixFramework;
 
 /**
@@ -95,11 +92,10 @@ public class ManageDegreeTeachingServicesDispatchAction extends FenixDispatchAct
         dynaForm.set("teacherPercentageMap", teacherPercentageMap);
     }
 
-    protected ActionForward updateTeachingServices(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            RoleType roleType) throws NumberFormatException, FenixServiceException {
+    protected ActionForward updateTeachingServices(ActionMapping mapping, ActionForm form, HttpServletRequest request)
+            throws NumberFormatException, FenixServiceException {
 
         DynaActionForm teachingServiceForm = (DynaActionForm) form;
-        User userView = Authenticate.getUser();
         HashMap<String, String> teacherPercentageMap = (HashMap<String, String>) teachingServiceForm.get("teacherPercentageMap");
 
         String professorshipID = (String) teachingServiceForm.get("professorshipID");
@@ -118,7 +114,7 @@ public class ManageDegreeTeachingServicesDispatchAction extends FenixDispatchAct
         }
 
         try {
-            UpdateDegreeTeachingServices.runUpdateDegreeTeachingServices(professorshipID, shiftIDPercentages, roleType);
+            UpdateDegreeTeachingServices.runUpdateDegreeTeachingServices(professorshipID, shiftIDPercentages);
         } catch (DomainException domainException) {
             ActionMessages actionMessages = new ActionMessages();
             actionMessages.add("error", new ActionMessage(domainException.getMessage(), domainException.getArgs()));

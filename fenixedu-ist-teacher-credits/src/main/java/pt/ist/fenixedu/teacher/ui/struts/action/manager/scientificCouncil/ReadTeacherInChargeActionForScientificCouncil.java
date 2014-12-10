@@ -29,12 +29,12 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
+import org.fenixedu.academic.domain.ExecutionCourse;
+import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.dto.InfoExecutionCourse;
 import org.fenixedu.academic.dto.InfoTeacher;
 import org.fenixedu.academic.dto.teacher.InfoNonAffiliatedTeacher;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.academic.service.services.manager.ReadExecutionCourseByID;
-import org.fenixedu.academic.service.services.manager.ReadExecutionCourseResponsiblesIds;
 import org.fenixedu.academic.ui.struts.action.base.FenixAction;
 import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
 import org.fenixedu.bennu.core.domain.User;
@@ -45,6 +45,7 @@ import org.fenixedu.bennu.struts.annotations.Mapping;
 
 import pt.ist.fenixedu.teacher.service.manager.ReadExecutionCourseTeachers;
 import pt.ist.fenixedu.teacher.ui.struts.action.scientificCouncil.credits.MasterDegreeCreditsManagementDispatchAction;
+import pt.ist.fenixframework.FenixFramework;
 
 @Mapping(module = "scientificCouncil", path = "/readTeacherInCharge", input = "/readCurricularCourse.do",
         formBean = "masterDegreeCreditsForm", functionality = MasterDegreeCreditsManagementDispatchAction.class)
@@ -59,12 +60,8 @@ public class ReadTeacherInChargeActionForScientificCouncil extends FenixAction {
         String executionCourseId = request.getParameter("executionCourseId");
 
         InfoExecutionCourse infoExecutionCourse = null;
-        try {
-            infoExecutionCourse = ReadExecutionCourseByID.runReadExecutionCourseManagerByID(executionCourseId);
-
-        } catch (FenixServiceException fenixServiceException) {
-            throw new FenixActionException(fenixServiceException.getMessage());
-        }
+        ExecutionCourse executionCourse = FenixFramework.getDomainObject(executionCourseId);
+        infoExecutionCourse = InfoExecutionCourse.newInfoFromDomain(executionCourse);
 
         List<InfoTeacher> infoTeachersList = null;
 
@@ -78,7 +75,6 @@ public class ReadTeacherInChargeActionForScientificCouncil extends FenixAction {
         List infoNonAffiliatedTeachers = infoExecutionCourse.getNonAffiliatedTeachers();
         if (infoTeachersList != null) {
             List<String> teachersIds = new ArrayList<String>();
-            Integer teacherId;
             Iterator<InfoTeacher> iter = infoTeachersList.iterator();
             while (iter.hasNext()) {
                 teachersIds.add(iter.next().getExternalId());
@@ -101,11 +97,8 @@ public class ReadTeacherInChargeActionForScientificCouncil extends FenixAction {
             }
 
             List<String> responsiblesIds = null;
-            try {
-                responsiblesIds = ReadExecutionCourseResponsiblesIds.runReadExecutionCourseResponsiblesIds(executionCourseId);
-
-            } catch (FenixServiceException fenixServiceException) {
-                throw new FenixActionException(fenixServiceException.getMessage());
+            for (Professorship responsibleFor : infoExecutionCourse.getExecutionCourse().responsibleFors()) {
+                responsiblesIds.add(responsibleFor.getTeacher().getExternalId());
             }
 
             String[] responsibleTeachersIds = responsiblesIds.toArray(new String[] {});

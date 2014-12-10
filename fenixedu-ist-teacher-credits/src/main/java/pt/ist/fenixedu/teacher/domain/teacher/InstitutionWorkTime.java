@@ -20,18 +20,17 @@ package pt.ist.fenixedu.teacher.domain.teacher;
 
 import java.util.Date;
 
-import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.dto.teacher.workTime.InstitutionWorkTimeDTO;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.academic.util.CalendarUtil;
 import org.fenixedu.academic.util.WeekDay;
-import org.fenixedu.academic.util.date.TimePeriod;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.fenixedu.bennu.core.security.Authenticate;
 
 import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
+import pt.ist.fenixedu.teacher.dto.teacher.workTime.InstitutionWorkTimeDTO;
+import pt.ist.fenixedu.teacher.util.date.TimePeriod;
 import pt.ist.fenixframework.Atomic;
 
 public class InstitutionWorkTime extends InstitutionWorkTime_Base {
@@ -42,7 +41,6 @@ public class InstitutionWorkTime extends InstitutionWorkTime_Base {
             throw new DomainException("arguments can't be null");
         }
         setTeacherService(teacherService);
-        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), getUserRoleType());
         setStartTime(startTime);
         setEndTime(endTime);
         setWeekDay(weekDay);
@@ -65,21 +63,9 @@ public class InstitutionWorkTime extends InstitutionWorkTime_Base {
         new TeacherServiceLog(getTeacherService(), log.toString());
     }
 
-    private RoleType getUserRoleType() {
-        Person person = Authenticate.getUser().getPerson();
-        if (person.hasRole(RoleType.SCIENTIFIC_COUNCIL)) {
-            return RoleType.SCIENTIFIC_COUNCIL;
-        } else if (person.hasRole(RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE)) {
-            return RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE;
-        } else if (person.hasRole(RoleType.DEPARTMENT_MEMBER)) {
-            return RoleType.DEPARTMENT_MEMBER;
-        }
-        return null;
-    }
-
     @Atomic
     public void delete(RoleType roleType) {
-        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), roleType);
+        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), Authenticate.getUser());
         log("label.teacher.schedule.institutionWorkTime.delete");
         setTeacherService(null);
         super.delete();
@@ -91,7 +77,7 @@ public class InstitutionWorkTime extends InstitutionWorkTime_Base {
     }
 
     public void update(InstitutionWorkTimeDTO institutionWorkTimeDTO, RoleType roleType) {
-        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), roleType);
+        TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), Authenticate.getUser());
         setWeekDay(institutionWorkTimeDTO.getWeekDay());
         setStartTime(institutionWorkTimeDTO.getStartTime());
         setEndTime(institutionWorkTimeDTO.getEndTime());

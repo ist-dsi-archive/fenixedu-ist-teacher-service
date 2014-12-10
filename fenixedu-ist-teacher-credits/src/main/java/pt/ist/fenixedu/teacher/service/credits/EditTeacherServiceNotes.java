@@ -21,10 +21,6 @@ package pt.ist.fenixedu.teacher.service.credits;
 import org.apache.commons.lang.StringUtils;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
-import org.fenixedu.academic.service.filter.DepartmentAdministrativeOfficeAuthorizationFilter;
-import org.fenixedu.academic.service.filter.DepartmentMemberAuthorizationFilter;
-import org.fenixedu.academic.service.filter.TeacherAuthorizationFilter;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.service.services.exceptions.NotAuthorizedException;
 
@@ -36,7 +32,7 @@ import pt.ist.fenixframework.FenixFramework;
 public class EditTeacherServiceNotes {
 
     protected Boolean run(Teacher teacher, String executionPeriodId, String managementFunctionNote, String serviceExemptionNote,
-            String otherNote, String masterDegreeTeachingNote, String functionsAccumulation, String thesisNote, RoleType roleType)
+            String otherNote, String masterDegreeTeachingNote, String functionsAccumulation, String thesisNote)
             throws FenixServiceException {
 
         ExecutionSemester executionSemester = FenixFramework.getDomainObject(executionPeriodId);
@@ -52,7 +48,7 @@ public class EditTeacherServiceNotes {
         }
 
         teacherServiceNotes.editNotes(managementFunctionNote, serviceExemptionNote, otherNote, masterDegreeTeachingNote,
-                functionsAccumulation, thesisNote, roleType);
+                functionsAccumulation, thesisNote);
 
         if (StringUtils.isEmpty(teacherServiceNotes.getManagementFunctionNotes())
                 && StringUtils.isEmpty(teacherServiceNotes.getServiceExemptionNotes())
@@ -73,26 +69,9 @@ public class EditTeacherServiceNotes {
     @Atomic
     public static Boolean runEditTeacherServiceNotes(Teacher teacher, String executionPeriodId, String managementFunctionNote,
             String serviceExemptionNote, String otherNote, String masterDegreeTeachingNote, String functionsAccumulation,
-            String thesisNote, RoleType roleType) throws FenixServiceException, NotAuthorizedException {
-        try {
-            DepartmentAdministrativeOfficeAuthorizationFilter.instance.execute();
-            return serviceInstance.run(teacher, executionPeriodId, managementFunctionNote, serviceExemptionNote, otherNote,
-                    masterDegreeTeachingNote, functionsAccumulation, thesisNote, roleType);
-        } catch (NotAuthorizedException ex1) {
-            try {
-                TeacherAuthorizationFilter.instance.execute();
-                return serviceInstance.run(teacher, executionPeriodId, managementFunctionNote, serviceExemptionNote, otherNote,
-                        masterDegreeTeachingNote, functionsAccumulation, thesisNote, roleType);
-            } catch (NotAuthorizedException ex2) {
-                try {
-                    DepartmentMemberAuthorizationFilter.instance.execute();
-                    return serviceInstance.run(teacher, executionPeriodId, managementFunctionNote, serviceExemptionNote,
-                            otherNote, masterDegreeTeachingNote, functionsAccumulation, thesisNote, roleType);
-                } catch (NotAuthorizedException ex3) {
-                    throw ex3;
-                }
-            }
-        }
+            String thesisNote) throws FenixServiceException, NotAuthorizedException {
+        return serviceInstance.run(teacher, executionPeriodId, managementFunctionNote, serviceExemptionNote, otherNote,
+                masterDegreeTeachingNote, functionsAccumulation, thesisNote);
     }
 
 }

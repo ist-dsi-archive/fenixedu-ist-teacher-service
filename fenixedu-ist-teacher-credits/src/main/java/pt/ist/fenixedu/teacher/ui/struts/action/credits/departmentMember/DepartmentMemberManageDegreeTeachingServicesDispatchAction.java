@@ -27,7 +27,6 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
@@ -73,6 +72,6 @@ public class DepartmentMemberManageDegreeTeachingServicesDispatchAction extends 
 
     public ActionForward updateTeachingServices(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException {
-        return updateTeachingServices(mapping, form, request, RoleType.DEPARTMENT_MEMBER);
+        return updateTeachingServices(mapping, form, request);
     }
 }

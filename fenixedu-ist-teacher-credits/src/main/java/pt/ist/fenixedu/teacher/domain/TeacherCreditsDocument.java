@@ -36,10 +36,7 @@ import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.accessControl.UnitGroup;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.organizationalStructure.FunctionType;
-import org.fenixedu.academic.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
@@ -50,6 +47,7 @@ import org.fenixedu.bennu.core.groups.UnionGroup;
 import org.fenixedu.bennu.core.groups.UserGroup;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
 import pt.ist.fenixedu.teacher.domain.teacher.AdviseType;
@@ -80,7 +78,7 @@ public class TeacherCreditsDocument extends TeacherCreditsDocument_Base {
         }
         final Department department = teacher.getLastDepartment(executionSemester.getAcademicInterval());
         if (department != null && department.getDepartmentUnit() != null) {
-            groups.add(UnitGroup.get(department.getDepartmentUnit(), FunctionType.PRESIDENT, false));
+            //groups.add(UnitGroup.get(department.getDepartmentUnit(), FunctionType.PRESIDENT, false));
         }
         groups.add(RoleType.SCIENTIFIC_COUNCIL.actualGroup());
         init(filename, filename, content, UnionGroup.of(groups));
@@ -259,7 +257,7 @@ public class TeacherCreditsDocument extends TeacherCreditsDocument_Base {
         htmlText.append("<h3>4) Dissertações de Mestrado</h3>");
 
         Collection<ThesisEvaluationParticipant> thesisEvaluationParticipants =
-                teacher.getPerson().getThesisEvaluationParticipants(executionSemester);
+                getThesisEvaluationParticipants(teacher, executionSemester);
 
         if (thesisEvaluationParticipants.isEmpty()) {
             htmlText.append("<p style=\"font-size: 65%;\">Não foram encontradas Dissertações de Mestrado.</p>");
@@ -404,4 +402,15 @@ public class TeacherCreditsDocument extends TeacherCreditsDocument_Base {
         return htmlText.toString();
     }
 
+    public List<ThesisEvaluationParticipant> getThesisEvaluationParticipants(final Teacher teacher,
+            final ExecutionSemester executionSemester) {
+        final ArrayList<ThesisEvaluationParticipant> participants = new ArrayList<ThesisEvaluationParticipant>();
+        for (final ThesisEvaluationParticipant participant : teacher.getPerson().getThesisEvaluationParticipantsSet()) {
+            if (participant.getThesis().getEnrolment().getExecutionYear().equals(executionSemester.getExecutionYear())) {
+                participants.add(participant);
+            }
+        }
+        Collections.sort(participants, ThesisEvaluationParticipant.COMPARATOR_BY_STUDENT_NUMBER);
+        return participants;
+    }
 }

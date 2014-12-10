@@ -35,7 +35,7 @@ import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
-import org.fenixedu.academic.dto.commons.ExecutionYearBean;
+import pt.ist.fenixedu.teacher.dto.ExecutionYearBean;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.academic.ui.struts.action.departmentAdmOffice.DepartmentAdmOfficeApp.DepartmentAdmOfficeExpectationsApp;

@@ -40,7 +40,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.lang.StringUtils;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.SimpleHtmlSerializer;
 import org.htmlcleaner.TagNode;
@@ -86,7 +85,7 @@ public class AnnualTeachingCreditsDocumentFilter implements Filter {
         if (teacher != null) {
             ByteArrayOutputStream pdfStreamToReturn = null;
             try {
-                pdfStreamToReturn = getAnnualTeacherCreditsDocument(arg0, arg1, arg2, teacher, executionYear, null);
+                pdfStreamToReturn = getAnnualTeacherCreditsDocument(arg0, arg1, arg2, teacher, executionYear);
             } finally {
                 if (!response.isCommitted()) {
                     response.reset();
@@ -110,7 +109,7 @@ public class AnnualTeachingCreditsDocumentFilter implements Filter {
                         ByteArrayOutputStream pdfStreamToReturn;
                         pdfStreamToReturn =
                                 getAnnualTeacherCreditsDocument(arg0, arg1, arg2, annualTeachingCredits.getTeacher(),
-                                        executionYear, RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE);
+                                        executionYear);
                         documentsWithoutConfidentionalInformation.put(annualTeachingCredits, pdfStreamToReturn);
                     } finally {
                         if (!response.isCommitted()) {
@@ -120,7 +119,7 @@ public class AnnualTeachingCreditsDocumentFilter implements Filter {
                     try {
                         ByteArrayOutputStream pdfStreamToReturn =
                                 getAnnualTeacherCreditsDocument(arg0, arg1, arg2, annualTeachingCredits.getTeacher(),
-                                        executionYear, RoleType.SCIENTIFIC_COUNCIL);
+                                        executionYear);
                         documentsWithConfidentionalInformation.put(annualTeachingCredits, pdfStreamToReturn);
                     } finally {
                         if (!response.isCommitted()) {
@@ -160,7 +159,7 @@ public class AnnualTeachingCreditsDocumentFilter implements Filter {
     }
 
     protected ByteArrayOutputStream getAnnualTeacherCreditsDocument(ServletRequest arg0, ServletResponse arg1, FilterChain arg2,
-            Teacher teacher, ExecutionYear executionYear, RoleType role) throws IOException, ServletException {
+            Teacher teacher, ExecutionYear executionYear) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) arg0;
         ResponseWrapper response = (ResponseWrapper) arg1;
         request.setAttribute("teacher", teacher);

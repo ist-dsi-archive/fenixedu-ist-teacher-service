@@ -27,7 +27,7 @@ import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.dto.commons.ExecutionYearBean;
+import pt.ist.fenixedu.teacher.dto.ExecutionYearBean;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;

@@ -31,7 +31,6 @@ import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 
@@ -61,7 +60,7 @@ public class ManageCreditsNotes extends FenixDispatchAction {
     }
 
     protected ActionForward editNote(HttpServletRequest request, DynaActionForm dynaActionForm, Teacher teacher,
-            String executionPeriodId, RoleType roleType, ActionMapping mapping, String noteType) throws FenixServiceException {
+            String executionPeriodId, ActionMapping mapping, String noteType) throws FenixServiceException {
 
         ExecutionSemester executionSemester = FenixFramework.getDomainObject(executionPeriodId);
         String managementFunctionNote, serviceExemptionNote, otherNote, masterDegreeTeachingNote, functionsAccumulation, thesisNote;
@@ -92,7 +91,7 @@ public class ManageCreditsNotes extends FenixDispatchAction {
 
         try {
             EditTeacherServiceNotes.runEditTeacherServiceNotes(teacher, executionPeriodId, managementFunctionNote,
-                    serviceExemptionNote, otherNote, masterDegreeTeachingNote, functionsAccumulation, thesisNote, roleType);
+                    serviceExemptionNote, otherNote, masterDegreeTeachingNote, functionsAccumulation, thesisNote);
         } catch (DomainException domainException) {
             ActionMessages actionMessages = new ActionMessages();
             actionMessages.add("error", new ActionMessage(domainException.getMessage(), domainException.getArgs()));
