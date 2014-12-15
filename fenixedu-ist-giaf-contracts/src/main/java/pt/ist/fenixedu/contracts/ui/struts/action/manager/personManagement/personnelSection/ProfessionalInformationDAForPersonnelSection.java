@@ -23,9 +23,9 @@ import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 
 import pt.ist.fenixedu.contracts.ui.struts.action.manager.personManagement.ProfessionalInformationDA;
-import pt.ist.fenixedu.contracts.ui.struts.action.personnelSection.PersonManagementAction;
 
-@Mapping(module = "personnelSection", path = "/professionalInformation", functionality = PersonManagementAction.class)
+@Mapping(module = "personnelSection", path = "/professionalInformation")
+//, functionality = PersonManagementAction.class)
 @Forwards(value = { @Forward(name = "showProfessionalInformation",
         path = "/manager/personManagement/contracts/showProfessionalInformation.jsp") })
 public class ProfessionalInformationDAForPersonnelSection extends ProfessionalInformationDA {

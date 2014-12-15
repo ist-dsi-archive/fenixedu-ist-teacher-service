@@ -222,4 +222,130 @@
     <slot name="employeeNumber" key="label.giafId" layout="null-as-label"/>
 </schema>
 
+<schema name="ChooseInvitedPersonResponsibilityPerson" type="pt.ist.fenixedu.contracts.dto.InvitedPersonBean" bundle="MANAGER_RESOURCES">
+    <slot name="responsiblePerson" layout="username-as-person" key="label.responsibility.person.username" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>             
+</schema>   
+
+<schema name="NewInvitedPersonIdentificationInfo" type="pt.ist.fenixedu.contracts.dto.InvitedPersonBean" bundle="MANAGER_RESOURCES">
+    <slot name="documentIdNumber" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/> 
+    <slot name="idDocumentType" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator">
+        <property name="excludedValues" value="CITIZEN_CARD" />
+    </slot>         
+    <slot name="documentIdEmissionLocation" />
+    <slot name="documentIdEmissionDate" />
+    <slot name="documentIdExpirationDate" />
+</schema>
+
+<schema name="NewInvitedPersonPersonalInfo" type="pt.ist.fenixedu.contracts.dto.InvitedPersonBean" bundle="MANAGER_RESOURCES">
+    <slot name="profile.givenNames" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator">
+        <property name="size" value="50"/>
+    </slot>
+    <slot name="profile.familyNames">
+        <property name="size" value="50"/>
+    </slot>
+    <slot name="gender" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>
+    <slot name="socialSecurityNumber"/>
+    <slot name="profession"/>
+    <slot name="maritalStatus"/>    
+</schema>   
+
+<schema name="NewInvitedPersonFiliationInfo" type="pt.ist.fenixedu.contracts.dto.InvitedPersonBean" bundle="MANAGER_RESOURCES">
+    <slot name="countryOfBirth" layout="menu-select" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"> 
+        <property name="format" value="${name}"/>
+        <property name="sortBy" value="name=asc" />
+        <property name="providerClass" value="org.fenixedu.academic.ui.renderers.providers.DistinctCountriesProvider" />
+    </slot>
+    <slot name="nationality" layout="menu-select" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"> 
+        <property name="providerClass" value="org.fenixedu.academic.ui.renderers.providers.CountryProvider"/> 
+        <property name="format" value="${nationality}"/>
+        <property name="sortBy" value="nationality=asc" />
+    </slot>
+    <slot name="dateOfBirth" />
+    <slot name="parishOfBirth">
+        <property name="size" value="50"/>
+        <property name="maxLength" value="100"/>
+    </slot>
+    <slot name="districtSubdivisionOfBirth">
+        <property name="size" value="50"/>
+        <property name="maxLength" value="100"/>
+    </slot>
+    <slot name="districtOfBirth">
+        <property name="size" value="50"/>
+        <property name="maxLength" value="100"/>
+    </slot>
+    <slot name="fatherName">
+        <property name="size" value="50"/>
+        <property name="maxLength" value="100"/>
+    </slot>
+    <slot name="motherName">
+        <property name="size" value="50"/>
+        <property name="maxLength" value="100"/>
+    </slot>          
+</schema>
+
+<schema name="NewInvitedPersonResidenceInfo" type="pt.ist.fenixedu.contracts.dto.InvitedPersonBean" bundle="MANAGER_RESOURCES">
+    <slot name="countryOfResidence" layout="menu-select" > 
+        <property name="format" value="${name}"/>
+        <property name="sortBy" value="name=asc" />
+        <property name="providerClass" value="org.fenixedu.academic.ui.renderers.providers.DistinctCountriesProvider" />
+    </slot>
+    <slot name="address" >
+        <property name="size" value="50"/>
+        <property name="maxLength" value="100"/>
+    </slot>
+    <slot name="areaCode"/>
+    <slot name="areaOfAreaCode" />
+    <slot name="area"/>
+    <slot name="parishOfResidence" >
+        <property name="size" value="50"/>
+        <property name="maxLength" value="100"/>
+    </slot>
+    <slot name="districtSubdivisionOfResidence">
+        <property name="size" value="50"/>
+        <property name="maxLength" value="100"/>
+    </slot>
+    <slot name="districtOfResidence" >
+        <property name="size" value="50"/>
+        <property name="maxLength" value="100"/>
+    </slot>
+</schema>
+
+
+<schema name="NewInvitedPersonContactsInfo" type="pt.ist.fenixedu.contracts.dto.InvitedPersonBean" bundle="MANAGER_RESOURCES">
+    <slot name="phone">
+        <property name="size" value="15"/>
+        <property name="maxLength" value="15"/>
+        <validator class="pt.ist.fenixWebFramework.renderers.validators.RegexpValidator">
+            <property name="regexp" value="(\d{4,15})?" />
+            <property name="message" value="error.phone.invalidFormat" />
+            <property name="key" value="true" />
+        </validator>
+    </slot>    
+    <slot name="mobile">
+        <property name="size" value="15"/>
+        <property name="maxLength" value="15"/>
+        <validator class="pt.ist.fenixWebFramework.renderers.validators.RegexpValidator">
+            <property name="regexp" value="(\d{4,15})?" />
+            <property name="message" value="error.phone.invalidFormat" />
+            <property name="key" value="true" />
+        </validator>
+    </slot>
+    <slot name="email">
+        <property name="size" value="30"/>
+        <property name="maxLength" value="100"/>
+    </slot>
+    <slot name="webAddress">
+        <property name="size" value="50"/>
+        <property name="maxLength" value="200"/>
+        <validator class="pt.ist.fenixWebFramework.renderers.validators.UrlValidator">
+            <property name="required" value="false" />
+        </validator>
+    </slot>    
+</schema>   
+
+<schema name="NewInvitedPersonLoginInfo" type="pt.ist.fenixedu.contracts.dto.InvitedPersonBean" bundle="MANAGER_RESOURCES">
+    <slot name="begin" key="label.login.begin" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>        
+    <slot name="end" key="label.login.end" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>        
+</schema>   
+
 </schemas>
