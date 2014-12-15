@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package pt.ist.fenixedu.contracts.service.person.function;
+package pt.ist.fenixedu.teacher.service;
 
 import static org.fenixedu.academic.predicate.AccessControl.check;
 

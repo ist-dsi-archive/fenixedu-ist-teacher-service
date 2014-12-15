@@ -50,9 +50,9 @@ import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
-import pt.ist.fenixedu.contracts.service.person.function.ReadPersonFunctionsByPersonIDAndExecutionYearID;
 import pt.ist.fenixedu.teacher.domain.teacher.Advise;
 import pt.ist.fenixedu.teacher.domain.teacher.AdviseType;
+import pt.ist.fenixedu.teacher.service.ReadPersonFunctionsByPersonIDAndExecutionYearID;
 import pt.ist.fenixedu.teacher.service.teacher.ReadLecturedExecutionCoursesByTeacherIDAndExecutionYearIDAndDegreeType;
 import pt.ist.fenixedu.teacher.service.teacher.advise.ReadTeacherAdvisesByTeacherIDAndAdviseTypeAndExecutionYearID;
 import pt.ist.fenixframework.FenixFramework;
