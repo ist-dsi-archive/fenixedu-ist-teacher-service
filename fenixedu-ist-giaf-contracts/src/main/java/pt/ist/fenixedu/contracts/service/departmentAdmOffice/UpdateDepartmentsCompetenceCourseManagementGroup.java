@@ -64,13 +64,12 @@ public class UpdateDepartmentsCompetenceCourseManagementGroup {
         Set<User> newMembers = changed.getMembers();
         for (User user : Sets.difference(originalMembers, newMembers)) {
             Person person = user.getPerson();
-            if (person.hasRole(RoleType.BOLONHA_MANAGER) && !belongsToOtherGroupsWithSameRole(department, person)) {
+            if (RoleType.BOLONHA_MANAGER.isMember(user) && !belongsToOtherGroupsWithSameRole(department, person)) {
                 RoleType.revoke(RoleType.BOLONHA_MANAGER, user);
             }
         }
         for (User user : Sets.difference(newMembers, originalMembers)) {
-            Person person = user.getPerson();
-            if (!person.hasRole(RoleType.BOLONHA_MANAGER)) {
+            if (!RoleType.BOLONHA_MANAGER.isMember(user)) {
                 RoleType.grant(RoleType.BOLONHA_MANAGER, user);
             }
         }

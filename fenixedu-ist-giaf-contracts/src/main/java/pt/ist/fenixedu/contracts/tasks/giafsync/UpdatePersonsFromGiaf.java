@@ -204,7 +204,7 @@ public class UpdatePersonsFromGiaf extends ImportProcessor {
     }
 
     private boolean canEditPersonInfo(Person personByNumber, YearMonthDay idEmissionDate) {
-        Boolean isStudent = personByNumber.hasRole(RoleType.STUDENT);
+        Boolean isStudent = RoleType.STUDENT.isMember(personByNumber.getUser());
         ContractSituation contractSituation = getCurrentContractSituation(personByNumber.getEmployee());
         if (contractSituation != null && contractSituation.getEndSituation() && isStudent) {
             if (idEmissionDate == null || idEmissionDate.isBefore(personByNumber.getEmissionDateOfDocumentIdYearMonthDay())) {

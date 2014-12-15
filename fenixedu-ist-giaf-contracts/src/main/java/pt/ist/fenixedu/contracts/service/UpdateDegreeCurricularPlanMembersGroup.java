@@ -47,7 +47,7 @@ public class UpdateDegreeCurricularPlanMembersGroup {
         Set<User> newMembers = changed.getMembers();
         for (User user : Sets.difference(originalMembers, newMembers)) {
             Person person = user.getPerson();
-            if (person.hasRole(RoleType.BOLONHA_MANAGER) && !belongsToOtherGroupsWithSameRole(degreeCurricularPlan, person)) {
+            if (RoleType.BOLONHA_MANAGER.isMember(user) && !belongsToOtherGroupsWithSameRole(degreeCurricularPlan, person)) {
                 RoleType.revoke(RoleType.BOLONHA_MANAGER, user);
             }
         }
