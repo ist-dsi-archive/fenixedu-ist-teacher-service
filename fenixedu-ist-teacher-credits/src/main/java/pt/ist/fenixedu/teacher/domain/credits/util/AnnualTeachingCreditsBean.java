@@ -348,8 +348,7 @@ public class AnnualTeachingCreditsBean implements Serializable {
         User userView = Authenticate.getUser();
         Teacher loggedTeacher = userView.getPerson().getTeacher();
         Department department = getTeacher().getDepartment();
-        return userView.getPerson().hasRole(RoleType.SCIENTIFIC_COUNCIL)
-                || (loggedTeacher != null && loggedTeacher.equals(getTeacher()))
+        return RoleType.SCIENTIFIC_COUNCIL.isMember(userView) || (loggedTeacher != null && loggedTeacher.equals(getTeacher()))
                 || (department != null && DepartmentPresidentStrategy.isCurrentUserCurrentDepartmentPresident(department));
     }
 

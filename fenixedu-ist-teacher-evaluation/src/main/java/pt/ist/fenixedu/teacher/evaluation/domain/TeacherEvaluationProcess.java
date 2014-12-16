@@ -26,11 +26,12 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.fenixedu.academic.domain.Person;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.predicate.AccessControl;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.bennu.core.domain.Bennu;
+import org.fenixedu.bennu.core.groups.DynamicGroup;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
+import org.fenixedu.bennu.core.security.Authenticate;
 
 public class TeacherEvaluationProcess extends TeacherEvaluationProcess_Base {
 
@@ -131,8 +132,8 @@ public class TeacherEvaluationProcess extends TeacherEvaluationProcess_Base {
 
     public boolean isPossibleToInsertApprovedMark() {
         return (isEvaluationLocked() || getFacultyEvaluationProcess().getEvaluationInterval().getEnd().isBeforeNow())
-                && (AccessControl.getPerson().isTeacherEvaluationCoordinatorCouncilMember() || AccessControl.getPerson().hasRole(
-                        RoleType.MANAGER));
+                && (AccessControl.getPerson().isTeacherEvaluationCoordinatorCouncilMember() || DynamicGroup.get("managers")
+                        .isMember(Authenticate.getUser()));
     }
 
     public boolean isPossibleToLockAutoEvaluation() {
