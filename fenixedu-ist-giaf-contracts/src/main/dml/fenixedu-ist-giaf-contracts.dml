@@ -253,8 +253,6 @@ class organizationalStructure.PersonFunctionShared extends organizationalStructu
 class util.email.ResearchUnitBasedSender extends .org.fenixedu.academic.domain.util.email.UnitBasedSender {
 }
 
-class accessControl.PersistentResearchAuthorGroup extends .org.fenixedu.academic.domain.accessControl.FenixPredicateGroup;
-
 class accessControl.PersistentCampusEmployeeGroup extends .org.fenixedu.bennu.core.domain.groups.PersistentGroup;
 
 relation GiafProfessionalDataRootDomainObject {
