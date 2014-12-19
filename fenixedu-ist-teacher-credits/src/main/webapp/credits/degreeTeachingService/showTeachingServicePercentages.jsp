@@ -18,6 +18,10 @@
     along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
 
 --%>
+<%@page import="org.fenixedu.academic.domain.Professorship"%>
+<%@page import="pt.ist.fenixedu.teacher.domain.teacher.TeacherService"%>
+<%@page import="pt.ist.fenixedu.teacher.domain.SupportLesson"%>
+<%@page import="java.util.SortedSet"%>
 <%@ page isELIgnored="true"%>
 <%@ page language="java" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
@@ -30,6 +34,7 @@
 <jsp:include page="../teacherCreditsStyles.jsp"/>
 
 <bean:define id="hoursPattern">HH : mm</bean:define>
+<bean:define id="professorship" name="professorship" scope="request" />
 <bean:define id="teacher" name="professorship" property="teacher" scope="request" />
 <bean:define id="teacherId" name="teacher" property="externalId" />
 <bean:define id="executionCourse" name="professorship" property="executionCourse" scope="request" />
@@ -134,12 +139,6 @@
 			 						<br />
 								</logic:iterate>			
 							</logic:notEqual>
-							<logic:iterate id="nonRegularTeachingService" name="shift" property="nonRegularTeachingServices">
-								<bean:write name="nonRegularTeachingService" property="professorship.person.name" />
-								<bean:define id="nonRegularTeachingServicePerscentage" name="nonRegularTeachingService" property="percentage"/>
-		 						&nbsp;-&nbsp;<%= ((Math.round(((Double)nonRegularTeachingServicePerscentage).doubleValue() * 100.0)) / 100.0) %>
-		 						<br />
-							</logic:iterate>
 						</td>
 					</tr>
 				</logic:equal>
@@ -197,12 +196,6 @@
 				 						<br />
 									</logic:iterate>			
 								</logic:notEqual>
-								<logic:iterate id="nonRegularTeachingService" name="shift" property="nonRegularTeachingServices">
-									<bean:write name="nonRegularTeachingService" property="professorship.person.name" />
-									<bean:define id="nonRegularTeachingServicePerscentage" name="nonRegularTeachingService" property="percentage"/>
-			 						&nbsp;-&nbsp;<%= ((Math.round(((Double)nonRegularTeachingServicePerscentage).doubleValue() * 100.0)) / 100.0) %>
-			 						<br />
-								</logic:iterate>
 							</td>						
 							</tr>
 						</logic:equal>
@@ -251,7 +244,10 @@
 <bean:define id="link" type="java.lang.String">/supportLessonsManagement.do?method=prepareEdit&amp;page=0&amp;professorshipID=<bean:write name="professorship" property="externalId"/></bean:define>
 <html:link page="<%= link %>"><bean:message key="link.support-lesson.create"/></html:link>
 
-<bean:define id="supportLessonList" name="professorship" property="supportLessonsOrderedByStartTimeAndWeekDay"/>
+<%	SortedSet<SupportLesson> supportLessonsOrderedByStartTimeAndWeekDay = TeacherService.getSupportLessonsOrderedByStartTimeAndWeekDay((Professorship) professorship);
+request.setAttribute("supportLessonList", supportLessonsOrderedByStartTimeAndWeekDay);
+%>
+						
 <logic:notEmpty name="supportLessonList">
 		<table class="tstyle4">
 		<tr>

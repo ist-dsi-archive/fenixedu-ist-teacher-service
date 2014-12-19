@@ -18,6 +18,11 @@
     along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
 
 --%>
+<%@page import="pt.ist.fenixedu.teacher.domain.SupportLesson"%>
+<%@page import="java.util.SortedSet"%>
+<%@page import="pt.ist.fenixedu.teacher.domain.teacher.TeacherService"%>
+<%@page import="org.fenixedu.academic.domain.Professorship"%>
+<%@page import="pt.ist.fenixedu.teacher.domain.teacher.DegreeTeachingService"%>
 <%@ page isELIgnored="true"%>
 <%@page contentType="text/html" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
@@ -86,17 +91,22 @@ padding: 0;
 				<logic:iterate id="professorship" name="annualTeachingCreditsByPeriodBean" property="professorships">
 					<bean:define id="professorshipID" name="professorship" property="externalId"/>
 					<bean:define id="executionPeriodId" name="professorship" property="executionCourse.executionPeriod.externalId"/>
-					<bean:define id="totalNumberOfLessons" name="professorship" property="degreeTeachingServiceLessonRows"/>
-					<bean:size id="numberOfShifts" name="professorship" property="degreeTeachingServicesOrderedByShift"/>
+					<bean:define id="totalNumberOfLessons" value="<%=String.valueOf(DegreeTeachingService.getDegreeTeachingServiceLessonRows((Professorship)professorship))%>"/>
+					
+					<%	SortedSet<DegreeTeachingService> degreeTeachingServicesOrderedByShift = TeacherService.getDegreeTeachingServicesOrderedByShift((Professorship) professorship);
+						request.setAttribute("degreeTeachingServicesOrderedByShift", degreeTeachingServicesOrderedByShift);
+					%>
+					
+					<bean:size id="numberOfShifts" name="degreeTeachingServicesOrderedByShift"/>
 					<tr>
-						<td rowspan="<%= java.lang.Math.max(((Integer)totalNumberOfLessons).intValue(),1)%>">
+						<td rowspan="<%= java.lang.Math.max(Integer.parseInt(totalNumberOfLessons),1)%>">
 								<bean:write name="professorship" property="executionCourse.name"/> (<bean:write name="professorship" property="degreeSiglas"/>)
 						</td>
 						<logic:equal name="numberOfShifts" value="0">
 							<td colspan="7"/>
 						</logic:equal>
 						
-						<logic:iterate id="degreeTeachingService" name="professorship" property="degreeTeachingServicesOrderedByShift" indexId="indexShifts">
+						<logic:iterate id="degreeTeachingService" name="degreeTeachingServicesOrderedByShift" indexId="indexShifts">
 							<bean:size id="numberOfLessons" name="degreeTeachingService" property="shift.lessonsOrderedByWeekDayAndStartTime"/>
 							<logic:iterate id="lesson" name="degreeTeachingService" property="shift.lessonsOrderedByWeekDayAndStartTime" indexId="indexLessons">
 								<logic:notEqual name="indexLessons" value="0">
@@ -128,8 +138,12 @@ padding: 0;
 							</logic:iterate>
 						</logic:iterate>
 						</tr>
-						<bean:size id="numberOfSupportLessons" name="professorship" property="supportLessonsOrderedByStartTimeAndWeekDay"/>
-						<logic:iterate id="supportLesson" name="professorship" property="supportLessonsOrderedByStartTimeAndWeekDay" indexId="indexSupportLessons">
+						
+						<%	SortedSet<SupportLesson> supportLessonsOrderedByStartTimeAndWeekDay = TeacherService.getSupportLessonsOrderedByStartTimeAndWeekDay((Professorship) professorship);
+						request.setAttribute("supportLessonsOrderedByStartTimeAndWeekDay", supportLessonsOrderedByStartTimeAndWeekDay);
+						%>
+						<bean:size id="numberOfSupportLessons" name="supportLessonsOrderedByStartTimeAndWeekDay"/>
+						<logic:iterate id="supportLesson" name="supportLessonsOrderedByStartTimeAndWeekDay" indexId="indexSupportLessons">
 							<tr>
 							<logic:equal name="indexSupportLessons" value="0">
 								<td rowspan="<%= numberOfSupportLessons %>">-</td>
@@ -156,7 +170,7 @@ padding: 0;
 			<h3 class="infoop"><bean:write name="annualTeachingCreditsByPeriodBean" property="executionPeriod.qualifiedName"/></h3>
 			<bean:define id="executionPeriodId" name="annualTeachingCreditsByPeriodBean" property="executionPeriod.externalId"/>
 			<fr:view name="annualTeachingCreditsByPeriodBean" property="institutionWorkTime">
-				<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.teacher.InstitutionWorkTime">
+				<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.teacher.InstitutionWorkTime">
 					<fr:slot name="weekDay.label" key="label.teacher-institution-working-time.weekday"/>
 					<fr:slot name="startTime" key="label.teacher-institution-working-time.start-time">
 						<fr:property name="format" value="HH:mm"/>
@@ -284,7 +298,7 @@ padding: 0;
 			</logic:empty>
 			<logic:notEmpty name="otherServices">
 				<fr:view name="annualTeachingCreditsByPeriodBean" property="otherServices">
-					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.teacher.OtherService">
+					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.teacher.OtherService">
 						<fr:slot name="credits" key="label.credits"/>
 						<fr:slot name="reason" key="label.otherTypeCreditLine.reason"/>
 					</fr:schema>
@@ -299,7 +313,7 @@ padding: 0;
 <h3 class="separator2 mtop2"><img id="status-icon" width="15px" alt="" src="<%= request.getContextPath() +"/images/right30.png" %>"> <bean:message key="label.credits.creditsReduction.definition" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></h3>
 		<logic:equal name="annualTeachingCreditsBean" property="canSeeCreditsReduction" value="true">
 			<fr:view name="annualTeachingCreditsBean" property="annualTeachingCreditsByPeriodBeans">
-				<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.credits.util.AnnualTeachingCreditsByPeriodBean">
+				<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.credits.util.AnnualTeachingCreditsByPeriodBean">
 					<fr:slot name="executionPeriod.name" key="label.period"/>
 					<fr:slot name="requestCreditsReduction" key="label.requestedReductionCredits" layout="radio"/>
 					<fr:slot name="creditsReductionServiceAttribute" key="label.attributedReductionCredits" layout="null-as-label"/>
@@ -325,7 +339,7 @@ padding: 0;
 			</logic:empty>
 			<logic:notEmpty name="serviceExemptions">
 				<fr:view name="annualTeachingCreditsByPeriodBean" property="serviceExemptions">
-					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.personnelSection.contracts.PersonContractSituation">
+					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation">
 						<fr:slot name="contractSituation.name.content" key="label.serviceExemption.type"/>
 						<fr:slot name="beginDate" key="label.serviceExemption.start"/>
 						<fr:slot name="serviceExemptionEndDate" key="label.serviceExemption.end" layout="null-as-label"/>
@@ -350,7 +364,7 @@ padding: 0;
 		</logic:empty>
 		<logic:notEmpty name="teacherServiceComments">
 			<fr:view name="teacherServiceComments">
-				<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.teacher.TeacherServiceComment">
+				<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceComment">
 					<fr:slot name="content" key="label.comment"/>
 					<fr:slot name="createdBy" key="label.user">
 						<fr:property name="format" value="${name} (${username})"/>

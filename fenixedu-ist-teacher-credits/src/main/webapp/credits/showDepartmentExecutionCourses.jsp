@@ -38,7 +38,7 @@
 
 	<fr:form action="/projectTutorialCourses.do?method=showDepartmentExecutionCourses">
 		<fr:edit id="departmentCreditsBean" name="departmentCreditsBean">
-			<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.credits.util.DepartmentCreditsBean">
+			<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsBean">
 				<fr:slot name="department" key="label.department" layout="menu-select">
 					<fr:property name="from" value="availableDepartments"/>
 					<fr:property name="format" value="${name}"/>

@@ -34,8 +34,6 @@ import org.fenixedu.bennu.struts.portal.EntryPoint;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
-import pt.ist.fenixedu.teacher.domain.TeacherCredits;
-import pt.ist.fenixedu.teacher.domain.TeacherCreditsQueueJob;
 import pt.ist.fenixedu.teacher.dto.teacherCredits.TeacherCreditsPeriodBean;
 import pt.ist.fenixedu.teacher.service.scientificCouncil.credits.CreateTeacherCreditsFillingPeriod;
 import pt.ist.fenixedu.teacher.ui.struts.action.ScientificCreditsApp;
@@ -87,22 +85,6 @@ public class ManageCreditsPeriods extends FenixDispatchAction {
 
         request.setAttribute("teacherCreditsBean", bean);
         RenderUtils.invalidateViewState("teacherCreditsBeanID");
-        return mapping.findForward("show-credits-periods");
-    }
-
-    public ActionForward closeAllPeriodsByExecutionSemester(ActionMapping mapping, ActionForm actionForm,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
-        TeacherCreditsPeriodBean bean = createBeanTeacherCreditsPeriodBean(mapping, actionForm, request);
-        TeacherCreditsQueueJob.createTeacherCreditsQueueJob(bean.getExecutionPeriod());
-        request.setAttribute("teacherCreditsBean", bean);
-        return mapping.findForward("show-credits-periods");
-    }
-
-    public ActionForward openAllPeriodsByExecutionSemester(ActionMapping mapping, ActionForm actionForm,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
-        TeacherCreditsPeriodBean bean = createBeanTeacherCreditsPeriodBean(mapping, actionForm, request);
-        TeacherCredits.openAllTeacherCredits(bean.getExecutionPeriod());
-        request.setAttribute("teacherCreditsBean", bean);
         return mapping.findForward("show-credits-periods");
     }
 

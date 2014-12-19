@@ -41,8 +41,8 @@ import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageTeacherInstitution
 import pt.ist.fenixframework.FenixFramework;
 
 @Mapping(module = "departmentAdmOffice", path = "/institutionWorkingTimeManagement",
-        input = "/institutionWorkingTimeManagement.do?method=prepareEdit&page=0", formBean = "teacherInstitutionWorkingTimeForm",
-        scope = "request", parameter = "method", functionality = DepartmentAdmOfficeViewTeacherCreditsDA.class)
+        input = "/institutionWorkingTimeManagement.do?method=prepareEdit&page=0", scope = "request", parameter = "method",
+        functionality = DepartmentAdmOfficeViewTeacherCreditsDA.class)
 @Exceptions(value = { @ExceptionHandling(type = org.fenixedu.academic.domain.exceptions.DomainException.class,
         handler = org.fenixedu.academic.ui.struts.config.FenixDomainExceptionHandler.class, scope = "request") })
 public class DepartmentAdmOfficeManageTeacherInstitutionWorkingTimeDispatchAction extends
@@ -73,11 +73,6 @@ public class DepartmentAdmOfficeManageTeacherInstitutionWorkingTimeDispatchActio
             return teacherWorkingDepartment != null && manageableDepartments.contains(teacherWorkingDepartment);
         }
         return false;
-    }
-
-    public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response)
-            throws NumberFormatException, FenixServiceException {
-        return delete(mapping, form, request, response);
     }
 
 }

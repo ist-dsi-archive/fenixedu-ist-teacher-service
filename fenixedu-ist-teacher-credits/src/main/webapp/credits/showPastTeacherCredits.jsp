@@ -48,7 +48,7 @@
 
 	<logic:notEmpty name="teacherBean" property="pastTeachingCredits">
 		<fr:view name="teacherBean" property="pastTeachingCredits">
-			<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.credits.util.TeacherCreditsBean">
+			<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.credits.util.TeacherCreditsBean">
 				<fr:slot name="executionPeriod.qualifiedName" key="label.execution-period" layout="link">
 					<fr:property name="useParent" value="true"/>
 					<fr:property name="hasChecksum" value="false"/>
@@ -58,7 +58,7 @@
 				<fr:slot name="teachingDegreeCredits" key="label.credits.lessons.simpleCode" layout="null-as-label"/>
 				<fr:slot name="supportLessonHours" key="label.credits.supportLessons.simpleCode" layout="null-as-label"/>
 				<fr:slot name="masterDegreeCredits" key="label.credits.masterDegreeLessons.simpleCode" layout="null-as-label"/>
-				<fr:slot name="tfcAdviseCredits" key="label.credits.thesis.code" layout="null-as-label"/>
+				<fr:slot name="tfcAdviseCredits" key="label.credits.degreeFinalProjectStudents.SimpleCode" layout="null-as-label"/>
 				<fr:slot name="thesesCredits" key="label.credits.thesis.simpleCode" layout="null-as-label"/>
 				<fr:slot name="institutionWorkingHours" key="label.credits.institutionWorkTime.simpleCode" layout="null-as-label"/>
 				<fr:slot name="otherCredits" key="label.credits.otherTypeCreditLine.simpleCode" layout="null-as-label"/>

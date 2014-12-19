@@ -89,7 +89,7 @@
 			<div class="forminline dinline">
 				<fr:form action="<%="/creditsReductions.do?method=showReductionServices&teacherServiceOID="+ teacherServiceOID%>">
 					<fr:edit id="reductionServiceBean" name="reductionServiceBean" visible="false"/>
-					<fr:create id="reductionService" schema="create.reductionServiceAttributed" type="org.fenixedu.academic.domain.teacher.ReductionService">
+					<fr:create id="reductionService" schema="create.reductionServiceAttributed" type="pt.ist.fenixedu.teacher.domain.teacher.ReductionService">
 						<fr:hidden slot="teacherService" name="teacherService"/>
 						<fr:layout>
 							<fr:property name="classes" value="tstyle2 thlight thleft mtop05 mbottom05"/>
@@ -107,7 +107,7 @@
 		<logic:notEmpty name="reductionServiceBean" property="reductionService">
 			<bean:define id="reductionServiceOID" name="reductionServiceBean" property="reductionService.externalId"/>
 			<fr:edit id="reductionService" name="reductionServiceBean" property="reductionService" action="<%="/creditsReductions.do?method=showReductionServices&reductionServiceOID="+ reductionServiceOID%>">
-				<fr:schema type="org.fenixedu.academic.domain.teacher.ReductionService" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
+				<fr:schema type="pt.ist.fenixedu.teacher.domain.teacher.ReductionService" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
 					<fr:slot name="requestCreditsReduction" key="label.requestedReductionCredits" readOnly="true" layout="radio"/>
 					<fr:slot name="creditsReductionAttributed" key="label.attributedReductionCredits" required="true" validator="pt.ist.fenixWebFramework.renderers.validators.NumberValidator"/>
 				</fr:schema>

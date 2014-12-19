@@ -18,6 +18,16 @@
     along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
 
 --%>
+<%@page import="pt.ist.fenixedu.teacher.domain.SupportLesson"%>
+<%@page import="java.util.SortedSet"%>
+<%@page import="pt.ist.fenixedu.teacher.domain.teacher.TeacherService"%>
+<%@page import="org.fenixedu.academic.domain.Professorship"%>
+<%@page import="pt.ist.fenixedu.teacher.domain.teacher.DegreeTeachingService"%>
+<%@page import="org.fenixedu.bennu.core.groups.Group"%>
+<%@page import="pt.ist.fenixedu.teacher.domain.CreditsManagerGroup"%>
+<%@page import="org.fenixedu.bennu.core.domain.User"%>
+<%@page import="org.fenixedu.bennu.core.security.Authenticate"%>
+<%@page import="org.fenixedu.academic.domain.person.RoleType"%>
 <%@ page isELIgnored="true"%>
 <%@page import="org.fenixedu.academic.domain.ExecutionSemester"%>
 <%@page contentType="text/html" %>
@@ -76,17 +86,27 @@ $(document).ready(function() {
 
 <bean:define id="teacherId" name="annualTeachingCreditsBean" property="teacher.externalId"/>
 <bean:define id="executionYearOid" name="annualTeachingCreditsBean" property="executionYear.externalId"/>
-<bean:define id="roleType" name="annualTeachingCreditsBean" property="roleType"/>
+
+<%
+User user = Authenticate.getUser();
+if(RoleType.SCIENTIFIC_COUNCIL.actualGroup().isMember(user)){
+    request.setAttribute("roleType", "SCIENTIFIC_COUNCIL");
+}else  if (Group.parse("creditsManager").isMember(Authenticate.getUser())) {
+    request.setAttribute("roleType", "DEPARTMENT_ADMINISTRATIVE_OFFICE");
+}else{
+    request.setAttribute("roleType", "");
+}
+%>
 
 <div class="infoop2">
 	<bean:message key="label.credits.usefull.information" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/>
 </div>
 
-<logic:notEqual name="roleType" value="DEPARTMENT_MEMBER">
+<logic:notEmpty name="roleType">
 	<p><html:link page='<%= "/annualTeachingCreditsDocument.do?method=getAnnualTeachingCreditsPdf&teacherOid="+teacherId+"&executionYearOid=" + executionYearOid %>'>
 		<bean:message key="label.exportToPDF"  bundle="TEACHER_CREDITS_SHEET_RESOURCES"/>
 	</html:link></p>
-</logic:notEqual>
+</logic:notEmpty>
 
 <bean:define id="areCreditsCalculated" name="annualTeachingCreditsBean" property="areCreditsCalculated"/>
 <logic:equal name="areCreditsCalculated" value="true">
@@ -105,7 +125,7 @@ $(document).ready(function() {
 	<div class="infoop2">
 		<logic:iterate id="annualTeachingCreditsByPeriodBean" name="annualTeachingCreditsBean" property="annualTeachingCreditsByPeriodBeans">
 			<%
-				final ExecutionSemester executionSemester = ((org.fenixedu.academic.domain.credits.util.AnnualTeachingCreditsByPeriodBean) annualTeachingCreditsByPeriodBean).getExecutionPeriod();
+				final ExecutionSemester executionSemester = ((pt.ist.fenixedu.teacher.domain.credits.util.AnnualTeachingCreditsByPeriodBean) annualTeachingCreditsByPeriodBean).getExecutionPeriod();
 				if (executionSemester.isBeforeOrEquals(ExecutionSemester.readActualExecutionSemester())) {
 			%>
 			<bean:define id="executionPeriodQualifiedName" name="annualTeachingCreditsByPeriodBean" property="executionPeriod.qualifiedName"></bean:define>
@@ -169,13 +189,21 @@ $(document).ready(function() {
 					</tr> 
 				
 				<bean:define id="canEditCreditsInfo" name="annualTeachingCreditsByPeriodBean" property="canEditTeacherCredits"/>
+				
 				<logic:iterate id="professorship" name="annualTeachingCreditsByPeriodBean" property="professorships">
 					<bean:define id="professorshipID" name="professorship" property="externalId"/>
 					<bean:define id="executionPeriodId" name="professorship" property="executionCourse.executionPeriod.externalId"/>
-					<bean:define id="totalNumberOfLessons" name="professorship" property="degreeTeachingServiceLessonRows"/>
-					<bean:size id="numberOfShifts" name="professorship" property="degreeTeachingServicesOrderedByShift"/>
+					<bean:define id="totalNumberOfLessons" value="<%=String.valueOf(DegreeTeachingService.getDegreeTeachingServiceLessonRows((Professorship)professorship))%>"/>
+					
+					
+					<%	SortedSet<DegreeTeachingService> degreeTeachingServicesOrderedByShift = TeacherService.getDegreeTeachingServicesOrderedByShift((Professorship) professorship);
+						request.setAttribute("degreeTeachingServicesOrderedByShift", degreeTeachingServicesOrderedByShift);
+					%>
+					
+					
+					<bean:size id="numberOfShifts" name="degreeTeachingServicesOrderedByShift"/>
 					<tr>
-						<td rowspan="<%= java.lang.Math.max(((Integer)totalNumberOfLessons).intValue(),1)%>">
+						<td rowspan="<%= java.lang.Math.max(Integer.parseInt(totalNumberOfLessons),1)%>">
 							<logic:equal name="canEditCreditsInfo" value="true">
 								<html:link page='<%= "/degreeTeachingServiceManagement.do?page=0&amp;method=showTeachingServiceDetails&amp;professorshipID="+professorshipID + "&amp;executionPeriodId="+ executionPeriodId %>'>
 									<bean:write name="professorship" property="executionCourse.name"/> (<bean:write name="professorship" property="degreeSiglas"/>)
@@ -185,13 +213,13 @@ $(document).ready(function() {
 								<bean:write name="professorship" property="executionCourse.name"/> (<bean:write name="professorship" property="degreeSiglas"/>)
 							</logic:notEqual>									
 						</td>
-						<td rowspan="<%= java.lang.Math.max(((Integer)totalNumberOfLessons).intValue(),1)%>"><bean:write name="professorship" property="executionCourse.effortRate"/></td>
-						<td rowspan="<%= java.lang.Math.max(((Integer)totalNumberOfLessons).intValue(),1)%>"><bean:write name="professorship" property="executionCourse.unitCreditValue"/></td>
+						<td rowspan="<%= java.lang.Math.max(Integer.parseInt(totalNumberOfLessons),1)%>"><bean:write name="professorship" property="executionCourse.effortRate"/></td>
+						<td rowspan="<%= java.lang.Math.max(Integer.parseInt(totalNumberOfLessons),1)%>"><bean:write name="professorship" property="executionCourse.unitCreditValue"/></td>
 						<logic:equal name="numberOfShifts" value="0">
 							<td colspan="10"/>
 						</logic:equal>
 						
-						<logic:iterate id="degreeTeachingService" name="professorship" property="degreeTeachingServicesOrderedByShift" indexId="indexShifts">
+						<logic:iterate id="degreeTeachingService" name="degreeTeachingServicesOrderedByShift" indexId="indexShifts">
 							<bean:size id="numberOfLessons" name="degreeTeachingService" property="shift.lessonsOrderedByWeekDayAndStartTime"/>
 							<logic:equal name="numberOfLessons" value="0">
 								<td><bean:write name="degreeTeachingService" property="shift.nome"/></td>
@@ -243,8 +271,13 @@ $(document).ready(function() {
 							</logic:iterate>
 						</logic:iterate>
 						</tr>
-						<bean:size id="numberOfSupportLessons" name="professorship" property="supportLessonsOrderedByStartTimeAndWeekDay"/>
-						<logic:iterate id="supportLesson" name="professorship" property="supportLessonsOrderedByStartTimeAndWeekDay" indexId="indexSupportLessons">
+						
+						<%	SortedSet<SupportLesson> supportLessonsOrderedByStartTimeAndWeekDay = TeacherService.getSupportLessonsOrderedByStartTimeAndWeekDay((Professorship) professorship);
+						request.setAttribute("supportLessonsOrderedByStartTimeAndWeekDay", supportLessonsOrderedByStartTimeAndWeekDay);
+						%>
+					
+						<bean:size id="numberOfSupportLessons" name="supportLessonsOrderedByStartTimeAndWeekDay"/>
+						<logic:iterate id="supportLesson" name="supportLessonsOrderedByStartTimeAndWeekDay" indexId="indexSupportLessons">
 							<tr>
 							<logic:equal name="indexSupportLessons" value="0">
 								<td rowspan="<%= numberOfSupportLessons %>">-</td>
@@ -284,7 +317,7 @@ $(document).ready(function() {
 				</html:link></p>
 			</logic:equal>
 			<fr:view name="annualTeachingCreditsByPeriodBean" property="institutionWorkTime">
-				<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.teacher.InstitutionWorkTime">
+				<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.teacher.InstitutionWorkTime">
 					<fr:slot name="weekDay.label" key="label.teacher-institution-working-time.weekday"/>
 					<fr:slot name="startTime" key="label.teacher-institution-working-time.start-time">
 						<fr:property name="format" value="HH:mm"/>
@@ -496,7 +529,7 @@ $(document).ready(function() {
 			</logic:empty>
 			<logic:notEmpty name="otherServices">
 				<fr:view name="annualTeachingCreditsByPeriodBean" property="otherServices">
-					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.teacher.OtherService">
+					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.teacher.OtherService">
 						<fr:slot name="credits" key="label.credits"/>
 						<fr:slot name="reason" key="label.otherTypeCreditLine.reason"/>
 						<fr:slot name="correctedExecutionSemester.executionYear.name" key="label.executionYear"/>
@@ -530,7 +563,7 @@ $(document).ready(function() {
 	<div class="inner-panel" style="display: none;">
 		<logic:equal name="annualTeachingCreditsBean" property="canSeeCreditsReduction" value="true">
 			<fr:view name="annualTeachingCreditsBean" property="annualTeachingCreditsByPeriodBeans">
-				<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.credits.util.AnnualTeachingCreditsByPeriodBean">
+				<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.credits.util.AnnualTeachingCreditsByPeriodBean">
 					<fr:slot name="executionPeriod.name" key="label.period"/>
 					<fr:slot name="requestCreditsReduction" key="label.requestedReductionCredits" layout="radio"/>
 					<fr:slot name="creditsReductionServiceAttribute" key="label.attributedReductionCredits" layout="null-as-label">
@@ -575,7 +608,7 @@ $(document).ready(function() {
 			</logic:empty>
 			<logic:notEmpty name="serviceExemptions">
 				<fr:view name="annualTeachingCreditsByPeriodBean" property="serviceExemptions">
-					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.personnelSection.contracts.PersonContractSituation">
+					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonContractSituation">
 						<fr:slot name="contractSituation.name.content" key="label.serviceExemption.type"/>
 						<fr:slot name="beginDate" key="label.serviceExemption.start"/>
 						<fr:slot name="serviceExemptionEndDate" key="label.serviceExemption.end" layout="null-as-label"/>
@@ -609,7 +642,7 @@ $(document).ready(function() {
 		</logic:empty>
 		<logic:notEmpty name="teacherServiceComments">
 			<fr:view name="teacherServiceComments">
-				<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.teacher.TeacherServiceComment">
+				<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceComment">
 					<fr:slot name="content" key="label.comment"/>
 					<fr:slot name="createdBy" key="label.user">
 						<fr:property name="format" value="${name} (${username})"/>

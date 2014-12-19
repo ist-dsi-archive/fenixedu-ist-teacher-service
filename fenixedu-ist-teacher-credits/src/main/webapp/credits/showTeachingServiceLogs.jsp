@@ -20,7 +20,7 @@
 --%>
 <%@page import="org.fenixedu.academic.domain.Person"%>
 <%@page import="pt.ist.fenixedu.teacher.domain.credits.util.AnnualTeachingCreditsBean"%>
-<%@page import="org.fenixedu.academic.domain.teacher.TeacherServiceLog"%>
+<%@page import="pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceLog"%>
 <%@page import="java.util.SortedSet"%>
 <%@ page language="java" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>

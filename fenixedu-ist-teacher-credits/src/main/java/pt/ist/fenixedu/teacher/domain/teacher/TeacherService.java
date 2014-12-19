@@ -32,7 +32,6 @@ import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Shift;
-import org.fenixedu.academic.domain.ShiftType;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.util.Bundle;
@@ -41,7 +40,6 @@ import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
-import pt.ist.fenixedu.teacher.domain.NonRegularTeachingService;
 import pt.ist.fenixedu.teacher.domain.SupportLesson;
 import pt.ist.fenixframework.Atomic;
 
@@ -102,20 +100,9 @@ public class TeacherService extends TeacherService_Base {
         });
     }
 
-    public TeacherMasterDegreeService getMasterDegreeServiceByProfessorship(Professorship professorship) {
-        for (TeacherMasterDegreeService masterDegreeService : getMasterDegreeServices()) {
-            if (masterDegreeService.getProfessorship() == professorship) {
-                return masterDegreeService;
-            }
-        }
-        return null;
-    }
-
     public Double getCredits() throws ParseException {
-        double credits = getMasterDegreeServiceCredits();
-        credits += getTeachingDegreeCredits();
+        double credits = getTeachingDegreeCredits();
         credits += getOtherServiceCredits();
-        credits += getTeacherAdviseServiceCredits();
         return round(credits);
     }
 
@@ -163,33 +150,6 @@ public class TeacherService extends TeacherService_Base {
         return round(hours);
     }
 
-    public Double getMasterDegreeServiceCredits() {
-        double credits = 0;
-        for (TeacherMasterDegreeService teacherMasterDegreeService : getMasterDegreeServices()) {
-            if (teacherMasterDegreeService.getCredits() != null) {
-                credits += teacherMasterDegreeService.getCredits();
-            }
-        }
-        return round(credits);
-    }
-
-    public Double getTeacherAdviseServiceCredits() {
-        double credits = 0;
-        for (TeacherAdviseService teacherAdviseService : getTeacherAdviseServices()) {
-            credits = credits + ((teacherAdviseService.getPercentage().doubleValue() / 100) * (1.0 / 3));
-        }
-        return round(credits);
-    }
-
-    public Double getPastServiceCredits() {
-        double credits = 0;
-        TeacherPastService teacherPastService = getPastService();
-        if (teacherPastService != null) {
-            credits = teacherPastService.getCredits();
-        }
-        return round(credits);
-    }
-
     public Double getOtherServiceCredits() {
         double credits = 0;
         for (OtherService otherService : getOtherServices()) {
@@ -224,24 +184,6 @@ public class TeacherService extends TeacherService_Base {
         });
     }
 
-    public List<TeacherMasterDegreeService> getMasterDegreeServices() {
-        return (List<TeacherMasterDegreeService>) CollectionUtils.select(getServiceItemsSet(), new Predicate() {
-            @Override
-            public boolean evaluate(Object arg0) {
-                return arg0 instanceof TeacherMasterDegreeService;
-            }
-        });
-    }
-
-    public TeacherPastService getPastService() {
-        return (TeacherPastService) CollectionUtils.find(getServiceItemsSet(), new Predicate() {
-            @Override
-            public boolean evaluate(Object arg0) {
-                return arg0 instanceof TeacherPastService;
-            }
-        });
-    }
-
     public List<OtherService> getOtherServices() {
         return (List<OtherService>) CollectionUtils.select(getServiceItemsSet(), new Predicate() {
             @Override
@@ -269,15 +211,6 @@ public class TeacherService extends TeacherService_Base {
         });
     }
 
-    public TeacherServiceNotes getTeacherServiceNotes() {
-        return (TeacherServiceNotes) CollectionUtils.find(getServiceItemsSet(), new Predicate() {
-            @Override
-            public boolean evaluate(Object arg0) {
-                return arg0 instanceof TeacherServiceNotes;
-            }
-        });
-    }
-
     public List<SupportLesson> getSupportLessons() {
         List<SupportLesson> supportLessons = new ArrayList<SupportLesson>();
         for (Professorship professorship : getTeacher().getProfessorships()) {
@@ -289,15 +222,6 @@ public class TeacherService extends TeacherService_Base {
             }
         }
         return supportLessons;
-    }
-
-    public List<TeacherAdviseService> getTeacherAdviseServices() {
-        return (List<TeacherAdviseService>) CollectionUtils.select(getServiceItemsSet(), new Predicate() {
-            @Override
-            public boolean evaluate(Object arg0) {
-                return arg0 instanceof TeacherAdviseService;
-            }
-        });
     }
 
     public List<TeacherServiceComment> getTeacherServiceComments() {
@@ -375,6 +299,7 @@ public class TeacherService extends TeacherService_Base {
         final SortedSet<DegreeTeachingService> degreeTeachingServices =
                 new TreeSet<DegreeTeachingService>(DegreeTeachingService.DEGREE_TEACHING_SERVICE_COMPARATOR_BY_SHIFT);
         degreeTeachingServices.addAll(professorship.getDegreeTeachingServicesSet());
+
         return degreeTeachingServices;
     }
 
@@ -394,14 +319,14 @@ public class TeacherService extends TeacherService_Base {
                 availablePercentage -= degreeTeachingService.getPercentage();
             }
         }
-        for (NonRegularTeachingService nonRegularTeachingService : shift.getNonRegularTeachingServicesSet()) {
-            if (nonRegularTeachingService.getProfessorship() != professorship
-                    && (shift.getCourseLoadsSet().size() != 1 || !shift.containsType(ShiftType.LABORATORIAL))) {
-                availablePercentage -= nonRegularTeachingService.getPercentage();
-            }
-        }
-
         return new BigDecimal(availablePercentage).divide(new BigDecimal(1), 2, RoundingMode.HALF_EVEN).doubleValue();
+    }
+
+    public static SortedSet<SupportLesson> getSupportLessonsOrderedByStartTimeAndWeekDay(Professorship professorship) {
+        final SortedSet<SupportLesson> supportLessons =
+                new TreeSet<SupportLesson>(SupportLesson.SUPPORT_LESSON_COMPARATOR_BY_HOURS_AND_WEEK_DAY);
+        supportLessons.addAll(professorship.getSupportLessonsSet());
+        return supportLessons;
     }
 
 }

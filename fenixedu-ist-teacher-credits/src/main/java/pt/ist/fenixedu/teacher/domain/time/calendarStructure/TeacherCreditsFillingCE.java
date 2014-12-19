@@ -130,7 +130,8 @@ public abstract class TeacherCreditsFillingCE extends TeacherCreditsFillingCE_Ba
 
     public static void editDepartmentOfficeCreditsPeriod(ExecutionSemester executionSemester, DateTime begin, DateTime end) {
         TeacherCreditsFillingForDepartmentAdmOfficeCE creditsFillingCE =
-                getTeacherCreditsFillingForDepartmentAdmOfficePeriod(executionSemester);
+                TeacherCreditsFillingForDepartmentAdmOfficeCE.getTeacherCreditsFillingForDepartmentAdmOffice(executionSemester
+                        .getAcademicInterval());
 
         if (creditsFillingCE == null) {
 
@@ -143,12 +144,6 @@ public abstract class TeacherCreditsFillingCE extends TeacherCreditsFillingCE_Ba
         } else {
             creditsFillingCE.edit(begin, end);
         }
-    }
-
-    public static TeacherCreditsFillingForDepartmentAdmOfficeCE getTeacherCreditsFillingForDepartmentAdmOfficePeriod(
-            ExecutionSemester executionSemester) {
-        return TeacherCreditsFillingForDepartmentAdmOfficeCE
-                .getTeacherCreditsFillingForDepartmentAdmOfficePeriod(executionSemester);
     }
 
     public static boolean isInValidCreditsPeriod(ExecutionSemester executionSemester, User user) {
@@ -164,7 +159,8 @@ public abstract class TeacherCreditsFillingCE extends TeacherCreditsFillingCE_Ba
 
     public static TeacherCreditsFillingCE getValidCreditsPeriod(ExecutionSemester executionSemester, User user) {
         if (org.fenixedu.bennu.core.groups.Group.parse("creditsManager").isMember(user)) {
-            return getTeacherCreditsFillingForDepartmentAdmOfficePeriod(executionSemester);
+            return TeacherCreditsFillingForDepartmentAdmOfficeCE.getTeacherCreditsFillingForDepartmentAdmOffice(executionSemester
+                    .getAcademicInterval());
         }
         if (RoleType.TEACHER.isMember(user)) {
             return TeacherCreditsFillingForTeacherCE.getTeacherCreditsFillingForTeacher(executionSemester.getAcademicInterval());
@@ -188,7 +184,8 @@ public abstract class TeacherCreditsFillingCE extends TeacherCreditsFillingCE_Ba
         ExecutionSemester executionSemester = ExecutionSemester.readByYearMonthDay(personFunction.getBeginDate());
         if (personFunction instanceof PersonFunctionShared) {
             TeacherCreditsFillingForDepartmentAdmOfficeCE teacherCreditsFillingForDepartmentAdmOfficePeriod =
-                    getTeacherCreditsFillingForDepartmentAdmOfficePeriod(executionSemester);
+                    TeacherCreditsFillingForDepartmentAdmOfficeCE
+                            .getTeacherCreditsFillingForDepartmentAdmOffice(executionSemester.getAcademicInterval());
             boolean validCreditsPerid =
                     teacherCreditsFillingForDepartmentAdmOfficePeriod != null
                             && teacherCreditsFillingForDepartmentAdmOfficePeriod.containsNow();

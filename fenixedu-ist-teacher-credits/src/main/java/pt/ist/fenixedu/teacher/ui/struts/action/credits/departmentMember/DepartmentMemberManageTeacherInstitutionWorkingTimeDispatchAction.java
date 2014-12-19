@@ -28,7 +28,6 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.config.FenixDomainExceptionHandler;
 import org.fenixedu.bennu.core.domain.User;
@@ -42,7 +41,7 @@ import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageTeacherInstitution
 import pt.ist.fenixframework.FenixFramework;
 
 @Mapping(module = "departmentMember", path = "/institutionWorkingTimeManagement",
-        input = "/institutionWorkingTimeManagement.do?method=prepareEdit&page=0", formBean = "teacherInstitutionWorkingTimeForm",
+        input = "/institutionWorkingTimeManagement.do?method=prepareEdit&page=0",
         functionality = DepartmentMemberViewTeacherCreditsDA.class)
 @Exceptions({ @ExceptionHandling(type = DomainException.class, handler = FenixDomainExceptionHandler.class, scope = "request") })
 public class DepartmentMemberManageTeacherInstitutionWorkingTimeDispatchAction extends
@@ -71,11 +70,6 @@ public class DepartmentMemberManageTeacherInstitutionWorkingTimeDispatchAction e
     private Teacher getLoggedTeacher(HttpServletRequest request) {
         User userView = Authenticate.getUser();
         return userView.getPerson().getTeacher();
-    }
-
-    public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response)
-            throws NumberFormatException, FenixServiceException {
-        return delete(mapping, form, request, response, RoleType.DEPARTMENT_MEMBER);
     }
 
 }

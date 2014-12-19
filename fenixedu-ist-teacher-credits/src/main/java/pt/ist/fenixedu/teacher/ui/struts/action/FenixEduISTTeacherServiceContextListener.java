@@ -32,10 +32,6 @@ public class FenixEduISTTeacherServiceContextListener implements ServletContextL
                                 blockers.add(BundleUtil.getString(Bundle.APPLICATION,
                                         "error.remove.professorship.hasAnyDegreeTeachingServices"));
                             }
-                            if (!professorship.getTeacherMasterDegreeServicesSet().isEmpty()) {
-                                blockers.add(BundleUtil.getString(Bundle.APPLICATION,
-                                        "error.remove.professorship.hasAnyTeacherMasterDegreeServices"));
-                            }
                             if (!professorship.getDegreeProjectTutorialServicesSet().isEmpty()) {
                                 blockers.add(BundleUtil.getString(Bundle.APPLICATION,
                                         "error.remove.professorship.hasAnyDegreeProjectTutorialServices"));
@@ -71,10 +67,6 @@ public class FenixEduISTTeacherServiceContextListener implements ServletContextL
             }
             for (; !professorship.getDegreeTeachingServicesSet().isEmpty(); otherProfessorship
                     .addDegreeTeachingServices(professorship.getDegreeTeachingServicesSet().iterator().next())) {
-                ;
-            }
-            for (; !professorship.getTeacherMasterDegreeServicesSet().isEmpty(); otherProfessorship
-                    .addTeacherMasterDegreeServices(professorship.getTeacherMasterDegreeServicesSet().iterator().next())) {
                 ;
             }
         }

@@ -29,8 +29,11 @@ import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.bennu.core.domain.User;
+import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.portal.EntryPoint;
 
 import pt.ist.fenixedu.teacher.domain.credits.AnnualTeachingCredits;
@@ -51,13 +54,12 @@ public abstract class ViewTeacherCreditsDA extends FenixDispatchAction {
     public abstract ActionForward showTeacherCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception;
 
-    public abstract ActionForward viewAnnualTeachingCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception;
+    public ActionForward viewAnnualTeachingCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+            HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {
 
-    protected ActionForward viewAnnualTeachingCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            HttpServletResponse response, boolean departmentAdministrativeOffice) throws NumberFormatException,
-            FenixServiceException, Exception {
         Teacher teacher = FenixFramework.getDomainObject((String) getFromRequest(request, "teacherOid"));
+
+        User user = Authenticate.getUser();
         ExecutionYear executionYear = FenixFramework.getDomainObject((String) getFromRequest(request, "executionYearOid"));
         if (teacher == null) {
             Professorship professorship = FenixFramework.getDomainObject(getStringFromRequest(request, "professorshipID"));
@@ -66,6 +68,10 @@ public abstract class ViewTeacherCreditsDA extends FenixDispatchAction {
                 executionYear = professorship.getExecutionCourse().getExecutionYear();
             }
         }
+
+        boolean withConfidencialInformation =
+                (RoleType.SCIENTIFIC_COUNCIL.isMember(user) || teacher.getPerson().getUser().equals(user));
+
         AnnualTeachingCreditsBean annualTeachingCreditsBean = null;
 
         for (AnnualTeachingCredits annualTeachingCredits : teacher.getAnnualTeachingCreditsSet()) {
@@ -78,7 +84,7 @@ public abstract class ViewTeacherCreditsDA extends FenixDispatchAction {
                 } else {
                     if (annualTeachingCredits.isClosed()) {
                         AnnualTeachingCreditsDocument lastTeacherCreditsDocument =
-                                annualTeachingCredits.getLastTeacherCreditsDocument(!departmentAdministrativeOffice);
+                                annualTeachingCredits.getLastTeacherCreditsDocument(!withConfidencialInformation);
                         if (lastTeacherCreditsDocument != null) {
                             response.setContentType("application/pdf");
                             response.setHeader("Content-disposition",

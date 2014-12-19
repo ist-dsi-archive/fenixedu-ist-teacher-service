@@ -63,7 +63,7 @@
 			
 		<h3 class="separator2 mtop2"><bean:message key="label.availableOrientations" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></h3>
 		<fr:edit id="projectTutorialService" name="projectTutorialServiceBeans" action="<%= "/degreeProjectTutorialService.do?method=updateProjectTutorialService&professorshipID="+professorshipID%>">
-			<fr:schema type="org.fenixedu.academic.domain.credits.util.ProjectTutorialServiceBean" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
+			<fr:schema type="pt.ist.fenixedu.teacher.domain.credits.util.ProjectTutorialServiceBean" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
 				<fr:slot name="attend.registration.number" key="label.teacher-thesis-student.student-number" readOnly="true"/>
 				<fr:slot name="attend.registration.student.person.name" key="label.teacher-thesis-student.student-name" readOnly="true"/>
 				<fr:slot name="percentage" key="label.teacher-thesis-student.percentage" validator="pt.ist.fenixWebFramework.renderers.validators.NumberValidator"/>

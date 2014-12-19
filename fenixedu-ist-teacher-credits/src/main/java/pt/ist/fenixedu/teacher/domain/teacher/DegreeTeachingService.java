@@ -159,4 +159,20 @@ public class DegreeTeachingService extends DegreeTeachingService_Base {
         return getEfectiveLoad() * getProfessorship().getExecutionCourse().getUnitCreditValue().doubleValue();
     }
 
+    public static int getDegreeTeachingServiceLessonRows(Professorship professorship) {
+        int lessonNumber = 0;
+        for (DegreeTeachingService degreeTeachingService : professorship.getDegreeTeachingServicesSet()) {
+            int associatedLessonsCount = degreeTeachingService.getShift().getAssociatedLessonsSet().size();
+            if (associatedLessonsCount == 0) {
+                lessonNumber += 1;
+            }
+            lessonNumber += associatedLessonsCount;
+        }
+        if (lessonNumber == 0) {
+            lessonNumber += 1;
+        }
+        lessonNumber += professorship.getSupportLessonsSet().size();
+        return lessonNumber;
+    }
+
 }

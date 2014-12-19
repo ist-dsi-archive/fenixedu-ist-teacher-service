@@ -47,12 +47,6 @@ import pt.ist.fenixframework.FenixFramework;
         @Forward(name = "showAnnualTeacherCredits", path = "/credits/showAnnualTeacherCredits.jsp") })
 public class ScientificCouncilViewTeacherCreditsDA extends ViewTeacherCreditsDA {
     @Override
-    public ActionForward viewAnnualTeachingCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {
-        return viewAnnualTeachingCredits(mapping, form, request, response);
-    }
-
-    @Override
     public ActionForward showTeacherCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {
         TeacherCreditsBean teacherBean = getRenderedObject();

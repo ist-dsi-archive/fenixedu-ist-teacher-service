@@ -56,11 +56,9 @@ import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.GiafProfessio
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalData;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalRegime;
-import pt.ist.fenixedu.teacher.domain.teacher.Career;
 import pt.ist.fenixedu.teacher.domain.teacher.DegreeTeachingService;
 import pt.ist.fenixedu.teacher.domain.teacher.DegreeTeachingServiceCorrection;
 import pt.ist.fenixedu.teacher.domain.teacher.OtherService;
-import pt.ist.fenixedu.teacher.domain.teacher.ProfessionalCareer;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 
 public class TeacherCurricularInformation implements Serializable {
@@ -234,18 +232,18 @@ public class TeacherCurricularInformation implements Serializable {
 
     public List<String> getTop5ProfessionalCareer() {
         List<String> result = new ArrayList<String>();
-        List<ProfessionalCareer> sorted = new ArrayList<ProfessionalCareer>();
-        for (Career career : teacher.getPerson().getAssociatedCareersSet()) {
-            if (career instanceof ProfessionalCareer) {
-                sorted.add((ProfessionalCareer) career);
-            }
-        }
-        Collections.sort(sorted, ProfessionalCareer.CAREER_DATE_COMPARATOR);
-        for (ProfessionalCareer professionalCareer : sorted.subList(0, Math.min(5, sorted.size()))) {
-            result.add(professionalCareer.getBeginYear()
-                    + (professionalCareer.getEndYear() != null ? " - " + professionalCareer.getEndYear() : "") + " "
-                    + professionalCareer.getFunction() + " (" + professionalCareer.getEntity() + ")");
-        }
+//        List<ProfessionalCareer> sorted = new ArrayList<ProfessionalCareer>();
+//        for (Career career : teacher.getPerson().getAssociatedCareersSet()) {
+//            if (career instanceof ProfessionalCareer) {
+//                sorted.add((ProfessionalCareer) career);
+//            }
+//        }
+//        Collections.sort(sorted, ProfessionalCareer.CAREER_DATE_COMPARATOR);
+//        for (ProfessionalCareer professionalCareer : sorted.subList(0, Math.min(5, sorted.size()))) {
+//            result.add(professionalCareer.getBeginYear()
+//                    + (professionalCareer.getEndYear() != null ? " - " + professionalCareer.getEndYear() : "") + " "
+//                    + professionalCareer.getFunction() + " (" + professionalCareer.getEntity() + ")");
+//        }
         return addUntil5Elements(result);
     }
 

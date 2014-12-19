@@ -60,12 +60,6 @@ public class DepartmentMemberViewTeacherCreditsDA extends ViewTeacherCreditsDA {
         return mapping.findForward("showTeacherCredits");
     }
 
-    @Override
-    public ActionForward viewAnnualTeachingCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {
-        return viewAnnualTeachingCredits(mapping, form, request, response);
-    }
-
     public ActionForward lockTeacherCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {
         Teacher teacher = FenixFramework.getDomainObject((String) getFromRequest(request, "teacherOid"));

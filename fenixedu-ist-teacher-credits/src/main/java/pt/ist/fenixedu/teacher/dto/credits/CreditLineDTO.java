@@ -21,7 +21,6 @@
  */
 package pt.ist.fenixedu.teacher.dto.credits;
 
-import java.text.ParseException;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -29,11 +28,9 @@ import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
 
-import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
 import pt.ist.fenixedu.teacher.domain.TeacherCredits;
 import pt.ist.fenixedu.teacher.domain.TeacherCreditsDocument;
 import pt.ist.fenixedu.teacher.domain.teacher.OtherService;
-import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 
 /**
  * @author Ricardo Rodrigues
@@ -73,44 +70,6 @@ public class CreditLineDTO {
     private Teacher teacher;
 
     private Set<ExecutionYear> correctionInYears = new TreeSet<ExecutionYear>(ExecutionYear.COMPARATOR_BY_YEAR);
-
-    public CreditLineDTO(ExecutionSemester executionSemester, TeacherService teacherService, double managementCredits,
-            double exemptionCredits, double lessonHours, Teacher teacher, double thesesCredits) throws ParseException {
-
-        setExecutionPeriod(executionSemester);
-        if (teacherService != null) {
-            setTeachingDegreeCredits(teacherService.getTeachingDegreeCredits());
-            setSupportLessonHours(teacherService.getSupportLessonHours());
-            setMasterDegreeCredits(teacherService.getMasterDegreeServiceCredits());
-            setTfcAdviseCredits(teacherService.getTeacherAdviseServiceCredits());
-            setOtherCredits(teacherService.getOtherServiceCredits());
-            setInstitutionWorkingHours(teacherService.getInstitutionWorkingHours());
-            setPastServiceCredits(teacherService.getPastServiceCredits());
-        }
-        setThesesCredits(thesesCredits);
-        setBalanceOfCredits(TeacherCredits
-                .calculateBalanceOfCreditsUntil(teacher, executionSemester.getPreviousExecutionPeriod()));
-        setMandatoryLessonHours(lessonHours);
-        setManagementCredits(managementCredits);
-        setServiceExemptionCredits(exemptionCredits);
-        setTeacher(teacher);
-
-        double totalCredits = 0;
-        if (!ProfessionalCategory.isMonitor(getTeacher(), executionSemester)) {
-            totalCredits =
-                    getTeachingDegreeCredits() + getMasterDegreeCredits() + getTfcAdviseCredits() + getThesesCredits()
-                            + getOtherCredits() + getManagementCredits() + getServiceExemptionCredits();
-        }
-        setTotalCredits(round(totalCredits));
-
-        for (OtherService otherService : executionSemester.getOtherServicesCorrectionsSet()) {
-            if (otherService.getTeacherService().getTeacher().equals(teacher)
-                    && !otherService.getCorrectedExecutionSemester()
-                            .equals(otherService.getTeacherService().getExecutionPeriod())) {
-                correctionInYears.add(otherService.getTeacherService().getExecutionPeriod().getExecutionYear());
-            }
-        }
-    }
 
     public CreditLineDTO(ExecutionSemester executionSemester, TeacherCredits teacherCredits) {
         setExecutionPeriod(executionSemester);

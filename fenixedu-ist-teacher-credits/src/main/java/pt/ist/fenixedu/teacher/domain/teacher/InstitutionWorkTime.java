@@ -63,8 +63,9 @@ public class InstitutionWorkTime extends InstitutionWorkTime_Base {
         new TeacherServiceLog(getTeacherService(), log.toString());
     }
 
+    @Override
     @Atomic
-    public void delete(RoleType roleType) {
+    public void delete() {
         TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), Authenticate.getUser());
         log("label.teacher.schedule.institutionWorkTime.delete");
         setTeacherService(null);

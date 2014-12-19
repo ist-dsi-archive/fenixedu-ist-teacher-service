@@ -25,7 +25,6 @@ import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
 import pt.ist.fenixedu.teacher.domain.credits.AnnualCreditsState;
-import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
 import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingForDepartmentAdmOfficeCE;
 import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingForTeacherCE;
 import pt.ist.fenixframework.Atomic;
@@ -104,8 +103,8 @@ public class TeacherCreditsPeriodBean implements Serializable {
         ExecutionSemester executionSemester = getExecutionPeriod();
 
         TeacherCreditsFillingForDepartmentAdmOfficeCE departmentAdmOffice =
-                TeacherCreditsFillingCE
-                        .getTeacherCreditsFillingForDepartmentAdmOfficePeriod(executionSemester);
+                TeacherCreditsFillingForDepartmentAdmOfficeCE.getTeacherCreditsFillingForDepartmentAdmOffice(executionSemester
+                        .getAcademicInterval());
         setBeginForDepartmentAdmOffice(departmentAdmOffice != null ? departmentAdmOffice.getBegin() : null);
         setEndForDepartmentAdmOffice(departmentAdmOffice != null ? departmentAdmOffice.getEnd() : null);
 

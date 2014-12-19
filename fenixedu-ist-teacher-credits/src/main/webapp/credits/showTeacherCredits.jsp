@@ -50,7 +50,7 @@
 
 	<logic:notEmpty name="teacherBean" property="annualTeachingCredits">
 		<fr:view name="teacherBean" property="annualTeachingCredits">
-			<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.credits.util.TeacherCreditsBean">
+			<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.credits.util.TeacherCreditsBean">
 				<fr:slot name="executionYear" key="label.executionYear" layout="link">
 					<fr:property name="subSchema" value="org.fenixedu.academic.domain.ExecutionYear.view"/>
 					<fr:property name="subLayout" value="values"/>

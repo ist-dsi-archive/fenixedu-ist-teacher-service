@@ -18,25 +18,19 @@
  */
 package pt.ist.fenixedu.teacher.domain;
 
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
+import org.fenixedu.academic.FenixEduAcademicConfiguration;
 import org.fenixedu.academic.domain.ExecutionSemester;
-import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
-import org.fenixedu.academic.predicate.AccessControl;
-import org.fenixedu.bennu.core.domain.Bennu;
-import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.joda.time.PeriodType;
@@ -49,17 +43,8 @@ import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfess
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfessionalExemption;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
-import pt.ist.fenixframework.Atomic;
 
 public class TeacherCredits extends TeacherCredits_Base {
-
-    public TeacherCredits(Teacher teacher, TeacherCreditsState teacherCreditsState) throws ParseException {
-        super();
-        setTeacher(teacher);
-        setTeacherCreditsState(teacherCreditsState);
-        setRootDomainObject(Bennu.getInstance());
-        saveTeacherCredits();
-    }
 
     public static TeacherCredits readTeacherCredits(ExecutionSemester executionSemester, Teacher teacher) {
         for (TeacherCredits teacherCredit : teacher.getTeacherCreditsSet()) {
@@ -68,95 +53,6 @@ public class TeacherCredits extends TeacherCredits_Base {
             }
         }
         return null;
-    }
-
-    @Atomic
-    public static void closeAllTeacherCredits(ExecutionSemester executionSemester) throws ParseException {
-        Collection<Teacher> teachers = Bennu.getInstance().getTeachersSet();
-        TeacherCreditsState teacherCreditsState = TeacherCreditsState.getTeacherCreditsState(executionSemester);
-        if (teacherCreditsState == null) {
-            teacherCreditsState = new TeacherCreditsState(executionSemester);
-        }
-        for (Teacher teacher : teachers) {
-            closeTeacherCredits(teacher, teacherCreditsState);
-        }
-        teacherCreditsState.setCloseState();
-    }
-
-    @Atomic
-    public static void closeTeacherCredits(Teacher teacher, TeacherCreditsState teacherCreditsState) throws ParseException {
-        TeacherCredits teacherCredits = readTeacherCredits(teacherCreditsState.getExecutionSemester(), teacher);
-        if (teacherCredits == null) {
-            new TeacherCredits(teacher, teacherCreditsState);
-        } else if (teacherCredits.getTeacherCreditsState().isOpenState()) {
-            teacherCredits.saveTeacherCredits();
-        }
-    }
-
-    @Atomic
-    public static void openAllTeacherCredits(ExecutionSemester executionSemester) throws ParseException {
-        TeacherCreditsState teacherCreditsState = TeacherCreditsState.getTeacherCreditsState(executionSemester);
-        teacherCreditsState.setOpenState();
-    }
-
-    @Atomic
-    public void editTeacherCredits(ExecutionSemester executionSemester) throws ParseException {
-        saveTeacherCredits();
-    }
-
-    private void saveTeacherCredits() throws ParseException {
-        Teacher teacher = getTeacher();
-        ExecutionSemester executionSemester = getTeacherCreditsState().getExecutionSemester();
-        setProfessionalCategory(ProfessionalCategory.getCategoryByPeriod(teacher, executionSemester));
-        double managementCredits = calculateManagementFunctionsCredits(teacher, executionSemester);
-        double serviceExemptionsCredits = calculateServiceExemptionCredits(teacher, executionSemester);
-        double thesesCredits = calculateThesesCredits(teacher, executionSemester);
-        double mandatoryLessonHours = calculateMandatoryLessonHours(teacher, executionSemester);
-        TeacherService teacherService = TeacherService.getTeacherServiceByExecutionPeriod(teacher, executionSemester);
-        setTeacherService(teacherService);
-        setThesesCredits(new BigDecimal(thesesCredits));
-        setBalanceOfCredits(new BigDecimal(
-                calculateBalanceOfCreditsUntil(teacher, executionSemester.getPreviousExecutionPeriod())));
-        setMandatoryLessonHours(new BigDecimal(mandatoryLessonHours));
-        setManagementCredits(new BigDecimal(managementCredits));
-        setServiceExemptionCredits(new BigDecimal(serviceExemptionsCredits));
-
-        double totalCredits = 0;
-        if (!ProfessionalCategory.isMonitor(getTeacher(), executionSemester)) {
-            totalCredits =
-                    getTeachingDegreeCredits().doubleValue() + getMasterDegreeCredits().doubleValue()
-                            + getTfcAdviseCredits().doubleValue() + thesesCredits + getOtherCredits().doubleValue()
-                            + managementCredits + serviceExemptionsCredits;
-        }
-        setTotalCredits(new BigDecimal(totalCredits));
-
-        addTeacherCreditsDocument(new TeacherCreditsDocument(teacher, executionSemester, teacherService));
-        setBasicOperations();
-    }
-
-    private void setBasicOperations() {
-        setPerson(AccessControl.getPerson());
-        setLastModifiedDate(new DateTime());
-    }
-
-    private void setTeacherService(TeacherService teacherService) throws ParseException {
-        if (teacherService != null) {
-            setTeachingDegreeCredits(new BigDecimal(teacherService.getTeachingDegreeCredits()));
-            setSupportLessonHours(new BigDecimal(teacherService.getSupportLessonHours()));
-            setMasterDegreeCredits(new BigDecimal(teacherService.getMasterDegreeServiceCredits()));
-            setTfcAdviseCredits(new BigDecimal(teacherService.getTeacherAdviseServiceCredits()));
-            setOtherCredits(new BigDecimal(teacherService.getOtherServiceCredits()));
-            setInstitutionWorkingHours(new BigDecimal(teacherService.getInstitutionWorkingHours()));
-            setPastServiceCredits(new BigDecimal(teacherService.getPastServiceCredits()));
-        } else {
-            setTeachingDegreeCredits(new BigDecimal(0));
-            setSupportLessonHours(new BigDecimal(0));
-            setMasterDegreeCredits(new BigDecimal(0));
-            setTfcAdviseCredits(new BigDecimal(0));
-            setOtherCredits(new BigDecimal(0));
-            setInstitutionWorkingHours(new BigDecimal(0));
-            setPastServiceCredits(new BigDecimal(0));
-        }
     }
 
     public TeacherCreditsDocument getLastTeacherCreditsDocument() {
@@ -168,6 +64,62 @@ public class TeacherCredits extends TeacherCredits_Base {
             }
         }
         return lastTeacherCreditsDocument;
+    }
+
+    public static Double calculateMandatoryLessonHours(Teacher teacher, ExecutionSemester executionSemester) {
+        PersonContractSituation teacherContractSituation = null;
+        Interval semesterInterval =
+                new Interval(executionSemester.getBeginDateYearMonthDay().toLocalDate().toDateTimeAtStartOfDay(),
+                        executionSemester.getEndDateYearMonthDay().toLocalDate().toDateTimeAtStartOfDay());
+        if (PersonProfessionalData.isTeacherActiveForSemester(teacher, executionSemester)) {
+            teacherContractSituation = PersonContractSituation.getDominantTeacherContractSituation(teacher, semesterInterval);
+            PersonContractSituation personContractSituation =
+                    PersonContractSituation.getDominantTeacherServiceExemption(teacher, executionSemester);
+            if (personContractSituation != null && !personContractSituation.countForCredits(semesterInterval)) {
+                teacherContractSituation = personContractSituation;
+            }
+        } else if (teacher.hasTeacherAuthorization(executionSemester.getAcademicInterval())) {
+            TeacherService teacherService = TeacherService.getTeacherServiceByExecutionPeriod(teacher, executionSemester);
+            return teacherService == null ? 0 : teacherService.getTeachingDegreeHours();
+        }
+        return teacherContractSituation == null ? 0 : teacherContractSituation.getWeeklyLessonHours(semesterInterval);
+    }
+
+    public static double calculateBalanceOfCreditsUntil(Teacher teacher, ExecutionSemester executionSemester)
+            throws ParseException {
+        double balanceCredits = 0.0;
+        ExecutionSemester firstExecutionPeriod = TeacherCredits.readStartExecutionSemesterForCredits();
+        if (executionSemester != null && executionSemester.isAfter(firstExecutionPeriod)) {
+            balanceCredits =
+                    sumCreditsBetweenPeriods(teacher, firstExecutionPeriod.getNextExecutionPeriod(), executionSemester,
+                            balanceCredits);
+        }
+        return balanceCredits;
+    }
+
+    private static double sumCreditsBetweenPeriods(Teacher teacher, ExecutionSemester startPeriod,
+            ExecutionSemester endExecutionPeriod, double totalCredits) throws ParseException {
+        ExecutionSemester lastExecutionSemester = readLastExecutionSemesterForCredits();
+
+        ExecutionSemester executionPeriodAfterEnd = endExecutionPeriod.getNextExecutionPeriod();
+        while (startPeriod != executionPeriodAfterEnd && endExecutionPeriod.isBeforeOrEquals(lastExecutionSemester)) {
+            TeacherCredits teacherCredits = readTeacherCredits(startPeriod, teacher);
+            if (teacherCredits != null && teacherCredits.getTeacherCreditsState().isCloseState()) {
+                totalCredits += teacherCredits.getTotalCredits().subtract(teacherCredits.getMandatoryLessonHours()).doubleValue();
+            } else if (!ProfessionalCategory.isMonitor(teacher, startPeriod)) {
+                final ExecutionSemester executionSemester = startPeriod;
+                TeacherService teacherService = TeacherService.getTeacherServiceByExecutionPeriod(teacher, executionSemester);
+                if (teacherService != null) {
+                    totalCredits += teacherService.getCredits();
+                }
+                totalCredits += calculateThesesCredits(teacher, startPeriod);
+                totalCredits += calculateManagementFunctionsCredits(teacher, startPeriod);
+                totalCredits += calculateServiceExemptionCredits(teacher, startPeriod);
+                totalCredits -= calculateMandatoryLessonHours(teacher, startPeriod);
+            }
+            startPeriod = startPeriod.getNextExecutionPeriod();
+        }
+        return totalCredits;
     }
 
     public static double calculateThesesCredits(Teacher teacher, ExecutionSemester executionSemester) {
@@ -196,67 +148,6 @@ public class TeacherCredits extends TeacherCredits_Base {
 
     private static Double round(double n) {
         return Math.round((n * 100.0)) / 100.0;
-    }
-
-    public static Double calculateMandatoryLessonHours(Teacher teacher, ExecutionSemester executionSemester) {
-        PersonContractSituation teacherContractSituation = null;
-        Interval semesterInterval =
-                new Interval(executionSemester.getBeginDateYearMonthDay().toLocalDate().toDateTimeAtStartOfDay(),
-                        executionSemester.getEndDateYearMonthDay().toLocalDate().toDateTimeAtStartOfDay());
-        if (PersonProfessionalData.isTeacherActiveForSemester(teacher, executionSemester)) {
-            teacherContractSituation = PersonContractSituation.getDominantTeacherContractSituation(teacher, semesterInterval);
-            PersonContractSituation personContractSituation =
-                    PersonContractSituation.getDominantTeacherServiceExemption(teacher, executionSemester);
-            if (personContractSituation != null && !personContractSituation.countForCredits(semesterInterval)) {
-                teacherContractSituation = personContractSituation;
-            }
-        } else if (teacher.hasTeacherAuthorization(executionSemester.getAcademicInterval())) {
-            TeacherService teacherService = TeacherService.getTeacherServiceByExecutionPeriod(teacher, executionSemester);
-            return teacherService == null ? 0 : teacherService.getTeachingDegreeHours();
-        }
-        return teacherContractSituation == null ? 0 : teacherContractSituation.getWeeklyLessonHours(semesterInterval);
-    }
-
-    public static double calculateBalanceOfCreditsUntil(Teacher teacher, ExecutionSemester executionSemester)
-            throws ParseException {
-        double balanceCredits = 0.0;
-        ExecutionSemester firstExecutionPeriod = ExecutionSemester.readStartExecutionSemesterForCredits();
-        TeacherService firstTeacherService = TeacherService.getTeacherServiceByExecutionPeriod(teacher, firstExecutionPeriod);
-        if (firstTeacherService != null) {
-            balanceCredits = firstTeacherService.getPastServiceCredits();
-        }
-
-        if (executionSemester != null && executionSemester.isAfter(firstExecutionPeriod)) {
-            balanceCredits =
-                    sumCreditsBetweenPeriods(teacher, firstExecutionPeriod.getNextExecutionPeriod(), executionSemester,
-                            balanceCredits);
-        }
-        return balanceCredits;
-    }
-
-    private static double sumCreditsBetweenPeriods(Teacher teacher, ExecutionSemester startPeriod,
-            ExecutionSemester endExecutionPeriod, double totalCredits) throws ParseException {
-        ExecutionSemester lastExecutionSemester = ExecutionSemester.readLastExecutionSemesterForCredits();
-
-        ExecutionSemester executionPeriodAfterEnd = endExecutionPeriod.getNextExecutionPeriod();
-        while (startPeriod != executionPeriodAfterEnd && endExecutionPeriod.isBeforeOrEquals(lastExecutionSemester)) {
-            TeacherCredits teacherCredits = readTeacherCredits(startPeriod, teacher);
-            if (teacherCredits != null && teacherCredits.getTeacherCreditsState().isCloseState()) {
-                totalCredits += teacherCredits.getTotalCredits().subtract(teacherCredits.getMandatoryLessonHours()).doubleValue();
-            } else if (!ProfessionalCategory.isMonitor(teacher, startPeriod)) {
-                final ExecutionSemester executionSemester = startPeriod;
-                TeacherService teacherService = TeacherService.getTeacherServiceByExecutionPeriod(teacher, executionSemester);
-                if (teacherService != null) {
-                    totalCredits += teacherService.getCredits();
-                }
-                totalCredits += calculateThesesCredits(teacher, startPeriod);
-                totalCredits += calculateManagementFunctionsCredits(teacher, startPeriod);
-                totalCredits += calculateServiceExemptionCredits(teacher, startPeriod);
-                totalCredits -= calculateMandatoryLessonHours(teacher, startPeriod);
-            }
-            startPeriod = startPeriod.getNextExecutionPeriod();
-        }
-        return totalCredits;
     }
 
     public static double calculateServiceExemptionCredits(Teacher teacher, ExecutionSemester executionSemester) {
@@ -381,13 +272,6 @@ public class TeacherCredits extends TeacherCredits_Base {
         return 0.0;
     }
 
-    public static SortedSet<SupportLesson> getSupportLessonsOrderedByStartTimeAndWeekDay(Professorship professorship) {
-        final SortedSet<SupportLesson> supportLessons =
-                new TreeSet<SupportLesson>(SupportLesson.SUPPORT_LESSON_COMPARATOR_BY_HOURS_AND_WEEK_DAY);
-        supportLessons.addAll(professorship.getSupportLessonsSet());
-        return supportLessons;
-    }
-
     public static List<Teacher> getAllTeachersFromUnit(Unit unit, YearMonthDay begin, YearMonthDay end) {
         List<Teacher> teachers = new ArrayList<Teacher>();
         List<Employee> employees = Employee.getAllWorkingEmployees(unit, begin, end);
@@ -399,6 +283,26 @@ public class TeacherCredits extends TeacherCredits_Base {
             }
         }
         return teachers;
+    }
+
+    static public ExecutionSemester readStartExecutionSemesterForCredits() {
+        String yearString = FenixEduAcademicConfiguration.getConfiguration().getStartYearForCredits();
+        String semesterString = FenixEduAcademicConfiguration.getConfiguration().getStartSemesterForCredits();
+
+        if (yearString != null && yearString.length() != 0 && semesterString != null && semesterString.length() != 0) {
+            return ExecutionSemester.readBySemesterAndExecutionYear(Integer.valueOf(semesterString), yearString);
+        }
+        return null;
+    }
+
+    static public ExecutionSemester readLastExecutionSemesterForCredits() {
+        String yearString = FenixEduAcademicConfiguration.getConfiguration().getLastYearForCredits();
+        String semesterString = FenixEduAcademicConfiguration.getConfiguration().getLastSemesterForCredits();
+
+        if (yearString != null && yearString.length() != 0 && semesterString != null && semesterString.length() != 0) {
+            return ExecutionSemester.readBySemesterAndExecutionYear(Integer.valueOf(semesterString), yearString);
+        }
+        return null;
     }
 
 }

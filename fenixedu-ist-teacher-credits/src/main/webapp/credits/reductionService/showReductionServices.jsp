@@ -50,7 +50,7 @@ Boolean canInsertReductionServiceCredits = canAproveReductionServiceCredits && !
 
 <logic:present name="creditsReductions">
 	<fr:view name="creditsReductions">
-		<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.teacher.ReductionService">
+		<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.teacher.ReductionService">
 			<fr:slot name="teacherService.teacher.person" key="label.empty" layout="view-as-image">
 				<fr:property name="classes" value="column3" />
 				<fr:property name="moduleRelative" value="false" />

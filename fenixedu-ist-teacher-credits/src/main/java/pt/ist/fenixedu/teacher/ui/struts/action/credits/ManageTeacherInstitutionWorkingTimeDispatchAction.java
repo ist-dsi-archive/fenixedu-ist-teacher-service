@@ -29,7 +29,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.bennu.struts.annotations.Forward;
@@ -67,14 +66,14 @@ public class ManageTeacherInstitutionWorkingTimeDispatchAction extends FenixDisp
         return mapping.findForward("edit-institution-work-time");
     }
 
-    protected ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            HttpServletResponse response, RoleType roleType) throws NumberFormatException, FenixServiceException {
+    public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response)
+            throws NumberFormatException, FenixServiceException {
         InstitutionWorkTime institutionWorkTime =
                 FenixFramework.getDomainObject((String) getFromRequest(request, "institutionWorkTimeOid"));
         request.setAttribute("teacherOid", institutionWorkTime.getTeacherService().getTeacher().getExternalId());
         request.setAttribute("executionYearOid", institutionWorkTime.getTeacherService().getExecutionPeriod().getExecutionYear()
                 .getExternalId());
-        institutionWorkTime.delete(roleType);
+        institutionWorkTime.delete();
         return mapping.findForward("viewAnnualTeachingCredits");
     }
 

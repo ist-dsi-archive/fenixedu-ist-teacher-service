@@ -35,7 +35,7 @@
 
 <logic:present name="teacherBean">
 	<fr:edit id="teacherBean" name="teacherBean" action="/credits.do?method=showTeacherCredits">
-		<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.credits.util.TeacherCreditsBean">
+		<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.credits.util.TeacherCreditsBean">
 			<fr:slot name="teacher" layout="autoComplete">
 				<fr:property name="size" value="80"/>
 				<fr:property name="format" value="${person.name} (${person.username})"/>

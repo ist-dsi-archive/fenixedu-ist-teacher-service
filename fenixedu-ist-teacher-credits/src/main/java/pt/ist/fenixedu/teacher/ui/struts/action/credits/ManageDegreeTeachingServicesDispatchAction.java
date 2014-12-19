@@ -96,15 +96,16 @@ public class ManageDegreeTeachingServicesDispatchAction extends FenixDispatchAct
             throws NumberFormatException, FenixServiceException {
 
         DynaActionForm teachingServiceForm = (DynaActionForm) form;
-        HashMap<String, String> teacherPercentageMap = (HashMap<String, String>) teachingServiceForm.get("teacherPercentageMap");
+        HashMap<String, String[]> teacherPercentageMap =
+                (HashMap<String, String[]>) teachingServiceForm.get("teacherPercentageMap");
 
         String professorshipID = (String) teachingServiceForm.get("professorshipID");
 
         List<ShiftIDTeachingPercentage> shiftIDPercentages = new ArrayList<ShiftIDTeachingPercentage>();
-        Iterator<Map.Entry<String, String>> entryInterator = teacherPercentageMap.entrySet().iterator();
+        Iterator<Map.Entry<String, String[]>> entryInterator = teacherPercentageMap.entrySet().iterator();
         while (entryInterator.hasNext()) {
-            Map.Entry<String, String> entry = entryInterator.next();
-            String percentage = entry.getValue();
+            Map.Entry<String, String[]> entry = entryInterator.next();
+            String percentage = entry.getValue()[0];
             if ((percentage != null) && (percentage.length() != 0)) {
                 percentage = percentage.replace(',', '.');
                 String shiftID = entry.getKey();

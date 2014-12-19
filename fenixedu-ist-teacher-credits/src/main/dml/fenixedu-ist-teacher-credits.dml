@@ -1,7 +1,6 @@
 package pt.ist.fenixedu.teacher.domain;
 
 enum pt.ist.fenixedu.teacher.domain.credits.CreditsState as CreditsState;
-enum pt.ist.fenixedu.teacher.domain.teacher.AdviseType as AdviseType;
 
 class TeacherCredits  {
     BigDecimal teachingDegreeCredits;
@@ -45,72 +44,15 @@ class SupportLesson  {
     DiaSemana weekDay;
 }
 
-class credits.CreditLine  {
-}
-
-class credits.DatePeriodBaseCreditLine extends credits.CreditLine {
-    LocalDate end;
-    LocalDate start;
-}
-
-    class credits.ManagementPositionCreditLine extends credits.DatePeriodBaseCreditLine {
-        Double credits;
-        String position;
-    }
-
-class credits.OtherTypeCreditLine extends credits.CreditLine {
-    Double credits;
-    String reason;
-}
-
-class teacher.Advise  {
-    AdviseType adviseType;
-}
-
 class teacher.Career  {
     Integer beginYear;
     Integer endYear;
     DateTime lastModificationDateDateTime;
 }
 
-class teacher.ProfessionalCareer extends teacher.Career {
-    String entity;
-    String function;
-}
-
-class teacher.TeachingCareer extends teacher.Career {
-    String courseOrPosition;
-    MultiLanguageString categoryName;
-}
-
 class teacher.ExternalActivity  {
     String activity;
     DateTime lastModificationDateDateTime;
-}
-
-class teacher.OldPublication  {
-    DateTime lastModificationDateDateTime;
-    String publication;
-}
-
-class teacher.Orientation  {
-    String description;
-    DateTime lastModificationDateDateTime;
-    Integer numberOfStudents;
-}
-
-class teacher.PublicationsNumber  {
-    Integer international;
-    DateTime lastModificationDateDateTime;
-    Integer national;
-}
-
-class teacher.ServiceProviderRegime  {
-    DateTime lastModificationDateDateTime;
-}
-
-class NonRegularTeachingService  {
-    Double percentage;
 }
 
 class teacher.TeacherService  {
@@ -155,52 +97,10 @@ class teacher.DegreeTeachingServiceCorrection extends teacher.OtherService {
    BigDecimal correction;
 }
 
-
-class teacher.TeacherAdviseService extends teacher.TeacherServiceItem {
-    Double percentage;
-}
-
-class teacher.TeacherMasterDegreeService extends teacher.TeacherServiceItem {
-    Double credits;
-    Double hours;
-}
-
-class teacher.TeacherPastService extends teacher.TeacherServiceItem {
-    Double credits;
-}
-
-class teacher.TeacherServiceNotes extends teacher.TeacherServiceItem {
-    String functionsAccumulation;
-    String managementFunctionNotes;
-    String masterDegreeTeachingNotes;
-    String othersNotes;
-    String serviceExemptionNotes;
-    String thesisNote;
-}
-
 class teacher.TeacherServiceComment extends teacher.TeacherServiceItem {
     String content;
     DateTime creationDate;
     DateTime lastModifiedDate;
-}
-
-class teacher.WeeklyOcupation  {
-    DateTime lastModificationDateDateTime;
-    Integer lecture;
-    Integer management;
-    Integer other;
-    Integer research;
-    Integer support;
-}
-
-class teacher.workTime.TeacherInstitutionWorkTime  {
-    HourMinuteSecond endTimeHourMinuteSecond;
-    HourMinuteSecond startTimeHourMinuteSecond;
-    DiaSemana weekDay;
-}
-
-class degree.finalProject.TeacherDegreeFinalProjectStudent  {
-    Double percentage;
 }
 
 class time.calendarStructure.TeacherCreditsFillingCE extends .org.fenixedu.academic.domain.time.calendarStructure.AcademicCalendarEntry {                     
@@ -213,9 +113,6 @@ class time.calendarStructure.TeacherCreditsFillingForDepartmentAdmOfficeCE exten
 }
 
 class reports.TeacherCreditsReportFile extends .org.fenixedu.academic.domain.reports.GepReportFile {}
-
-class TeacherCreditsQueueJob extends .org.fenixedu.academic.domain.QueueJob {
-}
 
 class credits.CreditsPersonFunctionsSharedQueueJob extends .org.fenixedu.academic.domain.QueueJob {
 }
@@ -259,40 +156,6 @@ class reports.TeachersListFromGiafReportFile extends .org.fenixedu.academic.doma
 
 class reports.TimetablesReportFile extends .org.fenixedu.academic.domain.reports.GepReportFile {}
 
-relation AdviseEndPeriod {
-    teacher.Advise playsRole associatedEndadvises {
-        multiplicity *;
-    }
-    .org.fenixedu.academic.domain.ExecutionSemester playsRole endExecutionPeriod;
-}
-
-relation AdviseStartPeriod {
-    teacher.Advise playsRole associatedStartadvises {
-        multiplicity *;
-    }
-    .org.fenixedu.academic.domain.ExecutionSemester playsRole startExecutionPeriod;
-}
-
-relation AdviseStudent {
-    teacher.Advise playsRole advises {
-        multiplicity *;
-    }
-    .org.fenixedu.academic.domain.student.Registration playsRole student;
-}
-
-relation AdviseTeacher {
-    teacher.Advise playsRole advises {
-        multiplicity *;
-    }
-    .org.fenixedu.academic.domain.Teacher playsRole teacher;
-}
-
-relation AdviseTeacherAdviseService {
-    teacher.Advise playsRole advise;
-    teacher.TeacherAdviseService playsRole teacherAdviseServices {
-        multiplicity *;
-    }
-}
 
 relation CareerTeacher {
     teacher.Career playsRole associatedCareers {
@@ -375,20 +238,6 @@ relation ExternalActivityTeacher {
     .org.fenixedu.academic.domain.Teacher playsRole teacher;
 }
 
-relation OrientationTeacher {
-    teacher.Orientation playsRole associatedOrientations {
-        multiplicity *;
-    }
-    .org.fenixedu.academic.domain.Teacher playsRole teacher;
-}
-
-relation OtherTypeCreditLineExecutionPeriod {
-    credits.OtherTypeCreditLine playsRole associatedOtherTypeCreditLines {
-        multiplicity *;
-    }
-    .org.fenixedu.academic.domain.ExecutionSemester playsRole executionPeriod;
-}
-
 relation ProfessorshipSupportLesson {
     SupportLesson playsRole supportLessons {
         multiplicity *;
@@ -396,30 +245,9 @@ relation ProfessorshipSupportLesson {
     .org.fenixedu.academic.domain.Professorship playsRole professorship;
 }
 
-relation PublicationsNumberTeacher {
-    teacher.PublicationsNumber playsRole associatedPublicationsNumbers {
-        multiplicity *;
-    }
-    .org.fenixedu.academic.domain.Teacher playsRole teacher;
-}
-
-relation RootDomainObjectAdvise {
-    .org.fenixedu.bennu.core.domain.Bennu playsRole rootDomainObject;
-    teacher.Advise playsRole advises {
-        multiplicity *;
-    }
-}
-
 relation RootDomainObjectCareer {
     .org.fenixedu.bennu.core.domain.Bennu playsRole rootDomainObject;
     teacher.Career playsRole careers {
-        multiplicity *;
-    }
-}
-
-relation RootDomainObjectCreditLine {
-    .org.fenixedu.bennu.core.domain.Bennu playsRole rootDomainObject;
-    credits.CreditLine playsRole creditLines {
         multiplicity *;
     }
 }
@@ -431,44 +259,9 @@ relation RootDomainObjectExternalActivity {
     }
 }
 
-relation RootDomainObjectOldPublication {
-    .org.fenixedu.bennu.core.domain.Bennu playsRole rootDomainObject;
-    teacher.OldPublication playsRole oldPublications {
-        multiplicity *;
-    }
-}
-
-relation RootDomainObjectOrientation {
-    .org.fenixedu.bennu.core.domain.Bennu playsRole rootDomainObject;
-    teacher.Orientation playsRole orientations {
-        multiplicity *;
-    }
-}
-
-relation RootDomainObjectPublicationsNumber {
-    .org.fenixedu.bennu.core.domain.Bennu playsRole rootDomainObject;
-    teacher.PublicationsNumber playsRole publicationsNumbers {
-        multiplicity *;
-    }
-}
-
-relation RootDomainObjectServiceProviderRegime {
-    .org.fenixedu.bennu.core.domain.Bennu playsRole rootDomainObject;
-    teacher.ServiceProviderRegime playsRole serviceProviderRegimes {
-        multiplicity *;
-    }
-}
-
 relation RootDomainObjectSupportLesson {
     .org.fenixedu.bennu.core.domain.Bennu playsRole rootDomainObject;
     SupportLesson playsRole supportLessons {
-        multiplicity *;
-    }
-}
-
-relation RootDomainObjectTeacherInstitutionWorkTime {
-    .org.fenixedu.bennu.core.domain.Bennu playsRole rootDomainObject;
-    teacher.workTime.TeacherInstitutionWorkTime playsRole teacherInstitutionWorkTimes {
         multiplicity *;
     }
 }
@@ -508,60 +301,6 @@ relation RootDomainObjectTeacherServiceItem {
     }
 }
 
-relation RootDomainObjectWeeklyOcupation {
-    .org.fenixedu.bennu.core.domain.Bennu playsRole rootDomainObject;
-    teacher.WeeklyOcupation playsRole weeklyOcupations {
-        multiplicity *;
-    }
-}
-
-relation ServiceProviderRegimeTeacher {
-    teacher.ServiceProviderRegime playsRole serviceProviderRegime;
-    .org.fenixedu.academic.domain.Teacher playsRole teacher;
-}
-
-relation TeacherInstitutionWorkTimeExecutionPeriod {
-    teacher.workTime.TeacherInstitutionWorkTime playsRole associatedTeacherInstitutionWorkTime {
-        multiplicity *;
-    }
-    .org.fenixedu.academic.domain.ExecutionSemester playsRole executionPeriod;
-}
-
-relation TeacherInstitutionWorkTimeTeacher {
-    teacher.workTime.TeacherInstitutionWorkTime playsRole institutionWorkTimePeriods {
-        multiplicity *;
-    }
-    .org.fenixedu.academic.domain.Teacher playsRole teacher;
-}
-
-relation TeacherManagementPositionCreditLine {
-    .org.fenixedu.academic.domain.Teacher playsRole teacher;
-    credits.ManagementPositionCreditLine playsRole managementPositions {
-        multiplicity *;
-    }
-}
-
-relation TeacherMasterDegreeServiceProfessorship {
-    teacher.TeacherMasterDegreeService playsRole teacherMasterDegreeServices {
-        multiplicity *;
-    }
-    .org.fenixedu.academic.domain.Professorship playsRole professorship;
-}
-
-relation TeacherOldPublication {
-    teacher.OldPublication playsRole associatedOldPublications {
-        multiplicity *;
-    }
-    .org.fenixedu.academic.domain.Teacher playsRole teacher;
-}
-
-relation TeacherOtherTypeCreditLine {
-    .org.fenixedu.academic.domain.Teacher playsRole teacher;
-    credits.OtherTypeCreditLine playsRole otherTypeCreditLines {
-        multiplicity *;
-    }
-}
-
 relation TeacherServiceExecutionPeriod {
     teacher.TeacherService playsRole teacherServices {
         multiplicity *;
@@ -581,11 +320,6 @@ relation TeacherServiceTeacherServiceItem {
         multiplicity *;
     }
     teacher.TeacherService playsRole teacherService;
-}
-
-relation WeeklyOcupationTeacher {
-    teacher.WeeklyOcupation playsRole weeklyOcupation;
-    .org.fenixedu.academic.domain.Teacher playsRole teacher;
 }
 
 relation TeacherCreditsStateTeacherCredits {
@@ -637,13 +371,6 @@ relation TeacherCreditsTeacherCreditsDocument {
     TeacherCredits playsRole teacherCredits;
 }
 
-relation TeacherCreditsQueueJobExecutionSemester {
-    .org.fenixedu.academic.domain.ExecutionSemester playsRole executionSemester;
-    TeacherCreditsQueueJob playsRole teacherCreditsQueueJob{
-        multiplicity *;
-    }
-}
-
 relation CreditPersonFunctionsSharedQueueJobExecutionSemester {
     .org.fenixedu.academic.domain.ExecutionSemester playsRole executionSemester;
     credits.CreditsPersonFunctionsSharedQueueJob playsRole creditsPersonFunctionsSharedQueueJob{
@@ -661,27 +388,6 @@ relation RootDomainObjectTeacherCreditsState {
 relation RootDomainObjectTeacherCredits {
     .org.fenixedu.bennu.core.domain.Bennu playsRole rootDomainObject;
     TeacherCredits playsRole teacherCredits {
-        multiplicity *;
-    }
-}
-
-relation RootDomainObjectNonRegularTeachingService {
-    .org.fenixedu.bennu.core.domain.Bennu playsRole rootDomainObject;
-    NonRegularTeachingService playsRole nonRegularTeachingServices {
-        multiplicity *;
-    }
-}
-
-relation ProfessorshipNonRegularTeachingService {
-    .org.fenixedu.academic.domain.Professorship playsRole professorship;
-    NonRegularTeachingService playsRole nonRegularTeachingServices {
-        multiplicity *;
-    }
-}
-
-relation ShiftNonRegularShift {
-    .org.fenixedu.academic.domain.Shift playsRole shift;
-    NonRegularTeachingService playsRole nonRegularTeachingServices {
         multiplicity *;
     }
 }
@@ -745,34 +451,6 @@ relation DepartmentReductionService {
     teacher.ReductionService playsRole pendingReductionServices {
         multiplicity *;
     }
-}
-
-relation RootDomainObjectTeacherDegreeFinalProjectStudent {
-    .org.fenixedu.bennu.core.domain.Bennu playsRole rootDomainObject;
-    degree.finalProject.TeacherDegreeFinalProjectStudent playsRole teacherDegreeFinalProjectStudents {
-        multiplicity *;
-    }
-}
-
-relation TeacherDegreeFinalProjectStudentExecutionPeriod {
-    degree.finalProject.TeacherDegreeFinalProjectStudent playsRole associatedTeacherDegreeFinalProjectStudents {
-        multiplicity *;
-    }
-    .org.fenixedu.academic.domain.ExecutionSemester playsRole executionPeriod;
-}
-
-relation TeacherDegreeFinalProjectStudentStudent {
-    degree.finalProject.TeacherDegreeFinalProjectStudent playsRole teacherDegreeFinalProjectStudent {
-        multiplicity *;
-    }
-    .org.fenixedu.academic.domain.student.Registration playsRole student;
-}
-
-relation TeacherDegreeFinalProjectStudentTeacher {
-    degree.finalProject.TeacherDegreeFinalProjectStudent playsRole degreeFinalProjectStudents {
-        multiplicity *;
-    }
-    .org.fenixedu.academic.domain.Teacher playsRole teacher;
 }
 
 relation PersonDepartment {
