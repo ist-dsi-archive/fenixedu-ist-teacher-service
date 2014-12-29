@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import pt.ist.fenixedu.contracts.persistenceTierOracle.FenixIstConfiguration;
+import pt.ist.fenixedu.contracts.persistenceTierOracle.FenixIstGiafContractsConfiguration;
 
 public class PersistentSuportGiaf {
     private static PersistentSuportGiaf instance = null;
@@ -26,9 +26,9 @@ public class PersistentSuportGiaf {
 
     private Connection openConnection() throws SQLException {
         if (databaseUrl == null) {
-            String DBUserName = FenixIstConfiguration.getConfiguration().dbGiafUser();
-            String DBUserPass = FenixIstConfiguration.getConfiguration().dbGiafPass();
-            String DBUrl = FenixIstConfiguration.getConfiguration().dbGiafAlias();
+            String DBUserName = FenixIstGiafContractsConfiguration.getConfiguration().dbGiafUser();
+            String DBUserPass = FenixIstGiafContractsConfiguration.getConfiguration().dbGiafPass();
+            String DBUrl = FenixIstGiafContractsConfiguration.getConfiguration().dbGiafAlias();
             if (DBUserName == null || DBUserPass == null || DBUrl == null) {
                 throw new Error("Please configure GIAF database connection");
             }
