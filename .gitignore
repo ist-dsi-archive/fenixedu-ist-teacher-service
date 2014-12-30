@@ -7,7 +7,7 @@
 
 # Eclipse #
 .settings/
-.project
+**/*.project
 .classpath
 output/
 
