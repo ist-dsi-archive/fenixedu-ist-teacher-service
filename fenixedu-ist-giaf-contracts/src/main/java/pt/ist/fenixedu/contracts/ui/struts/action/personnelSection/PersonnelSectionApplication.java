@@ -21,7 +21,7 @@ package pt.ist.fenixedu.contracts.ui.struts.action.personnelSection;
 import org.fenixedu.bennu.struts.portal.StrutsApplication;
 
 @StrutsApplication(bundle = "ApplicationResources", path = "person-management", titleKey = "link.manage.people",
-        hint = "Personnel Section", accessGroup = "role(PERSONNEL_SECTION)")
+        hint = "Personnel Section", accessGroup = "#personnelSection")
 public class PersonnelSectionApplication {
 
 }
