@@ -199,7 +199,7 @@
 
 
 <schema name="personManagement.merge.chooseObjects"
-        type="pt.ist.fenix.ui.struts.action.manager.personManagement.MergePersonsDA.MergePersonsBean"
+        type="pt.ist.fenix.ui.struts.action.manager.personManagement.MergePersonsDA$MergePersonsBean"
         bundle="MANAGER_RESOURCES">
     <slot name="leftOid" key="label.personManagement.merge.destiny.oid"/>
     <slot name="rightOid" key="label.personManagement.merge.remove.oid"/> 
