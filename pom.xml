@@ -17,10 +17,6 @@
     <url>http://tecnico.ulisboa.pt/</url>
     <inceptionYear>2011</inceptionYear>
 
-    <properties>
-        <version.org.fenixedu.bennu>3.4.0</version.org.fenixedu.bennu>
-    </properties>
-
     <issueManagement>
         <system>GitHub</system>
         <url>https://github.com/ist-dsi/fenixedu-ist-teacher-service/issues/</url>
@@ -46,31 +42,18 @@
         <tag>HEAD</tag>
     </scm>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/*.properties</exclude>
-                        <exclude>**/*.js</exclude>
-                        <exclude>**/*.css</exclude>
-                        <exclude>**/*.htm</exclude>
-                        <exclude>**/*.txt</exclude>
-                        <exclude>**/*.dtd</exclude>
-                        <exclude>src/main/java/org/apache/**/*.*</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
     <modules>
         <module>fenixedu-ist-giaf-contracts</module>
         <module>fenixedu-ist-teacher-credits</module>
         <module>fenixedu-ist-teacher-evaluation</module>
     </modules>
+
+    <distributionManagement>
+        <repository>
+            <id>fenixedu-contrib-releases</id>
+            <url>https://repo.fenixedu.org/fenixedu-contrib-releases</url>
+        </repository>
+    </distributionManagement>
 
     <repositories>
         <repository>
