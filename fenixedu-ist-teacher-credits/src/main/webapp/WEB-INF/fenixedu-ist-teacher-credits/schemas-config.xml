@@ -158,17 +158,4 @@
     </slot>
 </schema>
 
-<schema name="scientificCouncil.credits.departmentCreditsBean" type="pt.ist.fenixedu.teacher.ui.struts.action.scientificCouncil.credits.DepartmentCreditsBean">
-    <slot name="department" key="label.department" layout="menu-select-postback" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator">
-        <property name="providerClass" value="org.fenixedu.academic.ui.renderers.providers.choiceType.replacement.single.DepartmentProvider" />
-        <property name="format" value="${name}" />
-        <property name="sortBy" value="name" />
-        <property name="destination" value="postback" />
-    </slot>
-    <slot name="employeeNumber" key="label.department.credits.employeeNumber">
-        <validator class="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator" />
-        <validator class="pt.ist.fenixWebFramework.renderers.validators.NumberValidator" />
-    </slot>
-</schema>
-
 </schemas>
