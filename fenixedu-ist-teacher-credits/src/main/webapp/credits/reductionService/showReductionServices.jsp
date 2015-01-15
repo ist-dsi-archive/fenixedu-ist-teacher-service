@@ -33,9 +33,8 @@
 <em><bean:message key="label.teacherService.credits"/></em>
 <h3><bean:message key="label.credits.creditsReduction.definition" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></h3>
 <%org.fenixedu.academic.domain.ExecutionSemester executionSemester = org.fenixedu.academic.domain.ExecutionSemester.readActualExecutionSemester(); 
-Boolean canAproveReductionServiceCredits = executionSemester.isInValidCreditsPeriod(org.fenixedu.academic.domain.person.RoleType.DEPARTMENT_ADMINISTRATIVE_OFFICE);
-Boolean canInsertReductionServiceCredits = canAproveReductionServiceCredits && !executionSemester.isInValidCreditsPeriod(org.fenixedu.academic.domain.person.RoleType.DEPARTMENT_MEMBER);
-
+Boolean canAproveReductionServiceCredits = Boolean.FALSE;
+Boolean canInsertReductionServiceCredits = Boolean.FALSE;
 %>
 <bean:define id="executionSemesterName" value="<%= executionSemester.getQualifiedName()%>"/>
 <bean:define id="canAproveReductionService" value="<%= canAproveReductionServiceCredits.toString()%>"/>

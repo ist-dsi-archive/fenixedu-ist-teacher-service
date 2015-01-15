@@ -27,18 +27,41 @@ import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
+import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
+import org.fenixedu.bennu.struts.annotations.Mapping;
+import org.fenixedu.bennu.struts.portal.EntryPoint;
+import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
+import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsBean;
 import pt.ist.fenixedu.teacher.domain.credits.util.PersonFunctionBean;
+import pt.ist.fenixedu.teacher.ui.struts.action.DepartmentCreditsManagerApp;
 import pt.ist.fenixframework.FenixFramework;
 
+@StrutsFunctionality(app = DepartmentCreditsManagerApp.class, path = "person-functions",
+        titleKey = "label.managementFunctionNote")
+@Mapping(path = "/managePersonFunctionsShared")
 @Forwards(value = { @Forward(name = "addPersonFunctionShared", path = "/credits/personFunction/addPersonFunctionShared.jsp"),
-        @Forward(name = "viewAnnualTeachingCredits", path = "/credits.do?method=viewAnnualTeachingCredits") })
+        @Forward(name = "viewAnnualTeachingCredits", path = "/credits.do?method=viewAnnualTeachingCredits"),
+        @Forward(name = "showDepartmentPersonFunctions", path = "/credits/showDepartmentPersonFunctions.jsp") })
 public class ManagePersonFunctionsDA extends FenixDispatchAction {
+
+    @EntryPoint
+    public ActionForward showDepartmentPersonFunctions(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+            HttpServletResponse response) throws NumberFormatException, FenixServiceException {
+        DepartmentCreditsBean departmentCreditsBean = getRenderedObject();
+        if (departmentCreditsBean == null) {
+            departmentCreditsBean = new DepartmentCreditsBean();
+        }
+        request.setAttribute("departmentCreditsBean", departmentCreditsBean);
+        request.setAttribute("canViewCredits", String.valueOf(RoleType.SCIENTIFIC_COUNCIL.isMember(Authenticate.getUser())));
+        return mapping.findForward("showDepartmentPersonFunctions");
+    }
 
     public ActionForward prepareToAddPersonFunctionShared(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {

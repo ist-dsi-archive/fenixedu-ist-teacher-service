@@ -35,7 +35,7 @@
 
 
 <logic:present name="departmentCreditsBean">
-	<fr:edit id="departmentCreditsBean" name="departmentCreditsBean" action="/exportCredits.do?method=exportDepartmentCredits">
+	<fr:edit id="departmentCreditsBean" name="departmentCreditsBean" action="/departmentCredits.do?method=exportDepartmentCredits">
 		<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsBean">
 			<fr:slot name="department" key="label.department" layout="menu-select">
 				<fr:property name="from" value="availableDepartments"/>

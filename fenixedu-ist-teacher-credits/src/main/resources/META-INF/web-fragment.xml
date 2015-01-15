@@ -19,11 +19,7 @@
 	<!-- Filter Mapping -->
 	<filter-mapping>
 		<filter-name>AnnualTeachingCreditsDocumentFilter</filter-name>
-		<url-pattern>/scientificCouncil/annualTeachingCreditsDocument.do</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>AnnualTeachingCreditsDocumentFilter</filter-name>
-		<url-pattern>/departmentAdmOffice/annualTeachingCreditsDocument.do</url-pattern>
+		<url-pattern>/annualTeachingCreditsDocument.do</url-pattern>
 	</filter-mapping>
 
 </web-fragment>

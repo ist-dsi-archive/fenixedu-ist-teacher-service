@@ -40,11 +40,12 @@ import org.fenixedu.bennu.struts.annotations.Mapping;
 import pt.ist.fenixedu.teacher.domain.SupportLesson;
 import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageTeacherSupportLessonsDispatchAction;
 import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageTeacherSupportLessonsDispatchAction.InvalidPeriodException;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ViewTeacherCreditsDA;
 import pt.ist.fenixframework.FenixFramework;
 
 @Mapping(module = "departmentAdmOffice", path = "/supportLessonsManagement",
         input = "/supportLessonsManagement.do?method=prepareEdit&page=0", formBean = "supportLessonForm",
-        functionality = DepartmentAdmOfficeViewTeacherCreditsDA.class)
+        functionality = ViewTeacherCreditsDA.class)
 @Forwards(value = {
         @Forward(name = "successfull-delete",
                 path = "/departmentAdmOffice/degreeTeachingServiceManagement.do?method=showTeachingServiceDetails"),

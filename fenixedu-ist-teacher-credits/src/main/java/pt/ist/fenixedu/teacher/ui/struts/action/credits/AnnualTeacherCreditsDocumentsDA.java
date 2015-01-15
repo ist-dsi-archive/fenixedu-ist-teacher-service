@@ -26,21 +26,21 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
+import org.fenixedu.bennu.struts.annotations.Mapping;
 
 import pt.ist.fenixedu.teacher.domain.credits.AnnualTeachingCredits;
 import pt.ist.fenixedu.teacher.domain.credits.util.AnnualTeachingCreditsBean;
 
+@Mapping(path = "/annualTeachingCreditsDocument", functionality = ViewTeacherCreditsDA.class)
 @Forwards(@Forward(name = "showAnnualTeacherCreditsDocument", path = "/credits/showAnnualTeacherCreditsDocument.jsp"))
-public abstract class AnnualTeacherCreditsDocumentsDA extends FenixDispatchAction {
+public class AnnualTeacherCreditsDocumentsDA extends FenixDispatchAction {
 
-    public abstract ActionForward getAnnualTeachingCreditsPdf(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception;
+    public ActionForward getAnnualTeachingCreditsPdf(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+            HttpServletResponse response) {
 
-    protected ActionForward getTeacherCreditsDocument(ActionMapping mapping, HttpServletRequest request) {
         Teacher teacher = (Teacher) request.getAttribute("teacher");
         ExecutionYear executionYear = (ExecutionYear) request.getAttribute("executionYear");
 

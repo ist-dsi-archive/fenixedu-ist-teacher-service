@@ -33,7 +33,6 @@
 	</span>
 </html:messages>
 
-
 <logic:present name="departmentCreditsBean">
 
 	<fr:form action="/projectTutorialCourses.do?method=showDepartmentExecutionCourses">
@@ -53,11 +52,12 @@
 				<fr:property name="classes" value="tstyle5 thlight mtop15" />
 				<fr:property name="columnClasses" value=",,tdclear tderror1" />
 			</fr:layout>
-			<fr:destination name="cancel" path="/exportCredits.do?method=exportDepartmentCourses" />
+			<fr:destination name="cancel" path="/projectTutorialCourses.do?method=exportDepartmentCourses" />
 		</fr:edit>
 		<html:submit bundle="HTMLALT_RESOURCES" altKey="submit.submit"><bean:message key="label.view" bundle="TEACHER_CREDITS_SHEET_RESOURCES" /></html:submit>
 		<html:cancel><bean:message key="label.export" bundle="APPLICATION_RESOURCES" /></html:cancel>
 	</fr:form>
+	
 	<logic:notEmpty name="departmentCreditsBean" property="departmentExecutionCourses">
 		<bean:define id="departmentOid" name="departmentCreditsBean" property="department.externalId"/>
 		<fr:view name="departmentCreditsBean" property="departmentExecutionCourses">
@@ -68,6 +68,7 @@
 			</fr:schema>
 			<fr:layout name="tabular">
 				<fr:property name="classes" value="tstyle2 thlight thleft mtop05 mbottom05"/>
+				<%if(org.fenixedu.academic.domain.person.RoleType.SCIENTIFIC_COUNCIL.actualGroup().isMember(org.fenixedu.bennu.core.security.Authenticate.getUser())){ %>
 				<fr:property name="link(change)" value="<%="/projectTutorialCourses.do?method=changeExecutionCourseType&departmentOid="+departmentOid%>" />
 				<fr:property name="key(change)" value="label.changeType" />
 				<fr:property name="param(change)" value="externalId/executionCourseOid" />
@@ -76,6 +77,7 @@
 				<fr:property name="confirmationKey(change)" value="message.confirmation.changeExecutionCourseType" />
 				<fr:property name="confirmationBundle(change)" value="TEACHER_CREDITS_SHEET_RESOURCES" />
 				<fr:property name="confirmationTitleKey(change)" value="label.changeType" />
+				<%}%>
 			</fr:layout>
 		</fr:view>
 	</logic:notEmpty>

@@ -32,11 +32,18 @@ import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.bennu.struts.annotations.Forward;
+import org.fenixedu.bennu.struts.annotations.Forwards;
+import org.fenixedu.bennu.struts.annotations.Mapping;
 
 import pt.ist.fenixedu.teacher.domain.credits.util.ProjectTutorialServiceBean;
 import pt.ist.fenixedu.teacher.domain.teacher.DegreeProjectTutorialService;
 import pt.ist.fenixframework.FenixFramework;
 
+@Mapping(path = "/degreeProjectTutorialService", functionality = ViewTeacherCreditsDA.class)
+@Forwards(value = {
+        @Forward(name = "show-project-tutorial-service", path = "/credits/degreeTeachingService/showProjectTutorialService.jsp"),
+        @Forward(name = "viewAnnualTeachingCredits", path = "/credits.do?method=viewAnnualTeachingCredits") })
 public class ManageDegreeProjectTutorialServicesDispatchAction extends FenixDispatchAction {
 
     public ActionForward showProjectTutorialServiceDetails(ActionMapping mapping, ActionForm form, HttpServletRequest request,

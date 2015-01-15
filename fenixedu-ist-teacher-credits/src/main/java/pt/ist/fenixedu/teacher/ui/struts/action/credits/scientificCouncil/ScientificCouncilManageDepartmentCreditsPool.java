@@ -18,11 +18,9 @@
  */
 package pt.ist.fenixedu.teacher.ui.struts.action.credits.scientificCouncil;
 
-import org.fenixedu.academic.domain.Department;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
-import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsBean;
 import pt.ist.fenixedu.teacher.ui.struts.action.ScientificCreditsApp;
 import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageDepartmentCreditsPool;
 
@@ -30,12 +28,5 @@ import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageDepartmentCreditsP
         bundle = "TeacherCreditsSheetResources")
 @Mapping(module = "scientificCouncil", path = "/creditsPool")
 public class ScientificCouncilManageDepartmentCreditsPool extends ManageDepartmentCreditsPool {
-
-    @Override
-    protected DepartmentCreditsBean getDepartmentCreditsBean() {
-        DepartmentCreditsBean departmentCreditsBean = new DepartmentCreditsBean();
-        departmentCreditsBean.setAvailableDepartments(Department.readActiveDepartments());
-        return departmentCreditsBean;
-    }
 
 }

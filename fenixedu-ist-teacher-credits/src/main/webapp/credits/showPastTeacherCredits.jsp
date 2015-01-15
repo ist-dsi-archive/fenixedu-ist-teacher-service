@@ -27,7 +27,7 @@
 <%@ taglib uri="http://jakarta.apache.org/taglibs/struts-example-1.0" prefix="app" %>
 <html:xhtml/>
 
-<h2><bean:message key="label.teacherService.credits.resume"/></h2>
+<h2><bean:message key="link.teacherCreditsSheet.view" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></h2>
 
 <logic:present name="teacherBean">
 	<jsp:include page="teacherCreditsStyles.jsp"/>

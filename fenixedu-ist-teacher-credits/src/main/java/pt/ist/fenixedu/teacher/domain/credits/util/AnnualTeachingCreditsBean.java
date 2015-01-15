@@ -39,7 +39,6 @@ import org.fenixedu.academic.domain.thesis.Thesis;
 import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
 import org.fenixedu.academic.domain.thesis.ThesisParticipationType;
 import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.core.groups.Group;
 import org.fenixedu.bennu.core.security.Authenticate;
 import org.joda.time.LocalDate;
 
@@ -138,7 +137,8 @@ public class AnnualTeachingCreditsBean implements Serializable {
     }
 
     protected void setAnnualTeachingCreditsByPeriod(ExecutionYear executionYear, Teacher teacher) {
-        if (!Group.parse("creditsManager").isMember(Authenticate.getUser())) {
+        User user = Authenticate.getUser();
+        if (RoleType.SCIENTIFIC_COUNCIL.isMember(user) || teacher.getPerson().getUser().equals(user)) {
             setCanSeeCreditsReduction(true);
         }
         for (ExecutionSemester executionSemester : executionYear.getExecutionPeriodsSet()) {

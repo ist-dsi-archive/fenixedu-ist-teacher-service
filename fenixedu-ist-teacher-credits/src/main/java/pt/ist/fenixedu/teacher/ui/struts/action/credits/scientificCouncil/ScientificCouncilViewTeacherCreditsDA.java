@@ -66,4 +66,5 @@ public class ScientificCouncilViewTeacherCreditsDA extends ViewTeacherCreditsDA 
         request.setAttribute("executionYearOid", executionSemester.getExecutionYear().getExternalId());
         return viewAnnualTeachingCredits(mapping, form, request, response);
     }
+
 }

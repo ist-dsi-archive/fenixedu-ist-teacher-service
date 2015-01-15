@@ -29,6 +29,10 @@ import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.bennu.core.domain.User;
+import org.fenixedu.bennu.core.security.Authenticate;
+
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 
 public class DepartmentCreditsBean implements Serializable {
@@ -44,6 +48,12 @@ public class DepartmentCreditsBean implements Serializable {
     public DepartmentCreditsBean() {
         setExecutionSemester(ExecutionSemester.readActualExecutionSemester());
         setExecutionYear(getExecutionSemester().getExecutionYear());
+        User userView = Authenticate.getUser();
+        if (RoleType.SCIENTIFIC_COUNCIL.isMember(userView)) {
+            setAvailableDepartments(Department.readActiveDepartments());
+        } else {
+            setAvailableDepartments(new ArrayList<Department>(userView.getPerson().getManageableDepartmentCreditsSet()));
+        }
     }
 
     public DepartmentCreditsBean(Department department, ArrayList<Department> availableDepartments) {

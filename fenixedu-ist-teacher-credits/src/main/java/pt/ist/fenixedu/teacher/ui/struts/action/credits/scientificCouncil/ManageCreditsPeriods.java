@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Core.  If not, see <http://www.gnu.org/licenses/>.
  */
-package pt.ist.fenixedu.teacher.ui.struts.action.scientificCouncil.credits;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits.scientificCouncil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,10 +36,11 @@ import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
 import pt.ist.fenixedu.teacher.dto.teacherCredits.TeacherCreditsPeriodBean;
 import pt.ist.fenixedu.teacher.service.scientificCouncil.credits.CreateTeacherCreditsFillingPeriod;
-import pt.ist.fenixedu.teacher.ui.struts.action.ScientificCreditsApp;
+import pt.ist.fenixedu.teacher.ui.struts.action.CreditsManagerApp;
 import pt.ist.fenixframework.FenixFramework;
 
-@StrutsFunctionality(app = ScientificCreditsApp.class, path = "define-periods", titleKey = "link.define.periods")
+@StrutsFunctionality(app = CreditsManagerApp.class, path = "define-periods", titleKey = "link.define.periods",
+        accessGroup = "#scientificCouncil", bundle = "TeacherCreditsSheetResources")
 @Mapping(module = "scientificCouncil", path = "/defineCreditsPeriods")
 @Forwards({
         @Forward(name = "edit-teacher-credits-periods", path = "/scientificCouncil/credits/periods/editTeacherCreditsPeriod.jsp"),

@@ -38,11 +38,12 @@ import org.fenixedu.bennu.struts.annotations.Mapping;
 
 import pt.ist.fenixedu.teacher.domain.teacher.InstitutionWorkTime;
 import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageTeacherInstitutionWorkingTimeDispatchAction;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ViewTeacherCreditsDA;
 import pt.ist.fenixframework.FenixFramework;
 
 @Mapping(module = "departmentAdmOffice", path = "/institutionWorkingTimeManagement",
         input = "/institutionWorkingTimeManagement.do?method=prepareEdit&page=0", scope = "request", parameter = "method",
-        functionality = DepartmentAdmOfficeViewTeacherCreditsDA.class)
+        functionality = ViewTeacherCreditsDA.class)
 @Exceptions(value = { @ExceptionHandling(type = org.fenixedu.academic.domain.exceptions.DomainException.class,
         handler = org.fenixedu.academic.ui.struts.config.FenixDomainExceptionHandler.class, scope = "request") })
 public class DepartmentAdmOfficeManageTeacherInstitutionWorkingTimeDispatchAction extends

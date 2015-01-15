@@ -37,10 +37,11 @@ import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 
 import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageDegreeTeachingServicesDispatchAction;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ViewTeacherCreditsDA;
 
 @Mapping(module = "departmentAdmOffice", path = "/degreeTeachingServiceManagement",
         input = "/degreeTeachingServiceManagement.do?method=showTeachingServiceDetails",
-        formBean = "teacherExecutionCourseShiftProfessorshipForm", functionality = DepartmentAdmOfficeViewTeacherCreditsDA.class)
+        formBean = "teacherExecutionCourseShiftProfessorshipForm", functionality = ViewTeacherCreditsDA.class)
 @Forwards(value = {
         @Forward(name = "teacher-not-found", path = "/departmentAdmOffice/credits.do?method=viewAnnualTeachingCredits"),
         @Forward(name = "sucessfull-edit", path = "/departmentAdmOffice/credits.do?method=viewAnnualTeachingCredits"),

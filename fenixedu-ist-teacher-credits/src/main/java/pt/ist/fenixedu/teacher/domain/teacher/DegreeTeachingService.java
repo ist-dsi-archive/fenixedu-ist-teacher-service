@@ -156,7 +156,8 @@ public class DegreeTeachingService extends DegreeTeachingService_Base {
     }
 
     public double calculateCredits() {
-        return getEfectiveLoad() * getProfessorship().getExecutionCourse().getUnitCreditValue().doubleValue();
+        return getProfessorship().getExecutionCourse().getUnitCreditValue() == null ? 0.0 : getEfectiveLoad()
+                * getProfessorship().getExecutionCourse().getUnitCreditValue().doubleValue();
     }
 
     public static int getDegreeTeachingServiceLessonRows(Professorship professorship) {

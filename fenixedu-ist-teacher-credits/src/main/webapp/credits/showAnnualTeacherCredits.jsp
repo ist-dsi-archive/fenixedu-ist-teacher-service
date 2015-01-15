@@ -313,7 +313,7 @@ if(RoleType.SCIENTIFIC_COUNCIL.actualGroup().isMember(user)){
 			<bean:define id="canEditCreditsInfo" name="annualTeachingCreditsByPeriodBean" property="canEditTeacherCredits"/>
 			<logic:equal name="canEditCreditsInfo" value="true">
 				<p><html:link page='<%= "/institutionWorkingTimeManagement.do?method=create&amp;page=0" + "&amp;executionPeriodId=" + executionPeriodId + "&amp;teacherId=" + teacherId %>'>
-					<bean:message key="link.teacher-institution-working-time.create"/>
+					<bean:message key="link.teacher-institution-working-time.create" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/>
 				</html:link></p>
 			</logic:equal>
 			<fr:view name="annualTeachingCreditsByPeriodBean" property="institutionWorkTime">

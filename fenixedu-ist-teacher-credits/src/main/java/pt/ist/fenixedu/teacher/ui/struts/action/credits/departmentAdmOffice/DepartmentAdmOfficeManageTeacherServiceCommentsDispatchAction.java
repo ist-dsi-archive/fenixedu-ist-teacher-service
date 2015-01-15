@@ -23,9 +23,9 @@ import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 
 import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageTeacherServiceCommentsDispatchAction;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ViewTeacherCreditsDA;
 
-@Mapping(module = "departmentAdmOffice", path = "/teacherServiceComments",
-        functionality = DepartmentAdmOfficeViewTeacherCreditsDA.class)
+@Mapping(module = "departmentAdmOffice", path = "/teacherServiceComments", functionality = ViewTeacherCreditsDA.class)
 @Forwards(value = {
         @Forward(name = "editTeacherServiceComment", path = "/credits/degreeTeachingService/editTeacherServiceComment.jsp"),
         @Forward(name = "viewAnnualTeachingCredits", path = "/departmentAdmOffice/credits.do?method=viewAnnualTeachingCredits") })

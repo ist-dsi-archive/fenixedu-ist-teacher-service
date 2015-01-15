@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
@@ -34,15 +35,27 @@ import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
+import org.fenixedu.bennu.struts.annotations.Forward;
+import org.fenixedu.bennu.struts.annotations.Forwards;
+import org.fenixedu.bennu.struts.annotations.Mapping;
 import org.fenixedu.bennu.struts.portal.EntryPoint;
+import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
 import pt.ist.fenixedu.teacher.domain.credits.AnnualTeachingCredits;
 import pt.ist.fenixedu.teacher.domain.credits.AnnualTeachingCreditsDocument;
 import pt.ist.fenixedu.teacher.domain.credits.util.AnnualTeachingCreditsBean;
 import pt.ist.fenixedu.teacher.domain.credits.util.TeacherCreditsBean;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.ui.struts.action.DepartmentCreditsManagerApp;
 import pt.ist.fenixframework.FenixFramework;
 
-public abstract class ViewTeacherCreditsDA extends FenixDispatchAction {
+@StrutsFunctionality(app = DepartmentCreditsManagerApp.class, path = "credits", titleKey = "label.teacher.credits")
+@Mapping(path = "/credits")
+@Forwards({ @Forward(name = "selectTeacher", path = "/credits/selectTeacher.jsp"),
+        @Forward(name = "showTeacherCredits", path = "/credits/showTeacherCredits.jsp"),
+        @Forward(name = "showPastTeacherCredits", path = "/credits/showPastTeacherCredits.jsp"),
+        @Forward(name = "showAnnualTeacherCredits", path = "/credits/showAnnualTeacherCredits.jsp") })
+public class ViewTeacherCreditsDA extends FenixDispatchAction {
 
     @EntryPoint
     public ActionForward prepareTeacherSearch(ActionMapping mapping, ActionForm form, HttpServletRequest request,
@@ -51,8 +64,25 @@ public abstract class ViewTeacherCreditsDA extends FenixDispatchAction {
         return mapping.findForward("selectTeacher");
     }
 
-    public abstract ActionForward showTeacherCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception;
+    public ActionForward showTeacherCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+            HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {
+        TeacherCreditsBean teacherBean = getRenderedObject();
+
+        if (!isTeacherOfManageableDepartments(teacherBean.getTeacher())) {
+            addActionMessage("error", request, "message.teacher.not-found-or-not-belong-to-department");
+            return prepareTeacherSearch(mapping, form, request, response);
+        }
+
+        teacherBean.prepareAnnualTeachingCredits(Authenticate.getUser());
+        request.setAttribute("teacherBean", teacherBean);
+        return mapping.findForward("showTeacherCredits");
+    }
+
+    private boolean isTeacherOfManageableDepartments(Teacher teacher) {
+        User user = Authenticate.getUser();
+        return RoleType.SCIENTIFIC_COUNCIL.isMember(user)
+                || user.getPerson().getManageableDepartmentCreditsSet().contains(teacher.getDepartment());
+    }
 
     public ActionForward viewAnnualTeachingCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {
@@ -116,6 +146,18 @@ public abstract class ViewTeacherCreditsDA extends FenixDispatchAction {
         if (annualTeachingCredits != null) {
             annualTeachingCredits.calculateCredits();
         }
+        return viewAnnualTeachingCredits(mapping, form, request, response);
+    }
+
+    public ActionForward unlockTeacherCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+            HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {
+        Teacher teacher = FenixFramework.getDomainObject((String) getFromRequest(request, "teacherOid"));
+        ExecutionSemester executionSemester =
+                FenixFramework.getDomainObject((String) getFromRequest(request, "executionPeriodOid"));
+        TeacherService teacherService = TeacherService.getTeacherService(teacher, executionSemester);
+        teacherService.unlockTeacherCredits();
+        request.setAttribute("teacherOid", teacher.getExternalId());
+        request.setAttribute("executionYearOid", executionSemester.getExecutionYear().getExternalId());
         return viewAnnualTeachingCredits(mapping, form, request, response);
     }
 

@@ -19,7 +19,6 @@
 package pt.ist.fenixedu.teacher.ui.struts.action.credits;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Set;
 
 import javax.servlet.ServletOutputStream;
@@ -29,41 +28,36 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.exceptions.DomainException;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.academic.util.Bundle;
-import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
-import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
+import org.fenixedu.bennu.struts.annotations.Mapping;
 import org.fenixedu.bennu.struts.portal.EntryPoint;
+import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
 import pt.ist.fenixWebFramework.renderers.utils.RenderUtils;
 import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsBean;
 import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsPoolBean;
 import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsPoolBean.DepartmentExecutionCourse;
+import pt.ist.fenixedu.teacher.ui.struts.action.DepartmentCreditsManagerApp;
 import pt.utl.ist.fenix.tools.util.excel.StyledExcelSpreadsheet;
 
+@StrutsFunctionality(app = DepartmentCreditsManagerApp.class, path = "credits-pool", titleKey = "label.departmentCreditsPool",
+        bundle = "TeacherCreditsSheetResources")
+@Mapping(path = "/creditsPool")
 @Forwards(@Forward(name = "manageUnitCredits", path = "/credits/creditsPool/manageUnitCredits.jsp"))
 public class ManageDepartmentCreditsPool extends FenixDispatchAction {
 
     @EntryPoint
     public ActionForward prepareManageUnitCredits(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException {
-        DepartmentCreditsBean departmentCreditsBean = getDepartmentCreditsBean();
+        DepartmentCreditsBean departmentCreditsBean = new DepartmentCreditsBean();
         request.setAttribute("departmentCreditsBean", departmentCreditsBean);
         return mapping.findForward("manageUnitCredits");
-    }
-
-    protected DepartmentCreditsBean getDepartmentCreditsBean() {
-        User userView = Authenticate.getUser();
-        DepartmentCreditsBean departmentCreditsBean = new DepartmentCreditsBean();
-        departmentCreditsBean.setAvailableDepartments(new ArrayList<Department>(userView.getPerson()
-                .getManageableDepartmentCreditsSet()));
-        return departmentCreditsBean;
     }
 
     public ActionForward viewDepartmentExecutionCourses(ActionMapping mapping, ActionForm form, HttpServletRequest request,
@@ -85,7 +79,7 @@ public class ManageDepartmentCreditsPool extends FenixDispatchAction {
         if (departmentCreditsPoolBean == null) {
             return prepareManageUnitCredits(mapping, form, request, response);
         }
-        DepartmentCreditsBean departmentCreditsBean = getDepartmentCreditsBean();
+        DepartmentCreditsBean departmentCreditsBean = new DepartmentCreditsBean();
         departmentCreditsBean.setDepartment(departmentCreditsPoolBean.getDepartment());
         departmentCreditsBean.setExecutionYear(departmentCreditsPoolBean.getAnnualCreditsState().getExecutionYear());
         request.setAttribute("departmentCreditsBean", departmentCreditsBean);
@@ -105,7 +99,7 @@ public class ManageDepartmentCreditsPool extends FenixDispatchAction {
         } catch (DomainException e) {
             addActionMessage(request, e.getMessage(), e.getArgs());
         }
-        DepartmentCreditsBean departmentCreditsBean = getDepartmentCreditsBean();
+        DepartmentCreditsBean departmentCreditsBean = new DepartmentCreditsBean();
         departmentCreditsBean.setDepartment(departmentCreditsPoolBean.getDepartment());
         departmentCreditsBean.setExecutionYear(departmentCreditsPoolBean.getAnnualCreditsState().getExecutionYear());
         request.setAttribute("departmentCreditsBean", departmentCreditsBean);

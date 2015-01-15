@@ -24,19 +24,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.fenixedu.academic.domain.Department;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
-import org.fenixedu.bennu.struts.portal.EntryPoint;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
-import pt.ist.fenixedu.teacher.domain.credits.util.DepartmentCreditsBean;
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 import pt.ist.fenixedu.teacher.domain.credits.util.PersonFunctionBean;
 import pt.ist.fenixedu.teacher.ui.struts.action.ScientificCreditsApp;
 import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManagePersonFunctionsDA;
@@ -85,19 +82,6 @@ public class ScientificCouncilManagePersonFunctionsDA extends ManagePersonFuncti
         request.setAttribute("teacherOid", personFunctionBean.getTeacher().getExternalId());
         request.setAttribute("executionYearOid", personFunctionBean.getExecutionSemester().getExecutionYear().getExternalId());
         return mapping.findForward("viewAnnualTeachingCredits");
-    }
-
-    @EntryPoint
-    public ActionForward showDepartmentPersonFunctions(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            HttpServletResponse response) throws NumberFormatException, FenixServiceException {
-        DepartmentCreditsBean departmentCreditsBean = getRenderedObject();
-        if (departmentCreditsBean == null) {
-            departmentCreditsBean = new DepartmentCreditsBean();
-            departmentCreditsBean.setAvailableDepartments(Department.readActiveDepartments());
-        }
-        request.setAttribute("departmentCreditsBean", departmentCreditsBean);
-        request.setAttribute("canViewCredits", "true");
-        return mapping.findForward("showDepartmentPersonFunctions");
     }
 
 }
