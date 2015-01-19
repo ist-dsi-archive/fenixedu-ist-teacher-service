@@ -28,7 +28,6 @@ import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.TeacherCategory;
 import org.fenixedu.academic.domain.organizationalStructure.DepartmentUnit;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
-import pt.ist.fenixedu.contracts.domain.util.CategoryType;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.YearMonthDay;
@@ -39,6 +38,7 @@ import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonProfess
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalCategory;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalRegime;
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.ProfessionalRelation;
+import pt.ist.fenixedu.contracts.domain.util.CategoryType;
 import pt.ist.fenixedu.teacher.domain.TeacherCredits;
 import pt.utl.ist.fenix.tools.util.excel.Spreadsheet;
 import pt.utl.ist.fenix.tools.util.excel.Spreadsheet.Row;
@@ -102,7 +102,11 @@ public class TeachersListFromGiafReportFile extends TeachersListFromGiafReportFi
                                             .getEndDateYearMonthDay().toLocalDate());
                     if (personContractSituation != null) {
                         Unit unit =
-                                teacher.getPerson().getEmployee() != null ? teacher.getPerson().getEmployee().getLastWorkingPlace(executionYear.getBeginDateYearMonthDay(), executionYear.getEndDateYearMonthDay()) : null;
+                                teacher.getPerson().getEmployee() != null ? teacher
+                                        .getPerson()
+                                        .getEmployee()
+                                        .getLastWorkingPlace(executionYear.getBeginDateYearMonthDay(),
+                                                executionYear.getEndDateYearMonthDay()) : null;
                         ProfessionalCategory professionalCategory =
                                 personProfessionalData.getLastProfessionalCategoryByCategoryType(CategoryType.TEACHER,
                                         executionYear.getBeginDateYearMonthDay().toLocalDate(), executionYear

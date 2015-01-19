@@ -31,7 +31,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
-import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 import org.fenixedu.academic.ui.struts.action.base.FenixAction;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.security.Authenticate;
@@ -39,6 +38,8 @@ import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
+
+import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
 
 @StrutsFunctionality(app = DepartmentMemberTeacherApp.class, path = "management-functions",
         titleKey = "label.teacher.details.functionsInformation")

@@ -50,8 +50,8 @@ import pt.ist.fenixedu.teacher.ui.struts.action.DepartmentCreditsManagerApp;
 import pt.ist.fenixframework.FenixFramework;
 import pt.utl.ist.fenix.tools.util.excel.StyledExcelSpreadsheet;
 
-@StrutsFunctionality(app = DepartmentCreditsManagerApp.class, path = "execution-course-types", titleKey = "label.executionCourses.types",
-        bundle = "TeacherCreditsSheetResources")
+@StrutsFunctionality(app = DepartmentCreditsManagerApp.class, path = "execution-course-types",
+        titleKey = "label.executionCourses.types", bundle = "TeacherCreditsSheetResources")
 @Mapping(path = "/projectTutorialCourses")
 @Forwards({ @Forward(name = "exportDepartmentCourses", path = "/credits/export/exportDepartmentCourses.jsp"),
         @Forward(name = "showDepartmentExecutionCourses", path = "/credits/department/showDepartmentExecutionCourses.jsp") })

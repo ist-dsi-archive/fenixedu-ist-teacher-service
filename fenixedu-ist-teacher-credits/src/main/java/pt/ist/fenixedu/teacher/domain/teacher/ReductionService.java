@@ -119,7 +119,8 @@ public class ReductionService extends ReductionService_Base {
     }
 
     private void checkTeacherCategory() {
-        if (!ProfessionalCategory.isTeacherProfessorCategory(getTeacherService().getTeacher(), getTeacherService().getExecutionPeriod())) {
+        if (!ProfessionalCategory.isTeacherProfessorCategory(getTeacherService().getTeacher(), getTeacherService()
+                .getExecutionPeriod())) {
             throw new DomainException("label.creditsReduction.invalidCategory");
         }
     }

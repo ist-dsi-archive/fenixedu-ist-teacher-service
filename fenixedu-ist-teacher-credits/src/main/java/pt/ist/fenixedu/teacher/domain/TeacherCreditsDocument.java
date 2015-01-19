@@ -18,7 +18,6 @@
  */
 package pt.ist.fenixedu.teacher.domain;
 
-
 public class TeacherCreditsDocument extends TeacherCreditsDocument_Base {
 
 }
