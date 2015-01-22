@@ -18,6 +18,10 @@
  */
 package pt.ist.fenixedu.contracts.ui.struts.action.manager.personManagement;
 
+import java.util.Collection;
+import java.util.Set;
+import java.util.TreeSet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,6 +32,7 @@ import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.contacts.PartyContact;
 import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.organizationalStructure.UnitUtils;
 import org.fenixedu.academic.domain.person.IDDocumentType;
@@ -56,16 +61,16 @@ import pt.ist.fenixedu.contracts.service.manager.EditInvitationResponsible;
 import pt.utl.ist.fenix.tools.util.CollectionPager;
 
 @StrutsFunctionality(app = AccountManagementApp.class, path = "invitations-management",
-        titleKey = "title.manage.external.persons")
+titleKey = "title.manage.external.persons")
 @Mapping(path = "/invitationsManagement", module = "manager")
 @Forwards({
-        @Forward(name = "searhPersonBeforeInvitationsManagement",
-                path = "/manager/personManagement/choosePersonForManageInvitations.jsp"),
-        @Forward(name = "managePersonInvitations", path = "/manager/personManagement/managePersonInvitations.jsp"),
-        @Forward(name = "prepareEditInvitation", path = "/manager/personManagement/editInvitation.jsp"),
-        @Forward(name = "prepareEditInvitationDetails", path = "/manager/personManagement/changeInvitationDetails.jsp"),
-        @Forward(name = "prepareCreateNewPersonInvitation", path = "/manager/personManagement/createNewPersonInvitation.jsp"),
-        @Forward(name = "prepareCreateInvitedPerson", path = "/manager/personManagement/createInvitedPerson.jsp") })
+    @Forward(name = "searhPersonBeforeInvitationsManagement",
+            path = "/manager/personManagement/choosePersonForManageInvitations.jsp"),
+            @Forward(name = "managePersonInvitations", path = "/manager/personManagement/managePersonInvitations.jsp"),
+            @Forward(name = "prepareEditInvitation", path = "/manager/personManagement/editInvitation.jsp"),
+            @Forward(name = "prepareEditInvitationDetails", path = "/manager/personManagement/changeInvitationDetails.jsp"),
+            @Forward(name = "prepareCreateNewPersonInvitation", path = "/manager/personManagement/createNewPersonInvitation.jsp"),
+            @Forward(name = "prepareCreateInvitedPerson", path = "/manager/personManagement/createInvitedPerson.jsp") })
 public class InvitationsManagementAction extends FenixDispatchAction {
 
     public ActionForward prepareCreateInvitedPerson(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request,
@@ -134,6 +139,10 @@ public class InvitationsManagementAction extends FenixDispatchAction {
             HttpServletResponse response) throws Exception {
 
         Person person = getPersonFromParameter(request);
+        final Set<Invitation> invitations = new TreeSet<Invitation>(Invitation.CONTRACT_COMPARATOR_BY_BEGIN_DATE);
+        invitations.addAll((Collection<Invitation>) person.getParentAccountabilities(AccountabilityTypeEnum.INVITATION,
+                Invitation.class));
+        request.setAttribute("invitations", invitations);
         request.setAttribute("person", person);
         return mapping.findForward("managePersonInvitations");
     }

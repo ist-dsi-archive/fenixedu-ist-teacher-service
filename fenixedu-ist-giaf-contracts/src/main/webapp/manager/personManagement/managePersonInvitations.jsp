@@ -48,8 +48,8 @@
 	<p><html:link page="<%= prepareCreateNewInvitationURL %>"><bean:message key="label.create.new.invitation" bundle="MANAGER_RESOURCES"/></html:link></p>		
 	
 	<bean:define id="personID" name="person" property="externalId" />
-	<logic:notEmpty name="person" property="invitationsOrderByDate">
-		<fr:view name="person" property="invitationsOrderByDate" schema="ViewPersonInvitations" >
+	<logic:notEmpty name="invitations">
+		<fr:view name="invitations" schema="ViewPersonInvitations" >
 			<fr:layout name="tabular">
 				<fr:property name="classes" value="tstyle4"/>
 				<fr:property name="rowClasses" value="listClasses"/>					

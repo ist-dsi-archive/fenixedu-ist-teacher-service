@@ -22,6 +22,7 @@ import static org.fenixedu.academic.predicate.AccessControl.check;
 
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.predicate.RolePredicates;
+import org.fenixedu.bennu.core.domain.User;
 
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.Invitation;
 import pt.ist.fenixedu.contracts.dto.InvitedPersonBean;
@@ -33,6 +34,7 @@ public class CreateNewInvitedPerson {
     public static Invitation run(InvitedPersonBean bean) {
         check(RolePredicates.MANAGER_OR_OPERATOR_PREDICATE);
         Person person = new Person(bean);
+        person.setUser(new User(person.getProfile()));
         Invitation invitation = new Invitation(person, bean.getUnit(), bean.getResponsible(), bean.getBegin(), bean.getEnd());
         return invitation;
     }
