@@ -62,7 +62,6 @@ public class GiafSync extends CronTask {
         updateMetadata(metadata);
 
         PrintWriter logWriter = getTaskLogWriter();
-        new UpdatePersonsFromGiaf().process(metadata, logWriter, logger);
         new ImportPersonProfessionalData().process(metadata, logWriter, logger);
         new ImportPersonContractSituationsFromGiaf().process(metadata, logWriter, logger);
         new ImportPersonProfessionalCategoriesFromGiaf().process(metadata, logWriter, logger);
