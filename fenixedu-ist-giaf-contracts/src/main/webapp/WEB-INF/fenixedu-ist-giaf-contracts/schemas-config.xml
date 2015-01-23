@@ -236,10 +236,10 @@
 </schema>
 
 <schema name="NewInvitedPersonPersonalInfo" type="pt.ist.fenixedu.contracts.dto.InvitedPersonBean" bundle="MANAGER_RESOURCES">
-    <slot name="profile.givenNames" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator">
+    <slot name="givenNames" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator">
         <property name="size" value="50"/>
     </slot>
-    <slot name="profile.familyNames">
+    <slot name="familyNames">
         <property name="size" value="50"/>
     </slot>
     <slot name="gender" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator"/>
