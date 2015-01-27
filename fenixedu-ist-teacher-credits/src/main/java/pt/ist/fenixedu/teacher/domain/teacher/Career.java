@@ -24,4 +24,5 @@ public class Career extends Career_Base {
         super();
     }
 
+
 }

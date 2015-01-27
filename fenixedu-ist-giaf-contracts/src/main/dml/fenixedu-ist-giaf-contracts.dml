@@ -503,7 +503,7 @@ relation ProfessionalCategoryTeacherCategory {
         multiplicity 0..1;
     }
     .org.fenixedu.academic.domain.TeacherCategory playsRole teacherCategory {
-        multiplicity 1..1;
+        multiplicity 0..1;
     }
 }
 

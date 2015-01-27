@@ -29,7 +29,9 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.ui.struts.action.messaging.FindPersonAction;
+import org.fenixedu.bennu.portal.domain.MenuFunctionality;
+import org.fenixedu.bennu.portal.servlet.BennuPortalDispatcher;
+import org.fenixedu.bennu.spring.portal.SpringPortalBackend;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
@@ -50,12 +52,20 @@ import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonSabbati
 import pt.ist.fenixedu.contracts.domain.personnelSection.contracts.PersonServiceExemption;
 import pt.ist.fenixframework.FenixFramework;
 
-@Mapping(path = "/professionalInformation", module = "manager", functionality = FindPersonAction.class)
+@Mapping(path = "/professionalInformation")
 @Forwards({ @Forward(name = "showProfessionalInformation",
         path = "/manager/personManagement/contracts/showProfessionalInformation.jsp") })
 public class ProfessionalInformationDA extends FenixDispatchAction {
 
-    public ActionForward showProfessioanlData(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request,
+    @Override
+    public ActionForward execute(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
+        BennuPortalDispatcher.selectFunctionality(request,
+                MenuFunctionality.findFunctionality(SpringPortalBackend.BACKEND_KEY, "/personnelSection"));
+        return super.execute(mapping, actionForm, request, response);
+    }
+
+    public ActionForward showProfessionalData(ActionMapping mapping, ActionForm actionForm, HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         Person person = FenixFramework.getDomainObject((String) getFromRequest(request, "personId"));
 

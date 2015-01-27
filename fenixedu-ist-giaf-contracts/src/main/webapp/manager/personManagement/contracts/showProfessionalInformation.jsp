@@ -50,7 +50,7 @@
 		<bean:define id="personExternalId" name="person" property="externalId"/>
 		<br />
 		<p>
-		<html:link page="<%= "/professionalInformation.do?method=showProfessioanlData&personId="+ personExternalId%>"><bean:message key="label.professionalData" bundle="CONTRACTS_RESOURCES"/></html:link>,
+		<html:link page="<%= "/professionalInformation.do?method=showProfessionalData&personId="+ personExternalId%>"><bean:message key="label.professionalData" bundle="CONTRACTS_RESOURCES"/></html:link>,
 			<html:link page="<%= "/professionalInformation.do?method=showSituations&personId="+ personExternalId%>"><bean:message key="label.situations" bundle="CONTRACTS_RESOURCES"/></html:link>,
 			<html:link page="<%= "/professionalInformation.do?method=showCategories&personId="+ personExternalId%>"><bean:message key="label.categories" bundle="CONTRACTS_RESOURCES"/></html:link>, 
 			<html:link page="<%= "/professionalInformation.do?method=showRegimes&personId="+ personExternalId%>"><bean:message key="label.regimes" bundle="CONTRACTS_RESOURCES"/></html:link>,

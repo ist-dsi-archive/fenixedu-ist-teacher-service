@@ -36,7 +36,7 @@ import pt.ist.fenixedu.contracts.ui.struts.action.personnelSection.PersonnelSect
 
 @StrutsFunctionality(app = PersonnelSectionApplication.class, path = "giaf-interface", titleKey = "title.giaf.interface",
         accessGroup = "#managers")
-@Mapping(path = "/giafParametrization", module = "personnelSection")
+@Mapping(path = "/giafParametrization")
 @Forwards({ @Forward(name = "show-menu", path = "/personnelSection/contracts/showGiafMenu.jsp"),
         @Forward(name = "show-contract-situations", path = "/personnelSection/contracts/showContractSituations.jsp"),
         @Forward(name = "show-professional-categories", path = "/personnelSection/contracts/showProfessionalCategories.jsp"),
