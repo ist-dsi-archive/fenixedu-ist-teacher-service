@@ -45,8 +45,8 @@ public class DepartmentPresidentStrategy extends FenixGroupStrategy {
 
     @Override
     public Set<User> getMembers() {
-        return Bennu.getInstance().getDepartmentsSet().stream().map(d -> getCurrentDepartmentPresident(d).getUser())
-                .filter(Objects::nonNull).collect(Collectors.toSet());
+        return Bennu.getInstance().getDepartmentsSet().stream().map(d -> getCurrentDepartmentPresident(d))
+                .filter(Objects::nonNull).map(p -> p.getUser()).collect(Collectors.toSet());
     }
 
     @Override
@@ -55,8 +55,8 @@ public class DepartmentPresidentStrategy extends FenixGroupStrategy {
                 && user.getPerson() != null
                 && user.getPerson().getEmployee() != null
                 && user.getPerson().getEmployee().getCurrentDepartmentWorkingPlace() != null
-                && getCurrentDepartmentPresident(user.getPerson().getEmployee().getCurrentDepartmentWorkingPlace()).equals(
-                        user.getPerson());
+                && user.getPerson().equals(
+                        getCurrentDepartmentPresident(user.getPerson().getEmployee().getCurrentDepartmentWorkingPlace()));
     }
 
     @Override
@@ -88,6 +88,6 @@ public class DepartmentPresidentStrategy extends FenixGroupStrategy {
 
     public static boolean isCurrentUserCurrentDepartmentPresident(Department department) {
         final Person person = AccessControl.getPerson();
-        return person == null ? false : getCurrentDepartmentPresident(department).equals(person);
+        return person == null ? false : person.equals(getCurrentDepartmentPresident(department));
     }
 }
