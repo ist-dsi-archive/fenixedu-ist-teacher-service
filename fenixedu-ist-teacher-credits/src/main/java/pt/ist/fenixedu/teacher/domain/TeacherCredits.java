@@ -28,6 +28,7 @@ import java.util.Set;
 import org.fenixedu.academic.FenixEduAcademicConfiguration;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.TeacherAuthorization;
 import org.fenixedu.academic.domain.organizationalStructure.AccountabilityTypeEnum;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
@@ -67,22 +68,17 @@ public class TeacherCredits extends TeacherCredits_Base {
     }
 
     public static Double calculateMandatoryLessonHours(Teacher teacher, ExecutionSemester executionSemester) {
-        PersonContractSituation teacherContractSituation = null;
-        Interval semesterInterval =
-                new Interval(executionSemester.getBeginDateYearMonthDay().toLocalDate().toDateTimeAtStartOfDay(),
-                        executionSemester.getEndDateYearMonthDay().toLocalDate().toDateTimeAtStartOfDay());
-        if (PersonProfessionalData.isTeacherActiveForSemester(teacher, executionSemester)) {
-            teacherContractSituation = PersonContractSituation.getDominantTeacherContractSituation(teacher, semesterInterval);
-            PersonContractSituation personContractSituation =
-                    PersonContractSituation.getDominantTeacherServiceExemption(teacher, executionSemester);
-            if (personContractSituation != null && !personContractSituation.countForCredits(semesterInterval)) {
-                teacherContractSituation = personContractSituation;
+        TeacherAuthorization teacherAuthorization =
+                teacher.getTeacherAuthorization(executionSemester.getAcademicInterval()).orElse(null);
+        if (teacherAuthorization != null) {
+            if (teacherAuthorization.isContracted()) {
+                return teacherAuthorization.getLessonHours();
+            } else {
+                TeacherService teacherService = TeacherService.getTeacherServiceByExecutionPeriod(teacher, executionSemester);
+                return teacherService == null ? 0 : teacherService.getTeachingDegreeCredits();
             }
-        } else if (teacher.hasTeacherAuthorization(executionSemester.getAcademicInterval())) {
-            TeacherService teacherService = TeacherService.getTeacherServiceByExecutionPeriod(teacher, executionSemester);
-            return teacherService == null ? 0 : teacherService.getTeachingDegreeHours();
         }
-        return teacherContractSituation == null ? 0 : teacherContractSituation.getWeeklyLessonHours(semesterInterval);
+        return 0.0;
     }
 
     public static double calculateBalanceOfCreditsUntil(Teacher teacher, ExecutionSemester executionSemester)

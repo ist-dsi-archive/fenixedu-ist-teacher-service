@@ -19,7 +19,7 @@
 /**
  *  Apr 21, 2006
  */
-package pt.ist.fenixedu.teacher.ui.struts.action.credits.scientificCouncil;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,19 +36,21 @@ import org.fenixedu.bennu.struts.annotations.Exceptions;
 import org.fenixedu.bennu.struts.annotations.Forward;
 import org.fenixedu.bennu.struts.annotations.Forwards;
 import org.fenixedu.bennu.struts.annotations.Mapping;
+import org.fenixedu.bennu.struts.portal.EntryPoint;
 
 import pt.ist.fenixedu.teacher.domain.teacher.OtherService;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageCreditsPeriods;
 import pt.ist.fenixframework.FenixFramework;
 
-@Mapping(module = "scientificCouncil", path = "/otherServiceManagement",
-        functionality = ScientificCouncilViewTeacherCreditsDA.class)
+@Mapping(path = "/otherServiceManagement", functionality = ManageCreditsPeriods.class)
 @Forwards(value = { @Forward(name = "editOtherService", path = "/credits/otherService/editOtherService.jsp"),
-        @Forward(name = "viewAnnualTeachingCredits", path = "/scientificCouncil/credits.do?method=viewAnnualTeachingCredits") })
+        @Forward(name = "viewAnnualTeachingCredits", path = "/credits.do?method=viewAnnualTeachingCredits") })
 @Exceptions(value = { @ExceptionHandling(type = org.fenixedu.academic.domain.exceptions.DomainException.class,
         handler = org.fenixedu.academic.ui.struts.config.FenixDomainExceptionHandler.class, scope = "request") })
 public class ManageOtherServiceDispatchAction extends FenixDispatchAction {
 
+    @EntryPoint
     public ActionForward prepareEditOtherService(ActionMapping mapping, ActionForm form, HttpServletRequest request,
             HttpServletResponse response) throws NumberFormatException, FenixServiceException {
         OtherService otherService = FenixFramework.getDomainObject((String) getFromRequest(request, "otherServiceOid"));

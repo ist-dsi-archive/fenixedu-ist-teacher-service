@@ -59,6 +59,7 @@
 
 <bean:define id="executionYearOid" name="teacherService" property="executionPeriod.executionYear.externalId"/>
 <bean:define id="teacherOid" name="teacherService" property="teacher.externalId"/>
+<p><html:link page="<%="/credits.do?method=viewAnnualTeachingCredits&amp;executionYearOid="+executionYearOid+"&teacherOid="+teacherOid%>"><bean:message key="label.return" bundle="APPLICATION_RESOURCES"/></html:link></p>
 	
 <logic:present name="reductionService">
 	<br/><br/>

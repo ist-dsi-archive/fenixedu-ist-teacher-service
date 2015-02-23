@@ -277,9 +277,9 @@ padding: 0;
 			</logic:empty>
 			<logic:notEmpty name="personFunctions">
 				<fr:view name="annualTeachingCreditsByPeriodBean" property="personFunctions">
-					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction">
-						<fr:slot name="function.name" key="label.managementPosition.position"/>
-						<fr:slot name="function.unit.name" key="label.managementPosition.unit"/>
+					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.credits.util.PersonFunctionBean">
+						<fr:slot name="personFunction.function.name" key="label.managementPosition.position"/>
+						<fr:slot name="personFunction.function.unit.name" key="label.managementPosition.unit"/>
 					</fr:schema>
 					<fr:layout name="tabular">
 						<fr:property name="classes" value="tstyle2 thlight thleft mtop05 mbottom05"/>

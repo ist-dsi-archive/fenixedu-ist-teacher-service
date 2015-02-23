@@ -61,11 +61,12 @@
 
 <bean:define id="executionYearOid" name="teacherService" property="executionPeriod.executionYear.externalId"/>
 <bean:define id="teacherOid" name="teacherService" property="teacher.externalId"/>
+<p><html:link page="<%="/credits.do?method=viewAnnualTeachingCredits&amp;executionYearOid="+executionYearOid+"&teacherOid="+teacherOid%>"><bean:message key="label.return" bundle="APPLICATION_RESOURCES"/></html:link></p>
 
 <logic:present name="teacherServiceComment">
 	<fr:edit id="teacherServiceComment" name="teacherServiceComment" action="<%="/credits.do?method=viewAnnualTeachingCredits&executionYearOid="+executionYearOid+"&teacherOid="+teacherOid %>">
 		<fr:schema type="pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceComment" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
-			<fr:slot name="content" key="label.comment" layout="longText">
+			<fr:slot name="content" key="label.comment" layout="longText" required="true">
 				<fr:property name="columns" value="60" />
 				<fr:property name="rows" value="5" />
 			</fr:slot>

@@ -56,7 +56,7 @@ public class DegreeTeachingService extends DegreeTeachingService_Base {
             throw new DomainException("arguments can't be null");
         }
         if (percentage > 100 || percentage < 0) {
-            throw new DomainException("message.invalid.professorship.percentage");
+            throw new DomainException("message.invalid.percentage");
         }
         setTeacherService(teacherService);
         TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), Authenticate.getUser());
@@ -66,7 +66,7 @@ public class DegreeTeachingService extends DegreeTeachingService_Base {
         Double availablePercentage = TeacherService.getAvailableShiftPercentage(getShift(), getProfessorship());
 
         if (percentage > availablePercentage) {
-            throw new DomainException("message.exceeded.professorship.percentage");
+            throw new DomainException("message.exceeded.percentage");
         }
 
         setPercentage(percentage);
@@ -87,14 +87,14 @@ public class DegreeTeachingService extends DegreeTeachingService_Base {
     public void updatePercentage(Double percentage) {
         TeacherCreditsFillingCE.checkValidCreditsPeriod(getTeacherService().getExecutionPeriod(), Authenticate.getUser());
         if (percentage == null || percentage > 100 || percentage < 0) {
-            throw new DomainException("message.invalid.professorship.percentage");
+            throw new DomainException("message.invalid.percentage");
         }
         if (percentage == 0) {
             delete();
         } else {
             Double availablePercentage = TeacherService.getAvailableShiftPercentage(getShift(), getProfessorship());
             if (percentage > availablePercentage) {
-                throw new DomainException("message.exceeded.professorship.percentage");
+                throw new DomainException("message.exceeded.percentage");
             }
             setPercentage(percentage);
         }

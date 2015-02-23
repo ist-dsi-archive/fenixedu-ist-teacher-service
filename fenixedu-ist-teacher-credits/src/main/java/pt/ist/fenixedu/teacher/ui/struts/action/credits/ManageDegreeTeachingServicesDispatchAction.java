@@ -21,13 +21,6 @@
  */
 package pt.ist.fenixedu.teacher.ui.struts.action.credits;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,95 +29,82 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.domain.Professorship;
-import org.fenixedu.academic.domain.Shift;
 import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.bennu.core.domain.User;
+import org.fenixedu.bennu.core.security.Authenticate;
+import org.fenixedu.bennu.struts.annotations.ExceptionHandling;
+import org.fenixedu.bennu.struts.annotations.Exceptions;
+import org.fenixedu.bennu.struts.annotations.Forward;
+import org.fenixedu.bennu.struts.annotations.Forwards;
+import org.fenixedu.bennu.struts.annotations.Mapping;
 
-import pt.ist.fenixedu.teacher.domain.teacher.DegreeTeachingService;
-import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
-import pt.ist.fenixedu.teacher.service.teacher.services.UpdateDegreeTeachingServices;
-import pt.ist.fenixedu.teacher.util.OrderedIterator;
-import pt.ist.fenixframework.FenixFramework;
+import pt.ist.fenixedu.teacher.domain.credits.util.DegreeTeachingServiceBean;
 
 /**
  * @author Ricardo Rodrigues
  * 
  */
 
+@Mapping(path = "/degreeTeachingServiceManagement",
+        input = "/degreeTeachingServiceManagement.do?method=showTeachingServiceDetails",
+        functionality = ViewTeacherCreditsDA.class)
+@Forwards(value = {
+        @Forward(name = "teacher-not-found", path = "/credits.do?method=viewAnnualTeachingCredits"),
+        @Forward(name = "sucessfull-edit", path = "/credits.do?method=viewAnnualTeachingCredits"),
+        @Forward(name = "show-teaching-service-percentages",
+                path = "/credits/degreeTeachingService/showTeachingServicePercentages.jsp") })
+@Exceptions(value = { @ExceptionHandling(type = java.lang.NumberFormatException.class,
+        key = "message.invalid.professorship.percentage", handler = org.apache.struts.action.ExceptionHandler.class,
+        path = "/degreeTeachingServiceManagement.do?method=showTeachingServiceDetails&page=0", scope = "request") })
 public class ManageDegreeTeachingServicesDispatchAction extends FenixDispatchAction {
 
-    public static final Comparator<TeachingServicePercentage> TEACHING_SERVICE_PERCENTAGE_COMPARATOR_BY_SHIFT =
-            new Comparator<TeachingServicePercentage>() {
-                @Override
-                public int compare(TeachingServicePercentage teachingServicePercentage1,
-                        TeachingServicePercentage teachingServicePercentage2) {
-                    return Shift.SHIFT_COMPARATOR_BY_TYPE_AND_ORDERED_LESSONS.compare(teachingServicePercentage1.getShift(),
-                            teachingServicePercentage2.getShift());
-                }
-            };
+    public ActionForward showTeachingServiceDetails(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+            HttpServletResponse response) throws NumberFormatException, FenixServiceException {
+        Professorship professorship = getDomainObject(request, "professorshipID");
 
-    protected void teachingServiceDetailsProcess(Professorship professorship, HttpServletRequest request, DynaActionForm dynaForm)
-            throws NumberFormatException, FenixServiceException {
-
-        List<TeachingServicePercentage> teachingServicePercentages = new ArrayList<TeachingServicePercentage>();
-        HashMap<String, Double> teacherPercentageMap = new HashMap<String, Double>();
-
-        for (Shift shift : professorship.getExecutionCourse().getAssociatedShifts()) {
-            Double availablePercentage = TeacherService.getAvailableShiftPercentage(shift, professorship);
-            teachingServicePercentages.add(new TeachingServicePercentage(shift, availablePercentage));
-            for (DegreeTeachingService degreeTeachingService : shift.getDegreeTeachingServicesSet()) {
-                if (professorship == degreeTeachingService.getProfessorship()) {
-                    teacherPercentageMap.put(shift.getExternalId().toString(), round(degreeTeachingService.getPercentage()));
-                    break;
-                }
-            }
+        if (professorship == null || professorship.getTeacher() == null || !canManageTeacherCredits(professorship)) {
+            return mapping.findForward("teacher-not-found");
         }
 
-        Iterator<TeachingServicePercentage> teachingServicePercentagesIterator =
-                new OrderedIterator<TeachingServicePercentage>(teachingServicePercentages.iterator(),
-                        TEACHING_SERVICE_PERCENTAGE_COMPARATOR_BY_SHIFT);
-
-        request.setAttribute("professorship", professorship);
-        request.setAttribute("teachingServicePercentages", teachingServicePercentagesIterator);
-        dynaForm.set("teacherPercentageMap", teacherPercentageMap);
+        DegreeTeachingServiceBean degreeTeachingServiceBean = new DegreeTeachingServiceBean(professorship);
+        request.setAttribute("degreeTeachingServiceBean", degreeTeachingServiceBean);
+        return mapping.findForward("show-teaching-service-percentages");
     }
 
-    protected ActionForward updateTeachingServices(ActionMapping mapping, ActionForm form, HttpServletRequest request)
-            throws NumberFormatException, FenixServiceException {
+    private boolean canManageTeacherCredits(Professorship professorship) {
+        User loggedUser = Authenticate.getUser();
+        return loggedUser.getPerson().equals(professorship.getTeacher().getPerson())
+                || RoleType.SCIENTIFIC_COUNCIL.isMember(loggedUser)
+                || loggedUser
+                        .getPerson()
+                        .getManageableDepartmentCreditsSet()
+                        .contains(
+                                professorship
+                                        .getTeacher()
+                                        .getDepartment(
+                                                professorship.getExecutionCourse().getExecutionPeriod().getAcademicInterval())
+                                        .orElse(null));
+    }
 
-        DynaActionForm teachingServiceForm = (DynaActionForm) form;
-        HashMap<String, String[]> teacherPercentageMap =
-                (HashMap<String, String[]>) teachingServiceForm.get("teacherPercentageMap");
+    public ActionForward updateTeachingServices(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+            HttpServletResponse response) throws NumberFormatException, FenixServiceException {
 
-        String professorshipID = (String) teachingServiceForm.get("professorshipID");
-
-        List<ShiftIDTeachingPercentage> shiftIDPercentages = new ArrayList<ShiftIDTeachingPercentage>();
-        Iterator<Map.Entry<String, String[]>> entryInterator = teacherPercentageMap.entrySet().iterator();
-        while (entryInterator.hasNext()) {
-            Map.Entry<String, String[]> entry = entryInterator.next();
-            String percentage = entry.getValue()[0];
-            if ((percentage != null) && (percentage.length() != 0)) {
-                percentage = percentage.replace(',', '.');
-                String shiftID = entry.getKey();
-                ShiftIDTeachingPercentage shiftIDPercentage = new ShiftIDTeachingPercentage(shiftID, Double.valueOf(percentage));
-                shiftIDPercentages.add(shiftIDPercentage);
-            }
-        }
+        DegreeTeachingServiceBean degreeTeachingServiceBean = getRenderedObject("degreeTeachingServiceBean");
 
         try {
-            UpdateDegreeTeachingServices.runUpdateDegreeTeachingServices(professorshipID, shiftIDPercentages);
+            degreeTeachingServiceBean.updateDegreeTeachingServices();
         } catch (DomainException domainException) {
             ActionMessages actionMessages = new ActionMessages();
-            actionMessages.add("error", new ActionMessage(domainException.getMessage(), domainException.getArgs()));
+            actionMessages.add("", new ActionMessage(domainException.getMessage(), domainException.getArgs()));
             saveMessages(request, actionMessages);
-            Professorship professorship = FenixFramework.getDomainObject(professorshipID);
-            teachingServiceDetailsProcess(professorship, request, teachingServiceForm);
+            request.setAttribute("degreeTeachingServiceBean", degreeTeachingServiceBean);
             return mapping.findForward("show-teaching-service-percentages");
         }
-
+        request.setAttribute("professorshipID", degreeTeachingServiceBean.getProfessorship().getExternalId());
         return mapping.findForward("sucessfull-edit");
     }
 
@@ -134,64 +114,4 @@ public class ManageDegreeTeachingServicesDispatchAction extends FenixDispatchAct
         return mapping.findForward("sucessfull-edit");
     }
 
-    public class ShiftIDTeachingPercentage {
-
-        String shiftID;
-
-        Double percentage;
-
-        public ShiftIDTeachingPercentage(String shiftID, Double percentage) {
-            setShiftID(shiftID);
-            setPercentage(percentage);
-        }
-
-        public Double getPercentage() {
-            return percentage;
-        }
-
-        public void setPercentage(Double percentage) {
-            this.percentage = percentage;
-        }
-
-        public String getShiftID() {
-            return shiftID;
-        }
-
-        public void setShiftID(String shiftID) {
-            this.shiftID = shiftID;
-        }
-
-    }
-
-    public class TeachingServicePercentage {
-
-        Shift shift;
-
-        Double availablePercentage;
-
-        public TeachingServicePercentage(Shift shift, Double availablePercentage) {
-            setShift(shift);
-            setAvailablePercentage(availablePercentage);
-        }
-
-        public Double getAvailablePercentage() {
-            return availablePercentage;
-        }
-
-        public void setAvailablePercentage(Double availablePercentage) {
-            this.availablePercentage = availablePercentage;
-        }
-
-        public Shift getShift() {
-            return shift;
-        }
-
-        public void setShift(Shift shift) {
-            this.shift = shift;
-        }
-    }
-
-    private Double round(double n) {
-        return Math.round((n * 100.0)) / 100.0;
-    }
 }

@@ -51,5 +51,6 @@
 			<fr:property name="classes" value="tstyle5 thlight mtop15" />
 			<fr:property name="columnClasses" value=",,tdclear tderror1" />
 		</fr:layout>
+		<fr:destination name="cancel" path="/credits.do?method=prepareTeacherSearch" />
 	</fr:edit>
 </logic:present>

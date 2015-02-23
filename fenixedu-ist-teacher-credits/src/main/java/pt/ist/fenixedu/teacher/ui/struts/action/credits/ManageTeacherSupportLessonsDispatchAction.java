@@ -21,167 +21,89 @@
  */
 package pt.ist.fenixedu.teacher.ui.struts.action.credits;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
-import org.fenixedu.academic.ui.struts.action.exceptions.FenixActionException;
-import org.fenixedu.academic.util.DiaSemana;
-import org.fenixedu.academic.util.WeekDay;
+import org.fenixedu.bennu.core.domain.User;
+import org.fenixedu.bennu.core.security.Authenticate;
+import org.fenixedu.bennu.struts.annotations.ExceptionHandling;
+import org.fenixedu.bennu.struts.annotations.Exceptions;
+import org.fenixedu.bennu.struts.annotations.Forward;
+import org.fenixedu.bennu.struts.annotations.Forwards;
+import org.fenixedu.bennu.struts.annotations.Mapping;
 
 import pt.ist.fenixedu.teacher.domain.SupportLesson;
-import pt.ist.fenixedu.teacher.dto.teacher.professorship.SupportLessonDTO;
-import pt.ist.fenixedu.teacher.service.teacher.professorship.DeleteSupportLesson;
-import pt.ist.fenixedu.teacher.service.teacher.professorship.EditSupportLesson;
 
 /**
  * @author Ricardo Rodrigues
  * 
  */
 
+@Mapping(path = "/supportLessonsManagement", functionality = ViewTeacherCreditsDA.class)
+@Forwards(value = {
+        @Forward(name = "successfull-delete", path = "/degreeTeachingServiceManagement.do?method=showTeachingServiceDetails"),
+        @Forward(name = "successfull-edit", path = "/degreeTeachingServiceManagement.do?method=showTeachingServiceDetails"),
+        @Forward(name = "edit-support-lesson", path = "/credits/supportLessons/editSupportLesson.jsp"),
+        @Forward(name = "list-support-lessons", path = "/degreeTeachingServiceManagement.do?method=showTeachingServiceDetails"),
+        @Forward(name = "teacher-not-found", path = "/credits.do?method=viewAnnualTeachingCredits") })
+@Exceptions(value = { @ExceptionHandling(type = org.fenixedu.academic.domain.exceptions.DomainException.class,
+        handler = org.fenixedu.academic.ui.struts.config.FenixDomainExceptionHandler.class, scope = "request") })
 public class ManageTeacherSupportLessonsDispatchAction extends FenixDispatchAction {
 
-    protected void prepareToEdit(SupportLesson supportLesson, Professorship professorship, DynaActionForm supportLessonForm,
-            HttpServletRequest request) throws NumberFormatException, FenixServiceException {
+    public ActionForward prepareEdit(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+            HttpServletResponse response) throws NumberFormatException, FenixServiceException {
 
-        if (supportLesson != null) {
-            Date startTime = supportLesson.getStartTime();
-            Date endTime = supportLesson.getEndTime();
-            if (startTime != null || endTime != null) {
-                Calendar time = Calendar.getInstance();
-                if (startTime != null) {
-                    time.setTime(startTime);
-                    supportLessonForm.set("startTimeHour", String.valueOf(time.get(Calendar.HOUR_OF_DAY)));
-                    supportLessonForm.set("startTimeMinutes", String.valueOf(time.get(Calendar.MINUTE)));
-                }
-                if (endTime != null) {
-                    time.setTime(endTime);
-                    supportLessonForm.set("endTimeHour", String.valueOf(time.get(Calendar.HOUR_OF_DAY)));
-                    supportLessonForm.set("endTimeMinutes", String.valueOf(time.get(Calendar.MINUTE)));
-                }
-            }
-            supportLessonForm.set("weekDay", getValidWeekDay(supportLesson.getWeekDay().getDiaSemana()));
-            supportLessonForm.set("place", supportLesson.getPlace());
-            supportLessonForm.set("supportLessonID", supportLesson.getExternalId());
-            supportLessonForm.set("professorshipID", supportLesson.getProfessorship().getExternalId());
+        SupportLesson supportLesson = getDomainObject(request, "supportLessonID");
+        Professorship professorship =
+                supportLesson == null ? getDomainObject(request, "professorshipID") : supportLesson.getProfessorship();
 
-            request.setAttribute("supportLesson", supportLesson);
+        if (professorship == null || professorship.getTeacher() == null || !canManageTeacherCredits(professorship)) {
+            return mapping.findForward("teacher-not-found");
         }
-
         request.setAttribute("professorship", professorship);
+        request.setAttribute("supportLesson", supportLesson);
+        return mapping.findForward("edit-support-lesson");
     }
 
-    protected void editSupportLesson(ActionForm form, HttpServletRequest request) throws NumberFormatException,
-            FenixServiceException, InvalidPeriodException {
+    private boolean canManageTeacherCredits(Professorship professorship) {
+        User loggedUser = Authenticate.getUser();
+        return loggedUser.getPerson().equals(professorship.getTeacher().getPerson())
+                || RoleType.SCIENTIFIC_COUNCIL.isMember(loggedUser)
+                || loggedUser
+                        .getPerson()
+                        .getManageableDepartmentCreditsSet()
+                        .contains(
+                                professorship
+                                        .getTeacher()
+                                        .getDepartment(
+                                                professorship.getExecutionCourse().getExecutionPeriod().getAcademicInterval())
+                                        .orElse(null));
+    }
 
-        DynaActionForm supportLessonForm = (DynaActionForm) form;
-        SupportLessonDTO supportLessonDTO = new SupportLessonDTO();
+    public ActionForward deleteSupportLesson(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+            HttpServletResponse response) throws NumberFormatException, FenixServiceException {
 
-        supportLessonDTO.setExternalId(supportLessonForm.get("supportLessonID").equals("") ? null : (String) supportLessonForm
-                .get("supportLessonID"));
-        supportLessonDTO.setProfessorshipID((String) supportLessonForm.get("professorshipID"));
-        supportLessonDTO.setWeekDay(getCorrectWeekDay((String) supportLessonForm.get("weekDay")));
-        Calendar calendar = Calendar.getInstance();
-
-        setHoursAndMinutes(calendar, Integer.valueOf((String) supportLessonForm.get("startTimeHour")),
-                Integer.valueOf((String) supportLessonForm.get("startTimeMinutes")));
-        supportLessonDTO.setStartTime(new Date(calendar.getTimeInMillis()));
-
-        setHoursAndMinutes(calendar, Integer.valueOf((String) supportLessonForm.get("endTimeHour")),
-                Integer.valueOf((String) supportLessonForm.get("endTimeMinutes")));
-        supportLessonDTO.setEndTime(new Date(calendar.getTimeInMillis()));
-        supportLessonDTO.setPlace((String) supportLessonForm.get("place"));
-
-        Calendar begin = Calendar.getInstance();
-        begin.setTime(supportLessonDTO.getStartTime());
-        Calendar end = Calendar.getInstance();
-        end.setTime(supportLessonDTO.getEndTime());
-
-        if (end.before(begin)) {
-            throw new InvalidPeriodException();
-        }
+        SupportLesson supportLesson = getDomainObject(request, "supportLessonID");
+        Professorship professorship =
+                supportLesson == null ? getDomainObject(request, "professorshipID") : supportLesson.getProfessorship();
+        request.setAttribute("professorshipID", professorship.getExternalId());
         try {
-            EditSupportLesson.runEditSupportLesson(supportLessonDTO);
+            supportLesson.delete();
         } catch (DomainException e) {
-            saveMessages(request, e);
+            ActionMessages actionMessages = new ActionMessages();
+            actionMessages.add("", new ActionMessage(e.getMessage(), e.getArgs()));
+            saveMessages(request, actionMessages);
         }
-    }
-
-    protected void deleteSupportLesson(HttpServletRequest request, ActionForm form) throws NumberFormatException,
-            FenixServiceException {
-
-        DynaActionForm supportLessonForm = (DynaActionForm) form;
-        String supportLessonID = (String) supportLessonForm.get("supportLessonID");
-        try {
-            DeleteSupportLesson.runDeleteSupportLesson(supportLessonID);
-        } catch (DomainException e) {
-            saveMessages(request, e);
-        }
-    }
-
-    private String getValidWeekDay(Integer diaSemana) {
-        switch (diaSemana) {
-        case 2:
-            return WeekDay.MONDAY.getName();
-        case 3:
-            return WeekDay.TUESDAY.getName();
-        case 4:
-            return WeekDay.WEDNESDAY.getName();
-        case 5:
-            return WeekDay.THURSDAY.getName();
-        case 6:
-            return WeekDay.FRIDAY.getName();
-        case 7:
-            return WeekDay.SATURDAY.getName();
-        default:
-            break;
-        }
-        return null;
-    }
-
-    private DiaSemana getCorrectWeekDay(String weekDayString) {
-        WeekDay weekDay = WeekDay.valueOf(weekDayString);
-        switch (weekDay) {
-        case MONDAY:
-            return new DiaSemana(2);
-        case TUESDAY:
-            return new DiaSemana(3);
-        case WEDNESDAY:
-            return new DiaSemana(4);
-        case THURSDAY:
-            return new DiaSemana(5);
-        case FRIDAY:
-            return new DiaSemana(6);
-        case SATURDAY:
-            return new DiaSemana(7);
-        default:
-            break;
-        }
-        return null;
-    }
-
-    private void setHoursAndMinutes(Calendar calendar, Integer hour, Integer minutes) {
-        calendar.set(Calendar.HOUR_OF_DAY, hour != null ? hour.intValue() : 0);
-        calendar.set(Calendar.MINUTE, minutes != null ? minutes.intValue() : 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-    }
-
-    public class InvalidPeriodException extends FenixActionException {
-    }
-
-    private void saveMessages(HttpServletRequest request, DomainException e) {
-        ActionMessages actionMessages = new ActionMessages();
-        actionMessages.add("", new ActionMessage(e.getMessage(), e.getArgs()));
-        saveMessages(request, actionMessages);
+        return mapping.findForward("successfull-delete");
     }
 }

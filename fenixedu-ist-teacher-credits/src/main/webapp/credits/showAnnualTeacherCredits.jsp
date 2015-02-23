@@ -102,6 +102,7 @@ if(RoleType.SCIENTIFIC_COUNCIL.actualGroup().isMember(user)){
 	<bean:message key="label.credits.usefull.information" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/>
 </div>
 
+
 <logic:notEmpty name="roleType">
 	<p><html:link page='<%= "/annualTeachingCreditsDocument.do?method=getAnnualTeachingCreditsPdf&teacherOid="+teacherId+"&executionYearOid=" + executionYearOid %>'>
 		<bean:message key="label.exportToPDF"  bundle="TEACHER_CREDITS_SHEET_RESOURCES"/>
@@ -211,7 +212,7 @@ if(RoleType.SCIENTIFIC_COUNCIL.actualGroup().isMember(user)){
 							</logic:equal>
 							<logic:notEqual name="canEditCreditsInfo" value="true">
 								<bean:write name="professorship" property="executionCourse.name"/> (<bean:write name="professorship" property="degreeSiglas"/>)
-							</logic:notEqual>									
+							</logic:notEqual>
 						</td>
 						<td rowspan="<%= java.lang.Math.max(Integer.parseInt(totalNumberOfLessons),1)%>"><bean:write name="professorship" property="executionCourse.effortRate"/></td>
 						<td rowspan="<%= java.lang.Math.max(Integer.parseInt(totalNumberOfLessons),1)%>"><bean:write name="professorship" property="executionCourse.unitCreditValue"/></td>
@@ -436,7 +437,7 @@ if(RoleType.SCIENTIFIC_COUNCIL.actualGroup().isMember(user)){
 			<bean:define id="canEditCreditsInfo" name="annualTeachingCreditsBean" property="canEditTeacherCreditsInAnyPeriod"/>
 			<logic:equal name="canEditCreditsInfo" value="true">
 				<html:link page='<%= "/degreeProjectTutorialService.do?page=0&amp;method=showProjectTutorialServiceDetails&amp;professorshipID="+professorshipID + "&amp;executionPeriodId="+ executionPeriodId %>'>
-					<bean:message key="link.change" />
+					<bean:message key="link.change" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/>
 				</html:link>
 			</logic:equal>
 		</logic:iterate>
@@ -471,36 +472,38 @@ if(RoleType.SCIENTIFIC_COUNCIL.actualGroup().isMember(user)){
 			</logic:empty>
 			<logic:notEmpty name="personFunctions">
 				<fr:view name="annualTeachingCreditsByPeriodBean" property="personFunctions">
-					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction">
-						<fr:slot name="function.name" key="label.managementPosition.position"/>
-						<fr:slot name="function.unit.name" key="label.managementPosition.unit"/>
+					<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.credits.util.PersonFunctionBean">
+						<fr:slot name="personFunction.function.name" key="label.managementPosition.position"/>
+						<fr:slot name="personFunction.function.unit.name" key="label.managementPosition.unit"/>
 						<logic:equal name="areCreditsCalculated" value="true">	
-							<fr:slot name="credits" key="label.managementPosition.credits"/>
+							<fr:slot name="personFunction.credits" key="label.managementPosition.credits"/>
 						</logic:equal>
 					</fr:schema>
 					<fr:layout name="tabular">
 						<fr:property name="classes" value="tstyle2 thlight thleft mtop05 mbottom05"/>
-						<logic:equal name="roleType" value="DEPARTMENT_ADMINISTRATIVE_OFFICE">
-							<fr:property name="link(edit)" value="/managePersonFunctionsShared.do?method=prepareToEditPersonFunctionShared" />
-							<fr:property name="key(edit)" value="label.edit" />
-							<fr:property name="param(edit)" value="externalId/personFunctionOid" />
-							<fr:property name="bundle(edit)" value="TEACHER_CREDITS_SHEET_RESOURCES" />
-							<fr:property name="visibleIf(edit)" value="canBeEditedByDepartmentAdministrativeOffice" />
-							<fr:property name="link(delete)" value="<%="/managePersonFunctionsShared.do?method=deletePersonFunctionShared&executionYearOid="+executionYearOid%>" />
-							<fr:property name="key(delete)" value="label.delete" />
-							<fr:property name="param(delete)" value="externalId/personFunctionOid" />
-							<fr:property name="bundle(delete)" value="TEACHER_CREDITS_SHEET_RESOURCES" />
-							<fr:property name="visibleIf(delete)" value="canBeEditedByDepartmentAdministrativeOffice" />
-						</logic:equal>
-						<logic:equal name="roleType" value="SCIENTIFIC_COUNCIL">
-							<fr:property name="link(edit2)" value="<%="/managePersonFunctionsShared.do?method=prepareToEditPersonFunction&executionPeriodOid="+executionPeriodOid%>" />
-							<fr:property name="key(edit2)" value="label.edit" />
-							<fr:property name="param(edit2)" value="externalId/personFunctionOid" />
-							<fr:property name="bundle(edit2)" value="TEACHER_CREDITS_SHEET_RESOURCES" />
-							<fr:property name="link(delete2)" value="<%="/managePersonFunctionsShared.do?method=deletePersonFunctionShared&executionYearOid="+executionYearOid%>" />
-							<fr:property name="key(delete2)" value="label.delete" />
-							<fr:property name="param(delete2)" value="externalId/personFunctionOid" />
-							<fr:property name="bundle(delete2)" value="TEACHER_CREDITS_SHEET_RESOURCES" />
+						<logic:equal name="annualTeachingCreditsByPeriodBean" property="canEditTeacherManagementFunctions" value="true">
+							<logic:equal name="roleType" value="DEPARTMENT_ADMINISTRATIVE_OFFICE">
+								<fr:property name="link(edit)" value="/managePersonFunctionsShared.do?method=prepareToEditPersonFunctionShared" />
+								<fr:property name="key(edit)" value="label.edit" />
+								<fr:property name="param(edit)" value="personFunction.externalId/personFunctionOid" />
+								<fr:property name="bundle(edit)" value="TEACHER_CREDITS_SHEET_RESOURCES" />
+								<fr:property name="visibleIf(edit)" value="canBeEditedByDepartmentAdministrativeOffice" />
+								<fr:property name="link(delete)" value="<%="/managePersonFunctionsShared.do?method=deletePersonFunctionShared&executionYearOid="+executionYearOid%>" />
+								<fr:property name="key(delete)" value="label.delete" />
+								<fr:property name="param(delete)" value="personFunction.externalId/personFunctionOid" />
+								<fr:property name="bundle(delete)" value="TEACHER_CREDITS_SHEET_RESOURCES" />
+								<fr:property name="visibleIf(delete)" value="canBeEditedByDepartmentAdministrativeOffice" />
+							</logic:equal>
+							<logic:equal name="roleType" value="SCIENTIFIC_COUNCIL">
+								<fr:property name="link(edit2)" value="<%="/managePersonFunctionsShared.do?method=prepareToEditPersonFunction&executionPeriodOid="+executionPeriodOid%>" />
+								<fr:property name="key(edit2)" value="label.edit" />
+								<fr:property name="param(edit2)" value="personFunction.externalId/personFunctionOid" />
+								<fr:property name="bundle(edit2)" value="TEACHER_CREDITS_SHEET_RESOURCES" />
+								<fr:property name="link(delete2)" value="<%="/managePersonFunctionsShared.do?method=deletePersonFunctionShared&executionYearOid="+executionYearOid%>" />
+								<fr:property name="key(delete2)" value="label.delete" />
+								<fr:property name="param(delete2)" value="personFunction.externalId/personFunctionOid" />
+								<fr:property name="bundle(delete2)" value="TEACHER_CREDITS_SHEET_RESOURCES" />
+							</logic:equal>
 						</logic:equal>
 					</fr:layout>
 				</fr:view>
@@ -579,11 +582,11 @@ if(RoleType.SCIENTIFIC_COUNCIL.actualGroup().isMember(user)){
 					<fr:property name="param(edit)" value="executionPeriod.externalId/executionPeriodOID,teacher.externalId/teacherOID" />
 					<fr:property name="bundle(edit)" value="TEACHER_CREDITS_SHEET_RESOURCES" />
 					<fr:property name="visibleIf(edit)" value="canEditTeacherCreditsReductions" />
-				  	<logic:equal name="roleType" value="SCIENTIFIC_COUNCIL">
-					  	<fr:property name="link(aprove)" value="/creditsReductions.do?method=aproveReductionService" />
-						<fr:property name="key(aprove)" value="label.edit" />
-						<fr:property name="param(aprove)" value="executionPeriod.externalId/executionPeriodOID,teacher.externalId/teacherOID" />
-						<fr:property name="bundle(aprove)" value="TEACHER_CREDITS_SHEET_RESOURCES" />
+					<logic:equal name="roleType" value="SCIENTIFIC_COUNCIL">
+					  	<fr:property name="link(editCC)" value="/creditsReductions.do?method=editCreditsReduction" />
+						<fr:property name="key(editCC)" value="label.edit" />
+						<fr:property name="param(editCC)" value="executionPeriod.externalId/executionPeriodOID,teacher.externalId/teacherOID" />
+						<fr:property name="bundle(editCC)" value="TEACHER_CREDITS_SHEET_RESOURCES" />
 					</logic:equal>
 				</fr:layout>
 			</fr:view>

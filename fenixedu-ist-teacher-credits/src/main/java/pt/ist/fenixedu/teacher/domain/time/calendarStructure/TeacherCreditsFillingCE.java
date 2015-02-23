@@ -18,14 +18,8 @@
  */
 package pt.ist.fenixedu.teacher.domain.time.calendarStructure;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.organizationalStructure.PartyTypeEnum;
-import org.fenixedu.academic.domain.organizationalStructure.Unit;
-import org.fenixedu.academic.domain.organizationalStructure.UnitUtils;
 import org.fenixedu.academic.domain.person.RoleType;
 import org.fenixedu.academic.domain.time.calendarStructure.AcademicCalendarEntry;
 import org.fenixedu.academic.domain.time.calendarStructure.AcademicCalendarRootEntry;
@@ -35,8 +29,6 @@ import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.joda.time.DateTime;
 
-import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunction;
-import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunctionShared;
 import pt.ist.fenixedu.teacher.domain.credits.CreditsPersonFunctionsSharedQueueJob;
 import pt.utl.ist.fenix.tools.util.i18n.MultiLanguageString;
 
@@ -178,31 +170,6 @@ public abstract class TeacherCreditsFillingCE extends TeacherCreditsFillingCE_Ba
                         "dd-MM-yyy HH:mm"), validCreditsPerid.getEnd().toString("dd-MM-yyy HH:mm"));
             }
         }
-    }
-
-    public static boolean getCanBeEditedByDepartmentAdministrativeOffice(PersonFunction personFunction) {
-        ExecutionSemester executionSemester = ExecutionSemester.readByYearMonthDay(personFunction.getBeginDate());
-        if (personFunction instanceof PersonFunctionShared) {
-            TeacherCreditsFillingForDepartmentAdmOfficeCE teacherCreditsFillingForDepartmentAdmOfficePeriod =
-                    TeacherCreditsFillingForDepartmentAdmOfficeCE
-                            .getTeacherCreditsFillingForDepartmentAdmOffice(executionSemester.getAcademicInterval());
-            boolean validCreditsPerid =
-                    teacherCreditsFillingForDepartmentAdmOfficePeriod != null
-                            && teacherCreditsFillingForDepartmentAdmOfficePeriod.containsNow();
-            if (validCreditsPerid) {
-                List<Unit> units = UnitUtils.readAllActiveUnitsByType(PartyTypeEnum.DEPARTMENT);
-                units.addAll(UnitUtils.readAllActiveUnitsByType(PartyTypeEnum.DEGREE_UNIT));
-                units.addAll(UnitUtils.readAllActiveUnitsByType(PartyTypeEnum.SCIENTIFIC_AREA));
-                for (Iterator<Unit> iterator = units.iterator(); iterator.hasNext();) {
-                    Unit unit = iterator.next();
-                    if (unit.getUnitName().getIsExternalUnit()) {
-                        iterator.remove();
-                    }
-                }
-                return units.contains(personFunction.getUnit());
-            }
-        }
-        return false;
     }
 
 }

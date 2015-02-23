@@ -18,6 +18,7 @@
     along with FenixEdu Teacher Credits.  If not, see <http://www.gnu.org/licenses/>.
 
 --%>
+<%@ page isELIgnored="true"%>
 <%@ page language="java" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <html:xhtml/>
@@ -27,7 +28,7 @@
 
 <logic:present role="role(SCIENTIFIC_COUNCIL)">
 
-	<h2><bean:message key="link.define.periods"/></h2>
+	<h2><bean:message key="link.define.periods" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></h2>
 
 	<p><span class="error"><!-- Error messages go here --><html:errors /></span></p>	
 	<html:messages id="message" message="true">
@@ -41,7 +42,14 @@
 	<logic:notEmpty name="teacherCreditsBean">
 		
 		<fr:form action="/defineCreditsPeriods.do">
-			<fr:edit name="teacherCreditsBean" schema="teacher.credits.list.execution.periods" id="teacherCreditsBeanID">
+			<fr:edit name="teacherCreditsBean" id="teacherCreditsBeanID">
+				<fr:schema type="pt.ist.fenixedu.teacher.dto.teacherCredits.TeacherCreditsPeriodBean" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
+				 	<fr:slot name="executionPeriod" key="label.execution-period" layout="menu-select-postback">
+				      <fr:property name="providerClass" value="org.fenixedu.academic.ui.renderers.providers.NotClosedExecutionPeriodsProvider" />
+				      <fr:property name="format" value="${year} - ${semester}º Sem." />
+				      <fr:property name="destination" value="postBack" />
+				    </fr:slot>
+				</fr:schema>
 				<fr:destination name="postBack" path="/defineCreditsPeriods.do?method=showPeriods"/>		
 				<fr:layout name="tabular">
 					<fr:property name="classes" value="tstyle5 thlight thright thmiddle mtop05"/>
@@ -61,23 +69,47 @@
 			</logic:present>
 		</fr:form>
 		<h3 class="mtop15 mbottom05"><bean:message key="label.teacher"/></h3>
-		<fr:view name="teacherCreditsBean" schema="teacher.credits.period.view" layout="tabular">	
+		<fr:view name="teacherCreditsBean" layout="tabular">
+			<fr:schema type="pt.ist.fenixedu.teacher.dto.teacherCredits.TeacherCreditsPeriodBean" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
+			    <fr:slot name="beginForTeacher" key="label.beginDate">
+			        <fr:validator name="org.fenixedu.academic.ui.renderers.validators.DateTimeValidator">
+			            <fr:property name="required" value="true" />
+			        </fr:validator>
+			    </fr:slot>
+			    <fr:slot name="endForTeacher" key="label.endDate">
+			        <fr:validator name="org.fenixedu.academic.ui.renderers.validators.DateTimeValidator">
+			            <fr:property name="required" value="true" />
+			        </fr:validator>
+			    </fr:slot>
+			</fr:schema>	
 			<fr:layout>
 				<fr:property name="classes" value="tstyle2 thleft thlight mtop05"/>
 			</fr:layout>
 		</fr:view>
 		<html:link page="/defineCreditsPeriods.do?method=prepareEditTeacherCreditsPeriod" paramName="teacherCreditsBean" paramProperty="executionPeriod.externalId" paramId="executionPeriodId">
-			<bean:message key="link.change"/>
+			<bean:message key="link.change" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/>
 		</html:link>
 		
-		<h3 class="mtop15 mbottom05"><bean:message key="label.department.adm.office"/></h3>
-		<fr:view name="teacherCreditsBean" schema="departmentAdmOffice.credits.period.view" layout="tabular">
+		<h3 class="mtop15 mbottom05"><bean:message key="label.departmentAdmOffice" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></h3>
+		<fr:view name="teacherCreditsBean" layout="tabular">
+			<fr:schema type="pt.ist.fenixedu.teacher.dto.teacherCredits.TeacherCreditsPeriodBean" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
+			    <fr:slot name="beginForDepartmentAdmOffice" key="label.beginDate">
+			        <fr:validator name="org.fenixedu.academic.ui.renderers.validators.DateTimeValidator">
+			            <fr:property name="required" value="true" />
+			        </fr:validator>
+			    </fr:slot>
+			    <fr:slot name="endForDepartmentAdmOffice" key="label.endDate">
+			        <fr:validator name="org.fenixedu.academic.ui.renderers.validators.DateTimeValidator">
+			            <fr:property name="required" value="true" />
+			        </fr:validator>
+			    </fr:slot>
+			</fr:schema>
 			<fr:layout>
 				<fr:property name="classes" value="tstyle2 thleft thlight mtop05"/>
 			</fr:layout>
 		</fr:view>
 		<html:link page="/defineCreditsPeriods.do?method=prepareEditDepartmentAdmOfficeCreditsPeriod" paramName="teacherCreditsBean" paramProperty="executionPeriod.externalId" paramId="executionPeriodId">
-			<bean:message key="link.change"/>
+			<bean:message key="link.change" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/>
 		</html:link>			
 		
 		<logic:present name="editInterval">
@@ -108,10 +140,10 @@
 				<fr:destination name="cancel" path="/defineCreditsPeriods.do?method=showPeriods"/>
 			</fr:edit>
 			<logic:equal name="editInterval" value="sharedUnitCredits">
-				<html:submit bundle="HTMLALT_RESOURCES" altKey="submit.submit" styleClass="inputbutton"><bean:message key="link.change"/></html:submit>
+				<html:submit bundle="HTMLALT_RESOURCES" altKey="submit.submit" styleClass="inputbutton"><bean:message key="link.change" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></html:submit>
 			</logic:equal>
 			<logic:notEqual name="editInterval" value="sharedUnitCredits">
-				<a href="#" onclick="javascript:document.getElementById('sharedUnitCreditsForm').submit();"><bean:message key="link.change"/></a>
+				<a href="#" onclick="javascript:document.getElementById('sharedUnitCreditsForm').submit();"><bean:message key="link.change" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></a>
 			</logic:notEqual>
 		</fr:form>
 
@@ -136,10 +168,10 @@
 				<fr:destination name="cancel" path="/defineCreditsPeriods.do?method=showPeriods"/>
 			</fr:edit>
 			<logic:equal name="editInterval" value="unitCredits">
-				<html:submit bundle="HTMLALT_RESOURCES" altKey="submit.submit" styleClass="inputbutton"><bean:message key="link.change"/></html:submit>
+				<html:submit bundle="HTMLALT_RESOURCES" altKey="submit.submit" styleClass="inputbutton"><bean:message key="link.change" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></html:submit>
 			</logic:equal>
 			<logic:notEqual name="editInterval" value="unitCredits">
-				<a href="#" onclick="javascript:document.getElementById('unitCreditsForm').submit();"><bean:message key="link.change"/></a>
+				<a href="#" onclick="javascript:document.getElementById('unitCreditsForm').submit();"><bean:message key="link.change" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></a>
 			</logic:notEqual>
 		</fr:form>
 			

@@ -29,11 +29,18 @@ import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
+import org.fenixedu.bennu.struts.annotations.Forward;
+import org.fenixedu.bennu.struts.annotations.Forwards;
+import org.fenixedu.bennu.struts.annotations.Mapping;
 
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceComment;
 import pt.ist.fenixframework.FenixFramework;
 
+@Mapping(path = "/teacherServiceComments", functionality = ViewTeacherCreditsDA.class)
+@Forwards(value = {
+        @Forward(name = "editTeacherServiceComment", path = "/credits/degreeTeachingService/editTeacherServiceComment.jsp"),
+        @Forward(name = "viewAnnualTeachingCredits", path = "/credits.do?method=viewAnnualTeachingCredits") })
 public class ManageTeacherServiceCommentsDispatchAction extends FenixDispatchAction {
 
     public ActionForward editTeacherServiceComment(ActionMapping mapping, ActionForm form, HttpServletRequest request,

@@ -25,6 +25,8 @@ import org.fenixedu.bennu.core.i18n.BundleUtil;
 
 import pt.ist.fenixframework.Atomic;
 
+import com.google.common.base.Strings;
+
 public class OtherService extends OtherService_Base {
 
     public OtherService(TeacherService teacherService, Double credits, String reason, ExecutionSemester correctedExecutionSemester) {
@@ -42,7 +44,7 @@ public class OtherService extends OtherService_Base {
 
     public void setValues(TeacherService teacherService, Double credits, String reason,
             ExecutionSemester correctedExecutionSemester) {
-        if (teacherService == null || credits == null || reason == null) {
+        if (teacherService == null || credits == null || Strings.isNullOrEmpty(reason)) {
             throw new DomainException("arguments can't be null");
         }
         setTeacherService(teacherService);

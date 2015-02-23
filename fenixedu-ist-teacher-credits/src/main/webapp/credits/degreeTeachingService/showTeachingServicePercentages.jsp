@@ -28,17 +28,11 @@
 <html:xhtml/>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<%@ taglib uri="http://jakarta.apache.org/taglibs/datetime-1.0" prefix="dt"%>
 <%@ taglib uri="http://fenix-ashes.ist.utl.pt/fenix-renderers" prefix="fr" %>
 
 <jsp:include page="../teacherCreditsStyles.jsp"/>
 
-<bean:define id="hoursPattern">HH : mm</bean:define>
-<bean:define id="professorship" name="professorship" scope="request" />
-<bean:define id="teacher" name="professorship" property="teacher" scope="request" />
-<bean:define id="teacherId" name="teacher" property="externalId" />
-<bean:define id="executionCourse" name="professorship" property="executionCourse" scope="request" />
-<bean:define id="executionPeriodId" name="executionCourse" property="executionPeriod.externalId" />
+<bean:define id="professorship" name="degreeTeachingServiceBean" property="professorship" />
 
 <h3><bean:message key="label.teacherCreditsSheet.professorships" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></h3>
 
@@ -61,29 +55,32 @@
 	</td>
 </tr></table>
 
-
+<bean:define id="teacher" name="professorship" property="teacher"/>
 <bean:define id="teacherId" name="teacher" property="externalId"/>
+<bean:define id="executionCourse" name="professorship" property="executionCourse" />
 <bean:define id="executionYearOid" name="executionCourse" property="executionPeriod.executionYear.externalId" />
 
-<p><html:link page="<%="/credits.do?method=viewAnnualTeachingCredits&amp;executionYearOid="+executionYearOid+"&teacherOid="+teacherId%>"><bean:message key="link.return"/></html:link></p>
+<p><html:link page="<%="/credits.do?method=viewAnnualTeachingCredits&amp;executionYearOid="+executionYearOid+"&teacherOid="+teacherId%>"><bean:message key="label.return" bundle="APPLICATION_RESOURCES"/></html:link></p>
 
-<html:messages id="message" message="true">
-	<span class="error"><!-- Error messages go here -->
-		<bean:write name="message" filter="false"/>
-	</span>
-</html:messages>
 
 <h3 class="separator2 mtop2"><bean:message key="label.teacherCreditsSheet.shiftProfessorships" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></h3>
 <p class="infoop2">
 <bean:message key="label.teaching.service.help.top" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/>
 </p>
-<html:form action="/degreeTeachingServiceManagement">
-	<html:hidden bundle="HTMLALT_RESOURCES" altKey="hidden.teacherId" property="teacherId" value="<%= teacherId.toString() %>"/>
-	<html:hidden bundle="HTMLALT_RESOURCES" altKey="hidden.executionPeriodId" property="executionPeriodId" />
-	<html:hidden bundle="HTMLALT_RESOURCES" altKey="hidden.executionCourseId" property="executionCourseId"/>
-	<html:hidden bundle="HTMLALT_RESOURCES" altKey="hidden.professorshipID" property="professorshipID"/>
-	<html:hidden bundle="HTMLALT_RESOURCES" altKey="hidden.method" property="method" value="updateTeachingServices"/>
 
+ 
+<logic:messagesPresent><span class="error"><!-- Error messages go here --><html:errors /></span></logic:messagesPresent>
+<fr:hasMessages><p><span class="error0"><fr:messages><fr:message/></fr:messages></span></p></fr:hasMessages>
+
+<html:messages id="message" message="true" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
+	<span class="error">
+		<bean:write name="message" filter="false"/>
+	</span>
+</html:messages>
+
+
+<fr:form action="/degreeTeachingServiceManagement.do?method=updateTeachingServices">
+	<fr:edit id="degreeTeachingServiceBean" name="degreeTeachingServiceBean" visible="false"/>
 	<table class="tstyle4 mtop1">
 		<%-- ********************************* HEADER *********************************************** --%>
 		<tr>
@@ -93,7 +90,8 @@
 			<th rowspan="2"><bean:message key="label.weeklyAverage" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></th>
 			<th rowspan="2"><bean:message key="label.semesterTotal" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></th>
 			<th rowspan="2"><bean:message key="label.professorship.percentage"/></th>
-			<th><bean:message key="label.teacher.applied"/></th>			
+			<th><bean:message key="label.teacher.applied"/></th>
+			<th rowspan="2" class="thclear"/>			
 		</tr>
 		<tr>
 			<th><bean:message key="label.week" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></th>
@@ -103,13 +101,18 @@
 			<th><bean:message key="label.lesson.room"/></th>	
 			<th><bean:message key="label.teacher"/> - <bean:message key="label.professorship.percentage"/></th>
 		</tr> 
-		<%-- ********************************* SHIFTS *********************************************** --%>	
-		<logic:iterate id="teachingServicePercentage" name="teachingServicePercentages">
-			<bean:define id="shift" name="teachingServicePercentage" property="shift"/>
-			<bean:define id="availablePercentage" name="teachingServicePercentage" property="availablePercentage"/>
+		<%-- ********************************* SHIFTS *********************************************** --%>
+	
+	
+	
+	
+		<logic:iterate id="shiftService" name="degreeTeachingServiceBean" property="shiftServiceSet">
+			<bean:define id="shift" name="shiftService" property="shift"/>
+			<bean:define id="availablePercentage" name="shiftService" property="availablePercentage"/>
+		
 			
 			<bean:size id="lessonsSize" name="shift" property="associatedLessons" />	
-
+				<bean:define id="shiftOID" name="shift" property="externalId"/>
 				<logic:equal name="lessonsSize" value="0">
 					<tr>
 						<td><bean:write name="shift" property="nome"/></td>
@@ -119,51 +122,33 @@
 						<td> - </td>
 						<td>
 							<logic:greaterThan name="availablePercentage" value="0">
-									<bean:define id="propertyName">
-										teacherPercentageMap(<bean:write name="shift" property="externalId"/>)
-									</bean:define>
-									<html:text alt='<%= propertyName %>' property='<%= propertyName %>' size="4" /> %
+								<fr:edit id="<%=shiftOID.toString() %>" name="shiftService" slot="percentage" validator="pt.ist.fenixWebFramework.renderers.validators.DoubleValidator">
+									<fr:layout>
+										<fr:property name="size" value="4"/>
+										<fr:property name="formatText" value="%"/>
+									</fr:layout>
+								</fr:edit>
 							</logic:greaterThan>
-							<logic:equal name="availablePercentage" value="0">
-								&nbsp;
-							</logic:equal>
 						</td>
-						<td rowspan="<%= 1 %>">
-							<bean:size id="teachingServiceSize" name="shift" property="degreeTeachingServices"/>
-							<logic:equal name="teachingServiceSize" value="0">&nbsp;</logic:equal>
-							<logic:notEqual name="teachingServiceSize" value="0">
-								<logic:iterate id="teachingService"	name="shift" property="degreeTeachingServices" indexId="indexPercentage">						
-						    		<bean:write name="teachingService" property="professorship.person.name" />
-			 						<bean:define id="teachingServicePercentage" name="teachingService" property="percentage"/>
-			 						&nbsp;-&nbsp;<%= ((Math.round(((Double)teachingServicePercentage).doubleValue() * 100.0)) / 100.0) %>
-			 						<br />
-								</logic:iterate>			
-							</logic:notEqual>
+						<td>
+							<fr:view name="shiftService" property="appliedShiftTeachingService"/>
 						</td>
+						<td class="tdclear tderror1"><fr:hasMessages for="<%=shiftOID.toString() %>"><p><span class="error0"><fr:message for="<%=shiftOID.toString()%>"/></span></p></fr:hasMessages></td>
 					</tr>
 				</logic:equal>
 
 				<logic:notEqual name="lessonsSize" value="0">
 					<logic:iterate id="lesson" name="shift" property="lessonsOrderedByWeekDayAndStartTime" indexId="indexLessons" >
-			            <logic:equal name="indexLessons" value="0">
-
-							<tr>
-							<td rowspan="<%= lessonsSize %>"><bean:write name="shift" property="nome"/></td>
-							<td rowspan="<%= lessonsSize %>"><bean:write name="shift" property="shiftTypesCodePrettyPrint"/></td>
+						<tr>
+				            <logic:equal name="indexLessons" value="0">
+								<td rowspan="<%= lessonsSize %>"><bean:write name="shift" property="nome"/></td>
+								<td rowspan="<%= lessonsSize %>"><bean:write name="shift" property="shiftTypesCodePrettyPrint"/></td>
+							</logic:equal>
+							
 							<td><fr:view name="lesson" property="occurrenceWeeksAsString"/></td>
-							<td>
-								<bean:write name="lesson" property="weekDay.labelShort"/>
-							</td>
-							<td>
-								<dt:format patternId="hoursPattern">
-									<bean:write name="lesson" property="inicio.time.time"/>
-								</dt:format>
-							</td>
-							<td>
-								<dt:format patternId="hoursPattern">
-									<bean:write name="lesson" property="fim.time.time"/>
-								</dt:format>
-							</td>
+							<td><fr:view name="lesson" property="weekDay.labelShort"/></td>
+							<td><fr:view name="lesson" property="beginHourMinuteSecond"/></td>
+							<td><fr:view name="lesson" property="endHourMinuteSecond"/></td>
 							<td>
 								<logic:notEmpty name="lesson" property="sala">
 									<bean:write name="lesson" property="sala.name"/>
@@ -172,123 +157,81 @@
 									-
 								</logic:empty>
 							</td>
-							<td rowspan="<%= lessonsSize %>"><fr:view name="shift" property="courseLoadWeeklyAverage"/></td>
-							<td rowspan="<%= lessonsSize %>"><bean:write name="shift" property="courseLoadTotalHours"/></td>
-							<td rowspan="<%= lessonsSize %>">
-								<logic:greaterThan name="availablePercentage" value="0">
-									<bean:define id="propertyName">
-										teacherPercentageMap(<bean:write name="shift" property="externalId"/>)
-									</bean:define>
-									<html:text alt='<%= propertyName %>' property='<%= propertyName %>' size="4" /> %
-								</logic:greaterThan>
-								<logic:equal name="availablePercentage" value="0">
-									&nbsp;
-								</logic:equal>
-							</td>
-							<td rowspan="<%= lessonsSize %>">
-								<bean:size id="teachingServiceSize" name="shift" property="degreeTeachingServices"/>
-								<logic:equal name="teachingServiceSize" value="0">&nbsp;</logic:equal>
-								<logic:notEqual name="teachingServiceSize" value="0">
-									<logic:iterate id="teachingService"	name="shift" property="degreeTeachingServices" indexId="indexPercentage">						
-							    		<bean:write name="teachingService" property="professorship.person.name" />
-				 						<bean:define id="teachingServicePercentage" name="teachingService" property="percentage"/>
-				 						&nbsp;-&nbsp;<%= ((Math.round(((Double)teachingServicePercentage).doubleValue() * 100.0)) / 100.0) %>
-				 						<br />
-									</logic:iterate>			
-								</logic:notEqual>
-							</td>						
-							</tr>
-						</logic:equal>
-						
-						<logic:greaterThan name="indexLessons" value="0">
-							<tr>
-								<td><fr:view name="lesson" property="occurrenceWeeksAsString"/></td>
-								<td>
-									<bean:write name="lesson" property="weekDay.labelShort"/>
+							<logic:equal name="indexLessons" value="0">
+								<td rowspan="<%= lessonsSize %>"><fr:view name="shift" property="courseLoadWeeklyAverage"/></td>
+								<td rowspan="<%= lessonsSize %>"><bean:write name="shift" property="courseLoadTotalHours"/></td>
+								<td rowspan="<%= lessonsSize %>">
+									<logic:greaterThan name="availablePercentage" value="0">
+										<fr:edit id="<%=shiftOID.toString() %>" name="shiftService" slot="percentage" type="java.lang.Double" validator="pt.ist.fenixWebFramework.renderers.validators.DoubleValidator">
+											<fr:layout>
+												<fr:property name="size" value="4"/>
+												<fr:property name="formatText" value="%"/>
+											</fr:layout>
+										</fr:edit>
+										 <%--
+										 <fr:edit id="<%=shiftOID.toString() %>" name="shiftService">
+											<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.credits.util.DegreeTeachingServiceBean$ShiftServiceBean">
+												<fr:slot name="percentage" key="">
+													<fr:property name="size" value="4"/>
+													<fr:property name="formatText" value="%"/>
+													<fr:validator name="pt.ist.fenixWebFramework.renderers.validators.DoubleValidator"/>
+												</fr:slot>
+											</fr:schema>
+												<fr:layout>
+													<fr:property name="classes" value="tstyle2 thlight thleft mtop05 mbottom05"/>
+													<fr:property name="columnClasses" value="headerTable,,tdclear tderror1"/>
+												</fr:layout>
+										</fr:edit>--%>
+									</logic:greaterThan>
 								</td>
-								<td>
-									<dt:format patternId="hoursPattern">
-										<bean:write name="lesson" property="inicio.time.time"/>
-									</dt:format>
-								</td>
-								<td>
-									<dt:format patternId="hoursPattern">
-										<bean:write name="lesson" property="fim.time.time"/>
-									</dt:format>
-								</td>
-								<td>
-									<logic:notEmpty name="lesson" property="sala">
-										<bean:write name="lesson" property="sala.name"/>
-									</logic:notEmpty>	
-									<logic:empty name="lesson" property="sala">
-										-
-									</logic:empty>				
-								</td>						
-							</tr>
-						</logic:greaterThan>
+								<td rowspan="<%= lessonsSize %>">
+									<fr:view name="shiftService" property="appliedShiftTeachingService"/>
+								</td>		
+								<td class="tdclear tderror1"><fr:hasMessages for="<%=shiftOID.toString() %>"><p><span class="error0"><fr:message for="<%=shiftOID.toString()%>"/></span></p></fr:hasMessages></td>				
+							</logic:equal>
+						</tr>
 					</logic:iterate>
-				</logic:notEqual>	
+				</logic:notEqual>
+				 	
 		</logic:iterate>
+		
 	</table>
-	
-	<p class="mtop05"><bean:message key="label.teaching.service.help.bottom" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></p>
+		<p class="mtop05"><bean:message key="label.teaching.service.help.bottom" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></p>
 	
 
 	<html:submit bundle="HTMLALT_RESOURCES" altKey="submit.submit" styleClass="inputbutton">
 		<bean:message key="button.save"/>
 	</html:submit>
-</html:form>
+</fr:form>
+	
+
 
 <h3 class="separator2 mtop2"><bean:message key="label.teacherCreditsSheet.supportLessons" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></h3>
 
 <bean:define id="link" type="java.lang.String">/supportLessonsManagement.do?method=prepareEdit&amp;page=0&amp;professorshipID=<bean:write name="professorship" property="externalId"/></bean:define>
-<html:link page="<%= link %>"><bean:message key="link.support-lesson.create"/></html:link>
+<html:link page="<%= link %>"><bean:message key="label.support-lesson.create" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></html:link>
 
 <%	SortedSet<SupportLesson> supportLessonsOrderedByStartTimeAndWeekDay = TeacherService.getSupportLessonsOrderedByStartTimeAndWeekDay((Professorship) professorship);
 request.setAttribute("supportLessonList", supportLessonsOrderedByStartTimeAndWeekDay);
 %>
 						
 <logic:notEmpty name="supportLessonList">
-		<table class="tstyle4">
-		<tr>
-			<th><bean:message key="label.support-lesson.weekday"/></th>			
-			<th><bean:message key="label.support-lesson.start-time"/></th>						
-			<th><bean:message key="label.support-lesson.end-time"/></th>									
-			<th><bean:message key="label.support-lesson.place"/></th>												
-			<th><bean:message key="label.support-lesson.edit"/></th>												
-			<th><bean:message key="label.support-lesson.delete"/></th>																		
-		</tr>
-
-		<bean:define id="linkDelete" type="java.lang.String">/supportLessonsManagement.do?method=deleteSupportLesson&amp;page=0&amp;professorshipID=<bean:write name="professorship" property="externalId"/></bean:define>
-		<logic:iterate id="supportLesson" name="supportLessonList">
-			<tr>
-				<td>
-					<bean:write name="supportLesson" property="weekDayObject.labelShort"/>
-				</td>			
-				<td>
-					<dt:format patternId="hoursPattern">
-						<bean:write name="supportLesson" property="startTime.time"/>
-					</dt:format>
-				</td>			
-				<td>
-					<dt:format patternId="hoursPattern">
-						<bean:write name="supportLesson" property="endTime.time"/>
-					</dt:format>
-				</td>			
-				<td>
-					<bean:write name="supportLesson" property="place"/>
-				</td>			
-				<td >
-					<html:link page="<%= link %>" paramId="supportLessonID" paramName="supportLesson" paramProperty="externalId" >
-						<bean:message key="link.edit"/>
-					</html:link>
-				</td>
-				<td >
-					<html:link page="<%= linkDelete %>" paramId="supportLessonID" paramName="supportLesson" paramProperty="externalId" >
-						<bean:message key="link.delete"/>
-					</html:link>
-				</td>
-			</tr>
-		</logic:iterate>
-	</table>	
+	<fr:view name="supportLessonList">
+		<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="pt.ist.fenixedu.teacher.domain.SupportLesson">
+			<fr:slot name="weekDayObject.labelShort" key="label.support-lesson.weekday"/>
+			<fr:slot name="startTimeHourMinuteSecond" key="label.support-lesson.start-time"/>
+			<fr:slot name="endTimeHourMinuteSecond" key="label.support-lesson.end-time"/>
+			<fr:slot name="place" key="label.support-lesson.place"/>
+		</fr:schema>
+		<fr:layout name="tabular">
+			<fr:property name="classes" value="tstyle2 thlight thleft mtop05 mbottom05"/>
+    		<fr:property name="columnClasses" value="width12em,,,"/>
+				<fr:property name="link(edit)" value="/supportLessonsManagement.do?method=prepareEdit" />
+				<fr:property name="key(edit)" value="link.edit" />
+				<fr:property name="param(edit)" value="externalId/supportLessonID" />
+				<fr:property name="link(delete)" value="/supportLessonsManagement.do?method=deleteSupportLesson" />
+				<fr:property name="key(delete)" value="link.delete" />
+				<fr:property name="param(delete)" value="externalId/supportLessonID" />
+		</fr:layout>
+	</fr:view>
 </logic:notEmpty>

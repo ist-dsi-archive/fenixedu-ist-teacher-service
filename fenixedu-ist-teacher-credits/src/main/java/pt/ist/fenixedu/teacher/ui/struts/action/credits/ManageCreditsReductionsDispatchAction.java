@@ -32,11 +32,9 @@ import org.fenixedu.bennu.struts.annotations.Mapping;
 
 import pt.ist.fenixedu.teacher.domain.teacher.ReductionService;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
-import pt.ist.fenixedu.teacher.ui.struts.action.credits.departmentMember.DepartmentMemberViewTeacherCreditsDA;
 import pt.ist.fenixframework.FenixFramework;
 
-@Mapping(module = "departmentMember", path = "/membersCreditsReductions",
-        functionality = DepartmentMemberViewTeacherCreditsDA.class)
+@Mapping(path = "/creditsReductions", functionality = ViewTeacherCreditsDA.class)
 @Forward(name = "editReductionService", path = "/credits/degreeTeachingService/editCreditsReduction.jsp")
 public class ManageCreditsReductionsDispatchAction extends FenixDispatchAction {
 

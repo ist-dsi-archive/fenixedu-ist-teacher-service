@@ -78,8 +78,7 @@ public class EffectiveTeachingLoadReportFile extends EffectiveTeachingLoadReport
             for (TeacherService teacherService : executionSemester.getTeacherServicesSet()) {
                 for (DegreeTeachingService degreeTeachingService : teacherService.getDegreeTeachingServices()) {
                     double efectiveLoad = degreeTeachingService.getEfectiveLoad();
-                    if ((!degreeTeachingService.getProfessorship().getExecutionCourse().isDissertation())
-                            && (!degreeTeachingService.getProfessorship().getExecutionCourse().getProjectTutorialCourse())
+                    if ((!degreeTeachingService.getProfessorship().getExecutionCourse().getProjectTutorialCourse())
                             && efectiveLoad != 0.0) {
                         Map<ExecutionCourse, BigDecimal> executionCourseLoad =
                                 teachingLoad.get(degreeTeachingService.getTeacherService().getTeacher());

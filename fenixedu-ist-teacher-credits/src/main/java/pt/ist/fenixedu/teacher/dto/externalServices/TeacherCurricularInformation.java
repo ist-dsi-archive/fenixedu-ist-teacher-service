@@ -369,7 +369,6 @@ public class TeacherCurricularInformation implements Serializable {
                     DegreeTeachingServiceCorrection degreeTeachingServiceCorrection =
                             (DegreeTeachingServiceCorrection) otherService;
                     if (degreeTeachingServiceCorrection.getProfessorship().equals(professorship)
-                            && (!degreeTeachingServiceCorrection.getProfessorship().getExecutionCourse().isDissertation())
                             && (!degreeTeachingServiceCorrection.getProfessorship().getExecutionCourse()
                                     .getProjectTutorialCourse())) {
                         Float duration = hoursByTypeMap.get(StringUtils.EMPTY);

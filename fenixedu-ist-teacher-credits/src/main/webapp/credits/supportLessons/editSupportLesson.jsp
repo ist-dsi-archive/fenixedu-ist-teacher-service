@@ -29,103 +29,50 @@
 
 <jsp:include page="../teacherCreditsStyles.jsp"/>
 
-<bean:define id="teacher" name="professorship" property="teacher" scope="request" />
-<bean:define id="executionPeriodId" name="professorship" property="executionCourse.executionPeriod.externalId"/>
-
 <h3><bean:message key="label.teacherCreditsSheet.supportLessons" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></h3>
+<logic:present name="professorship">
+	
+	<bean:define id="url" type="java.lang.String">/user/photo/<bean:write name="professorship" property="teacher.person.username"/></bean:define>
+	<table class="headerTable"><tr>
+	<td><img src="<%= request.getContextPath() + url %>"/></td>
+	<td >
+		<fr:view name="professorship">
+			<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.Professorship">
+				<fr:slot name="teacher.person.presentationName" key="label.name"/>
+				<fr:slot name="executionCourse.nome" key="label.course"/>
+				<fr:slot name="executionCourse.executionPeriod" key="label.execution-period" layout="format">
+					<fr:property name="format" value="${name}  ${executionYear.year}" />
+				</fr:slot>
+			</fr:schema>
+			<fr:layout name="tabular">
+				<fr:property name="classes" value="creditsStyle"/>
+			</fr:layout>
+		</fr:view>
+		</td>
+	</tr></table>
+	
+	
+	<logic:messagesPresent>
+		<span class="error"><!-- Error messages go here --><html:errors /></span>
+	</logic:messagesPresent>
+	<fr:hasMessages><fr:messages><p><span class="error0"><fr:message/></span></p></fr:messages></fr:hasMessages>
+	<html:messages id="message" message="true" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
+		<span class="error">
+			<bean:write name="message" filter="false"/>
+		</span>
+	</html:messages>
 
-<bean:define id="url" type="java.lang.String">/user/photo/<bean:write name="professorship" property="teacher.person.username"/></bean:define>
-<table class="headerTable"><tr>
-<td><img src="<%= request.getContextPath() + url %>"/></td>
-<td >
-	<fr:view name="professorship">
-		<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.Professorship">
-			<fr:slot name="teacher.person.presentationName" key="label.name"/>
-			<fr:slot name="executionCourse.nome" key="label.course"/>
-			<fr:slot name="executionCourse.executionPeriod" key="label.execution-period" layout="format">
-				<fr:property name="format" value="${name}  ${executionYear.year}" />
-			</fr:slot>
-		</fr:schema>
-		<fr:layout name="tabular">
-			<fr:property name="classes" value="creditsStyle"/>
-		</fr:layout>
-	</fr:view>
-	</td>
-</tr></table>
+	<bean:define id="professorshipID" name="professorship" property="externalId" />
+	<p><html:link page="<%="/degreeTeachingServiceManagement.do?method=showTeachingServiceDetails&professorshipID="+professorshipID %>"><bean:message key="label.return" bundle="APPLICATION_RESOURCES"/></html:link></p>
 
-
-<logic:messagesPresent>
-	<span class="error"><!-- Error messages go here --><html:errors /></span>
-</logic:messagesPresent>
-
-<bean:define id="teacherId" name="teacher" property="externalId"/>
-<bean:define id="executionYearOid" name="professorship" property="executionCourse.executionPeriod.executionYear.externalId" />
-
-<p><html:link page="<%="/credits.do?method=viewAnnualTeachingCredits&amp;executionYearOid="+executionYearOid+"&teacherOid="+teacherId%>"><bean:message key="link.return"/></html:link></p>
-
-<p>
-	<strong>
-	<logic:present name="supportLesson">
-		<bean:message key="label.support-lesson.edit"/>
-	</logic:present>
 	<logic:notPresent name="supportLesson">
-		<bean:message key="label.support-lesson.create"/>			
+		<fr:create id="supportLesson" schema="manage.supportLesson" type="pt.ist.fenixedu.teacher.domain.SupportLesson" action="<%="/degreeTeachingServiceManagement.do?method=showTeachingServiceDetails&professorshipID="+professorshipID %>">
+			<fr:hidden slot="professorship" name="professorship"/>
+		</fr:create>
 	</logic:notPresent>
-	</strong>
-</p>
-
-<html:form action="/supportLessonsManagement">
-	<html:hidden bundle="HTMLALT_RESOURCES" altKey="hidden.method" property="method" value="editSupportLesson"/>
-	<html:hidden bundle="HTMLALT_RESOURCES" altKey="hidden.page" property="page" value="1"/>	
-	<html:hidden bundle="HTMLALT_RESOURCES" altKey="hidden.externalId" property="externalId"/>
-	<html:hidden bundle="HTMLALT_RESOURCES" altKey="hidden.supportLessonID" property="supportLessonID"/>	
-	<html:hidden bundle="HTMLALT_RESOURCES" altKey="hidden.professorshipID" property="professorshipID"/>	
-	<html:hidden bundle="HTMLALT_RESOURCES" altKey="hidden.executionPeriodId" property="executionPeriodId"/>		
-
-	<html:hidden bundle="HTMLALT_RESOURCES" altKey="hidden.teacherId" property="teacherId"/>	
-	<html:hidden bundle="HTMLALT_RESOURCES" altKey="hidden.executionCourseId" property="executionCourseId"/>		
-
-	<table class="mbottom2">
-		<tr>
-			<td>
-				<bean:message key="label.support-lesson.weekday"/>:
-			</td>
-			<td>
-				<e:labelValues id="values" enumeration="org.fenixedu.academic.util.WeekDay" bundle="ENUMERATION_RESOURCES" excludedFields="SUNDAY"/>
-				<html:select bundle="HTMLALT_RESOURCES" altKey="select.weekDay" property="weekDay">
-						<html:options collection="values" property="value" labelProperty="label"/>
-				</html:select>
-			</td>
-		</tr>
-
-		<tr>
-			<td>
-				<bean:message key="label.support-lesson.start-time"/>:
-			</td>
-			<td>
-				<html:text bundle="HTMLALT_RESOURCES" altKey="text.startTimeHour" property="startTimeHour" maxlength="2" size="2" /> : <html:text bundle="HTMLALT_RESOURCES" altKey="text.startTimeMinutes" property="startTimeMinutes" maxlength="2" size="1"/>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<bean:message key="label.support-lesson.end-time"/>:
-			</td>
-			<td>
-				<html:text bundle="HTMLALT_RESOURCES" altKey="text.endTimeHour" property="endTimeHour" maxlength="2" size="2"/> : <html:text bundle="HTMLALT_RESOURCES" altKey="text.endTimeMinutes" property="endTimeMinutes" maxlength="2" size="1"/>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<bean:message key="label.support-lesson.place"/>:
-			</td>
-			<td>
-				<html:text bundle="HTMLALT_RESOURCES" altKey="text.place" property="place"/>
-			</td>
-		</tr>
-	</table>
-	<p>
-		<html:submit bundle="HTMLALT_RESOURCES" altKey="submit.submit" styleClass="inputbutton">
-			<bean:message key="button.submit"/>
-		</html:submit>
-	</p>
-</html:form>
+	
+	<logic:present name="supportLesson">	
+		<fr:edit name="supportLesson" schema="manage.supportLesson" action="<%="/degreeTeachingServiceManagement.do?method=showTeachingServiceDetails&professorshipID="+professorshipID %>">
+		</fr:edit>
+	</logic:present>
+</logic:present>

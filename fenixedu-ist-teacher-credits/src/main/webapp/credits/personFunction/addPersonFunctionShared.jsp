@@ -29,8 +29,6 @@
 
 <jsp:include page="../teacherCreditsStyles.jsp"/>
 
-
-<em><bean:message key="label.teacherService.credits"/></em>
 <h3><bean:message key="label.managementFunctionNote" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></h3>
 
 <logic:present name="personFunctionBean">
@@ -55,7 +53,7 @@
 <bean:define id="executionYearOid" name="personFunctionBean" property="executionSemester.executionYear.externalId"/>
 <bean:define id="teacherOid" name="personFunctionBean" property="teacher.externalId"/>
 
-<p><html:link page="<%="/credits.do?method=viewAnnualTeachingCredits&amp;executionYearOid="+executionYearOid+"&teacherOid="+teacherOid%>"><bean:message key="link.return"/></html:link></p>
+<p><html:link page="<%="/credits.do?method=viewAnnualTeachingCredits&amp;executionYearOid="+executionYearOid+"&teacherOid="+teacherOid%>"><bean:message key="label.return" bundle="APPLICATION_RESOURCES"/></html:link></p>
 <html:messages id="message" message="true" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
 	<span class="error"><bean:write name="message" filter="false" /></span>
 </html:messages>
@@ -67,7 +65,7 @@
 					<fr:property name="size" value="80"/>
 					<fr:property name="labelField" value="presentationName"/>
 					<fr:property name="indicatorShown" value="true"/>
-					<fr:property name="provider" value="org.fenixedu.academic.service.services.commons.SearchInternalUnits"/>	
+					<fr:property name="provider" value="pt.ist.fenixedu.teacher.ui.renderers.providers.SearchInternalUnits"/>	
 					<fr:property name="args" value="slot=name"/>		
 					<fr:property name="minChars" value="3"/>
 					<fr:property name="errorStyleClass" value="error0"/>

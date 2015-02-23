@@ -55,8 +55,8 @@ public class TeacherServiceComment extends TeacherServiceComment_Base {
     @Override
     public void delete() {
         new TeacherServiceLog(getTeacherService(), BundleUtil.getString(Bundle.TEACHER_CREDITS,
-                "label.teacher.teacherServiceComment.delete", getContent(), getCreationDate().toString(), getLastModifiedDate()
-                        .toString("yyyy-MM-dd HH:mm")));
+                "label.teacher.teacherServiceComment.delete", getContent(), getCreationDate().toString("yyyy-MM-dd HH:mm"),
+                getLastModifiedDate().toString("yyyy-MM-dd HH:mm")));
         setCreatedBy(null);
         super.delete();
     }

@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.ExecutionYear;
 import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.TeacherAuthorization;
 import org.fenixedu.academic.domain.phd.InternalPhdParticipant;
 import org.fenixedu.academic.domain.thesis.Thesis;
 import org.fenixedu.academic.domain.thesis.ThesisEvaluationParticipant;
@@ -90,8 +91,12 @@ public class AnnualTeachingCredits extends AnnualTeachingCredits_Base {
         boolean hasFinalAndAccumulatedCredits = false;
 
         for (ExecutionSemester executionSemester : getAnnualCreditsState().getExecutionYear().getExecutionPeriodsSet()) {
-            if (PersonProfessionalData.isTeacherActiveForSemester(getTeacher(), executionSemester)
-                    || getTeacher().hasTeacherAuthorization(executionSemester.getAcademicInterval())) {
+            boolean activeContractedTeacherForSemester =
+                    PersonProfessionalData.isTeacherActiveForSemester(getTeacher(), executionSemester);
+            TeacherAuthorization teacherAuthorization =
+                    getTeacher().getTeacherAuthorization(executionSemester.getAcademicInterval()).orElse(null);
+            boolean activeExternalTeacher = teacherAuthorization == null ? false : !teacherAuthorization.isContracted();
+            if (activeContractedTeacherForSemester || activeExternalTeacher) {
                 BigDecimal thisSemesterManagementFunctionCredits =
                         new BigDecimal(TeacherCredits.calculateManagementFunctionsCredits(getTeacher(), executionSemester));
                 managementFunctionsCredits = managementFunctionsCredits.add(thisSemesterManagementFunctionCredits);
@@ -118,7 +123,7 @@ public class AnnualTeachingCredits extends AnnualTeachingCredits_Base {
                     setHasAnyLimitation(true);
                 }
                 yearCredits = yearCredits.add(thisSemesterYearCredits);
-                if (canHaveFinalCredits(executionSemester, getTeacher())) {
+                if (activeContractedTeacherForSemester && !ProfessionalCategory.isMonitor(getTeacher(), executionSemester)) {
                     yearCreditsForFinalCredits = yearCreditsForFinalCredits.add(thisSemesterYearCredits);
                     annualTeachingLoadFinalCredits = annualTeachingLoadFinalCredits.add(thisSemesterTeachingLoad);
                     if (executionSemester.getSemester() == 2) {
@@ -161,11 +166,6 @@ public class AnnualTeachingCredits extends AnnualTeachingCredits_Base {
         setAccumulatedCredits(accumulatedCredits);
         setLastModifiedDate(new DateTime());
 
-    }
-
-    private boolean canHaveFinalCredits(ExecutionSemester executionSemester, Teacher teacher) {
-        return PersonProfessionalData.isTeacherActiveForSemester(getTeacher(), executionSemester)
-                && !ProfessionalCategory.isMonitor(getTeacher(), executionSemester);
     }
 
     private BigDecimal getPreviousAccumulatedCredits() {

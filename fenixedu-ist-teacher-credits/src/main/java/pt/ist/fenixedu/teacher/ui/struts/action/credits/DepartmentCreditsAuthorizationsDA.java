@@ -39,7 +39,7 @@ import pt.ist.fenixframework.FenixFramework;
 
 @StrutsFunctionality(app = CreditsManagerApp.class, path = "department-credits-authorizations", titleKey = "label.permissions",
         bundle = "TeacherCreditsSheetResources")
-@Mapping(path = "/departmentCreditsAuthorizations", module = "scientificCouncil")
+@Mapping(path = "/departmentCreditsAuthorizations")
 @Forwards(@Forward(name = "departmentCreditsAuthorizations",
         path = "/scientificCouncil/credits/departmentCredits/departmentCreditsAuthorizations.jsp"))
 public class DepartmentCreditsAuthorizationsDA extends FenixDispatchAction {

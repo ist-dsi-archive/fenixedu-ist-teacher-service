@@ -26,7 +26,6 @@ import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageTeacherServiceComm
 
 @Mapping(module = "departmentMember", path = "/teacherServiceComments",
         functionality = DepartmentMemberViewTeacherCreditsDA.class)
-@Forwards({ @Forward(name = "editTeacherServiceComment", path = "/credits/degreeTeachingService/editTeacherServiceComment.jsp"),
-        @Forward(name = "viewAnnualTeachingCredits", path = "/departmentMember/credits.do?method=viewAnnualTeachingCredits") })
+@Forwards({ @Forward(name = "viewAnnualTeachingCredits", path = "/departmentMember/credits.do?method=viewAnnualTeachingCredits") })
 public class DepartmentMemberManageTeacherServiceCommentsDispatchAction extends ManageTeacherServiceCommentsDispatchAction {
 }

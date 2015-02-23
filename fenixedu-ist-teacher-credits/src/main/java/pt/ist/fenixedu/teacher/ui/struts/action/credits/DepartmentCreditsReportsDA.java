@@ -159,9 +159,7 @@ public class DepartmentCreditsReportsDA extends FenixDispatchAction {
                     if (otherService instanceof DegreeTeachingServiceCorrection) {
                         DegreeTeachingServiceCorrection degreeTeachingServiceCorrection =
                                 (DegreeTeachingServiceCorrection) otherService;
-                        if ((!degreeTeachingServiceCorrection.getProfessorship().getExecutionCourse().isDissertation())
-                                && (!degreeTeachingServiceCorrection.getProfessorship().getExecutionCourse()
-                                        .getProjectTutorialCourse())) {
+                        if (!degreeTeachingServiceCorrection.getProfessorship().getExecutionCourse().getProjectTutorialCourse()) {
                             correcredCL =
                                     correcredCL.add(degreeTeachingServiceCorrection.getCorrection().multiply(
                                             degreeTeachingServiceCorrection.getProfessorship().getExecutionCourse()

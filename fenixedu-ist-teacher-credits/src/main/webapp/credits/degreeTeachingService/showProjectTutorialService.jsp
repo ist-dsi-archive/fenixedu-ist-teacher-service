@@ -61,6 +61,7 @@
 		<bean:define id="executionYearOid" name="professorship" property="executionCourse.executionPeriod.executionYear.nextExecutionYear.externalId"/>
 		<bean:define id="teacherOid" name="professorship" property="teacher.externalId"/>
 			
+		<p><html:link page="<%="/credits.do?method=viewAnnualTeachingCredits&amp;executionYearOid="+executionYearOid+"&teacherOid="+teacherOid%>"><bean:message key="label.return" bundle="APPLICATION_RESOURCES"/></html:link></p>
 		<h3 class="separator2 mtop2"><bean:message key="label.availableOrientations" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></h3>
 		<fr:edit id="projectTutorialService" name="projectTutorialServiceBeans" action="<%= "/degreeProjectTutorialService.do?method=updateProjectTutorialService&professorshipID="+professorshipID%>">
 			<fr:schema type="pt.ist.fenixedu.teacher.domain.credits.util.ProjectTutorialServiceBean" bundle="TEACHER_CREDITS_SHEET_RESOURCES">

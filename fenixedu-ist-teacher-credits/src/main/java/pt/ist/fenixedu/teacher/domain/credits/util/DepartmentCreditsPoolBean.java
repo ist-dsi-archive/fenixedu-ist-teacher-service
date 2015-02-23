@@ -73,7 +73,7 @@ public class DepartmentCreditsPoolBean implements Serializable {
         if (departmentCreditsPool != null) {
             for (ExecutionSemester executionSemester : getAnnualCreditsState().getExecutionYear().getExecutionPeriodsSet()) {
                 for (ExecutionCourse executionCourse : executionSemester.getAssociatedExecutionCoursesSet()) {
-                    if (!(executionCourse.isDissertation() || executionCourse.getProjectTutorialCourse())) {
+                    if (!executionCourse.getProjectTutorialCourse()) {
                         if (executionCourse.getDepartments().contains(getDepartment())) {
                             if (isSharedExecutionCourse(executionCourse)) {
                                 addToSet(departmentSharedExecutionCourses, executionCourse);

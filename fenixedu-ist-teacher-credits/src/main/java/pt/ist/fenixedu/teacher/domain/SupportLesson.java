@@ -21,21 +21,25 @@ package pt.ist.fenixedu.teacher.domain;
 import java.util.Comparator;
 import java.util.Date;
 
+import org.fenixedu.academic.domain.DomainObjectUtil;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.domain.person.RoleType;
+import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.academic.util.CalendarUtil;
 import org.fenixedu.academic.util.DiaSemana;
+import org.fenixedu.academic.util.HourMinuteSecond;
 import org.fenixedu.academic.util.WeekDay;
 import org.fenixedu.bennu.core.domain.Bennu;
+import org.fenixedu.bennu.core.i18n.BundleUtil;
 import org.fenixedu.bennu.core.security.Authenticate;
 
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
+import pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceLog;
 import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingCE;
-import pt.ist.fenixedu.teacher.dto.teacher.professorship.SupportLessonDTO;
 import pt.ist.fenixedu.teacher.util.date.TimePeriod;
+import pt.ist.fenixframework.Atomic;
 
 /**
  * @author Fernanda Quit�rio 17/10/2003
@@ -49,24 +53,36 @@ public class SupportLesson extends SupportLesson_Base {
 
                 @Override
                 public int compare(SupportLesson o1, SupportLesson o2) {
-                    final int c = o1.getWeekDay().getDiaSemana().compareTo(o2.getWeekDay().getDiaSemana());
-                    return c == 0 ? o1.getStartTimeHourMinuteSecond().compareTo(o2.getStartTimeHourMinuteSecond()) : c;
+                    int c = o1.getWeekDay().getDiaSemana().compareTo(o2.getWeekDay().getDiaSemana());
+                    if (c == 0) {
+                        c = o1.getStartTimeHourMinuteSecond().compareTo(o2.getStartTimeHourMinuteSecond());
+                    }
+                    return c == 0 ? DomainObjectUtil.COMPARATOR_BY_ID.compare(o1, o2) : c;
                 }
 
             };
 
-    public SupportLesson(SupportLessonDTO supportLessonDTO, Professorship professorship) {
+    public SupportLesson(Professorship professorship, WeekDay weekDay, HourMinuteSecond startTimeHourMinuteSecond,
+            HourMinuteSecond endTimeHourMinuteSecond, String place) {
         super();
         setRootDomainObject(Bennu.getInstance());
         setProfessorship(professorship);
-        update(supportLessonDTO);
+        update(weekDay, startTimeHourMinuteSecond, endTimeHourMinuteSecond, place);
+        addLog("label.teacher.schedule.supportLessons.create");
     }
 
-    public void update(SupportLessonDTO supportLessonDTO) {
-        setEndTime(supportLessonDTO.getEndTime());
-        setStartTime(supportLessonDTO.getStartTime());
-        setPlace(supportLessonDTO.getPlace());
-        setWeekDay(supportLessonDTO.getWeekDay());
+    public void edit(WeekDay weekDay, HourMinuteSecond startTimeHourMinuteSecond, HourMinuteSecond endTimeHourMinuteSecond,
+            String place) {
+        update(weekDay, startTimeHourMinuteSecond, endTimeHourMinuteSecond, place);
+        addLog("label.teacher.schedule.supportLessons.change");
+    }
+
+    private void update(WeekDay weekDay, HourMinuteSecond startTimeHourMinuteSecond, HourMinuteSecond endTimeHourMinuteSecond,
+            String place) {
+        setWeekDay(DiaSemana.fromJodaWeekDay(weekDay.ordinal() + 1));
+        setStartTimeHourMinuteSecond(startTimeHourMinuteSecond);
+        setEndTimeHourMinuteSecond(endTimeHourMinuteSecond);
+        setPlace(place);
         verifyOverlappings();
     }
 
@@ -115,19 +131,12 @@ public class SupportLesson extends SupportLesson_Base {
         setRootDomainObject(Bennu.getInstance());
     }
 
-    public static SupportLesson create(SupportLessonDTO supportLessonDTO, Professorship professorship, RoleType roleType) {
-        final SupportLesson supportLesson = new SupportLesson();
-        supportLesson.setProfessorship(professorship);
-        TeacherCreditsFillingCE.checkValidCreditsPeriod(supportLesson.getProfessorship().getExecutionCourse()
-                .getExecutionPeriod(), Authenticate.getUser());
-        supportLesson.setEndTime(supportLessonDTO.getEndTime());
-        supportLesson.setStartTime(supportLessonDTO.getStartTime());
-        supportLesson.setPlace(supportLessonDTO.getPlace());
-        supportLesson.setWeekDay(supportLessonDTO.getWeekDay());
-        return supportLesson;
-    }
-
+    @Atomic
     public void delete() {
+        TeacherCreditsFillingCE.checkValidCreditsPeriod(getProfessorship().getExecutionCourse().getExecutionPeriod(),
+                Authenticate.getUser());
+        addLog("label.teacher.schedule.supportLessons.delete");
+
         setProfessorship(null);
         setRootDomainObject(null);
         deleteDomainObject();
@@ -166,6 +175,29 @@ public class SupportLesson extends SupportLesson_Base {
     public WeekDay getWeekDayObject() {
         final DiaSemana diaSemana = getWeekDay();
         return diaSemana == null ? null : WeekDay.getWeekDay(diaSemana);
+    }
+
+    private void addLog(String key) {
+        TeacherService teacherService =
+                TeacherService.getTeacherService(getProfessorship().getTeacher(), getProfessorship().getExecutionCourse()
+                        .getExecutionPeriod());
+
+        final StringBuilder log = new StringBuilder();
+        log.append(BundleUtil.getString(Bundle.TEACHER_CREDITS, key));
+
+        log.append(WeekDay.getWeekDay(getWeekDay()).getLabel());
+        log.append(" ");
+        log.append(getStartTime().getHours());
+        log.append(":");
+        log.append(getStartTime().getMinutes());
+        log.append(" - ");
+        log.append(getEndTime().getHours());
+        log.append(":");
+        log.append(getEndTime().getMinutes());
+        log.append(" - ");
+        log.append(getPlace());
+
+        new TeacherServiceLog(teacherService, log.toString());
     }
 
 }

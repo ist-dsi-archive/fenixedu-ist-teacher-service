@@ -51,23 +51,10 @@
 	<slot name="creditsReductionAttributed" key="label.attributedReductionCredits" validator="pt.ist.fenixWebFramework.renderers.validators.NumberValidator" required="true"/>
 </schema>
 
-<schema name="create.otherService" type="pt.ist.fenixedu.teacher.domain.teacher.OtherService" constructor="teacherService,credits,reason,correctedExecutionSemester" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
+<schema name="manage.otherService" type="pt.ist.fenixedu.teacher.domain.teacher.OtherService" constructor="teacherService,credits,reason,correctedExecutionSemester" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
 	<slot name="teacherService" hidden="true"/>
-	<slot name="credits" key="label.credits"/>
-	<slot name="reason" key="label.otherTypeCreditLine.reason" layout="longText">
-		<property name="columns" value="60" />
-		<property name="rows" value="5" />
-	</slot>
-	<slot name="correctedExecutionSemester" key="label.execution-period" layout="menu-select">
-		<property name="providerClass" value="org.fenixedu.academic.ui.renderers.providers.ExecutionSemestersProvider" />
-		<property name="format" value="${executionYear.year} - ${semester}º semestre" />
-	</slot>
-</schema>
-
-<schema name="edit.otherService" type="pt.ist.fenixedu.teacher.domain.teacher.OtherService" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
-	<slot name="teacherService" hidden="true"/>
-	<slot name="credits" key="label.credits"/>
-	<slot name="reason" key="label.otherTypeCreditLine.reason" layout="longText">
+	<slot name="credits" key="label.credits" required="true"/>
+	<slot name="reason" key="label.otherTypeCreditLine.reason" layout="longText" required="true">
 		<property name="columns" value="60" />
 		<property name="rows" value="5" />
 	</slot>
@@ -80,7 +67,7 @@
 
 <schema name="create.teacherServiceComment" type="pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceComment" constructor="teacherService,content" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
 	<slot name="teacherService" hidden="true"/>
-	<slot name="content" key="label.comment" layout="longText">
+	<slot name="content" key="label.comment" layout="longText" required="true">
 		<property name="columns" value="60" />
 		<property name="rows" value="5" />
 	</slot>
@@ -116,45 +103,24 @@
 	</slot>
 </schema>
 
-<schema name="teacher.credits.list.execution.periods" type="pt.ist.fenixedu.teacher.dto.teacherCredits.TeacherCreditsPeriodBean">
-    <slot name="executionPeriod" key="label.teacher.credits.execution.period" layout="menu-select-postback">
-        <property name="providerClass" value="org.fenixedu.academic.ui.renderers.providers.NotClosedExecutionPeriodsProvider" />
-        <property name="format" value="${year} - ${semester}º Sem." />
-        <property name="destination" value="postBack" />
-    </slot>
-</schema>
-
-<schema name="teacher.credits.period.view" type="pt.ist.fenixedu.teacher.dto.teacherCredits.TeacherCreditsPeriodBean">
-    <slot name="beginForTeacher" key="label.credits.periods.begin">
-        <validator class="org.fenixedu.academic.ui.renderers.validators.DateTimeValidator">
-            <property name="required" value="true" />
-        </validator>
-    </slot>
-    <slot name="endForTeacher" key="label.credits.periods.end">
-        <validator class="org.fenixedu.academic.ui.renderers.validators.DateTimeValidator">
-            <property name="required" value="true" />
-        </validator>
-    </slot>
-</schema>
-
-<schema name="departmentAdmOffice.credits.period.view" type="pt.ist.fenixedu.teacher.dto.teacherCredits.TeacherCreditsPeriodBean">
-    <slot name="beginForDepartmentAdmOffice" key="label.credits.periods.begin">
-        <validator class="org.fenixedu.academic.ui.renderers.validators.DateTimeValidator">
-            <property name="required" value="true" />
-        </validator>
-    </slot>
-    <slot name="endForDepartmentAdmOffice" key="label.credits.periods.end">
-        <validator class="org.fenixedu.academic.ui.renderers.validators.DateTimeValidator">
-            <property name="required" value="true" />
-        </validator>
-    </slot>
-</schema>
-
 <schema name="scientificCouncil.credits.employee" type="pt.ist.fenixedu.contracts.domain.Employee">
     <slot name="employeeNumber" key="label.department.credits.employeeNumber">
     </slot>
     <slot name="person.name" key="label.department.credits.employeeName">
     </slot>
+</schema>
+
+<schema name="manage.supportLesson" type="pt.ist.fenixedu.teacher.domain.SupportLesson" constructor="professorship,weekDayObject,startTimeHourMinuteSecond,endTimeHourMinuteSecond,place" bundle="TEACHER_CREDITS_SHEET_RESOURCES">
+	<slot name="professorship" hidden="true"/>
+	<slot name="weekDayObject" key="label.support-lesson.weekday" required="true"/>
+	<slot name="startTimeHourMinuteSecond" key="label.support-lesson.start-time" required="true">
+		<property name="second" value="false"/>
+	</slot>
+	<slot name="endTimeHourMinuteSecond" key="label.support-lesson.end-time" required="true">
+		<property name="second" value="false"/>
+	</slot>
+	<slot name="place" key="label.support-lesson.place"/>
+	<setter signature="edit(weekDayObject,startTimeHourMinuteSecond,endTimeHourMinuteSecond,place)"/>
 </schema>
 
 </schemas>

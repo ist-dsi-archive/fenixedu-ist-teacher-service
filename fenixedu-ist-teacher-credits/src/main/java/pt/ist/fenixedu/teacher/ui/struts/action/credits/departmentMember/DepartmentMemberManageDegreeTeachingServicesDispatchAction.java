@@ -18,18 +18,6 @@
  */
 package pt.ist.fenixedu.teacher.ui.struts.action.credits.departmentMember;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-import org.fenixedu.academic.domain.Professorship;
-import org.fenixedu.academic.domain.Teacher;
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
-import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.ExceptionHandling;
 import org.fenixedu.bennu.struts.annotations.Exceptions;
 import org.fenixedu.bennu.struts.annotations.Forward;
@@ -50,28 +38,4 @@ import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageDegreeTeachingServ
         key = "message.invalid.professorship.percentage", handler = org.apache.struts.action.ExceptionHandler.class,
         path = "/degreeTeachingServiceManagement.do?method=showTeachingServiceDetails&page=0", scope = "request") })
 public class DepartmentMemberManageDegreeTeachingServicesDispatchAction extends ManageDegreeTeachingServicesDispatchAction {
-
-    public ActionForward showTeachingServiceDetails(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            HttpServletResponse response) throws NumberFormatException, FenixServiceException {
-
-        DynaActionForm dynaForm = (DynaActionForm) form;
-        Professorship professorship = getDomainObject(dynaForm, "professorshipID");
-
-        if (professorship == null || professorship.getTeacher() != getLoggedTeacher(request)) {
-            return mapping.findForward("teacher-not-found");
-        }
-
-        teachingServiceDetailsProcess(professorship, request, dynaForm);
-        return mapping.findForward("show-teaching-service-percentages");
-    }
-
-    private Teacher getLoggedTeacher(HttpServletRequest request) {
-        User userView = Authenticate.getUser();
-        return userView.getPerson().getTeacher();
-    }
-
-    public ActionForward updateTeachingServices(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            HttpServletResponse response) throws NumberFormatException, FenixServiceException {
-        return updateTeachingServices(mapping, form, request);
-    }
 }

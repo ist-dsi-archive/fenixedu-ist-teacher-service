@@ -109,8 +109,7 @@ public class TeacherService extends TeacherService_Base {
     public Double getTeachingDegreeHours() {
         double hours = 0;
         for (DegreeTeachingService degreeTeachingService : getDegreeTeachingServices()) {
-            if ((!degreeTeachingService.getProfessorship().getExecutionCourse().isDissertation())
-                    && (!degreeTeachingService.getProfessorship().getExecutionCourse().getProjectTutorialCourse())) {
+            if (!degreeTeachingService.getProfessorship().getExecutionCourse().getProjectTutorialCourse()) {
                 hours += degreeTeachingService.getEfectiveLoad();
             }
         }
@@ -122,8 +121,7 @@ public class TeacherService extends TeacherService_Base {
         for (OtherService otherService : getOtherServices()) {
             if (otherService instanceof DegreeTeachingServiceCorrection) {
                 DegreeTeachingServiceCorrection degreeTeachingServiceCorrection = (DegreeTeachingServiceCorrection) otherService;
-                if ((!degreeTeachingServiceCorrection.getProfessorship().getExecutionCourse().isDissertation())
-                        && (!degreeTeachingServiceCorrection.getProfessorship().getExecutionCourse().getProjectTutorialCourse())) {
+                if (!degreeTeachingServiceCorrection.getProfessorship().getExecutionCourse().getProjectTutorialCourse()) {
                     hours += degreeTeachingServiceCorrection.getCorrection().doubleValue();
                 }
             }
@@ -134,8 +132,7 @@ public class TeacherService extends TeacherService_Base {
     public Double getTeachingDegreeCredits() {
         double credits = 0;
         for (DegreeTeachingService degreeTeachingService : getDegreeTeachingServices()) {
-            if ((!degreeTeachingService.getProfessorship().getExecutionCourse().isDissertation())
-                    && (!degreeTeachingService.getProfessorship().getExecutionCourse().getProjectTutorialCourse())) {
+            if (!degreeTeachingService.getProfessorship().getExecutionCourse().getProjectTutorialCourse()) {
                 credits += degreeTeachingService.calculateCredits();
             }
         }

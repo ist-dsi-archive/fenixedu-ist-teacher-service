@@ -47,6 +47,7 @@ import pt.ist.fenixframework.FenixFramework;
         titleKey = "label.managementFunctionNote")
 @Mapping(path = "/managePersonFunctionsShared")
 @Forwards(value = { @Forward(name = "addPersonFunctionShared", path = "/credits/personFunction/addPersonFunctionShared.jsp"),
+        @Forward(name = "addPersonFunction", path = "/credits/personFunction/addPersonFunction.jsp"),
         @Forward(name = "viewAnnualTeachingCredits", path = "/credits.do?method=viewAnnualTeachingCredits"),
         @Forward(name = "showDepartmentPersonFunctions", path = "/credits/showDepartmentPersonFunctions.jsp") })
 public class ManagePersonFunctionsDA extends FenixDispatchAction {
@@ -111,4 +112,40 @@ public class ManagePersonFunctionsDA extends FenixDispatchAction {
         return mapping.findForward("viewAnnualTeachingCredits");
     }
 
+    public ActionForward prepareToAddPersonFunction(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+            HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {
+        PersonFunctionBean personFunctionBean = getRenderedObject();
+        if (personFunctionBean == null) {
+            Teacher teacher = FenixFramework.getDomainObject((String) getFromRequest(request, "teacherOid"));
+            ExecutionSemester executionSemester =
+                    FenixFramework.getDomainObject((String) getFromRequest(request, "executionPeriodOid"));
+            personFunctionBean = new PersonFunctionBean(teacher, executionSemester);
+        }
+        request.setAttribute("personFunctionBean", personFunctionBean);
+        return mapping.findForward("addPersonFunction");
+    }
+
+    public ActionForward prepareToEditPersonFunction(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+            HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {
+        PersonFunction personFunction = FenixFramework.getDomainObject((String) getFromRequest(request, "personFunctionOid"));
+        ExecutionSemester executionSemester =
+                FenixFramework.getDomainObject((String) getFromRequest(request, "executionPeriodOid"));
+        request.setAttribute("personFunctionBean", new PersonFunctionBean(personFunction, executionSemester));
+        return mapping.findForward("addPersonFunction");
+    }
+
+    public ActionForward editPersonFunction(ActionMapping mapping, ActionForm form, HttpServletRequest request,
+            HttpServletResponse response) throws NumberFormatException, FenixServiceException, Exception {
+        PersonFunctionBean personFunctionBean = getRenderedObject();
+        try {
+            personFunctionBean.createOrEditPersonFunction();
+        } catch (DomainException e) {
+            addActionMessage(request, e.getMessage());
+            request.setAttribute("personFunctionBean", personFunctionBean);
+            return mapping.findForward("addPersonFunction");
+        }
+        request.setAttribute("teacherOid", personFunctionBean.getTeacher().getExternalId());
+        request.setAttribute("executionYearOid", personFunctionBean.getExecutionSemester().getExecutionYear().getExternalId());
+        return mapping.findForward("viewAnnualTeachingCredits");
+    }
 }

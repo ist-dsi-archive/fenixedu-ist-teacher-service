@@ -26,7 +26,7 @@
 <%@ taglib uri="http://fenix-ashes.ist.utl.pt/fenix-renderers" prefix="fr" %>
 
 
-<h2><bean:message key="title.department.credits"/></h2>
+<h2><bean:message key="title.department.credits" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/></h2>
 
 <logic:present name="success"> 
 	<logic:equal name="success" value="true"> 
@@ -83,47 +83,3 @@
 		</fr:layout>
 	</fr:view>
 </logic:notEmpty>
-
-<%--
-<schema name="scientificCouncil.credits.departmentCreditsBean" type="pt.ist.fenixedu.teacher.ui.struts.action.scientificCouncil.credits.DepartmentCreditsBean">
-    <slot name="department" key="label.department" layout="menu-select-postback" validator="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator">
-        <property name="providerClass" value="org.fenixedu.academic.ui.renderers.providers.choiceType.replacement.single.DepartmentProvider" />
-        <property name="format" value="${name}" />
-        <property name="sortBy" value="name" />
-        <property name="destination" value="postback" />
-    </slot>
-    <slot name="employeeNumber" key="label.department.credits.employeeNumber">
-        <validator class="pt.ist.fenixWebFramework.renderers.validators.RequiredValidator" />
-        <validator class="pt.ist.fenixWebFramework.renderers.validators.NumberValidator" />
-    </slot>
-</schema>
-
-<fr:form action="/departmentCredits.do?method=addRoleDepartmentCredits" >
-	<fr:edit id="departmentCreditsBean" name="departmentCreditsBean" schema="scientificCouncil.credits.departmentCreditsBean" >
-		<fr:layout name="tabular" >
-			<fr:property name="classes" value="tstyle5"/>
-	    	<fr:property name="columnClasses" value=",,tdclear tderror1"/>
-		</fr:layout>
-		<fr:destination name="postback" path="/departmentCredits.do?method=showEmployeesByDepartment"/>
-		<fr:destination name="invalid" path="/departmentCredits.do?method=showEmployeesByDepartment"/>
-	</fr:edit>
-	<html:submit><bean:message key="button.submit" /></html:submit>
-</fr:form>
-
- --%>
-
-<logic:present name="employeesOfDepartment">
-<bean:define id="department" name="departmentCreditsBean" property="department" type="org.fenixedu.academic.domain.Department"/>
-<h3><bean:message key="title.department.credits.list" name="departmentCreditsBean" arg0="<%= department.getNameI18n().toString() %>"/></h3> 
-	<fr:view name="employeesOfDepartment"  schema="scientificCouncil.credits.employee">
-		<fr:layout name="tabular">
-			<fr:property name="classes" value="tstyle1" />
-			<fr:property name="columnClasses" value="acenter,,"/>
-			
-			<fr:property name="link(delete)" value="<%=String.format("/departmentCredits.do?method=removeRoleDepartmentCredits&departmentId=%s",department.getExternalId())%>" />
-			<fr:property name="key(delete)" value="label.department.credits.removeRole" />
-			<fr:property name="param(delete)" value="externalId/employeeId"/>
-		</fr:layout>
-	</fr:view>
-</logic:present>	
-

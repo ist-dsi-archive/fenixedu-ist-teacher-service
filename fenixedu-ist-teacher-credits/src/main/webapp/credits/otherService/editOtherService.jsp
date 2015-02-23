@@ -53,13 +53,15 @@
 
 </td></tr></table>
 
-<fr:hasMessages><p><span class="error0"><fr:messages><fr:message/></fr:messages></span></p></fr:hasMessages>
-
 <bean:define id="executionYearOid" name="teacherService" property="executionPeriod.executionYear.externalId"/>
 <bean:define id="teacherOid" name="teacherService" property="teacher.externalId"/>
 
+<p><html:link page="<%="/credits.do?method=viewAnnualTeachingCredits&amp;executionYearOid="+executionYearOid+"&teacherOid="+teacherOid%>"><bean:message key="label.return" bundle="APPLICATION_RESOURCES"/></html:link></p>
+<fr:hasMessages><p><span class="error0"><fr:messages><fr:message/></fr:messages></span></p></fr:hasMessages>
+
+
 	<logic:present name="otherService">
-		<fr:edit id="otherService" name="otherService" action="<%="/credits.do?method=viewAnnualTeachingCredits&executionYearOid="+executionYearOid+"&teacherOid="+teacherOid %>" schema="edit.otherService">
+		<fr:edit id="otherService" name="otherService" action="<%="/credits.do?method=viewAnnualTeachingCredits&executionYearOid="+executionYearOid+"&teacherOid="+teacherOid %>" schema="manage.otherService">
 			<fr:layout>
 				<fr:property name="classes" value="tstyle2 thlight thleft mtop05 mbottom05"/>
 			</fr:layout>
@@ -67,7 +69,7 @@
 	</logic:present>
 	<logic:notPresent name="otherService">
 		<fr:create action="<%="/credits.do?method=viewAnnualTeachingCredits&executionYearOid="+executionYearOid+"&teacherOid="+teacherOid %>" type="pt.ist.fenixedu.teacher.domain.teacher.OtherService"
-		schema="create.otherService">
+		schema="manage.otherService">
 		<fr:hidden slot="teacherService" name="teacherService"/>
 		<fr:layout>
 			<fr:property name="classes" value="tstyle2 thlight thleft mtop05 mbottom05"/>

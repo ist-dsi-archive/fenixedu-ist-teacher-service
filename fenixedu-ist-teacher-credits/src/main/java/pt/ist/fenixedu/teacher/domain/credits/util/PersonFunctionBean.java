@@ -27,6 +27,7 @@ import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Person;
 import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
+import org.fenixedu.academic.domain.organizationalStructure.PartyTypeEnum;
 import org.fenixedu.academic.domain.organizationalStructure.Unit;
 import org.fenixedu.academic.domain.organizationalStructure.UnitName;
 import org.fenixedu.academic.util.Bundle;
@@ -38,6 +39,7 @@ import pt.ist.fenixedu.contracts.domain.organizationalStructure.PersonFunctionSh
 import pt.ist.fenixedu.contracts.domain.organizationalStructure.SharedFunction;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherService;
 import pt.ist.fenixedu.teacher.domain.teacher.TeacherServiceLog;
+import pt.ist.fenixedu.teacher.domain.time.calendarStructure.TeacherCreditsFillingForDepartmentAdmOfficeCE;
 import pt.ist.fenixframework.Atomic;
 
 public class PersonFunctionBean implements Serializable {
@@ -281,6 +283,27 @@ public class PersonFunctionBean implements Serializable {
 
     public void setPersonFunction(PersonFunction personFunction) {
         this.personFunction = personFunction;
+    }
+
+    public boolean getCanBeEditedByDepartmentAdministrativeOffice() {
+        ExecutionSemester executionSemester = ExecutionSemester.readByYearMonthDay(personFunction.getBeginDate());
+        if (getPersonFunction() instanceof PersonFunctionShared) {
+
+            TeacherCreditsFillingForDepartmentAdmOfficeCE teacherCreditsFillingForDepartmentAdmOfficePeriod =
+                    TeacherCreditsFillingForDepartmentAdmOfficeCE
+                            .getTeacherCreditsFillingForDepartmentAdmOffice(executionSemester.getAcademicInterval());
+            boolean validCreditsPerid =
+                    teacherCreditsFillingForDepartmentAdmOfficePeriod != null
+                            && teacherCreditsFillingForDepartmentAdmOfficePeriod.containsNow();
+            if (validCreditsPerid) {
+                if (getPersonFunction().getUnit().getPartyType().getType().equals(PartyTypeEnum.DEPARTMENT)
+                        || getPersonFunction().getUnit().getPartyType().getType().equals(PartyTypeEnum.DEGREE_UNIT)
+                        || getPersonFunction().getUnit().getPartyType().getType().equals(PartyTypeEnum.SCIENTIFIC_AREA)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

@@ -16,17 +16,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with FenixEdu Teacher Credits.  If not, see <http://www.gnu.org/licenses/>.
  */
-package pt.ist.fenixedu.teacher.ui.struts.action.credits.scientificCouncil;
+package pt.ist.fenixedu.teacher.ui.struts.action.credits.departmentMember;
 
 import org.fenixedu.bennu.struts.annotations.Mapping;
-import org.fenixedu.bennu.struts.portal.StrutsFunctionality;
 
-import pt.ist.fenixedu.teacher.ui.struts.action.ScientificCreditsApp;
-import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageDepartmentCreditsPool;
+import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageCreditsReductionsDispatchAction;
 
-@StrutsFunctionality(app = ScientificCreditsApp.class, path = "credits-pool", titleKey = "label.departmentCreditsPool",
-        bundle = "TeacherCreditsSheetResources")
-@Mapping(module = "scientificCouncil", path = "/creditsPool")
-public class ScientificCouncilManageDepartmentCreditsPool extends ManageDepartmentCreditsPool {
-
+@Mapping(module = "departmentMember", path = "/membersCreditsReductions",
+        functionality = DepartmentMemberViewTeacherCreditsDA.class)
+public class DepartmentMemberTeacherCreditsReductions extends ManageCreditsReductionsDispatchAction {
 }

@@ -91,6 +91,7 @@ public class ProjectTutorialExecutionCoursesDA extends FenixDispatchAction {
             spreadsheet.newHeaderRow();
             spreadsheet.addHeader(BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.course"), 10000);
             spreadsheet.addHeader(BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.degrees"));
+            spreadsheet.addHeader(BundleUtil.getString(Bundle.ENUMERATION, "DISSERTATION"));
             spreadsheet.addHeader(BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.shift.type"));
             spreadsheet.addHeader(BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.hasSchedule"));
             spreadsheet.addHeader(BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.enrolmentsNumber"));
@@ -99,8 +100,9 @@ public class ProjectTutorialExecutionCoursesDA extends FenixDispatchAction {
                 spreadsheet.newRow();
                 spreadsheet.addCell(executionCourse.getName());
                 spreadsheet.addCell(executionCourse.getDegreePresentationString());
-                spreadsheet
-                        .addCell(executionCourse.isDissertation() ? "DISS" : executionCourse.getProjectTutorialCourse() ? "A" : "B");
+                spreadsheet.addCell(BundleUtil.getString(Bundle.RENDERER, String.valueOf(executionCourse.isDissertation())
+                        .toUpperCase()));
+                spreadsheet.addCell(executionCourse.getProjectTutorialCourse() ? "A" : "B");
                 spreadsheet.addCell(executionCourse.hasAnyLesson() ? "S" : "N");
                 spreadsheet.addCell(executionCourse.getEnrolmentCount());
             }

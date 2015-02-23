@@ -64,6 +64,7 @@
 			<fr:schema bundle="TEACHER_CREDITS_SHEET_RESOURCES" type="org.fenixedu.academic.domain.ExecutionCourse">
 				<fr:slot name="name" key="label.course"/>
 				<fr:slot name="degreePresentationString" key="label.degrees"/>
+				<fr:slot name="dissertation" key="DISSERTATION" bundle="ENUMERATION_RESOURCES"/>
 				<fr:slot name="projectTutorialCourse" key="label.projectTutorialCourseType"/>
 			</fr:schema>
 			<fr:layout name="tabular">

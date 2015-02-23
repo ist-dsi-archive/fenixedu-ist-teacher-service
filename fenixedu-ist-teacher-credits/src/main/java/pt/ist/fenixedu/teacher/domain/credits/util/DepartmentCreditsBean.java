@@ -103,9 +103,7 @@ public class DepartmentCreditsBean implements Serializable {
         if (department != null) {
             for (ExecutionCourse executionCourse : department.getDepartmentUnit().getAllExecutionCoursesByExecutionPeriod(
                     getExecutionSemester())) {
-                if (!executionCourse.isDissertation()) {
-                    result.add(executionCourse);
-                }
+                result.add(executionCourse);
             }
         }
         return result;

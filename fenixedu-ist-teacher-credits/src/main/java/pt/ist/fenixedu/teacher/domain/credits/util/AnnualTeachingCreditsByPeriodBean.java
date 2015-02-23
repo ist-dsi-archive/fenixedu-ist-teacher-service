@@ -88,8 +88,7 @@ public class AnnualTeachingCreditsByPeriodBean implements Serializable {
         List<Professorship> professorships = new ArrayList<Professorship>();
         for (Professorship professorship : getTeacher().getProfessorships()) {
             if (professorship.getExecutionCourse().getExecutionPeriod().equals(executionPeriod)
-                    && professorship.getExecutionCourse().hasAnyLesson()
-                    && (!professorship.getExecutionCourse().isDissertation())) {
+                    && professorship.getExecutionCourse().hasAnyLesson()) {
                 professorships.add(professorship);
             }
         }
@@ -116,17 +115,17 @@ public class AnnualTeachingCreditsByPeriodBean implements Serializable {
         return institutionWorkingTimes;
     }
 
-    public List<PersonFunction> getPersonFunctions() {
-        List<PersonFunction> personFunctions = new ArrayList<PersonFunction>();
+    public List<PersonFunctionBean> getPersonFunctions() {
+        List<PersonFunctionBean> personFunctionBeans = new ArrayList<PersonFunctionBean>();
         for (PersonFunction personFunction : (Collection<PersonFunction>) teacher.getPerson().getParentAccountabilities(
                 AccountabilityTypeEnum.MANAGEMENT_FUNCTION, PersonFunction.class)) {
             if (personFunction.belongsToPeriod(executionPeriod.getBeginDateYearMonthDay(),
                     executionPeriod.getEndDateYearMonthDay())
                     && !personFunction.getFunction().isVirtual()) {
-                personFunctions.add(personFunction);
+                personFunctionBeans.add(new PersonFunctionBean(personFunction, executionPeriod));
             }
         }
-        return personFunctions;
+        return personFunctionBeans;
     }
 
     public List<OtherService> getOtherServices() {

@@ -18,27 +18,13 @@
  */
 package pt.ist.fenixedu.teacher.ui.struts.action.credits.departmentMember;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.fenixedu.academic.domain.Teacher;
 import org.fenixedu.academic.domain.exceptions.DomainException;
-import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.config.FenixDomainExceptionHandler;
-import org.fenixedu.bennu.core.domain.User;
-import org.fenixedu.bennu.core.security.Authenticate;
 import org.fenixedu.bennu.struts.annotations.ExceptionHandling;
 import org.fenixedu.bennu.struts.annotations.Exceptions;
 import org.fenixedu.bennu.struts.annotations.Mapping;
 
-import pt.ist.fenixedu.teacher.domain.teacher.InstitutionWorkTime;
 import pt.ist.fenixedu.teacher.ui.struts.action.credits.ManageTeacherInstitutionWorkingTimeDispatchAction;
-import pt.ist.fenixframework.FenixFramework;
 
 @Mapping(module = "departmentMember", path = "/institutionWorkingTimeManagement",
         input = "/institutionWorkingTimeManagement.do?method=prepareEdit&page=0",
@@ -46,30 +32,4 @@ import pt.ist.fenixframework.FenixFramework;
 @Exceptions({ @ExceptionHandling(type = DomainException.class, handler = FenixDomainExceptionHandler.class, scope = "request") })
 public class DepartmentMemberManageTeacherInstitutionWorkingTimeDispatchAction extends
         ManageTeacherInstitutionWorkingTimeDispatchAction {
-
-    @Override
-    public ActionForward prepareEdit(ActionMapping mapping, ActionForm form, HttpServletRequest request,
-            HttpServletResponse response) throws NumberFormatException, FenixServiceException {
-        InstitutionWorkTime institutionWorkTime =
-                FenixFramework.getDomainObject((String) getFromRequest(request, "institutionWorkTimeOid"));
-        Teacher teacher = institutionWorkTime.getTeacherService().getTeacher();
-        if (teacher == null || teacher != getLoggedTeacher(request)) {
-            createNewActionMessage(request);
-            return mapping.findForward("viewAnnualTeachingCredits");
-        }
-        request.setAttribute("institutionWorkTime", institutionWorkTime);
-        return mapping.findForward("edit-institution-work-time");
-    }
-
-    private void createNewActionMessage(HttpServletRequest request) {
-        ActionMessages actionMessages = new ActionMessages();
-        actionMessages.add("", new ActionMessage("message.invalid.teacher"));
-        saveMessages(request, actionMessages);
-    }
-
-    private Teacher getLoggedTeacher(HttpServletRequest request) {
-        User userView = Authenticate.getUser();
-        return userView.getPerson().getTeacher();
-    }
-
 }
