@@ -132,10 +132,14 @@ public class PersonContractSituation extends PersonContractSituation_Base {
                 }
             }
             BigDecimal fullTimeEquivalent = professionalRegime.getFullTimeEquivalent();
+            Boolean exclusive = Boolean.FALSE;
             if (fullTimeEquivalent == null) {
                 Integer weighting = professionalRegime.getWeighting();
                 if (weighting != null) {
                     if (weighting.compareTo(100) >= 0) {
+                        if (weighting.compareTo(100) > 0) {
+                            exclusive = Boolean.TRUE;
+                        }
                         fullTimeEquivalent = BigDecimal.ONE;
                     } else {
                         fullTimeEquivalent = new BigDecimal(weighting).divide(BigDecimal.valueOf(100));
@@ -143,11 +147,11 @@ public class PersonContractSituation extends PersonContractSituation_Base {
                 }
             }
             if (fullTimeEquivalent != null) {
-                if (fullTimeEquivalent.equals(BigDecimal.ONE)) {
+                if (fullTimeEquivalent.compareTo(BigDecimal.ONE) >= 0) {
                     if (professionalCategory.isTeacherMonitorCategory()) {
                         return Double.valueOf(4);
                     } else if (professionalCategory.isTeacherInvitedCategory()) {
-                        return Double.valueOf(12);
+                        return exclusive ? Double.valueOf(18) : Double.valueOf(12);
                     } else {
                         return Double.valueOf(9);
                     }

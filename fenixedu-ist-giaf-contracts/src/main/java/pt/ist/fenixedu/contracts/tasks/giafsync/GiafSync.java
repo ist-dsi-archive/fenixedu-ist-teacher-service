@@ -31,7 +31,7 @@ import pt.ist.fenixframework.Atomic.TxMode;
 
 @Task(englishTitle = "Giaf Sync", readOnly = true)
 public class GiafSync extends CronTask {
-    private static final Logger logger = LoggerFactory.getLogger(ImportContractSituationsFromGiaf.class);
+    private static final Logger logger = LoggerFactory.getLogger(GiafSync.class);
 
     public static interface Modification {
         public void execute();
