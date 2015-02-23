@@ -102,13 +102,13 @@ if(RoleType.SCIENTIFIC_COUNCIL.actualGroup().isMember(user)){
 	<bean:message key="label.credits.usefull.information" bundle="TEACHER_CREDITS_SHEET_RESOURCES"/>
 </div>
 
-
+<%--
 <logic:notEmpty name="roleType">
 	<p><html:link page='<%= "/annualTeachingCreditsDocument.do?method=getAnnualTeachingCreditsPdf&teacherOid="+teacherId+"&executionYearOid=" + executionYearOid %>'>
 		<bean:message key="label.exportToPDF"  bundle="TEACHER_CREDITS_SHEET_RESOURCES"/>
 	</html:link></p>
 </logic:notEmpty>
-
+ --%>
 <bean:define id="areCreditsCalculated" name="annualTeachingCreditsBean" property="areCreditsCalculated"/>
 <logic:equal name="areCreditsCalculated" value="true">
 	<logic:equal name="roleType" value="SCIENTIFIC_COUNCIL">
