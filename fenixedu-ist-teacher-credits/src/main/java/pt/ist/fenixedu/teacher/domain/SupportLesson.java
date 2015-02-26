@@ -98,8 +98,7 @@ public class SupportLesson extends SupportLesson_Base {
     public void verifyOverlappings() {
         Teacher teacher = getProfessorship().getTeacher();
         TeacherService teacherService =
-                TeacherService.getTeacherServiceByExecutionPeriod(teacher, getProfessorship().getExecutionCourse()
-                        .getExecutionPeriod());
+                TeacherService.getTeacherService(teacher, getProfessorship().getExecutionCourse().getExecutionPeriod());
         verifyOverlappingWithOtherSupportLessons(teacherService);
     }
 
