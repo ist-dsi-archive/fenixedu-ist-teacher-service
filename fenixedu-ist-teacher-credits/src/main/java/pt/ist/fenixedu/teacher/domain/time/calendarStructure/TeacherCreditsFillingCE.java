@@ -149,6 +149,12 @@ public abstract class TeacherCreditsFillingCE extends TeacherCreditsFillingCE_Ba
         return validCreditsPerid != null && validCreditsPerid.containsNow();
     }
 
+    public static boolean isInValidTeacherCreditsPeriod(ExecutionSemester executionSemester) {
+        TeacherCreditsFillingCE validCreditsPerid =
+                TeacherCreditsFillingForTeacherCE.getTeacherCreditsFillingForTeacher(executionSemester.getAcademicInterval());
+        return validCreditsPerid != null && validCreditsPerid.containsNow();
+    }
+
     public static TeacherCreditsFillingCE getValidCreditsPeriod(ExecutionSemester executionSemester, User user) {
         if (org.fenixedu.bennu.core.groups.Group.parse("creditsManager").isMember(user)) {
             return TeacherCreditsFillingForDepartmentAdmOfficeCE.getTeacherCreditsFillingForDepartmentAdmOffice(executionSemester

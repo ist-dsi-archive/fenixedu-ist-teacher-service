@@ -71,7 +71,7 @@ public class AnnualTeachingCreditsByPeriodBean implements Serializable {
             setCanLockTeacherCredits(canLockAndEditTeacherCredits);
             setCanEditTeacherCredits(canLockAndEditTeacherCredits);
         } else if (Group.parse("creditsManager").isMember(user) || RoleType.SCIENTIFIC_COUNCIL.isMember(user)) {
-            boolean inValidTeacherCreditsPeriod = TeacherCreditsFillingCE.isInValidCreditsPeriod(executionPeriod, user);
+            boolean inValidTeacherCreditsPeriod = TeacherCreditsFillingCE.isInValidTeacherCreditsPeriod(executionPeriod);
             setCanUnlockTeacherCredits(inValidCreditsPeriod && inValidTeacherCreditsPeriod && isLocked);
             setCanEditTeacherCredits(RoleType.SCIENTIFIC_COUNCIL.isMember(user)
                     || (inValidCreditsPeriod && (isLocked || !inValidTeacherCreditsPeriod)));
@@ -94,6 +94,7 @@ public class AnnualTeachingCreditsByPeriodBean implements Serializable {
         }
 
         Collections.sort(professorships, new BeanComparator("executionCourse.name"));
+
         return professorships;
     }
 
