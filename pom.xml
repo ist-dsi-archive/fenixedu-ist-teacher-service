@@ -11,7 +11,7 @@
     <groupId>pt.ist</groupId>
     <artifactId>fenixedu-ist-teacher-service</artifactId>
     <packaging>pom</packaging>
-    <version>5.1.0-SNAPSHOT</version>
+    <version>5.2.0-SNAPSHOT</version>
 
     <name>FenixEdu Teacher Service</name>
     <url>http://tecnico.ulisboa.pt/</url>
