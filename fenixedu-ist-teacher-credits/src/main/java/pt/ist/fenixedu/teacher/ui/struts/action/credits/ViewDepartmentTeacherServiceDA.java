@@ -20,9 +20,12 @@ package pt.ist.fenixedu.teacher.ui.struts.action.credits;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +37,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.fenixedu.academic.domain.CurricularCourse;
 import org.fenixedu.academic.domain.Department;
+import org.fenixedu.academic.domain.DomainObjectUtil;
 import org.fenixedu.academic.domain.ExecutionCourse;
 import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Professorship;
@@ -109,6 +113,15 @@ public class ViewDepartmentTeacherServiceDA extends FenixDispatchAction {
             spreadsheet.addHeader(BundleUtil.getString(Bundle.DEPARTMENT_MEMBER, "label.teacherService.course.totalHours"));
             spreadsheet.addHeader(BundleUtil.getString(Bundle.DEPARTMENT_MEMBER, "label.teacherService.course.availability"));
 
+            SortedSet<Professorship> departmentProfessorships = new TreeSet<Professorship>(new Comparator<Professorship>() {
+                @Override
+                public int compare(Professorship p1, Professorship p2) {
+                    int c = p1.getTeacher().getTeacherId().compareTo(p2.getTeacher().getTeacherId());
+                    return c == 0 ? DomainObjectUtil.COMPARATOR_BY_ID.compare(p1, p2) : c;
+                }
+
+            });
+
             for (ExecutionSemester executionSemester : departmentCreditsBean.getExecutionYear().getExecutionPeriodsSet()) {
                 for (ExecutionCourse executionCourse : departmentCreditsBean.getDepartment().getDepartmentUnit()
                         .getAllExecutionCoursesByExecutionPeriod(executionSemester)) {
@@ -146,6 +159,7 @@ public class ViewDepartmentTeacherServiceDA extends FenixDispatchAction {
                     for (Professorship professorship : executionCourse.getProfessorshipsSet()) {
                         Teacher teacher = professorship.getTeacher();
                         if (teacher != null) {
+                            departmentProfessorships.add(professorship);
                             Duration teacherLecturedTime =
                                     TeacherService.getLecturedDurationOnExecutionCourse(teacher, executionCourse);
                             totalLecturedDuration = totalLecturedDuration.plus(teacherLecturedTime);
@@ -159,6 +173,35 @@ public class ViewDepartmentTeacherServiceDA extends FenixDispatchAction {
                     spreadsheet.addCell(periodFormatter.print(totalShiftsDuration.minus(totalLecturedDuration).toPeriod()),
                             colNum);
                 }
+            }
+            spreadsheet.getSheet(department.getAcronym() + "_docentes");
+            spreadsheet.newHeaderRow();
+            spreadsheet.addHeader(BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.teacher.id"));
+            spreadsheet.addHeader(BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.teacher.name"), 10000);
+            spreadsheet.addHeader(BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.category"));
+            spreadsheet.addHeader(BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.course"), 10000);
+            spreadsheet.addHeader(BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.degrees"));
+            spreadsheet.addHeader(BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.execution-period"));
+            spreadsheet.addHeader(BundleUtil.getString(Bundle.TEACHER_CREDITS, "label.hours"));
+
+            Teacher lastTeacher = null;
+            for (Professorship professorship : departmentProfessorships) {
+                if (lastTeacher == null || !lastTeacher.equals(professorship.getTeacher())) {
+                    spreadsheet.newRow();
+                    spreadsheet.addCell(professorship.getTeacher().getPerson().getUsername());
+                    spreadsheet.addCell(professorship.getTeacher().getPerson().getProfile().getDisplayName());
+                    spreadsheet.addCell(professorship.getTeacher().getTeacherAuthorization().get().getTeacherCategory().getName()
+                            .getContent());
+                }
+                spreadsheet.newRow();
+                spreadsheet.addCell(professorship.getExecutionCourse().getNome(), 3);
+                spreadsheet.addCell(getDegreeSiglas(professorship.getExecutionCourse()));
+                spreadsheet.addCell(professorship.getExecutionCourse().getExecutionPeriod().getSemester());
+                Duration teacherLecturedTime =
+                        TeacherService.getLecturedDurationOnExecutionCourse(professorship.getTeacher(),
+                                professorship.getExecutionCourse());
+                spreadsheet.addCell(periodFormatter.print(teacherLecturedTime.toPeriod()));
+                lastTeacher = professorship.getTeacher();
             }
 
         }
