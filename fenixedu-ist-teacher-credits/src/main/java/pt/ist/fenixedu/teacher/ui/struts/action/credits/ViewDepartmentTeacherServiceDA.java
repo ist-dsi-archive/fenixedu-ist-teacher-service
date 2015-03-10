@@ -43,6 +43,7 @@ import org.fenixedu.academic.domain.ExecutionSemester;
 import org.fenixedu.academic.domain.Professorship;
 import org.fenixedu.academic.domain.ShiftType;
 import org.fenixedu.academic.domain.Teacher;
+import org.fenixedu.academic.domain.TeacherAuthorization;
 import org.fenixedu.academic.service.services.exceptions.FenixServiceException;
 import org.fenixedu.academic.ui.struts.action.base.FenixDispatchAction;
 import org.fenixedu.academic.util.Bundle;
@@ -190,8 +191,15 @@ public class ViewDepartmentTeacherServiceDA extends FenixDispatchAction {
                     spreadsheet.newRow();
                     spreadsheet.addCell(professorship.getTeacher().getPerson().getUsername());
                     spreadsheet.addCell(professorship.getTeacher().getPerson().getProfile().getDisplayName());
-                    spreadsheet.addCell(professorship.getTeacher().getTeacherAuthorization().get().getTeacherCategory().getName()
-                            .getContent());
+                    TeacherAuthorization teacherAuthorization =
+                            professorship
+                                    .getTeacher()
+                                    .getTeacherAuthorization(
+                                            professorship.getExecutionCourse().getExecutionPeriod().getAcademicInterval())
+                                    .orElse(null);
+                    if (teacherAuthorization != null) {
+                        spreadsheet.addCell(teacherAuthorization.getTeacherCategory().getName().getContent());
+                    }
                 }
                 spreadsheet.newRow();
                 spreadsheet.addCell(professorship.getExecutionCourse().getNome(), 3);
