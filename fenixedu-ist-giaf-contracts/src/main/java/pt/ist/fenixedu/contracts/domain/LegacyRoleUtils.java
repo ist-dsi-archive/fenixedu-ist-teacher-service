@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 import org.fenixedu.academic.domain.accessControl.ActiveStudentsGroup;
 import org.fenixedu.academic.domain.accessControl.ActiveTeachersGroup;
-import org.fenixedu.academic.domain.accessControl.AlumniGroup;
+import org.fenixedu.academic.domain.accessControl.AllAlumniGroup;
 import org.fenixedu.academic.util.Bundle;
 import org.fenixedu.bennu.core.domain.User;
 import org.fenixedu.bennu.core.i18n.BundleUtil;
@@ -52,7 +52,7 @@ public class LegacyRoleUtils {
         if (new ActiveResearchers().isMember(user)) {
             roles.add("RESEARCHER");
         }
-        if (AlumniGroup.get().isMember(user)) {
+        if (new AllAlumniGroup().isMember(user)) {
             roles.add("ALUMNI");
         }
         return roles;
