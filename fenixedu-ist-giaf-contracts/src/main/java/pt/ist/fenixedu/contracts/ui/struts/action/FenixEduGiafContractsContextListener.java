@@ -49,7 +49,7 @@ public class FenixEduGiafContractsContextListener implements ServletContextListe
                     if (person.getEmployee() != null) {
                         blockers.add(BundleUtil.getString(Bundle.APPLICATION, "error.person.cannot.be.deleted"));
                     }
-                    if (((Collection<PersonFunction>) person.getParentAccountabilities(
+                    if (!((Collection<PersonFunction>) person.getParentAccountabilities(
                             AccountabilityTypeEnum.MANAGEMENT_FUNCTION, PersonFunction.class)).isEmpty()) {
                         blockers.add(BundleUtil.getString(Bundle.APPLICATION, "error.person.cannot.be.deleted"));
                     }
@@ -60,7 +60,7 @@ public class FenixEduGiafContractsContextListener implements ServletContextListe
             }
         });
         FenixFramework.getDomainModel().registerDeletionBlockerListener(Unit.class, (unit, blockers) -> {
-            if (unit.getFunctionsSet().isEmpty()) {
+            if (!unit.getFunctionsSet().isEmpty()) {
                 blockers.add(BundleUtil.getString(Bundle.APPLICATION, "error.unit.cannot.be.deleted"));
             }
         });
