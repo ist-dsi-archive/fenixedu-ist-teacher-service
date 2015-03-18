@@ -39,7 +39,7 @@ public class FenixEduISTTeacherServiceContextListener implements ServletContextL
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         FenixFramework.getDomainModel()
-                .registerDeletionBlockerListener(
+	    .registerDeletionBlockerListener(
                         Professorship.class,
                         (professorship, blockers) -> {
                             if (!professorship.getSupportLessonsSet().isEmpty()) {
